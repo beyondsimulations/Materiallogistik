@@ -1,0 +1,281 @@
+---
+title: "Übung 03"
+subtitle: "Beschäftigungsglättung"
+
+format:
+    html:
+        theme: [sandstone, ../styles.scss]
+        highlight-style: arrow
+        linkcolor: "#a60000"
+        echo: false
+        code-overflow: wrap
+    typst:
+        papersize: a4
+---
+
+## Aufgabe 1: Aggregierte Produktionsplanung
+
+Ein mittelständischer Hersteller von Fahrrädern plant sein Produktionsprogramm für die kommenden drei Monate (Perioden $t=1, 2, 3$). Es werden zwei Hauptprodukttypen betrachtet: "Stadtrad Klassik" (Produkt K) und "Mountainbike Pro" (Produkt M). Das Unternehmen möchte die Gesamtkosten aus Lagerhaltung und Überstunden minimieren.
+
+
+**Nachfrage (Stück pro Periode):**
+
+| Produkt | Periode 1 | Periode 2 | Periode 3 |
+|---------|-----------|-----------|-----------|
+| K       | 100       | 120       | 150       |
+| M       | 70        | 80        | 90        |
+
+**Kosten:**
+
+*   Lagerkostensatz: 5 EUR/Stück und Periode (für beide Produkte)
+*   Überstundenkostensatz: 10 EUR/Kapazitätseinheit (personelle Kapazität)
+
+**Kapazitäten**
+
+*   Anfangslagerbestand: $L_{K0}=20$ Stück, $L_{M0}=10$ Stück.
+*   Maximale personelle Kapazität: 250 Einheiten pro Periode.
+*   Maximale technische Kapazität: 400 Einheiten pro Periode.
+*   Maximale Zusatzkapazität (Überstunden): 50 Einheiten pro Periode.
+
+**Produktionskoeffizienten (Kapazitätsbedarf pro Stück)**
+
+| Produkt | Personelle Kapazität  | Technische Kapazität  |
+|---------|-----------------------|-----------------------|
+| K       | 1.0                   | 1.5                   |
+| M       | 1.2                   | 2.0                   |
+
+
+**Ihre Aufgaben:**
+
+1.  Zielformulierung:
+    Schreiben Sie die Zielfunktion zur Minimierung der Gesamtkosten für die FahrradFreund GmbH explizit auf.
+
+2.  Wichtige Nebenbedingungen formulieren:
+    Formulieren Sie die folgenden Nebenbedingungen für die FahrradFreund GmbH:
+    a) Lagerbilanzgleichung für das Stadtrad Klassik (Produkt K) in Periode 2.
+    b) Personelle Kapazitätsbeschränkung in Periode 1.
+    c) Technische Kapazitätsbeschränkung in Periode 3.
+
+3.  Bewertung eines Teil-Produktionsplans:
+    Angenommen, die Produktionsleitung schlägt für Periode 1 folgende Produktionsmengen vor:
+    *   90 Stück (Stadtrad Klassik)
+    *   70 Stück (Mountainbike Pro)
+    
+    Berechnen Sie für Periode 1:
+    a) Den Lagerbestand für beide Produkte am Ende von Periode 1.
+    b) Den Bedarf an personeller Kapazität. Ist die reguläre personelle Kapazität ausreichend oder werden Überstunden benötigt? Wenn ja, wie viele und was sind die Kosten dafür?
+    c) Den Bedarf an technischer Kapazität. Ist die technische Kapazität ausreichend?
+    d) Die gesamten Lagerkosten, die für die in Periode 1 gehaltenen Endbestände anfallen.
+
+::: {.content-visible when-profile="solution"}
+
+**Lösungshinweise (Python-Code zur Veranschaulichung der Berechnungen für Teilaufgabe 3):**
+
+```{python}
+#| label: fig-task1-sol
+#| fig-cap: "Berechnungen für Teilaufgabe 3"
+
+# Gegebene Daten für Aufgabe 1
+# Nachfrage
+d_K = {1: 100, 2: 120, 3: 150}
+d_M = {1: 70, 2: 80, 3: 90}
+
+# Kosten
+h_K = 5  # GE/Stück und Periode
+h_M = 5  # GE/Stück und Periode
+u_t_cost = 10 # GE/Kapazitätseinheit Überstunden (u_t umbenannt, um Konflikt zu vermeiden)
+
+# Kapazitäten und Produktionskoeffizienten
+L_K0 = 20
+L_M0 = 10
+b_P_reg = 250 # reguläre personelle Kapazität
+b_T = 400
+U_max = 50    # maximale Überstunden
+
+f_K_P = 1.0
+f_K_T = 1.5
+f_M_P = 1.2
+f_M_T = 2.0
+
+# Teilaufgabe 3: Bewertung eines Teil-Produktionsplans für Periode 1
+x_K1_plan_aufg1 = 90 # Eindeutiger Variablenname
+x_M1_plan_aufg1 = 70 # Eindeutiger Variablenname
+
+print("--- Lösung für Teilaufgabe 1.3 ---")
+
+# 1.3.a) Lagerbestand am Ende von Periode 1
+L_K1_aufg1 = L_K0 + x_K1_plan_aufg1 - d_K[1]
+L_M1_aufg1 = L_M0 + x_M1_plan_aufg1 - d_M[1]
+print(f"1.3.a) Lagerbestände am Ende von Periode 1:")
+print(f"L_K1 = {L_K0} + {x_K1_plan_aufg1} - {d_K[1]} = {L_K1_aufg1} Stück")
+print(f"L_M1 = {L_M0} + {x_M1_plan_aufg1} - {d_M[1]} = {L_M1_aufg1} Stück")
+
+# 1.3.b) Personelle Kapazität in Periode 1
+bedarf_P1_aufg1 = f_K_P * x_K1_plan_aufg1 + f_M_P * x_M1_plan_aufg1
+print(f"\n1.3.b) Personelle Kapazität Periode 1:")
+print(f"Bedarf personelle Kapazität = {f_K_P}*{x_K1_plan_aufg1} + {f_M_P}*{x_M1_plan_aufg1} = {bedarf_P1_aufg1:.1f} Einheiten")
+
+U_1_aufg1 = 0
+kosten_U1_aufg1 = 0
+if bedarf_P1_aufg1 > b_P_reg:
+    U_1_aufg1 = bedarf_P1_aufg1 - b_P_reg
+    if U_1_aufg1 > U_max:
+        print(f"Benötigte Überstunden ({U_1_aufg1:.1f}) überschreiten maximale Überstunden ({U_max})! Plan ist nicht zulässig.")
+        U_1_aufg1 = min(U_1_aufg1, U_max) 
+    kosten_U1_aufg1 = U_1_aufg1 * u_t_cost
+    print(f"Reguläre personelle Kapazität ({b_P_reg}) nicht ausreichend.")
+    print(f"Benötigte Überstunden (U_1) = {bedarf_P1_aufg1:.1f} - {b_P_reg} = {U_1_aufg1:.1f} Einheiten")
+    print(f"Kosten für Überstunden U_1 = {U_1_aufg1:.1f} * {u_t_cost} = {kosten_U1_aufg1:.1f} GE")
+else:
+    print(f"Reguläre personelle Kapazität ({b_P_reg}) ist ausreichend.")
+
+# 1.3.c) Technische Kapazität in Periode 1
+bedarf_T1_aufg1 = f_K_T * x_K1_plan_aufg1 + f_M_T * x_M1_plan_aufg1
+print(f"\n1.3.c) Technische Kapazität Periode 1:")
+print(f"Bedarf technische Kapazität = {f_K_T}*{x_K1_plan_aufg1} + {f_M_T}*{x_M1_plan_aufg1} = {bedarf_T1_aufg1:.1f} Einheiten")
+if bedarf_T1_aufg1 <= b_T:
+    print(f"Technische Kapazität ({b_T}) ist ausreichend.")
+else:
+    print(f"Technische Kapazität ({b_T}) NICHT ausreichend! (Bedarf: {bedarf_T1_aufg1:.1f})")
+
+# 1.3.d) Lagerkosten für Periode 1
+lagerkosten_P1_aufg1 = h_K * L_K1_aufg1 + h_M * L_M1_aufg1
+print(f"\n1.3.d) Lagerkosten für in Periode 1 gehaltene Endbestände:")
+print(f"Lagerkosten = {h_K}*{L_K1_aufg1} + {h_M}*{L_M1_aufg1} = {lagerkosten_P1_aufg1} GE")
+
+# Gesamtkosten für Periode 1 aus diesem Plan (nur Überstunden und Lager)
+gesamtkosten_plan_P1_aufg1 = kosten_U1_aufg1 + lagerkosten_P1_aufg1
+print(f"\nZusammenfassung Aufgabe 1.3: Geplante Kosten (Überstunden + Lager) für Periode 1 = {gesamtkosten_plan_P1_aufg1:.1f} GE")
+```
+
+:::
+
+## Aufgabe 2: Erweiterung um Make-or-Buy-Entscheidungen
+
+Aufbauend auf Aufgabe 1 soll das Planungsmodell nun um die Möglichkeit erweitert werden, Fahrräder nicht nur selbst zu produzieren, sondern auch von einem externen Lieferanten zu beziehen.
+
+**Zusätzliche Daten für Make-or-Buy:**
+
+Die Kosten für den Fremdbezug der Fahrräder betragen:
+
+*   Stadtrad Klassik (Produkt K): $c_K^B = 85$ EUR/Stück
+*   Mountainbike Pro (Produkt M): $c_M^B = 100$ EUR/Stück
+
+Alle anderen Daten (Nachfrage, Lagerkosten, Kapazitäten, Produktionskoeffizienten, Anfangslagerbestände etc.) entsprechen denen aus Aufgabe 1.
+
+**Ihre Aufgaben:**
+
+1.  Modellformulierung (Erweiterung):
+    a)  Definieren Sie die neue(n) Entscheidungsvariable(n), die für die Berücksichtigung von Fremdbezugsmengen notwendig ist/sind.
+    b)  Formulieren Sie die erweiterte Zielfunktion zur Minimierung der Gesamtkosten unter Einbeziehung der Fremdbezugskosten. Die Gesamtkosten umfassen nun Lagerhaltungs-, Überstunden- und Fremdbezugskosten.
+    c)  Wie muss die Lagerbilanzgleichung (Nachfragebefriedigung) angepasst werden, um die Fremdbezugsmengen zu berücksichtigen? Formulieren Sie die allgemeine, angepasste Lagerbilanzgleichung für ein Produkt $k$ in einer Periode $t$.
+
+2.  Bewertung eines kombinierten Produktions- und Bezugsplans für Periode 1:
+    Angenommen, die Produktionsleitung schlägt für Periode 1 folgenden kombinierten Plan vor:
+    *   Eigenfertigung Stadtrad Klassik ($x_{K1}$): 50 Stück
+    *   Fremdbezug Stadtrad Klassik ($B_{K1}$): 50 Stück
+    *   Eigenfertigung Mountainbike Pro ($x_{M1}$): 40 Stück
+    *   Fremdbezug Mountainbike Pro ($B_{M1}$): 30 Stück
+
+    Berechnen Sie für Periode 1 (unter Verwendung der relevanten Daten aus Aufgabe 1 und den neuen Fremdbezugskosten):
+    a)  Die Lagerbestände für beide Produkte (K und M) am Ende von Periode 1.
+    b)  Den Bedarf an personeller Kapazität allein für die Eigenfertigung. Ist die reguläre personelle Kapazität (250 Einheiten) ausreichend oder werden Überstunden benötigt? Wenn ja, wie viele Einheiten Überstunden fallen an und was sind die Kosten dafür?
+    c)  Den Bedarf an technischer Kapazität allein für die Eigenfertigung. Ist die technische Kapazität ausreichend?
+    d)  Die gesamten Kosten für den Fremdbezug in Periode 1.
+    e)  Die gesamten relevanten Kosten gemäß diesem Plan.
+
+::: {.content-visible when-profile="solution"}
+
+**Lösungshinweise (Python-Code zur Veranschaulichung der Berechnungen für Teilaufgabe 2.2):**
+
+```{python}
+#| label: fig-task2-sol
+#| fig-cap: "Berechnungen für Teilaufgabe 2.2"
+
+# Daten aus Aufgabe 1 bleiben gültig
+# Nachfrage
+d_K = {1: 100, 2: 120, 3: 150}
+d_M = {1: 70, 2: 80, 3: 90}
+
+# Kosten
+h_K = 5  # GE/Stück und Periode
+h_M = 5  # GE/Stück und Periode
+u_t_cost = 10 # GE/Kapazitätseinheit Überstunden
+
+# Kapazitäten und Produktionskoeffizienten
+L_K0 = 20
+L_M0 = 10
+b_P_reg = 250 # reguläre personelle Kapazität
+b_T = 400
+U_max = 50    # maximale Überstunden
+
+f_K_P = 1.0
+f_K_T = 1.5
+f_M_P = 1.2
+f_M_T = 2.0
+
+# Zusätzliche Daten für Aufgabe 2
+c_K_B = 85  # Fremdbezugskosten Produkt K
+c_M_B = 100 # Fremdbezugskosten Produkt M
+
+# Teilaufgabe 2.2: Bewertung eines kombinierten Plans für Periode 1
+x_K1_plan_aufg2 = 50 # Eigenfertigung K
+B_K1_plan_aufg2 = 50 # Fremdbezug K
+x_M1_plan_aufg2 = 40 # Eigenfertigung M
+B_M1_plan_aufg2 = 30 # Fremdbezug M
+
+print("--- Lösung für Teilaufgabe 2.2 ---")
+
+# 2.2.a) Lagerbestand am Ende von Periode 1
+L_K1_aufg2 = L_K0 + x_K1_plan_aufg2 + B_K1_plan_aufg2 - d_K[1]
+L_M1_aufg2 = L_M0 + x_M1_plan_aufg2 + B_M1_plan_aufg2 - d_M[1]
+print(f"2.2.a) Lagerbestände am Ende von Periode 1:")
+print(f"L_K1 = {L_K0} + {x_K1_plan_aufg2} + {B_K1_plan_aufg2} - {d_K[1]} = {L_K1_aufg2} Stück")
+print(f"L_M1 = {L_M0} + {x_M1_plan_aufg2} + {B_M1_plan_aufg2} - {d_M[1]} = {L_M1_aufg2} Stück")
+
+# 2.2.b) Personelle Kapazität (nur Eigenfertigung) in Periode 1
+bedarf_P1_aufg2 = f_K_P * x_K1_plan_aufg2 + f_M_P * x_M1_plan_aufg2
+print(f"\n2.2.b) Personelle Kapazität Periode 1 (Eigenfertigung):")
+print(f"Bedarf personelle Kapazität = {f_K_P}*{x_K1_plan_aufg2} + {f_M_P}*{x_M1_plan_aufg2} = {bedarf_P1_aufg2:.1f} Einheiten")
+
+U_1_aufg2 = 0
+kosten_U1_aufg2 = 0
+if bedarf_P1_aufg2 > b_P_reg:
+    U_1_aufg2 = bedarf_P1_aufg2 - b_P_reg
+    if U_1_aufg2 > U_max:
+        print(f"Benötigte Überstunden ({U_1_aufg2:.1f}) überschreiten maximale Überstunden ({U_max})! Plan ist nicht zulässig.")
+        U_1_aufg2 = min(U_1_aufg2, U_max)
+    kosten_U1_aufg2 = U_1_aufg2 * u_t_cost
+    print(f"Reguläre personelle Kapazität ({b_P_reg}) nicht ausreichend.")
+    print(f"Benötigte Überstunden (U_1) = {bedarf_P1_aufg2:.1f} - {b_P_reg} = {U_1_aufg2:.1f} Einheiten")
+    print(f"Kosten für Überstunden U_1 = {U_1_aufg2:.1f} * {u_t_cost} = {kosten_U1_aufg2:.1f} GE")
+else:
+    print(f"Reguläre personelle Kapazität ({b_P_reg}) ist ausreichend. (Bedarf: {bedarf_P1_aufg2:.1f} Einheiten)")
+
+# 2.2.c) Technische Kapazität (nur Eigenfertigung) in Periode 1
+bedarf_T1_aufg2 = f_K_T * x_K1_plan_aufg2 + f_M_T * x_M1_plan_aufg2
+print(f"\n2.2.c) Technische Kapazität Periode 1 (Eigenfertigung):")
+print(f"Bedarf technische Kapazität = {f_K_T}*{x_K1_plan_aufg2} + {f_M_T}*{x_M1_plan_aufg2} = {bedarf_T1_aufg2:.1f} Einheiten")
+if bedarf_T1_aufg2 <= b_T:
+    print(f"Technische Kapazität ({b_T}) ist ausreichend.")
+else:
+    print(f"Technische Kapazität ({b_T}) NICHT ausreichend! (Bedarf: {bedarf_T1_aufg2:.1f})")
+
+# 2.2.d) Kosten für Fremdbezug in Periode 1
+kosten_B1_aufg2 = c_K_B * B_K1_plan_aufg2 + c_M_B * B_M1_plan_aufg2
+print(f"\n2.2.d) Kosten für Fremdbezug in Periode 1:")
+print(f"Fremdbezugskosten = {c_K_B}*{B_K1_plan_aufg2} + {c_M_B}*{B_M1_plan_aufg2} = {kosten_B1_aufg2} GE")
+
+# 2.2.e) Gesamte relevante Kosten in Periode 1
+# Lagerkosten für Periode 1
+lagerkosten_P1_aufg2 = h_K * L_K1_aufg2 + h_M * L_M1_aufg2
+print(f"\nLagerkosten für in Periode 1 gehaltene Endbestände:")
+print(f"Lagerkosten P1 = {h_K}*{L_K1_aufg2} + {h_M}*{L_M1_aufg2} = {lagerkosten_P1_aufg2} GE")
+
+gesamtkosten_plan_P1_aufg2 = lagerkosten_P1_aufg2 + kosten_U1_aufg2 + kosten_B1_aufg2
+print(f"\n2.2.e) Gesamte relevante Kosten (Lager + Überstunden + Fremdbezug) für Periode 1:")
+print(f"Gesamtkosten P1 = {lagerkosten_P1_aufg2} (Lager) + {kosten_U1_aufg2:.1f} (Überstunden) + {kosten_B1_aufg2} (Fremdbezug) = {gesamtkosten_plan_P1_aufg2:.1f} GE")
+
+```
+
+:::

@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>output</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="output_files/libs/clipboard/clipboard.min.js"></script>
+<script src="output_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="output_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="output_files/libs/quarto-html/popper.min.js"></script>
+<script src="output_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="output_files/libs/quarto-html/anchor.min.js"></script>
+<link href="output_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="output_files/libs/quarto-html/quarto-syntax-highlighting-226bd0f977fa82dfae4534cac220d79a.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="output_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="output_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="output_files/libs/bootstrap/bootstrap-be9206a58a27969b3ea3001da8f26fef.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+
+<section id="material-logistik-bestandsmanagement-in-supply-chains" class="level1">
+<h1>Material-Logistik: Bestandsmanagement in Supply Chains</h1>
+<p>Univ.-Prof.&nbsp;Dr.&nbsp;Michael Manitz</p>
+<p>Tel.: (0203) 379 - 1443<br>E-Mail: michael.manitz@uni-due.de<br>Universität Duisburg/Essen<br>Fakultät für Betriebswirtschaftslehre<br>(Mercator School of Management)<br>Lehrstuhl für Betriebswirtschaftslehre, insbesondere<br>Produktionswirtschaft und Supply Chain Management<br>Lotharstr. 65<br>47057 Duisburg</p>
+<p>www.scm.msm.uni-due.de# Ziel und Inhalt der Veranstaltungen</p>
+<section id="modul-produktionswirtschaft-und-supply-chain-management" class="level2">
+<h2 class="anchored" data-anchor-id="modul-produktionswirtschaft-und-supply-chain-management">Modul Produktionswirtschaft und Supply Chain Management</h2>
+<p>Einblick in einige wichtige Fragestellungen der Strukturierung und des Betriebs von Produktionssystemen Verwendung quantitativer Optimierungsmodelle Darstellung der Bedeutung der Berücksichtigung knapper Kapazitäten Darstellung tatsächlich existierender, praxisrelevanter Problemstellungen Übung an Hand von kleinen Anwendungsbeispielen# Ziel und Inhalt der Veranstaltungen</p>
+</section>
+<section id="modul-produktionswirtschaft-und-supply-chain-management-1" class="level2">
+<h2 class="anchored" data-anchor-id="modul-produktionswirtschaft-und-supply-chain-management-1">Modul Produktionswirtschaft und Supply Chain Management</h2>
+<p>Einblick in einige wichtige Fragestellungen der Strukturierung und des Betriebs von Produktionssystemen Verwendung quantitativer Optimierungsmodelle Darstellung der Bedeutung der Berücksichtigung knapper Kapazitäten Darstellung tatsächlich existierender, praxisrelevanter Problemstellungen Übung an Hand von kleinen Anwendungsbeispielen</p>
+<p>Vorlesung Material-Logistik (Bestandsmanagement in Supply Chains) Dynamische Losgrößenplanung und Materialbederfsermittlung (Operative Produktionsplanung) Berücksichtigung von Unsicherheit (Sicherheitsbestandsplanung)Günther, H.-O., und H. Tempelmeier, Supply Chain Analytics Operations Management und Logistik ehemals Produktion und Logistik - Supply Chain &amp; Operations Management (13. Aufl.), Norderstedt (Books on Demand), 2020</p>
+<p>Helber, S., Operations Management Tutorial - Grundlagen der Modellierung und Analyse der betrieblichen Wertschöpfung (2. Aufl.), Hildesheim (Stefan Helber), 2020Tempelmeier, H., Material-Logistik (7. Aufl.), Berlin, Heidelberg (Springer), 2008</p>
+<p>Tempelmeier, H., Production Analytics - Modelle und Algorithmen zur Produktionsplanung ehemals Produktionsplanung in Supply Chains (6. Aufl.), Norderstedt (Books on Demand), 2020</p>
+<p>Tempelmeier, H., Analytics im Bestandsmanagement ehemals Bestandsmanagement in Supply Chains (7. Aufl.), Norderstedt (Books on Demand), 2020</p>
+<p>Tempelmeier, H., Analytics in Supply Chain Management und Produktion - Übungen und Mini-Fallstudien (7. Aufl.), Norderstedt (Books on Demand), 2020# Material-Logistik: Bestandsmanagement in Supply Chains MERsATOR</p>
+<p>Logistik (vgl. Tempelmeier (2008))# Material-Logistik: Bestandsmanagement in Supply Chains</p>
+<p>Logistik <img src="img-0.jpeg" class="img-fluid" alt="img-0.jpeg"> (vgl. Tempelmeier (2008))# Material-Logistik: Bestandsmanagement in Supply Chains</p>
+<p><img src="img-1.jpeg" class="img-fluid" alt="img-1.jpeg"> (vgl. Tempelmeier (2008))<img src="img-2.jpeg" class="img-fluid" alt="img-2.jpeg"> (vgl. Tempelmeier (2008))<img src="img-3.jpeg" class="img-fluid" alt="img-3.jpeg"> (vgl. Tempelmeier (2008))<img src="img-4.jpeg" class="img-fluid" alt="img-4.jpeg"> (vgl. Tempelmeier (2008))<img src="img-5.jpeg" class="img-fluid" alt="img-5.jpeg"> (vgl. Tempelmeier (2008))<img src="img-6.jpeg" class="img-fluid" alt="img-6.jpeg"> (vgl. Tempelmeier (2008)) Gegenstand der Veranstaltung: ( dynamische) Bestellmengen- bzw. Losgrößenplanung <span class="math inline">\(&gt;\)</span> Bestandsmanagement (Lagerhaltungsplanung)<img src="img-7.jpeg" class="img-fluid" alt="img-7.jpeg"> (vgl. Tempelmeier (2008)) Gegenstand der Veranstaltung: ( dynamische) Bestellmengen- bzw. Losgrößenplanung <span class="math inline">\(&gt;\)</span> Bestandsmanagement (Lagerhaltungsplanung) <span class="math inline">\(\Longrightarrow\)</span> Materialdisposition<img src="img-8.jpeg" class="img-fluid" alt="img-8.jpeg"> (vgl. Tempelmeier (2008))<img src="img-9.jpeg" class="img-fluid" alt="img-9.jpeg"> “Material”<img src="img-10.jpeg" class="img-fluid" alt="img-10.jpeg"> “Material” (= Verbrauchsfaktoren)<img src="img-11.jpeg" class="img-fluid" alt="img-11.jpeg"> “Material” (= Verbrauchsfaktoren) Vorprodukte<img src="img-12.jpeg" class="img-fluid" alt="img-12.jpeg"> “Material” (= Verbrauchsfaktoren) Vorprodukte <span class="math inline">\(\triangleright\)</span> Roh-, Hilfs- und Betriebsstoffe<img src="img-13.jpeg" class="img-fluid" alt="img-13.jpeg"> “Material” (= Verbrauchsfaktoren) Vorprodukte <span class="math inline">\(\triangleright\)</span> Roh-, Hilfs- und Betriebsstoffe <span class="math inline">\(\triangleright\)</span> bezogene Teile: Einzelteile, Baugruppen<img src="img-14.jpeg" class="img-fluid" alt="img-14.jpeg"> “Material” (= Verbrauchsfaktoren) Vorprodukte <span class="math inline">\(\triangleright\)</span> Roh-, Hilfs- und Betriebsstoffe <span class="math inline">\(\triangleright\)</span> bezogene Teile: Einzelteile, Baugruppen Handelswaren<img src="img-15.jpeg" class="img-fluid" alt="img-15.jpeg"><img src="img-16.jpeg" class="img-fluid" alt="img-16.jpeg"><img src="img-17.jpeg" class="img-fluid" alt="img-17.jpeg"># Vorlesung Material-Logistik</p>
+<p>Univ.-Prof.&nbsp;Dr.&nbsp;Michael Manitz Material-Logistik: Bestandsmanagement 5-1# Vorlesung Material-Logistik</p>
+<p>Klassifikation von Verbrauchsfaktoren („Material”)# Vorlesung Material-Logistik</p>
+<p>Klassifikation von Verbrauchsfaktoren („Material”) <span class="math inline">\(\triangleright \ldots\)</span> nach ihrer wertmäßigen Bedeutung (ABC-Analyse)# Vorlesung Material-Logistik</p>
+<p>Klassifikation von Verbrauchsfaktoren („Material”) <span class="math inline">\(\triangleright \ldots\)</span> nach ihrer wertmäßigen Bedeutung (ABC-Analyse) <span class="math inline">\(\triangleright \ldots\)</span> nach ihrem Bedarfsverlauf (Materialbereitstellungprinzipien)# Vorlesung Material-Logistik</p>
+<p>Klassifikation von Verbrauchsfaktoren („Material”) <span class="math inline">\(\triangleright \ldots\)</span> nach ihrer wertmäßigen Bedeutung (ABC-Analyse) <span class="math inline">\(\triangleright \ldots\)</span> nach ihrem Bedarfsverlauf (Materialbereitstellungprinzipien) Materialbedarfsermittlung# Vorlesung Material-Logistik</p>
+<p>Klassifikation von Verbrauchsfaktoren (,,Material”) <span class="math inline">\(\triangleright \ldots\)</span> nach ihrer wertmäßigen Bedeutung (ABC-Analyse) <span class="math inline">\(\triangleright \ldots\)</span> nach ihrem Bedarfsverlauf (Materialbereitstellungprinzipien) Materialbedarfsermittlung <span class="math inline">\(\triangleright\)</span> „Verbrauchsorientierte Materialbedarfsermittlung”: Bedarfsprognose# Vorlesung Material-Logistik</p>
+<p>Klassifikation von Verbrauchsfaktoren (,,Material”) <span class="math inline">\(\triangleright \ldots\)</span> nach ihrer wertmäßigen Bedeutung (ABC-Analyse) <span class="math inline">\(\triangleright \ldots\)</span> nach ihrem Bedarfsverlauf (Materialbereitstellungprinzipien) Materialbedarfsermittlung <span class="math inline">\(\triangleright\)</span> „Verbrauchsorientierte Materialbedarfsermittlung”: Bedarfsprognose <span class="math inline">\(\triangleright\)</span> „Programmorientierte Materialbedarfsermittlung”: Materialbedarfsrechnung# Vorlesung Material-Logistik</p>
+<p>Klassifikation von Verbrauchsfaktoren (,,Material”) <span class="math inline">\(\triangleright \ldots\)</span> nach ihrer wertmäßigen Bedeutung (ABC-Analyse) <span class="math inline">\(\triangleright \ldots\)</span> nach ihrem Bedarfsverlauf (Materialbereitstellungprinzipien) Materialbedarfsermittlung <span class="math inline">\(\triangleright\)</span> „Verbrauchsorientierte Materialbedarfsermittlung”: Bedarfsprognose <span class="math inline">\(\triangleright\)</span> „Programmorientierte Materialbedarfsermittlung”: Materialbedarfsrechnung</p>
+<p>Bestandsmanagement# Vorlesung Material-Logistik</p>
+<p>Klassifikation von Verbrauchsfaktoren („Material”) <span class="math inline">\(\triangleright \ldots\)</span> nach ihrer wertmäßigen Bedeutung (ABC-Analyse) <span class="math inline">\(\triangleright \ldots\)</span> nach ihrem Bedarfsverlauf (Materialbereitstellungprinzipien) Materialbedarfsermittlung <span class="math inline">\(\triangleright\)</span> „Verbrauchsorientierte Materialbedarfsermittlung”: Bedarfsprognose <span class="math inline">\(\triangleright\)</span> „Programmorientierte Materialbedarfsermittlung”: Materialbedarfsrechnung</p>
+<p>Bestandsmanagement <span class="math inline">\(\triangleright \ldots\)</span> unter deterministischen Bedingungen: Dynamische Losgrößenplanung# Vorlesung Material-Logistik</p>
+<p>Klassifikation von Verbrauchsfaktoren (,,Material”) <span class="math inline">\(\triangleright \ldots\)</span> nach ihrer wertmäßigen Bedeutung (ABC-Analyse) <span class="math inline">\(\triangleright \ldots\)</span> nach ihrem Bedarfsverlauf (Materialbereitstellungprinzipien) Materialbedarfsermittlung <span class="math inline">\(\triangleright\)</span>,“Verbrauchsorientierte Materialbedarfsermittlung”: Bedarfsprognose <span class="math inline">\(\triangleright\)</span>,“Programmorientierte Materialbedarfsermittlung”: Materialbedarfsrechnung</p>
+<p>Bestandsmanagement <span class="math inline">\(\triangleright \ldots\)</span> unter deterministischen Bedingungen: Dynamische Losgrößenplanung</p>
+<ul>
+<li>einstufige Modelle</li>
+<li>mehrstufige Modelle# Vorlesung Material-Logistik</li>
+</ul>
+<p>Klassifikation von Verbrauchsfaktoren (,,Material”) <span class="math inline">\(\triangleright \ldots\)</span> nach ihrer wertmäßigen Bedeutung (ABC-Analyse) <span class="math inline">\(\triangleright \ldots\)</span> nach ihrem Bedarfsverlauf (Materialbereitstellungprinzipien) Materialbedarfsermittlung <span class="math inline">\(\triangleright\)</span> „Verbrauchsorientierte Materialbedarfsermittlung”: Bedarfsprognose <span class="math inline">\(\triangleright\)</span> „Programmorientierte Materialbedarfsermittlung”: Materialbedarfsrechnung</p>
+<p>Bestandsmanagement <span class="math inline">\(\triangleright \ldots\)</span> unter deterministischen Bedingungen: Dynamische Losgrößenplanung</p>
+<ul>
+<li>einstufige Modelle</li>
+<li>mehrstufige Modelle <span class="math inline">\(\triangleright \ldots\)</span> unter stochastischen Bedingungen: Sicherheitsbestandsplanung# Klassifikation der <br> Verbrauchsfaktoren (,,Material”)# Klassifikation der <br> Verbrauchsfaktoren (,,Material”) <br> nach ihrer wertmäßigen Bedeutung <br> (ABC-Analyse)# ABC-Analyse</li>
+</ul>
+</section>
+<section id="mercator" class="level2">
+<h2 class="anchored" data-anchor-id="mercator">MERCATOR</h2>
+<p>Univ.-Prof.&nbsp;Dr.&nbsp;Michael Manitz</p>
+<p>Material-Logistik: Bestandsmanagement# ABC-Analyse</p>
+<p>Klassifikation der zu disponierenden Verbrauchsfaktoren (Materialarten) nach ihrer wertmäßigen Bedeutung# ABC-Analyse</p>
+<p>Klassifikation der zu disponierenden Verbrauchsfaktoren (Materialarten) nach ihrer wertmäßigen Bedeutung</p>
+</section>
+<section id="beispiel-abc-klassifikation-von-erzeugnissen" class="level2">
+<h2 class="anchored" data-anchor-id="beispiel-abc-klassifikation-von-erzeugnissen">Beispiel ABC-Klassifikation von Erzeugnissen</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Erzeugnis</th>
+<th style="text-align: center;">Verbrauchswert</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">130</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">780</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">20</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">30</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">450</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">25</td>
+</tr>
+</tbody>
+</table>
+<p>(vgl. Günther und Tempelmeier (2012))# ABC-Analyse</p>
+<p>Klassifikation der zu disponierenden Verbrauchsfaktoren (Materialarten) nach ihrer wertmäßigen Bedeutung</p>
+</section>
+<section id="beispiel-abc-klassifikation-von-erzeugnissen-1" class="level2">
+<h2 class="anchored" data-anchor-id="beispiel-abc-klassifikation-von-erzeugnissen-1">Beispiel ABC-Klassifikation von Erzeugnissen</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Erzeugnis</th>
+<th style="text-align: center;">Verbrauchswert</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">130</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">780</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">20</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">30</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">450</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(\#=8\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\Sigma=1450\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>(vgl. Günther und Tempelmeier (2012))# ABC-Analyse</p>
+<p>Klassifikation der zu disponierenden Verbrauchsfaktoren (Materialarten) nach ihrer wertmäßigen Bedeutung</p>
+</section>
+<section id="beispiel-abc-klassifikation-von-erzeugnissen-2" class="level2">
+<h2 class="anchored" data-anchor-id="beispiel-abc-klassifikation-von-erzeugnissen-2">Beispiel ABC-Klassifikation von Erzeugnissen</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Erzeugnis</th>
+<th style="text-align: center;">Verbrauchswert</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">780</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">450</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">130</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">30</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">25</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">20</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(\#=8\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\Sigma=1450\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>(vgl. Günther und Tempelmeier (2012))# ABC-Analyse</p>
+<p>Klassifikation der zu disponierenden Verbrauchsfaktoren (Materialarten) nach ihrer wertmäßigen Bedeutung</p>
+</section>
+<section id="beispiel-abc-klassifikation-von-erzeugnissen-3" class="level2">
+<h2 class="anchored" data-anchor-id="beispiel-abc-klassifikation-von-erzeugnissen-3">Beispiel ABC-Klassifikation von Erzeugnissen</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Erzeugnis</th>
+<th style="text-align: center;">Verbrauchswert</th>
+<th style="text-align: center;">kumulierter Anteil an <br> der Anzahl Erzeugnisse <br> <span class="math inline">\([\%]\)</span></th>
+<th style="text-align: center;">kumulierter Anteil <br> am Verbrauchswert <br> <span class="math inline">\([\%]\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">780</td>
+<td style="text-align: center;">12.5</td>
+<td style="text-align: center;">53.79</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">450</td>
+<td style="text-align: center;">25.0</td>
+<td style="text-align: center;">84.83</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">130</td>
+<td style="text-align: center;">37.5</td>
+<td style="text-align: center;">93.79</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">30</td>
+<td style="text-align: center;">50.0</td>
+<td style="text-align: center;">95.86</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">62.5</td>
+<td style="text-align: center;">97.59</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">75.0</td>
+<td style="text-align: center;">98.97</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">87.5</td>
+<td style="text-align: center;">99.66</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">100.0</td>
+<td style="text-align: center;">100.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(\#=8\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\Sigma=1450\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<p>(vgl. Günther und Tempelmeier (2012))# ABC-Analyse</p>
+<p>Klassifikation der zu disponierenden Verbrauchsfaktoren (Materialarten) nach ihrer wertmäßigen Bedeutung</p>
+</section>
+<section id="beispiel-abc-klassifikation-von-erzeugnissen-4" class="level2">
+<h2 class="anchored" data-anchor-id="beispiel-abc-klassifikation-von-erzeugnissen-4">Beispiel ABC-Klassifikation von Erzeugnissen</h2>
+<p>Verbrauchswert, kumuliert (in %) <img src="img-18.jpeg" class="img-fluid" alt="img-18.jpeg"># ABC-Analyse</p>
+<p>Klassifikation der zu disponierenden Verbrauchsfaktoren (Materialarten) nach ihrer wertmäßigen Bedeutung</p>
+</section>
+<section id="beispiel-abc-klassifikation-von-erzeugnissen-5" class="level2">
+<h2 class="anchored" data-anchor-id="beispiel-abc-klassifikation-von-erzeugnissen-5">Beispiel ABC-Klassifikation von Erzeugnissen</h2>
+<p>Verbrauchswert, kumuliert (in %) <img src="img-19.jpeg" class="img-fluid" alt="img-19.jpeg"></p>
+<p>Univ.-Prof.&nbsp;Dr.&nbsp;Michael Manitz Material-Logistik: Bestandsmanagement 7-8# ABC-Analyse</p>
+<p>Klassifikation der zu disponierenden Verbrauchsfaktoren (Materialarten) nach ihrer wertmäßigen Bedeutung</p>
+</section>
+<section id="beispiel-abc-klassifikation-von-erzeugnissen-6" class="level2">
+<h2 class="anchored" data-anchor-id="beispiel-abc-klassifikation-von-erzeugnissen-6">Beispiel ABC-Klassifikation von Erzeugnissen</h2>
+<p><img src="img-20.jpeg" class="img-fluid" alt="img-20.jpeg"># ABC-Analyse</p>
+<p>Klassifikation der zu disponierenden Verbrauchsfaktoren (Materialarten) nach ihrer wertmäßigen Bedeutung</p>
+</section>
+<section id="beispiel-abc-klassifikation-von-erzeugnissen-7" class="level2">
+<h2 class="anchored" data-anchor-id="beispiel-abc-klassifikation-von-erzeugnissen-7">Beispiel ABC-Klassifikation von Erzeugnissen</h2>
+<p><img src="img-21.jpeg" class="img-fluid" alt="img-21.jpeg"># ABC-Analyse</p>
+<p>Klassifikation der zu disponierenden Verbrauchsfaktoren (Materialarten) nach ihrer wertmäßigen Bedeutung</p>
+</section>
+<section id="beispiel-abc-klassifikation-von-erzeugnissen-8" class="level2">
+<h2 class="anchored" data-anchor-id="beispiel-abc-klassifikation-von-erzeugnissen-8">Beispiel ABC-Klassifikation von Erzeugnissen</h2>
+<p><img src="img-22.jpeg" class="img-fluid" alt="img-22.jpeg"># ABC-Analyse</p>
+<p>Klassifikation der zu disponierenden Verbrauchsfaktoren (Materialarten) nach ihrer wertmäßigen Bedeutung</p>
+</section>
+<section id="beispiel-abc-klassifikation-von-erzeugnissen-9" class="level2">
+<h2 class="anchored" data-anchor-id="beispiel-abc-klassifikation-von-erzeugnissen-9">Beispiel ABC-Klassifikation von Erzeugnissen</h2>
+<p><img src="img-23.jpeg" class="img-fluid" alt="img-23.jpeg"># ABC-Analyse</p>
+<p>Klassifikation der zu disponierenden Verbrauchsfaktoren (Materialarten) nach ihrer wertmäßigen Bedeutung</p>
+</section>
+<section id="beispiel-abc-klassifikation-von-erzeugnissen-10" class="level2">
+<h2 class="anchored" data-anchor-id="beispiel-abc-klassifikation-von-erzeugnissen-10">Beispiel ABC-Klassifikation von Erzeugnissen</h2>
+<p><img src="img-24.jpeg" class="img-fluid" alt="img-24.jpeg"># ABC-Analyse</p>
+<p>Klassifikation der zu disponierenden Verbrauchsfaktoren (Materialarten) nach ihrer wertmäßigen Bedeutung</p>
+</section>
+<section id="beispiel-abc-klassifikation-von-erzeugnissen-11" class="level2">
+<h2 class="anchored" data-anchor-id="beispiel-abc-klassifikation-von-erzeugnissen-11">Beispiel ABC-Klassifikation von Erzeugnissen</h2>
+<p><img src="img-25.jpeg" class="img-fluid" alt="img-25.jpeg"># ABC-Analyse</p>
+<p>Klassifikation der zu disponierenden Verbrauchsfaktoren (Materialarten) nach ihrer wertmäßigen Bedeutung# ABC-Analyse</p>
+<p>Klassifikation der zu disponierenden Verbrauchsfaktoren (Materialarten) nach ihrer wertmäßigen Bedeutung</p>
+<p>Klasseneinteilung:# ABC-Analyse</p>
+<p>Klassifikation der zu disponierenden Verbrauchsfaktoren (Materialarten) nach ihrer wertmäßigen Bedeutung</p>
+<p>Klasseneinteilung: Gruppe A: Güter mit hohem Anteil am gesamten Materialverbrauchswert# ABC-Analyse</p>
+<p>Klassifikation der zu disponierenden Verbrauchsfaktoren (Materialarten) nach ihrer wertmäßigen Bedeutung</p>
+<p>Klasseneinteilung: Gruppe A: Güter mit hohem Anteil am gesamten Materialverbrauchswert Gruppe B: Güter mit mittlerem Anteil am gesamten Materialverbrauchswert# ABC-Analyse</p>
+<p>Klassifikation der zu disponierenden Verbrauchsfaktoren (Materialarten) nach ihrer wertmäßigen Bedeutung</p>
+<p>Klasseneinteilung: Gruppe A: Güter mit hohem Anteil am gesamten Materialverbrauchswert Gruppe B: Güter mit mittlerem Anteil am gesamten Materialverbrauchswert Gruppe C: Güter mit niedrigem Anteil am gesamten Materialverbrauchswert# Klassifikation der</p>
+<p>Verbrauchsfaktoren (,,Material”) nach ihrem Bedarfsverlauf (RSU/XYZ-Analyse)<img src="img-26.jpeg" class="img-fluid" alt="img-26.jpeg"># Sporadischer Bedarf</p>
+</section>
+<section id="bedarf" class="level2">
+<h2 class="anchored" data-anchor-id="bedarf">Bedarf</h2>
+<p><img src="img-27.jpeg" class="img-fluid" alt="img-27.jpeg"># Sporadischer Bedarf (ohne Nullbedarfsperioden)</p>
+<p>Bedarf <img src="img-28.jpeg" class="img-fluid" alt="img-28.jpeg"># Regelmäßiger Bedarf</p>
+</section>
+<section id="bedarf-1" class="level2">
+<h2 class="anchored" data-anchor-id="bedarf-1">Bedarf</h2>
+<p><img src="img-29.jpeg" class="img-fluid" alt="img-29.jpeg"># Regelmäßiger Bedarf mit Trend</p>
+<p>Bedarf <img src="img-30.jpeg" class="img-fluid" alt="img-30.jpeg"># Regelmäßiger Bedarf mit Trend und Saison</p>
+<p>Bedarf <img src="img-31.jpeg" class="img-fluid" alt="img-31.jpeg"></p>
+<p>Univ.-Prof.&nbsp;Dr.&nbsp;Michael Manitz Material-Logistik: Bestandsmanagement# Typen von Bedarfsverläufen</p>
+<p>Univ.-Prof.&nbsp;Dr.&nbsp;Michael Manitz Material-Logistik: Bestandsmanagement <span class="math inline">\(15-1\)</span># Typen von Bedarfsverläufen</p>
+</section>
+<section id="nichtstationär-typen-von-bedarfsverläufen" class="level2">
+<h2 class="anchored" data-anchor-id="nichtstationär-typen-von-bedarfsverläufen">nichtstationär# Typen von Bedarfsverläufen</h2>
+</section>
+<section id="rightarrow-nichtstationär" class="level2">
+<h2 class="anchored" data-anchor-id="rightarrow-nichtstationär"><span class="math inline">\(\rightarrow\)</span> nichtstationär</h2>
+<p>stationär# Typen von Bedarfsverläufen</p>
+</section>
+<section id="nichtstationär" class="level2">
+<h2 class="anchored" data-anchor-id="nichtstationär">nichtstationär</h2>
+<p>stationär <span class="math inline">\(\triangleright\)</span> unregelmäßig# Typen von Bedarfsverläufen</p>
+</section>
+<section id="nichtstationär-1" class="level2">
+<h2 class="anchored" data-anchor-id="nichtstationär-1">nichtstationär</h2>
+<p>stationär <span class="math inline">\(\triangleright\)</span> unregelmäßig</p>
+<ul>
+<li>stark schwankend# Typen von Bedarfsverläufen</li>
+</ul>
+</section>
+<section id="nichtstationär-2" class="level2">
+<h2 class="anchored" data-anchor-id="nichtstationär-2">nichtstationär</h2>
+<p>stationär unregelmäßig</p>
+<ul>
+<li>stark schwankend</li>
+<li>sporadisch# Typen von Bedarfsverläufen</li>
+</ul>
+</section>
+<section id="nichtstationär-3" class="level2">
+<h2 class="anchored" data-anchor-id="nichtstationär-3">nichtstationär</h2>
+<p>stationär <span class="math inline">\(\triangleright\)</span> unregelmäßig</p>
+<ul>
+<li>stark schwankend</li>
+<li>sporadisch <span class="math inline">\(\triangleright\)</span> regelmäßig# Typen von Bedarfsverläufen</li>
+</ul>
+</section>
+<section id="nichtstationär-4" class="level2">
+<h2 class="anchored" data-anchor-id="nichtstationär-4"><span class="math inline">\(&gt;\)</span> nichtstationär</h2>
+</section>
+<section id="stationär" class="level2">
+<h2 class="anchored" data-anchor-id="stationär"><span class="math inline">\(&gt;\)</span> stationär</h2>
+<p><span class="math inline">\(\triangleright\)</span> unregelmäßig</p>
+<ul>
+<li>stark schwankend</li>
+<li>sporadisch <span class="math inline">\(\triangleright\)</span> regelmäßig</li>
+<li>um ein konstantes Niveau# Typen von Bedarfsverläufen</li>
+</ul>
+</section>
+<section id="nichtstationär-5" class="level2">
+<h2 class="anchored" data-anchor-id="nichtstationär-5"><span class="math inline">\(&gt;\)</span> nichtstationär</h2>
+<p><span class="math inline">\(&gt;\)</span> stationär <span class="math inline">\(\triangleright\)</span> unregelmäßig</p>
+<ul>
+<li>stark schwankend</li>
+<li>sporadisch <span class="math inline">\(\triangleright\)</span> regelmäßig</li>
+<li>um ein konstantes Niveau</li>
+<li>ohne Saisoneinfluss</li>
+<li>mit Saisoneinfluss# Typen von Bedarfsverläufen</li>
+</ul>
+</section>
+<section id="nichtstationär-6" class="level2">
+<h2 class="anchored" data-anchor-id="nichtstationär-6"><span class="math inline">\(&gt;\)</span> nichtstationär</h2>
+</section>
+<section id="stationär-1" class="level2">
+<h2 class="anchored" data-anchor-id="stationär-1"><span class="math inline">\(&gt;\)</span> stationär</h2>
+<p><span class="math inline">\(\triangleright\)</span> unregelmäßig</p>
+<ul>
+<li>stark schwankend</li>
+<li>sporadisch <span class="math inline">\(\triangleright\)</span> regelmäßig</li>
+<li>um ein konstantes Niveau</li>
+<li>ohne Saisoneinfluss</li>
+<li>mit Saisoneinfluss</li>
+<li>trendförmig# Typen von Bedarfsverläufen</li>
+</ul>
+</section>
+<section id="nichtstationär-7" class="level2">
+<h2 class="anchored" data-anchor-id="nichtstationär-7"><span class="math inline">\(&gt;\)</span> nichtstationär</h2>
+<p><span class="math inline">\(&gt;\)</span> stationär <span class="math inline">\(\triangleright\)</span> unregelmäßig</p>
+<ul>
+<li>stark schwankend</li>
+<li>sporadisch <span class="math inline">\(\triangleright\)</span> regelmäßig</li>
+<li>um ein konstantes Niveau</li>
+<li>ohne Saisoneinfluss</li>
+<li>mit Saisoneinfluss</li>
+<li>trendförmig</li>
+<li>ohne Saisoneinfluss</li>
+<li>mit SaisoneinflussRegelmäßiger vs.&nbsp;unregelmäßiger Bedarf# Regelmäßiger vs.&nbsp;unregelmäßiger Bedarf</li>
+</ul>
+</section>
+<section id="mittelwert-der-zeitreihe-lefty_tright-der-bedarfsmengen-über-t-perioden" class="level2">
+<h2 class="anchored" data-anchor-id="mittelwert-der-zeitreihe-lefty_tright-der-bedarfsmengen-über-t-perioden">Mittelwert der Zeitreihe <span class="math inline">\(\left(y_{t}\right)\)</span> der Bedarfsmengen über <span class="math inline">\(T\)</span> Perioden</h2>
+<p><span class="math display">\[
+\mu=\frac{1}{T} \sum_{t=1}^{T} y_{t}
+\]</span># Regelmäßiger vs.&nbsp;unregelmäßiger Bedarf</p>
+</section>
+<section id="mittelwert-der-zeitreihe-lefty_tright-der-bedarfsmengen-über-t-perioden-1" class="level2">
+<h2 class="anchored" data-anchor-id="mittelwert-der-zeitreihe-lefty_tright-der-bedarfsmengen-über-t-perioden-1">Mittelwert der Zeitreihe <span class="math inline">\(\left(y_{t}\right)\)</span> der Bedarfsmengen über <span class="math inline">\(T\)</span> Perioden</h2>
+<p><span class="math display">\[
+\mu=\frac{1}{T} \sum_{t=1}^{T} y_{t}
+\]</span></p>
+</section>
+<section id="mittlere-absolute-abweichung" class="level2">
+<h2 class="anchored" data-anchor-id="mittlere-absolute-abweichung">mittlere absolute Abweichung</h2>
+<p><span class="math display">\[
+\mathrm{MAD}=\frac{1}{T} \sum_{t=1}^{T}\left|y_{t}-\mu\right|
+\]</span># Regelmäßiger vs.&nbsp;unregelmäßiger Bedarf</p>
+</section>
+<section id="mittelwert-der-zeitreihe-lefty_tright-der-bedarfsmengen-über-t-perioden-2" class="level2">
+<h2 class="anchored" data-anchor-id="mittelwert-der-zeitreihe-lefty_tright-der-bedarfsmengen-über-t-perioden-2">Mittelwert der Zeitreihe <span class="math inline">\(\left(y_{t}\right)\)</span> der Bedarfsmengen über <span class="math inline">\(T\)</span> Perioden</h2>
+<p><span class="math display">\[
+\mu=\frac{1}{T} \sum_{t=1}^{T} y_{t}
+\]</span></p>
+</section>
+<section id="mittlere-absolute-abweichung-1" class="level2">
+<h2 class="anchored" data-anchor-id="mittlere-absolute-abweichung-1">mittlere absolute Abweichung</h2>
+<p><span class="math display">\[
+\mathrm{MAD}=\frac{1}{T} \sum_{t=1}^{T}\left|y_{t}-\mu\right|
+\]</span></p>
+</section>
+<section id="störpegel" class="level2">
+<h2 class="anchored" data-anchor-id="störpegel">Störpegel</h2>
+<p><span class="math display">\[
+\mathrm{SP}=\frac{\mathrm{MAD}}{\mu}
+\]</span># Regelmäßiger vs.&nbsp;unregelmäßiger Bedarf</p>
+<p>Mittelwert der Zeitreihe <span class="math inline">\(\left(y_{t}\right)\)</span> der Bedarfsmengen über <span class="math inline">\(T\)</span> Perioden</p>
+<p><span class="math display">\[
+\mu=\frac{1}{T} \sum_{t=1}^{T} y_{t}
+\]</span></p>
+<p>mittlere absolute Abweichung</p>
+<p><span class="math display">\[
+\mathrm{MAD}=\frac{1}{T} \sum_{t=1}^{T}\left|y_{t}-\mu\right|
+\]</span></p>
+</section>
+<section id="störpegel-1" class="level2">
+<h2 class="anchored" data-anchor-id="störpegel-1">Störpegel</h2>
+<p><span class="math display">\[
+\mathrm{SP}=\frac{\mathrm{MAD}}{\mu}
+\]</span></p>
+<p>Unregelmäßigen (stark schwankenden) Bedarf vermutet man bei SP <span class="math inline">\(&gt;0.5\)</span>.# Stark schwankender vs.&nbsp;sporadischer Bedarf</p>
+<p>Univ.-Prof.&nbsp;Dr.&nbsp;Michael Manitz Material-Logistik: Bestandsmanagement <span class="math inline">\(17-1\)</span># Stark schwankender vs.&nbsp;sporadischer Bedarf</p>
+<p>Sporadischen Bedarf vermutet man bei einem Anteil Nullbedarfsperioden von größer als 0.3 oder 0.4 .Sporadischen Bedarf vermutet man bei einem Anteil Nullbedarfsperioden von größer als 0.3 oder 0.4 .</p>
+</section>
+</section>
+<section id="beispiel-stark-schwankender-bedarf" class="level1">
+<h1>Beispiel Stark schwankender Bedarf</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><span class="math inline">\(t\)</span></th>
+<th style="text-align: left;">1</th>
+<th style="text-align: left;">2</th>
+<th style="text-align: left;">3</th>
+<th style="text-align: left;">4</th>
+<th style="text-align: left;">5</th>
+<th style="text-align: left;">6</th>
+<th style="text-align: left;">7</th>
+<th style="text-align: left;">8</th>
+<th style="text-align: left;">9</th>
+<th style="text-align: left;">10</th>
+<th style="text-align: left;">11</th>
+<th style="text-align: left;">12</th>
+<th style="text-align: left;">13</th>
+<th style="text-align: left;">14</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(y_{t}\)</span></td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">50</td>
+<td style="text-align: left;">390</td>
+<td style="text-align: left;">140</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">20</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">200</td>
+<td style="text-align: left;">750</td>
+<td style="text-align: left;">70</td>
+<td style="text-align: left;">50</td>
+<td style="text-align: left;">1000</td>
+<td style="text-align: left;">355</td>
+<td style="text-align: left;">0</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="beispiel-stark-schwankender-bedarf-1" class="level1">
+<h1>Beispiel Stark schwankender Bedarf</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><span class="math inline">\(t\)</span></th>
+<th style="text-align: left;">1</th>
+<th style="text-align: left;">2</th>
+<th style="text-align: left;">3</th>
+<th style="text-align: left;">4</th>
+<th style="text-align: left;">5</th>
+<th style="text-align: left;">6</th>
+<th style="text-align: left;">7</th>
+<th style="text-align: left;">8</th>
+<th style="text-align: left;">9</th>
+<th style="text-align: left;">10</th>
+<th style="text-align: left;">11</th>
+<th style="text-align: left;">12</th>
+<th style="text-align: left;">13</th>
+<th style="text-align: left;">14</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(y_{t}\)</span></td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">50</td>
+<td style="text-align: left;">390</td>
+<td style="text-align: left;">140</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">20</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">200</td>
+<td style="text-align: left;">750</td>
+<td style="text-align: left;">70</td>
+<td style="text-align: left;">50</td>
+<td style="text-align: left;">1000</td>
+<td style="text-align: left;">355</td>
+<td style="text-align: left;">0</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(\mathrm{SP}=1.0782\)</span># Stark schwankender vs.&nbsp;sporadischer Bedarf</p>
+<p>Sporadischen Bedarf vermutet man bei einem Anteil Nullbedarfsperioden von größer als 0.3 oder 0.4 .</p>
+<section id="beispiel-stark-schwankender-bedarf-2" class="level2">
+<h2 class="anchored" data-anchor-id="beispiel-stark-schwankender-bedarf-2">Beispiel Stark schwankender Bedarf</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><span class="math inline">\(t\)</span></th>
+<th style="text-align: left;">1</th>
+<th style="text-align: left;">2</th>
+<th style="text-align: left;">3</th>
+<th style="text-align: left;">4</th>
+<th style="text-align: left;">5</th>
+<th style="text-align: left;">6</th>
+<th style="text-align: left;">7</th>
+<th style="text-align: left;">8</th>
+<th style="text-align: left;">9</th>
+<th style="text-align: left;">10</th>
+<th style="text-align: left;">11</th>
+<th style="text-align: left;">12</th>
+<th style="text-align: left;">13</th>
+<th style="text-align: left;">14</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(y_{t}\)</span></td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">50</td>
+<td style="text-align: left;">390</td>
+<td style="text-align: left;">140</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">20</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">200</td>
+<td style="text-align: left;">750</td>
+<td style="text-align: left;">70</td>
+<td style="text-align: left;">50</td>
+<td style="text-align: left;">1000</td>
+<td style="text-align: left;">355</td>
+<td style="text-align: left;">0</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(\mathrm{SP}=1.0782\)</span> Anteil Nullbedarfsperioden <span class="math inline">\(=\frac{4}{14}=0.2857=28.57 \%\)</span># Verlaufsmuster bei regelmäßigem Bedarf</p>
+<p>Univ.-Prof.&nbsp;Dr.&nbsp;Michael Manitz Material-Logistik: Bestandsmanagement <span class="math inline">\(18-1\)</span># Autokorrelationskoeffizient</p>
+<p>(bezüglich einer Zeitverschiebung von <span class="math inline">\(\tau\)</span> Perioden)# Autokorrelationskoeffizient</p>
+<p>(bezüglich einer Zeitverschiebung von <span class="math inline">\(\tau\)</span> Perioden)</p>
+<p><span class="math display">\[
+\rho(\tau)=\frac{\sum_{t=1}^{T-\tau} y_{t} \cdot y_{t+\tau}-\frac{1}{T-\tau} \cdot \sum_{t=1}^{T-\tau} y_{t} \cdot \sum_{t=1+\tau}^{T} y_{t}}{\sqrt{\left(\sum_{t=1}^{T-\tau} y_{t}^{2}-\frac{1}{T-\tau} \cdot\left(\sum_{t=1}^{T-\tau} y_{t}\right)^{2}\right) \cdot\left(\sum_{t=1+\tau}^{T} y_{t}^{2}-\frac{1}{T-\tau} \cdot\left(\sum_{t=1+\tau}^{T} y_{t}\right)^{2}\right)}}
+\]</span># Autokorrelogramm# Verlaufsmuster bei regelmäßigem Bedarf</p>
+<p>Autokorrelogramm für eine Zeitreihe mit saisonalem Verlauf# Verlaufsmuster bei regelmäBigem Bedarf</p>
+<p>Autokorrelogramm für eine Zeitreihe mit saisonalem Verlauf <img src="img-32.jpeg" class="img-fluid" alt="img-32.jpeg"># Verlaufsmuster bei regelmäBigem Bedarf</p>
+<p>Autokorrelogramm für eine Zeitreihe mit saisonalem Verlauf <span class="math inline">\(\rho(\tau)\)</span> <img src="img-33.jpeg" class="img-fluid" alt="img-33.jpeg"></p>
+<p>Die Autokorrelationsfunktion <span class="math inline">\(\rho(\tau)\)</span> schwankt um 0 , weicht aber in regelmäßigen Abständen systematisch davon ab.# Verlaufsmuster bei regelmäßigem Bedarf</p>
+<p>Autokorrelogramm für eine Zeitreihe mit trendförmigem Verlauf# Verlaufsmuster bei regelmäBigem Bedarf</p>
+<p>Autokorrelogramm für eine Zeitreihe mit trendförmigem Verlauf <img src="img-34.jpeg" class="img-fluid" alt="img-34.jpeg"># Verlaufsmuster bei regelmäBigem Bedarf</p>
+<p>Autokorrelogramm für eine Zeitreihe mit trendförmigem Verlauf <span class="math inline">\(\rho(\tau)\)</span> <img src="img-35.jpeg" class="img-fluid" alt="img-35.jpeg"></p>
+<p>Die Autokorrelationsfunktion <span class="math inline">\(\rho(\tau)\)</span> verläuft im positiven Bereich, wenngleich fallend, d.&nbsp;h. mit abnehmender Korrelation.# (Grob-)Zuordnung von</p>
+<p>Materialbereitstellungsprinzipien zum Bedarfsverlaufmuster# RSU- / XYZ-Analyse</p>
+<p>Univ.-Prof.&nbsp;Dr.&nbsp;Michael Manitz Material-Logistik: Bestandsmanagement 20-1Klassifikation der zu disponierenden Verbrauchsfaktoren (Materialarten) nach ihrem BedarfsverlaufKlassifikation der zu disponierenden Verbrauchsfaktoren (Materialarten) nach ihrem Bedarfsverlauf</p>
+<p>Klasseneinteilung:Klassifikation der zu disponierenden Verbrauchsfaktoren (Materialarten) nach ihrem Bedarfsverlauf</p>
+<p>Klasseneinteilung:</p>
+<ul>
+<li>Gruppe R:</li>
+</ul>
+<p>Güter mit gleichbleibendem Bedarf bei nur gelegentlichen Niveauveränderungen (regelmäßiger Bedarf auf hohem Niveau)Klassifikation der zu disponierenden Verbrauchsfaktoren (Materialarten) nach ihrem Bedarfsverlauf</p>
+<p>Klasseneinteilung:</p>
+<ul>
+<li>Gruppe R:</li>
+</ul>
+<p>Güter mit gleichbleibendem Bedarf bei nur gelegentlichen Niveauveränderungen (regelmäßiger Bedarf auf hohem Niveau)</p>
+<ul>
+<li>Gruppe S:</li>
+</ul>
+<p>Güter mit veränderlichem, insb. trendförmigem und/oder saisonalem BedarfKlassifikation der zu disponierenden Verbrauchsfaktoren (Materialarten) nach ihrem Bedarfsverlauf</p>
+<p>Klasseneinteilung:</p>
+<ul>
+<li>Gruppe R:</li>
+</ul>
+<p>Güter mit gleichbleibendem Bedarf bei nur gelegentlichen Niveauveränderungen (regelmäßiger Bedarf auf hohem Niveau)</p>
+<ul>
+<li>Gruppe S:</li>
+</ul>
+<p>Güter mit veränderlichem, insb. trendförmigem und/oder saisonalem Bedarf</p>
+<ul>
+<li>Gruppe U:</li>
+</ul>
+<p>Güter mit sehr unregelmäßigem, sporadischem Bedarf# Materialbereitstellungsprinzipien</p>
+<p>Univ.-Prof.&nbsp;Dr.&nbsp;Michael Manitz Material-Logistik: Bestandsmanagement 21-1# <span class="math inline">\(&gt;\)</span> einsatzsynchrone Beschaffung# <span class="math inline">\(&gt;\)</span> einsatzsynchrone Beschaffung <br> <span class="math inline">\(\Rightarrow\)</span> Just-in-time-Prinzip# Materialbereitstellungsprinzipien</p>
+<p><span class="math inline">\(&gt;\)</span> einsatzsynchrone Beschaffung <span class="math inline">\(\Longrightarrow\)</span> Just-in-time-Prinzip <span class="math inline">\(\triangleright\)</span> geringe Lagerkosten <span class="math inline">\(\triangleright\)</span> ggf. starke Schwankungen der Bestellmengen und des Kapazitätsbedarfs für die Produktion# Materialbereitstellungsprinzipien</p>
+<ul>
+<li><p>einsatzsynchrone Beschaffung <span class="math inline">\(\Longrightarrow\)</span> Just-in-time-Prinzip <span class="math inline">\(\triangleright\)</span> geringe Lagerkosten <span class="math inline">\(\triangleright\)</span> ggf. starke Schwankungen der Bestellmengen und des Kapazitätsbedarfs für die Produktion</p></li>
+<li><p>Vorratshaltung# Materialbereitstellungsprinzipien</p></li>
+<li><p>einsatzsynchrone Beschaffung <span class="math inline">\(\Longrightarrow\)</span> Just-in-time-Prinzip <span class="math inline">\(\triangleright\)</span> geringe Lagerkosten <span class="math inline">\(\triangleright\)</span> ggf. starke Schwankungen der Bestellmengen und des Kapazitätsbedarfs für die Produktion</p></li>
+<li><p>Vorratshaltung <span class="math inline">\(\triangleright\)</span> hohe Lagerkosten <span class="math inline">\(\triangleright\)</span> optimale Bestellmengen und gleichbleibende Kapazitätsauslastung erreichbar# Materialbereitstellungsprinzipien</p></li>
+<li><p>einsatzsynchrone Beschaffung <span class="math inline">\(\Longrightarrow\)</span> Just-in-time-Prinzip <span class="math inline">\(\triangleright\)</span> geringe Lagerkosten <span class="math inline">\(\triangleright\)</span> ggf. starke Schwankungen der Bestellmengen und des Kapazitätsbedarfs für die Produktion</p></li>
+<li><p>Vorratshaltung <span class="math inline">\(\triangleright\)</span> hohe Lagerkosten <span class="math inline">\(\triangleright\)</span> optimale Bestellmengen und gleichbleibende Kapazitätsauslastung erreichbar Einzelbeschaffung im Bedarfsfall# Materialbereitstellungsprinzipien</p></li>
+<li><p>einsatzsynchrone Beschaffung <span class="math inline">\(\Rightarrow\)</span> Just-in-time-Prinzip <span class="math inline">\(\triangleright\)</span> geringe Lagerkosten <span class="math inline">\(\triangleright\)</span> ggf. starke Schwankungen der Bestellmengen und des Kapazitätsbedarfs für die Produktion</p></li>
+<li><p>Vorratshaltung <span class="math inline">\(\triangleright\)</span> hohe Lagerkosten <span class="math inline">\(\triangleright\)</span> optimale Bestellmengen und gleichbleibende Kapazitätsauslastung erreichbar Einzelbeschaffung im Bedarfsfall <span class="math inline">\(\triangleright\)</span> geringe Lagerkosten <span class="math inline">\(\triangleright\)</span> u. U. lange Durchlaufzeiten# Materialbereitstellungsprinzipien</p></li>
+<li><p>einsatzsynchrone Beschaffung <span class="math inline">\(\Rightarrow\)</span> Just-in-time-Prinzip (R-Produkte) <span class="math inline">\(\triangleright\)</span> geringe Lagerkosten <span class="math inline">\(\triangleright\)</span> ggf. starke Schwankungen der Bestellmengen und des Kapazitätsbedarfs für die Produktion</p></li>
+<li><p>Vorratshaltung (S-Produkte) <span class="math inline">\(\triangleright\)</span> hohe Lagerkosten <span class="math inline">\(\triangleright\)</span> optimale Bestellmengen und gleichbleibende Kapazitätsauslastung erreichbar Einzelbeschaffung im Bedarfsfall (U-Produkte) <span class="math inline">\(\triangleright\)</span> geringe Lagerkosten <span class="math inline">\(\triangleright\)</span> u. U. lange Durchlaufzeiten# ABC/XYZ-Analyse</p></li>
+</ul>
+<p>Univ.-Prof.&nbsp;Dr.&nbsp;Michael Manitz</p>
+<p>Material-Logistik: Bestandsmanagement 22-1# <span class="math inline">\(A B C / X Y Z-A n a l y s e\)</span></p>
+<p>Differenzierte Zuordnung der Materialbereitstellungsprinzipien:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">B</th>
+<th style="text-align: center;">C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">R</td>
+<td style="text-align: center;">RA</td>
+<td style="text-align: center;">RB</td>
+<td style="text-align: center;">RC</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">S</td>
+<td style="text-align: center;">SA</td>
+<td style="text-align: center;">SB</td>
+<td style="text-align: center;">SC</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">U</td>
+<td style="text-align: center;">UA</td>
+<td style="text-align: center;">UB</td>
+<td style="text-align: center;">UC</td>
+</tr>
+</tbody>
+</table>
+<p>Differenzierte Zuordnung der Materialbereitstellungsprinzipien:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">B</th>
+<th style="text-align: center;">C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">R</td>
+<td style="text-align: center;">RA</td>
+<td style="text-align: center;">RB</td>
+<td style="text-align: center;">RC</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">S</td>
+<td style="text-align: center;">SA</td>
+<td style="text-align: center;">SB</td>
+<td style="text-align: center;">SC</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">U</td>
+<td style="text-align: center;">UA</td>
+<td style="text-align: center;">UB</td>
+<td style="text-align: center;">UC</td>
+</tr>
+</tbody>
+</table>
+<p>bzw.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">B</th>
+<th style="text-align: center;">C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">X</td>
+<td style="text-align: center;">XA</td>
+<td style="text-align: center;">XB</td>
+<td style="text-align: center;">XC</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Y</td>
+<td style="text-align: center;">YA</td>
+<td style="text-align: center;">YB</td>
+<td style="text-align: center;">YC</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Z</td>
+<td style="text-align: center;">ZA</td>
+<td style="text-align: center;">ZB</td>
+<td style="text-align: center;">ZC</td>
+</tr>
+</tbody>
+</table>
+<p>Differenzierte Zuordnung der Materialbereitstellungsprinzipien:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">B</th>
+<th style="text-align: center;">C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">R</td>
+<td style="text-align: center;">RA</td>
+<td style="text-align: center;">RB</td>
+<td style="text-align: center;">RC</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">S</td>
+<td style="text-align: center;">SA</td>
+<td style="text-align: center;">SB</td>
+<td style="text-align: center;">SC</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">U</td>
+<td style="text-align: center;">UA</td>
+<td style="text-align: center;">UB</td>
+<td style="text-align: center;">UC</td>
+</tr>
+</tbody>
+</table>
+<p>bzw.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">B</th>
+<th style="text-align: center;">C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">X</td>
+<td style="text-align: center;">XA</td>
+<td style="text-align: center;">XB</td>
+<td style="text-align: center;">XC</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Y</td>
+<td style="text-align: center;">YA</td>
+<td style="text-align: center;">YB</td>
+<td style="text-align: center;">YC</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Z</td>
+<td style="text-align: center;">ZA</td>
+<td style="text-align: center;">ZB</td>
+<td style="text-align: center;">ZC</td>
+</tr>
+</tbody>
+</table>
+<p>bzw.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">B</th>
+<th style="text-align: center;">C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">X</td>
+<td style="text-align: center;">AX</td>
+<td style="text-align: center;">BX</td>
+<td style="text-align: center;">CX</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Y</td>
+<td style="text-align: center;">AY</td>
+<td style="text-align: center;">BY</td>
+<td style="text-align: center;">CY</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Z</td>
+<td style="text-align: center;">AZ</td>
+<td style="text-align: center;">BZ</td>
+<td style="text-align: center;">CZ</td>
+</tr>
+</tbody>
+</table>
+<p>Univ.-Prof.&nbsp;Dr.&nbsp;Michael Manitz Material-Logistik: Bestandsmanagement 24-1# Materialbedarfsermittlung</p>
+</section>
+<section id="prinzipien-materialbedarfsermittlung" class="level2">
+<h2 class="anchored" data-anchor-id="prinzipien-materialbedarfsermittlung">Prinzipien:# Materialbedarfsermittlung</h2>
+</section>
+<section id="prinzipien" class="level2">
+<h2 class="anchored" data-anchor-id="prinzipien">Prinzipien:</h2>
+<p>programmorientiert <span class="math inline">\(&gt;\)</span> verbrauchsorientiert# Materialbedarfsermittlung</p>
+</section>
+<section id="prinzipien-1" class="level2">
+<h2 class="anchored" data-anchor-id="prinzipien-1">Prinzipien:</h2>
+<p>programmorientiert „,verbrauchsorientiert”# Materialbedarfsermittlung</p>
+<p>Prinzipien: programmorientiert „,verbrauchsorientiert” (vergangenheitsbedarfsorientiert)# Materialbedarfsermittlung</p>
+<p>Prinzipien: programmorientiert „,verbrauchsorientiert” (vergangenheitsbedarfsorientiert) <span class="math inline">\(\longrightarrow\)</span> Bedarfsprognose# Materialbedarfsermittlung</p>
+<p>Prinzipien: programmorientiert (Material Requirements Planning — MRP) „,verbrauchsorientiert” (vergangenheitsbedarfsorientiert) <span class="math inline">\(\longrightarrow\)</span> Bedarfsprognose# Materialbedarfsermittlung</p>
+<p>Prinzipien: programmorientiert (Material Requirements Planning — MRP) „,verbrauchsorientiert” (vergangenheitsbedarfsorientiert) <span class="math inline">\(\longrightarrow\)</span> Bedarfsprognose</p>
+<p>Bedarfsarten:# Materialbedarfsermittlung</p>
+<p>Prinzipien: programmorientiert (Material Requirements Planning — MRP) „,verbrauchsorientiert” (vergangenheitsbedarfsorientiert) <span class="math inline">\(\longrightarrow\)</span> Bedarfsprognose</p>
+<p>Bedarfsarten: Primärbedarf# Materialbedarfsermittlung</p>
+<p>Prinzipien: programmorientiert (Material Requirements Planning — MRP) „,verbrauchsorientiert” (vergangenheitsbedarfsorientiert) <span class="math inline">\(\longrightarrow\)</span> Bedarfsprognose</p>
+<p>Bedarfsarten: Primärbedarf Sekundärbedarf# Materialbedarfsermittlung</p>
+<p>Prinzipien: programmorientiert (Material Requirements Planning — MRP) „,verbrauchsorientiert” (vergangenheitsbedarfsorientiert) <span class="math inline">\(\longrightarrow\)</span> Bedarfsprognose</p>
+<p>Bedarfsarten: Primärbedarf Sekundärbedarf Tertiärbedarf# Materialbedarfsermittlung</p>
+<p>Prinzipien: programmorientiert (Material Requirements Planning — MRP) „,verbrauchsorientiert” (vergangenheitsbedarfsorientiert) <span class="math inline">\(\longrightarrow\)</span> Bedarfsprognose</p>
+<p>Bedarfsarten: Primärbedarf Sekundärbedarf Tertiärbedarf</p>
+<p>Ziel/Planungsaufgabe:# Materialbedarfsermittlung</p>
+<p>Prinzipien: programmorientiert (Material Requirements Planning — MRP) „,verbrauchsorientiert” (vergangenheitsbedarfsorientiert) <span class="math inline">\(\longrightarrow\)</span> Bedarfsprognose</p>
+<p>Bedarfsarten: Primärbedarf Sekundärbedarf Tertiärbedarf</p>
+<p>Ziel/Planungsaufgabe: Bestimmung des Materialbedarfs# Materialbedarfsermittlung</p>
+<p>Prinzipien: programmorientiert (Material Requirements Planning — MRP) „,verbrauchsorientiert” (vergangenheitsbedarfsorientiert) <span class="math inline">\(\longrightarrow\)</span> Bedarfsprognose</p>
+<p>Bedarfsarten: Primärbedarf Sekundärbedarf Tertiärbedarf</p>
+<p>Ziel/Planungsaufgabe: Bestimmung des Materialbedarfs <span class="math inline">\(r_{k t}\)</span># Materialbedarfsermittlung</p>
+<p>Prinzipien: programmorientiert (Material Requirements Planning — MRP) „,verbrauchsorientiert” (vergangenheitsbedarfsorientiert) <span class="math inline">\(\longrightarrow\)</span> Bedarfsprognose</p>
+<p>Bedarfsarten: Primärbedarf Sekundärbedarf Tertiärbedarf</p>
+<p>Ziel/Planungsaufgabe: (für alle Verbrauchsfaktoren <span class="math inline">\(k\)</span> und Perioden <span class="math inline">\(t\)</span> ) Bestimmung des Materialbedarfs <span class="math inline">\(r_{k t}\)</span># Materialbedarfsermittlung</p>
+<p>Prinzipien: programmorientiert (Material Requirements Planning — MRP) „,verbrauchsorientiert” (vergangenheitsbedarfsorientiert) <span class="math inline">\(\longrightarrow\)</span> Bedarfsprognose</p>
+<p>Bedarfsarten: Primärbedarf Sekundärbedarf Tertiärbedarf</p>
+<p>Ziel/Planungsaufgabe: (für alle Verbrauchsfaktoren <span class="math inline">\(k\)</span> und Perioden <span class="math inline">\(t\)</span> ) Bestimmung des Materialbedarfs <span class="math inline">\(r_{k t}\)</span> <span class="math inline">\(\triangleright\)</span> in der richtigen Menge: <span class="math inline">\(r_{\cdot \cdot}\)</span>.# Materialbedarfsermittlung</p>
+<p>Prinzipien: programmorientiert (Material Requirements Planning — MRP) „,verbrauchsorientiert” (vergangenheitsbedarfsorientiert) <span class="math inline">\(\longrightarrow\)</span> Bedarfsprognose</p>
+<p>Bedarfsarten: Primärbedarf Sekundärbedarf Tertiärbedarf</p>
+<p>Ziel/Planungsaufgabe: (für alle Verbrauchsfaktoren <span class="math inline">\(k\)</span> und Perioden <span class="math inline">\(t\)</span> ) Bestimmung des Materialbedarfs <span class="math inline">\(r_{k t}\)</span> <span class="math inline">\(\triangleright\)</span> in der richtigen Menge: <span class="math inline">\(r_{\cdot \cdot}\)</span>. <span class="math inline">\(\triangleright\)</span> zum richtigen Zeitpunkt: <span class="math inline">\(t\)</span># Materialbedarfsermittlung</p>
+<p>Prinzipien: programmorientiert (Material Requirements Planning — MRP) „,verbrauchsorientiert” (vergangenheitsbedarfsorientiert) <span class="math inline">\(\longrightarrow\)</span> Bedarfsprognose</p>
+<p>Bedarfsarten: Primärbedarf Sekundärbedarf Tertiärbedarf</p>
+<p>Ziel/Planungsaufgabe: (für alle Verbrauchsfaktoren <span class="math inline">\(k\)</span> und Perioden <span class="math inline">\(t\)</span> ) Bestimmung des Materialbedarfs <span class="math inline">\(r_{k t}\)</span> <span class="math inline">\(\triangleright\)</span> in der richtigen Menge: <span class="math inline">\(r_{\cdot \cdot}\)</span>. <span class="math inline">\(\triangleright\)</span> zum richtigen Zeitpunkt: <span class="math inline">\(t\)</span> <span class="math inline">\(\triangleright\)</span> am richtigen Ort: <span class="math inline">\(k\)</span><img src="img-36.jpeg" class="img-fluid" alt="img-36.jpeg"># Bedarfsprognose</p>
+<p>Univ.-Prof.&nbsp;Dr.&nbsp;Michael Manitz Material-Logistik: Bestandsmanagement 26-1# Bedarfsprognose</p>
+</section>
+<section id="s.-produktionswirtschaft-ii-operative-produktionsplanung-und--steuerung-programmorientierte-materialbedarfsermittlung-materialbedarfsrechnung-materialbedarfsrechnung" class="level2">
+<h2 class="anchored" data-anchor-id="s.-produktionswirtschaft-ii-operative-produktionsplanung-und--steuerung-programmorientierte-materialbedarfsermittlung-materialbedarfsrechnung-materialbedarfsrechnung">- s. Produktionswirtschaft II (Operative Produktionsplanung und -steuerung)# Programmorientierte Materialbedarfsermittlung (,,Materialbedarfsrechnung”)# Materialbedarfsrechnung</h2>
+<p>Univ.-Prof.&nbsp;Dr.&nbsp;Michael Manitz Material-Logistik: Bestandsmanagement 28-1Informationsquellen (Daten): (für alle Verbrauchsfaktoren <span class="math inline">\(k\)</span> )Informationsquellen (Daten): (für alle Verbrauchsfaktoren <span class="math inline">\(k\)</span> ) Hauptproduktionsprogramm bzw. PrimärbedarfsmengenInformationsquellen (Daten): (für alle Verbrauchsfaktoren <span class="math inline">\(k\)</span> ) Hauptproduktionsprogramm bzw. Primärbedarfsmengen Primärbedarfsmenge <span class="math inline">\(d_{k}\)</span> unmittelbar absatzbestimmter Bedarf eines Verbrauchsfaktors <span class="math inline">\(k\)</span>Informationsquellen (Daten): (für alle Verbrauchsfaktoren <span class="math inline">\(k\)</span> ) Hauptproduktionsprogramm bzw. Primärbedarfsmengen Primärbedarfsmenge <span class="math inline">\(d_{k}\)</span> unmittelbar absatzbestimmter Bedarf eines Verbrauchsfaktors <span class="math inline">\(k\)</span></p>
+</section>
+</section>
+<section id="direktbedarfskoeffizienteninformationsquellen-daten" class="level1">
+<h1>DirektbedarfskoeffizientenInformationsquellen (Daten):</h1>
+<p>(für alle Verbrauchsfaktoren <span class="math inline">\(k\)</span> ) Hauptproduktionsprogramm bzw. Primärbedarfsmengen Primärbedarfsmenge <span class="math inline">\(d_{k}\)</span> unmittelbar absatzbestimmter Bedarf eines Verbrauchsfaktors <span class="math inline">\(k\)</span></p>
+</section>
+<section id="direktbedarfskoeffizienten" class="level1">
+<h1>Direktbedarfskoeffizienten</h1>
+<p>Direktbedarfskoeffizient <span class="math inline">\(a_{k \mid j}\)</span> Anzahl Mengeneinheiten eines Verbrauchsfaktors <span class="math inline">\(k\)</span>, die für jede Mengeneinheit eines übergeordneten Erzeugnisses <span class="math inline">\(j\)</span> direkt benötigt wirdInformationsquellen (Daten): (für alle Verbrauchsfaktoren <span class="math inline">\(k\)</span> ) Hauptproduktionsprogramm bzw. Primärbedarfsmengen Primärbedarfsmenge <span class="math inline">\(d_{k}\)</span> unmittelbar absatzbestimmter Bedarf eines Verbrauchsfaktors <span class="math inline">\(k\)</span></p>
+</section>
+<section id="direktbedarfskoeffizienten-1" class="level1">
+<h1>Direktbedarfskoeffizienten</h1>
+<p>Direktbedarfskoeffizient <span class="math inline">\(a_{k \mid j}\)</span> Anzahl Mengeneinheiten eines Verbrauchsfaktors <span class="math inline">\(k\)</span>, die für jede Mengeneinheit eines übergeordneten Erzeugnisses <span class="math inline">\(j\)</span> direkt benötigt wird</p>
+<section id="vorlaufzeiteninformationsquellen-daten" class="level2">
+<h2 class="anchored" data-anchor-id="vorlaufzeiteninformationsquellen-daten">VorlaufzeitenInformationsquellen (Daten):</h2>
+<p>(für alle Verbrauchsfaktoren <span class="math inline">\(k\)</span> ) Hauptproduktionsprogramm bzw. Primärbedarfsmengen Primärbedarfsmenge <span class="math inline">\(d_{k}\)</span> unmittelbar absatzbestimmter Bedarf eines Verbrauchsfaktors <span class="math inline">\(k\)</span></p>
+</section>
+</section>
+<section id="direktbedarfskoeffizienten-2" class="level1">
+<h1>Direktbedarfskoeffizienten</h1>
+<p>Direktbedarfskoeffizient <span class="math inline">\(a_{k ; j}\)</span> Anzahl Mengeneinheiten eines Verbrauchsfaktors <span class="math inline">\(k\)</span>, die für jede Mengeneinheit eines übergeordneten Erzeugnisses <span class="math inline">\(j\)</span> direkt benötigt wird</p>
+<section id="vorlaufzeiten" class="level2">
+<h2 class="anchored" data-anchor-id="vorlaufzeiten">Vorlaufzeiten</h2>
+<p>Vorlaufzeit <span class="math inline">\(z_{k}\)</span> technisch bedingte, reine Produktionszeit bzw. unvermeidliche Transport- oder Lieferzeit für einen Verbrauchsfaktor <span class="math inline">\(k\)</span> (ohne Sicherheitsvorlaufzeiten oder geplante Warte- und Liegezeiten)Informationsquellen (Daten): (für alle Verbrauchsfaktoren <span class="math inline">\(k\)</span> ) Hauptproduktionsprogramm bzw. Primärbedarfsmengen Primärbedarfsmenge <span class="math inline">\(d_{k}\)</span> unmittelbar absatzbestimmter Bedarf eines Verbrauchsfaktors <span class="math inline">\(k\)</span></p>
+</section>
+</section>
+<section id="direktbedarfskoeffizienten-3" class="level1">
+<h1>Direktbedarfskoeffizienten</h1>
+<p>Direktbedarfskoeffizient <span class="math inline">\(a_{k \mid j}\)</span> Anzahl Mengeneinheiten eines Verbrauchsfaktors <span class="math inline">\(k\)</span>, die für jede Mengeneinheit eines übergeordneten Erzeugnisses <span class="math inline">\(j\)</span> direkt benötigt wird</p>
+<section id="vorlaufzeiten-1" class="level2">
+<h2 class="anchored" data-anchor-id="vorlaufzeiten-1">Vorlaufzeiten</h2>
+<p>Vorlaufzeit <span class="math inline">\(z_{k}\)</span> technisch bedingte, reine Produktionszeit bzw. unvermeidliche Transport- oder Lieferzeit für einen Verbrauchsfaktor <span class="math inline">\(k\)</span> (ohne Sicherheitsvorlaufzeiten oder geplante Warte- und Liegezeiten)</p>
+</section>
+<section id="fortgeschriebene-lagerbeständeinformationsquellen-daten" class="level2">
+<h2 class="anchored" data-anchor-id="fortgeschriebene-lagerbeständeinformationsquellen-daten">fortgeschriebene LagerbeständeInformationsquellen (Daten):</h2>
+<p>(für alle Verbrauchsfaktoren <span class="math inline">\(k\)</span> ) Hauptproduktionsprogramm bzw. Primärbedarfsmengen Primärbedarfsmenge <span class="math inline">\(d_{k}\)</span> unmittelbar absatzbestimmter Bedarf eines Verbrauchsfaktors <span class="math inline">\(k\)</span></p>
+</section>
+</section>
+<section id="direktbedarfskoeffizienten-4" class="level1">
+<h1>Direktbedarfskoeffizienten</h1>
+<p>Direktbedarfskoeffizient <span class="math inline">\(a_{k ; j}\)</span> Anzahl Mengeneinheiten eines Verbrauchsfaktors <span class="math inline">\(k\)</span>, die für jede Mengeneinheit eines übergeordneten Erzeugnisses <span class="math inline">\(j\)</span> direkt benötigt wird</p>
+<section id="vorlaufzeiten-2" class="level2">
+<h2 class="anchored" data-anchor-id="vorlaufzeiten-2">Vorlaufzeiten</h2>
+<p>Vorlaufzeit <span class="math inline">\(z_{k}\)</span> technisch bedingte, reine Produktionszeit bzw. unvermeidliche Transport- oder Lieferzeit für einen Verbrauchsfaktor <span class="math inline">\(k\)</span> (ohne Sicherheitsvorlaufzeiten oder geplante Warte- und Liegezeiten)</p>
+</section>
+<section id="fortgeschriebene-lagerbestände" class="level2">
+<h2 class="anchored" data-anchor-id="fortgeschriebene-lagerbestände">fortgeschriebene Lagerbestände</h2>
+<p>disponibler Lagerbestand <span class="math inline">\(y_{k t}\)</span> in Periode <span class="math inline">\(t\)</span> physisch vorhandener oder ausstehender, in Periode <span class="math inline">\(t\)</span> aber verfügbarer Bestand eines Verbrauchsfaktors <span class="math inline">\(k\)</span> (ohne Vormerk- oder Sicherheitsbestand)# Lineares Gleichungssystem zur Materialbedarfsrechnung</p>
+<p>Univ.-Prof.&nbsp;Dr.&nbsp;Michael Manitz Material-Logistik: Bestandsmanagement 29-1# Lineares Gleichungssystem zur Materialbedarfsrechnung</p>
+<p>Gesamtbedarf für ein Erzeugnis <span class="math inline">\(k\)</span></p>
+<p><span class="math display">\[
+r_{k}=d_{k}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j}
+\]</span># Lineares Gleichungssystem zur Materialbedarfsrechnung</p>
+<p>Gesamtbedarf für ein Erzeugnis <span class="math inline">\(k\)</span></p>
+<p><span class="math display">\[
+r_{k}=d_{k}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j}
+\]</span></p>
+</section>
+<section id="gesamtbedarfsvektor" class="level2">
+<h2 class="anchored" data-anchor-id="gesamtbedarfsvektor">Gesamtbedarfsvektor</h2>
+<p><span class="math display">\[
+\mathbf{r}=\mathbf{d}+\mathbf{A} \cdot \mathbf{r}
+\]</span># Lineares Gleichungssystem zur Materialbedarfsrechnung</p>
+<p>Gesamtbedarf für ein Erzeugnis <span class="math inline">\(k\)</span></p>
+<p><span class="math display">\[
+r_{k}=d_{k}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j}
+\]</span></p>
+</section>
+<section id="gesamtbedarfsvektor-1" class="level2">
+<h2 class="anchored" data-anchor-id="gesamtbedarfsvektor-1">Gesamtbedarfsvektor</h2>
+<p><span class="math display">\[
+\begin{aligned}
+&amp; \mathbf{r}=\mathbf{d}+\mathbf{A} \cdot \mathbf{r} \\
+&amp; \mathbf{r}-\mathbf{A} \cdot \mathbf{r}=\mathbf{d}
+\end{aligned}
+\]</span># Lineares Gleichungssystem zur Materialbedarfsrechnung</p>
+<p>Gesamtbedarf für ein Erzeugnis <span class="math inline">\(k\)</span></p>
+<p><span class="math display">\[
+r_{k}=d_{k}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j}
+\]</span></p>
+</section>
+<section id="gesamtbedarfsvektor-2" class="level2">
+<h2 class="anchored" data-anchor-id="gesamtbedarfsvektor-2">Gesamtbedarfsvektor</h2>
+<p><span class="math display">\[
+\mathbf{r}=\mathbf{d}+\mathbf{A} \cdot \mathbf{r}
+\]</span></p>
+<p><span class="math inline">\(\mathbf{E} \cdot \mathbf{r}-\mathbf{A} \cdot \mathbf{r}=\mathbf{d}\)</span># Lineares Gleichungssystem zur Materialbedarfsrechnung</p>
+<p>Gesamtbedarf für ein Erzeugnis <span class="math inline">\(k\)</span></p>
+<p><span class="math display">\[
+r_{k}=d_{k}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j}
+\]</span></p>
+</section>
+<section id="gesamtbedarfsvektor-3" class="level2">
+<h2 class="anchored" data-anchor-id="gesamtbedarfsvektor-3">Gesamtbedarfsvektor</h2>
+<p><span class="math display">\[
+\mathbf{r}=\mathbf{d}+\mathbf{A} \cdot \mathbf{r}
+\]</span></p>
+<p><span class="math inline">\(\mathbf{E} \cdot \mathbf{r}-\mathbf{A} \cdot \mathbf{r}=\mathbf{d}\)</span> <span class="math inline">\((\mathbf{E}-\mathbf{A}) \cdot \mathbf{r}=\mathbf{d}\)</span># Lineares Gleichungssystem zur Materialbedarfsrechnung</p>
+<p>Gesamtbedarf für ein Erzeugnis <span class="math inline">\(k\)</span></p>
+<p><span class="math display">\[
+r_{k}=d_{k}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j}
+\]</span></p>
+</section>
+<section id="gesamtbedarfsvektor-4" class="level2">
+<h2 class="anchored" data-anchor-id="gesamtbedarfsvektor-4">Gesamtbedarfsvektor</h2>
+<p><span class="math display">\[
+\mathbf{r}=\mathbf{d}+\mathbf{A} \cdot \mathbf{r}
+\]</span></p>
+<p><span class="math inline">\(\mathbf{E} \cdot \mathbf{r}-\mathbf{A} \cdot \mathbf{r}=\mathbf{d}\)</span> <span class="math inline">\((\mathbf{E}-\mathbf{A}) \cdot \mathbf{r}=\mathbf{d}\)</span> (Produktionsfunktion)# Lineares Gleichungssystem zur Materialbedarfsrechnung</p>
+<p>Gesamtbedarf für ein Erzeugnis <span class="math inline">\(k\)</span></p>
+<p><span class="math display">\[
+r_{k}=d_{k}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j}
+\]</span></p>
+</section>
+<section id="gesamtbedarfsvektor-5" class="level2">
+<h2 class="anchored" data-anchor-id="gesamtbedarfsvektor-5">Gesamtbedarfsvektor</h2>
+<p><span class="math display">\[
+\mathbf{r}=\mathrm{d}+\mathrm{A} \cdot \mathbf{r}
+\]</span></p>
+<p><span class="math inline">\(\mathbf{E} \cdot \mathbf{r}-\mathbf{A} \cdot \mathbf{r}=\mathrm{d}\)</span> <span class="math inline">\((\mathbf{E}-\mathbf{A}) \cdot \mathbf{r}=\mathrm{d}\)</span> (Produktionsfunktion) <span class="math inline">\(\Longrightarrow\)</span> Technologiematrix <span class="math inline">\(\mathbf{E}-\mathbf{A}\)</span># Lineares Gleichungssystem zur Materialbedarfsrechnung</p>
+<p>Gesamtbedarf für ein Erzeugnis <span class="math inline">\(k\)</span></p>
+<p><span class="math display">\[
+r_{k}=d_{k}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j}
+\]</span></p>
+</section>
+<section id="gesamtbedarfsvektor-6" class="level2">
+<h2 class="anchored" data-anchor-id="gesamtbedarfsvektor-6">Gesamtbedarfsvektor</h2>
+<p><span class="math display">\[
+\mathbf{r}=\mathbf{d}+\mathbf{A} \cdot \mathbf{r}
+\]</span></p>
+<p><span class="math inline">\(\mathbf{E} \cdot \mathbf{r}-\mathbf{A} \cdot \mathbf{r}=\mathbf{d}\)</span> <span class="math inline">\((\mathbf{E}-\mathbf{A}) \cdot \mathbf{r}=\mathbf{d}\)</span> (Produktionsfunktion) <span class="math inline">\(\Longrightarrow\)</span> Technologiematrix <span class="math inline">\(\mathbf{E}-\mathbf{A}\)</span></p>
+<p><span class="math display">\[
+\mathbf{r}=(\mathbf{E}-\mathbf{A})^{-1} \cdot \mathbf{d}
+\]</span>Gesamtbedarf für ein Erzeugnis <span class="math inline">\(k\)</span></p>
+<p><span class="math display">\[
+r_{k}=d_{k}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j}
+\]</span></p>
+</section>
+</section>
+<section id="gesamtbedarfsvektor-7" class="level1">
+<h1>Gesamtbedarfsvektor</h1>
+<p><span class="math display">\[
+\mathbf{r}=\mathbf{d}+\mathbf{A} \cdot \mathbf{r}
+\]</span></p>
+<p><span class="math inline">\(\mathbf{E} \cdot \mathbf{r}-\mathbf{A} \cdot \mathbf{r}=\mathbf{d}\)</span> <span class="math inline">\((\mathbf{E}-\mathbf{A}) \cdot \mathbf{r}=\mathbf{d}\)</span> (Produktionsfunktion) <span class="math inline">\(\Longrightarrow\)</span> Technologiematrix <span class="math inline">\(\mathbf{E}-\mathbf{A}\)</span> <span class="math inline">\(\mathbf{r}=(\mathbf{E}-\mathbf{A})^{-1} \cdot \mathbf{d}\)</span> <span class="math inline">\(\Longrightarrow\)</span> Verflechtungsbedarfsmatrix <span class="math inline">\((\mathbf{E}-\mathbf{A})^{-1}\)</span># Lineares Gleichungssystem zur Materialbedarfsrechnung</p>
+<section id="beispiel-materialbedarfsermittlung" class="level2">
+<h2 class="anchored" data-anchor-id="beispiel-materialbedarfsermittlung">Beispiel Materialbedarfsermittlung</h2>
+<p><img src="img-37.jpeg" class="img-fluid" alt="img-37.jpeg"> (vgl. Tempelmeier (2008))# Beispiel Materialbedarfsermittlung</p>
+<p><img src="img-38.jpeg" class="img-fluid" alt="img-38.jpeg"> (vgl. Tempelmeier (2008))# Beispiel Materialbedarfsermittlung</p>
+<p><img src="img-39.jpeg" class="img-fluid" alt="img-39.jpeg"> (vgl. Tempelmeier (2008))</p>
+<p><span class="math display">\[
+r_{k}=d_{k}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j}
+\]</span># Beispiel Materialbedarfsermittlung</p>
+<p><img src="img-40.jpeg" class="img-fluid" alt="img-40.jpeg"> (vgl. Tempelmeier (2008)) <span class="math inline">\(r_{\mathrm{E} 1}=0 \cdot r_{\mathrm{E} 1}+0 \cdot r_{\mathrm{E} 2}+0 \cdot r_{\mathrm{E} 3}+6 \cdot r_{\mathrm{B} 1}+0 \cdot r_{\mathrm{B} 2}+0 \cdot r_{\mathrm{P} 1}+0 \cdot r_{\mathrm{P} 2}+0\)</span> <span class="math inline">\(r_{\mathrm{E} 2}=0 \cdot r_{\mathrm{E} 1}+0 \cdot r_{\mathrm{E} 2}+0 \cdot r_{\mathrm{E} 3}+3 \cdot r_{\mathrm{B} 1}+5 \cdot r_{\mathrm{B} 2}+0 \cdot r_{\mathrm{P} 1}+0 \cdot r_{\mathrm{P} 2}+0\)</span> <span class="math inline">\(r_{\mathrm{E} 3}=0 \cdot r_{\mathrm{E} 1}+0 \cdot r_{\mathrm{E} 2}+0 \cdot r_{\mathrm{E} 3}+0 \cdot r_{\mathrm{B} 1}+1 \cdot r_{\mathrm{B} 2}+0 \cdot r_{\mathrm{P} 1}+4 \cdot r_{\mathrm{P} 2}+0\)</span> <span class="math inline">\(r_{\mathrm{B} 1}=0 \cdot r_{\mathrm{E} 1}+0 \cdot r_{\mathrm{E} 2}+0 \cdot r_{\mathrm{E} 3}+0 \cdot r_{\mathrm{B} 1}+0 \cdot r_{\mathrm{B} 2}+2 \cdot r_{\mathrm{P} 1}+3 \cdot r_{\mathrm{P} 2}+20\)</span> <span class="math inline">\(r_{\mathrm{B} 2}=0 \cdot r_{\mathrm{E} 1}+0 \cdot r_{\mathrm{E} 2}+0 \cdot r_{\mathrm{E} 3}+2 \cdot r_{\mathrm{B} 1}+0 \cdot r_{\mathrm{B} 2}+0 \cdot r_{\mathrm{P} 1}+1 \cdot r_{\mathrm{P} 2}+40\)</span> <span class="math inline">\(r_{\mathrm{P} 1}=0 \cdot r_{\mathrm{E} 1}+0 \cdot r_{\mathrm{E} 2}+0 \cdot r_{\mathrm{E} 3}+0 \cdot r_{\mathrm{B} 1}+0 \cdot r_{\mathrm{B} 2}+0 \cdot r_{\mathrm{P} 1}+0 \cdot r_{\mathrm{P} 2}+100\)</span> <span class="math inline">\(r_{\mathrm{P} 2}=0 \cdot r_{\mathrm{E} 1}+0 \cdot r_{\mathrm{E} 2}+0 \cdot r_{\mathrm{E} 3}+0 \cdot r_{\mathrm{B} 1}+0 \cdot r_{\mathrm{B} 2}+0 \cdot r_{\mathrm{P} 1}+0 \cdot r_{\mathrm{P} 2}+80\)</span># Beispiel Materialbedarfsermittlung</p>
+<p><img src="img-41.jpeg" class="img-fluid" alt="img-41.jpeg"> (vgl. Tempelmeier (2008)) <span class="math inline">\(\mathrm{r}=\mathrm{d}+\mathrm{A} \cdot \mathrm{r}\)</span># Beispiel Materialbedarfsermittlung</p>
+<p><img src="img-42.jpeg" class="img-fluid" alt="img-42.jpeg"> (vgl. Tempelmeier (2008)) Primärbedarfsvektor <span class="math inline">\(=\mathrm{d}=\left(\begin{array}{ccc}0 &amp; \mathrm{E} 1 \\ 0 &amp; \mathrm{E} 2 \\ 0 &amp; \mathrm{E} 3 \\ 20 &amp; \mathrm{~B} 1 \\ 40 &amp; \mathrm{~B} 2 \\ 100 &amp; \mathrm{P} 1 \\ 80 &amp; \mathrm{P} 2\end{array}\right.\)</span># Beispiel Materialbedarfsermittlung</p>
+<p><img src="img-43.jpeg" class="img-fluid" alt="img-43.jpeg"> (vgl. Tempelmeier (2008)) Direktbedarfsmatrix <span class="math inline">\(=\mathbf{A}=\left(\begin{array}{llllllll}0 &amp; 0 &amp; 0 &amp; 6 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 3 &amp; 5 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 4 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 2 &amp; 3 \\ 0 &amp; 0 &amp; 0 &amp; 2 &amp; 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0\end{array}\right) \quad\)</span> E1 E2 E3 B1 B2 P1 P2# Beispiel Materialbedarfsermittlung</p>
+<p><img src="img-44.jpeg" class="img-fluid" alt="img-44.jpeg"> (vgl. Tempelmeier (2008)) Technologiematrix <span class="math inline">\(=\mathbf{E}-\mathbf{A}=\left(\begin{array}{cccccccc}1 &amp; 0 &amp; 0 &amp; -6 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; -3 &amp; -5 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 &amp; -1 &amp; 0 &amp; -4 \\ 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; -2 &amp; -3 \\ 0 &amp; 0 &amp; 0 &amp; -2 &amp; 1 &amp; 0 &amp; -1 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1\end{array}\right)\)</span> E1 E2 E3 B1 B2 P1 P2# Beispiel Materialbedarfsermittlung</p>
+<p><img src="img-45.jpeg" class="img-fluid" alt="img-45.jpeg"> (vgl. Tempelmeier (2008)) Verflechtungsbedarfsmatrix <span class="math inline">\(=(\mathbf{E}-\mathbf{A})^{-1}=\left(\begin{array}{llllll}1 &amp; 0 &amp; 0 &amp; 6 &amp; 0 &amp; 12 &amp; 18 \\ 0 &amp; 1 &amp; 0 &amp; 13 &amp; 5 &amp; 26 &amp; 44 \\ 0 &amp; 0 &amp; 1 &amp; 2 &amp; 1 &amp; 4 &amp; 11 \\ 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 2 &amp; 3 \\ 0 &amp; 0 &amp; 0 &amp; 2 &amp; 1 &amp; 4 &amp; 7 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1\end{array}\right)\)</span> E1 E2 E3 B1 B2 P1 P2# Beispiel Materialbedarfsermittlung</p>
+<p><img src="img-46.jpeg" class="img-fluid" alt="img-46.jpeg"> (vgl. Tempelmeier (2008))</p>
+<p>Verflechtungsbedarfskoeffizient von E2 in bezug auf P2# Beispiel Materialbedarfsermittlung</p>
+<p><img src="img-47.jpeg" class="img-fluid" alt="img-47.jpeg"> (vgl. Tempelmeier (2008))</p>
+<p>Verflechtungsbedarfskoeffizient von E2 in bezug auf P2 <span class="math inline">\(v_{\mathrm{E} 2, \mathrm{P} 2}=a_{\mathrm{E} 2, \mathrm{~B} 1} \cdot a_{\mathrm{B} 1, \mathrm{P} 2}\)</span></p>
+<p><span class="math display">\[
+=3 \cdot 3
+\]</span># Beispiel Materialbedarfsermittlung</p>
+<p><img src="img-48.jpeg" class="img-fluid" alt="img-48.jpeg"> (vgl. Tempelmeier (2008))</p>
+<p>Verflechtungsbedarfskoeffizient von E2 in bezug auf P2 <span class="math inline">\(v_{\mathrm{E} 2, \mathrm{P} 2}=a_{\mathrm{E} 2, \mathrm{~B} 1} \cdot a_{\mathrm{B} 1, \mathrm{P} 2}+a_{\mathrm{E} 2, \mathrm{~B} 2} \cdot a_{\mathrm{B} 2, \mathrm{~B} 1} \cdot a_{\mathrm{B} 1, \mathrm{P} 2}\)</span></p>
+<p><span class="math display">\[
+=3 \cdot 3+5 \cdot 2 \cdot 3
+\]</span># Beispiel Materialbedarfsermittlung</p>
+<p><img src="img-49.jpeg" class="img-fluid" alt="img-49.jpeg"> (vgl. Tempelmeier (2008))</p>
+<p>Verflechtungsbedarfskoeffizient von E2 in bezug auf P2 <span class="math inline">\(v_{\mathrm{E} 2, \mathrm{P} 2}=a_{\mathrm{E} 2, \mathrm{~B} 1} \cdot a_{\mathrm{B} 1, \mathrm{P} 2}+a_{\mathrm{E} 2, \mathrm{~B} 2} \cdot a_{\mathrm{B} 2, \mathrm{~B} 1} \cdot a_{\mathrm{B} 1, \mathrm{P} 2}+a_{\mathrm{E} 2, \mathrm{~B} 2} \cdot a_{\mathrm{B} 2, \mathrm{P} 2}\)</span></p>
+<p><span class="math display">\[
+=3 \cdot 3+5 \cdot 2 \cdot 3+5 \cdot 1
+\]</span># Beispiel Materialbedarfsermittlung</p>
+<p><img src="img-50.jpeg" class="img-fluid" alt="img-50.jpeg"> (vgl. Tempelmeier (2008))</p>
+<p>Verflechtungsbedarfskoeffizient von E2 in bezug auf P2 <span class="math inline">\(v_{\mathrm{E} 2, \mathrm{P} 2}=a_{\mathrm{E} 2, \mathrm{~B} 1} \cdot a_{\mathrm{B} 1, \mathrm{P} 2}+a_{\mathrm{E} 2, \mathrm{~B} 2} \cdot a_{\mathrm{B} 2, \mathrm{~B} 1} \cdot a_{\mathrm{B} 1, \mathrm{P} 2}+a_{\mathrm{E} 2, \mathrm{~B} 2} \cdot a_{\mathrm{B} 2, \mathrm{P} 2}\)</span></p>
+<p><span class="math display">\[
+=3 \cdot 3+5 \cdot 2 \cdot 3+5 \cdot 1=44
+\]</span># Beispiel Materialbedarfsermittlung</p>
+<p><img src="img-51.jpeg" class="img-fluid" alt="img-51.jpeg"> (vgl. Tempelmeier (2008)) Menge der Wege/Pfade von einem Erzeugnis <span class="math inline">\(i\)</span> nach <span class="math inline">\(j\)</span> : <span class="math inline">\(\mathcal{P}_{i j}=\left\{\ldots, p_{i j}, \ldots\right\}\)</span> mit <span class="math inline">\(p_{i j}=\left\{i=i_{1}, i_{2}, \ldots, i_{s}=j\right\}\)</span> Verflechtungsbedarfskoeffizient von E2 in bezug auf P2 <span class="math inline">\(v_{\mathrm{E} 2, \mathrm{P} 2}=a_{\mathrm{E} 2, \mathrm{~B} 1} \cdot a_{\mathrm{B} 1, \mathrm{P} 2}+a_{\mathrm{E} 2, \mathrm{~B} 2} \cdot a_{\mathrm{B} 2, \mathrm{~B} 1} \cdot a_{\mathrm{B} 1, \mathrm{P} 2}+a_{\mathrm{E} 2, \mathrm{~B} 2} \cdot a_{\mathrm{B} 2, \mathrm{P} 2}\)</span></p>
+<p><span class="math display">\[
+=3 \cdot 3+5 \cdot 2 \cdot 3+5 \cdot 1=44
+\]</span># Beispiel Materialbedarfsermittlung</p>
+<p><img src="img-52.jpeg" class="img-fluid" alt="img-52.jpeg"> (vgl. Tempelmeier (2008)) Menge der Wege/Pfade von einem Erzeugnis <span class="math inline">\(i\)</span> nach <span class="math inline">\(j\)</span> : <span class="math inline">\(\mathcal{P}_{i j}=\left\{\ldots, p_{i j}, \ldots\right\}\)</span> mit <span class="math inline">\(p_{i j}=\left\{i=i_{1}, i_{2}, \ldots, i_{s}=j\right\}\)</span></p>
+</section>
+<section id="verflechtungsbedarfskoeffizient" class="level2">
+<h2 class="anchored" data-anchor-id="verflechtungsbedarfskoeffizient">Verflechtungsbedarfskoeffizient</h2>
+<p><span class="math inline">\(v_{i j}=\sum_{p_{i j} \in \mathcal{P}_{i j}} \prod_{m=1}^{s-1} a_{i_{m}, i_{m+1}}\)</span># Beispiel Materialbedarfsermittlung</p>
+<p><img src="img-53.jpeg" class="img-fluid" alt="img-53.jpeg"> (vgl. Tempelmeier (2008))# Beispiel Materialbedarfsermittlung</p>
+<p><img src="img-54.jpeg" class="img-fluid" alt="img-54.jpeg"> (vgl. Tempelmeier (2008))</p>
+</section>
+<section id="gesamtbedarfsvektor-8" class="level2">
+<h2 class="anchored" data-anchor-id="gesamtbedarfsvektor-8">Gesamtbedarfsvektor</h2>
+<p><span class="math inline">\(\mathbf{r}=(\mathbf{E}-\mathbf{A})^{-1} \cdot \mathbf{d}=\left(\begin{array}{lllllll}1 &amp; 0 &amp; 0 &amp; 6 &amp; 0 &amp; 12 &amp; 18 \\ 0 &amp; 1 &amp; 0 &amp; 13 &amp; 5 &amp; 26 &amp; 44 \\ 0 &amp; 0 &amp; 1 &amp; 2 &amp; 1 &amp; 4 &amp; 11 \\ 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 2 &amp; 3 \\ 0 &amp; 0 &amp; 0 &amp; 2 &amp; 1 &amp; 4 &amp; 7 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1\end{array}\right) \cdot\left(\begin{array}{c}0 \\ 0 \\ 0 \\ 20 \\ 40 \\ 100 \\ 80\end{array}\right)=\left(\begin{array}{c}2760 \\ 6580 \\ 1360 \\ 460 \\ 1040 \\ 100 \\ 80\end{array}\right) \quad E 1\)</span> E2 E3 B1 B2 P1 P2# Materialbedarfsrechnung</p>
+<p>Univ.-Prof.&nbsp;Dr.&nbsp;Michael Manitz Material-Logistik: Bestandsmanagement 30-1# Materialbedarfsrechnung</p>
+<p>Gesamtbedarf für ein Erzeugnis <span class="math inline">\(k\)</span></p>
+<p><span class="math display">\[
+r_{k}=d_{k}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j}
+\]</span></p>
+<p>Univ.-Prof.&nbsp;Dr.&nbsp;Michael Manitz Material-Logistik: Bestandsmanagement 30-2# Materialbedarfsrechnung</p>
+<p>Bruttobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+r_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j t}
+\]</span></p>
+<p>Univ.-Prof.&nbsp;Dr.&nbsp;Michael Manitz Material-Logistik: Bestandsmanagement# Materialbedarfsrechnung</p>
+<p>Bruttobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+r_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j t}
+\]</span></p>
+<p>Nettobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+q_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j t}
+\]</span># Materialbedarfsrechnung</p>
+<p>Bruttobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+r_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j t}
+\]</span></p>
+<p>Nettobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+q_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j t}-y_{k, t-1}
+\]</span># Materialbedarfsrechnung</p>
+<p>Bruttobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+r_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j t}
+\]</span></p>
+<p>Nettobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+q_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot \mathbb{E}_{j t}-y_{k, t-1}
+\]</span># Materialbedarfsrechnung</p>
+<p>Bruttobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+r_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j t}
+\]</span></p>
+<p>Nettobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+q_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot \underline{q}_{j t}-y_{k, t-1}
+\]</span># Materialbedarfsrechnung</p>
+<p>Bruttobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+r_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j t}
+\]</span></p>
+<p>Nettobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+q_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot \underline{q}_{j t}-y_{k, t-1}
+\]</span># Materialbedarfsrechnung</p>
+<p>Bruttobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+r_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j t}
+\]</span></p>
+<p>Nettobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+q_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot \underline{q}_{j t}-y_{k, t-1}
+\]</span></p>
+<p><span class="math inline">\(\mathbf{r}=f(\)</span> Erzeugnisstruktur <span class="math inline">\()\)</span># Materialbedarfsrechnung</p>
+<p>Bruttobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+r_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j t}
+\]</span></p>
+<p>Nettobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+q_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot \underline{q}_{j t}-y_{k, t-1}
+\]</span></p>
+<p><span class="math inline">\(\mathbf{r}=f(\)</span> Erzeugnisstruktur <span class="math inline">\()\)</span> <span class="math inline">\(\mathbf{q}=f(\)</span> Erzeugnisstruktur <span class="math inline">\()\)</span># Materialbedarfsrechnung</p>
+<p>Bruttobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+r_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j t}
+\]</span></p>
+<p>Nettobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+q_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot \underline{q}_{j t}-y_{k, t-1}
+\]</span></p>
+<p><span class="math inline">\(\mathbf{r}=f(\)</span> Erzeugnisstruktur) <span class="math inline">\(\mathbf{q}=f\)</span> (Erzeugnisstruktur, Lagerbestände)# Materialbedarfsrechnung</p>
+<p>Bruttobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+r_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j t}
+\]</span></p>
+<p>Nettobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+q_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot \underline{q}_{j t}-y_{k, t-1}
+\]</span></p>
+<p><span class="math inline">\(\mathbf{r}=f(\)</span> Erzeugnisstruktur) <span class="math inline">\(\mathbf{q}=f\)</span> (Erzeugnisstruktur, Kosten, Kapazitäten)# Materialbedarfsrechnung</p>
+<p>Bruttobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+r_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j t}
+\]</span></p>
+<p>Nettobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+q_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot \underline{q}_{j t}-y_{k, t-1}+y_{k t}
+\]</span></p>
+<p><span class="math inline">\(\mathbf{r}=f(\)</span> Erzeugnisstruktur <span class="math inline">\()\)</span> <span class="math inline">\(\mathbf{q}=f\)</span> (Erzeugnisstruktur, Kosten, Kapazitäten)# Materialbedarfsrechnung</p>
+<p>Bruttobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+r_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j t}
+\]</span></p>
+<p>Nettobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+q_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot \underline{q}_{j t}-y_{k, t-1}+y_{k t}
+\]</span></p>
+<p><span class="math inline">\(\mathbf{r}=f(\)</span> Erzeugnisstruktur) <span class="math inline">\(\mathbf{q}=f\)</span> (Erzeugnisstruktur, Kosten, Kapazitäten) Als das eigentliche, übergeordnete Entscheidungsproblem erweist sich die optimale Bestimmung von</p>
+<p><span class="math display">\[
+\mathbf{y}=f(\text { Kosten, Kapazitäten })
+\]</span># Materialbedarfsrechnung</p>
+<p>Bruttobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+r_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j t}
+\]</span></p>
+<p>Nettobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+q_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot \underline{q}_{j t}-y_{k, t-1}+y_{k t}
+\]</span></p>
+<p><span class="math inline">\(\mathbf{r}=f(\)</span> Erzeugnisstruktur) <span class="math inline">\(\mathbf{q}=f\)</span> (Erzeugnisstruktur, Kosten, Kapazitäten) Als das eigentliche, übergeordnete Entscheidungsproblem erweist sich die optimale Bestimmung von <span class="math inline">\(\mathbf{y}=f(\)</span> Kosten, Kapazitäten) u. B. d.&nbsp;Lagerbilanzgleichungen</p>
+<p><span class="math display">\[
+y_{k t}=y_{k, t-1}+q_{k t}-d_{k t}-\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot q_{j t}
+\]</span>Bruttobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+r_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot r_{j t}
+\]</span></p>
+<p>Nettobedarf für ein Erzeugnis <span class="math inline">\(k\)</span> zum Zeitpunkt <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+q_{k t}=d_{k t}+\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot \underline{q}_{j t}-y_{k, t-1}+y_{k t}
+\]</span></p>
+<p><span class="math inline">\(\mathbf{r}=f(\)</span> Erzeugnisstruktur) <span class="math inline">\(\mathbf{q}=f\)</span> (Erzeugnisstruktur, Kosten, Kapazitäten) Als das eigentliche, übergeordnete Entscheidungsproblem erweist sich die optimale Bestimmung von <span class="math inline">\(\mathbf{y}=f(\)</span> Kosten, Kapazitäten <span class="math inline">\()\)</span> u. B. d.&nbsp;Lagerbilanzgleichungen</p>
+<p><span class="math display">\[
+y_{k t}=y_{k, t-1}+q_{k t}-d_{k t}-\sum_{j \in \mathcal{N}_{k}} a_{k j} \cdot q_{j t}
+\]</span></p>
+<p>Das System der Lagerbilanzgleichungen liefert als Nebenbedingung(en) für o. a. Optimierungsproblem eine eindeutige Lösung für die mit den optimalen Lagerbeständen verbundenen Nettobedarfsmengen, d.&nbsp;h. Beschaffungs- bzw. Produktionsmengen (Losgrößen <span class="math inline">\(q_{k t}\)</span> ).</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,19 @@
+---
+title: Seite leider nicht gefunden
+
+html:
+    theme: [default, styles.scss]
+    highlight-style: breezedark
+    linkcolor: "#a60000"
+---
+
+# Seite leider nicht gefunden
+
+Die angefragte Seite konnte leider nicht gefunden werden.
+
+:::{.callout-tip}
+Suchen Sie gerne in der Navigation nach der gewünschten Seite.
+:::
+
+
+
