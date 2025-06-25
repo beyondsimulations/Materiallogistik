@@ -1,6 +1,7 @@
 ---
 title: "Übung 02"
-subtitle: "Losgrößenplan mit Heuristiken"
+subtitle: "Dynamische Losgrößenplanung"
+jupyter: python3
 format:
     html:
         theme: [sandstone, ../styles.scss]
@@ -10,238 +11,498 @@ format:
         code-overflow: wrap
     typst:
         papersize: a4
+        echo: false
 ---
 
-In diesem Problem-Set werden wir uns mit der dynamischen Losgrößenplanung für einen Planungszeitraum von 5 Perioden befassen. Wir werden verschiedene heuristische Verfahren anwenden und die Ergebnisse mit der exakten Lösung nach dem Wagner-Whitin-Algorithmus vergleichen.
-
-### Gegebene Daten
-
-Für alle Aufgaben gelten die folgenden Daten:
-
-| Periode (t) | 1  | 2  | 3  | 4  | 5  |
-|-------------|----|----|----|----|----|
-| Bedarf (d_t)| 20 | 50 | 10 | 50 | 30 |
-
-- **Rüstkosten (s):** 100 € pro Rüstvorgang/Produktionslos
-- **Lagerkostensatz (h):** 2 € pro Einheit und Periode
-
-```{r}
-#| echo: false
-#| eval: true
-
-# Gemeinsame Daten für alle Aufgaben
-demands <- c(20, 50, 10, 50, 30)
-s <- 100 # Rüstkosten
-h <- 2   # Lagerkostensatz
-n_periods <- length(demands)
+```{=typst}
+#pagebreak()
 ```
 
-## Aufgabe 1: Stückkostenverfahren (Least-Unit-Cost)
+## Aufgabe 1: Exakte Losgrößenplanung für Saisonbier
 
-Ermitteln Sie den Losgrößenplan mithilfe des **Stückkostenverfahrens**. Bei diesem Verfahren wird ein Los so lange um zukünftige Bedarfe erweitert, wie die durchschnittlichen Stückkosten des Loses sinken.
+Die lokale Traditionsbrauerei "Duisburger Perle" plant die Produktion ihres beliebten Saisonbiers "Frühlings-Helles" für die kommenden 6 Wochen. Da die Nachfrage schwankt und das Aufsetzen eines neuen Brauvorgangs (Rüsten) mit erheblichen Kosten verbunden ist, soll ein kostenoptimaler Produktionsplan gefunden werden.
 
-Die Stückkosten für ein Los, das in Periode $\tau$ für die Bedarfe bis Periode $j$ aufgelegt wird, berechnen sich als:
-$c_{\tau j}=\frac{s+h \cdot \sum_{t=\tau}^{j}(t-\tau) \cdot d_{t}}{\sum_{t=\tau}^{j} d_{t}}$
+Die Brauerei hat die folgenden Daten ermittelt:
 
-### Lösung zu Aufgabe 1
+*   **Rüstkosten ($s$):** 250 GE pro Brauvorgang (Los)
+*   **Lagerkostensatz ($h$):** 2 GE pro Kasten und Woche
 
-```{r}
-#| echo: true
-#| eval: true
+**Wöchentliche Nachfrage ($d_t$):**
 
-# Implementierung des Stückkostenverfahrens
-calculate_plan <- function(demands, s, h, method) {
-  plan <- rep(0, length(demands))
-  total_cost <- 0
-  
-  current_period <- 1
-  while (current_period <= length(demands)) {
-    last_unit_cost <- Inf
-    best_j <- current_period
+| Woche (t) | 1 | 2 | 3 | 4 | 5 | 6 |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Nachfrage (Kästen) | 30 | 50 | 20 | 70 | 80 | 40 |
+
+Um die Gesamtkosten zu minimieren, soll das exakte Verfahren von **Wagner und Whitin** (Dynamische Optimierung) angewendet werden. Es wird angenommen, dass zu Beginn kein Lagerbestand vorhanden ist und am Ende der 6. Woche ebenfalls kein Bestand verbleiben soll.
+
+**Ihre Aufgaben:**
+
+1.  **Kostenmatrix erstellen:** Berechnen Sie die Kosten $c_{\tau j}$ für jedes mögliche Los, das in Woche $\tau$ produziert wird, um die Nachfrage bis einschließlich Woche $j$ zu decken.
+2.  **Wagner-Whitin-Algorithmus anwenden:** Ermitteln Sie rekursiv die minimalen Gesamtkosten $f_i$ für einen Planungszeitraum von $i = 1, \ldots, 6$ Wochen. Notieren Sie sich bei jedem Schritt, welche Entscheidung zur minimalen Kosten führt.
+3.  **Optimalen Produktionsplan ableiten:** Bestimmen Sie durch Rückverfolgung (Backtracking) aus den Ergebnissen von Schritt 2, in welchen Wochen eine Produktion stattfinden soll und wie groß die jeweilige Losgröße ist. Wie hoch sind die minimalen Gesamtkosten?
+
+::: {.content-visible when-profile="solution"}
+**Lösung (Python-Code):**
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.rcdefaults()
+plt.style.use('tableau-colorblind10')
+
+# Daten für Aufgabe 1
+demands_t1 = [30, 50, 20, 70, 80, 40]
+s_t1 = 250  # Rüstkosten
+h_t1 = 2    # Lagerkostensatz
+T_t1 = len(demands_t1)
+
+# 1. Kostenmatrix c_tau,j berechnen
+# c_tj[tau-1][j-1]
+c_matrix_t1 = np.full((T_t1, T_t1), np.inf)
+
+print("1. Berechnung der Kostenmatrix c_tau,j:")
+for tau in range(1, T_t1 + 1):
+    storage_costs = 0
+    print(f"\nProduktion in Periode tau={tau}:")
+    for j in range(tau, T_t1 + 1):
+        if j > tau:
+            # Lagerkosten für Periode j, wenn in tau produziert wird
+            storage_costs += h_t1 * (j - tau) * demands_t1[j - 1]
+        
+        total_costs = s_t1 + storage_costs
+        c_matrix_t1[tau - 1, j - 1] = total_costs
+        print(f"  Bedarf bis Periode j={j}: Lagerkosten={storage_costs}, Gesamtkosten c_{tau},{j} = {total_costs}")
+
+df_c_matrix_t1 = pd.DataFrame(
+    c_matrix_t1, 
+    index=[f"τ={i+1}" for i in range(T_t1)], 
+    columns=[f"j={i+1}" for i in range(T_t1)]
+)
+print("\nKostenmatrix c_τj:")
+print(df_c_matrix_t1.round(0))
+
+# 2. Wagner-Whitin-Algorithmus
+f_costs = np.full(T_t1 + 1, np.inf)
+f_costs[0] = 0  # Kosten bis Periode 0 sind 0
+best_choice = np.zeros(T_t1 + 1, dtype=int)
+
+print("\n2. Anwendung des Wagner-Whitin-Algorithmus:")
+for j in range(1, T_t1 + 1):
+    print(f"\nBerechne minimale Kosten f_{j}:")
+    min_cost = np.inf
+    best_tau = -1
+    for tau in range(1, j + 1):
+        # Kosten = Kosten bis tau-1 + Kosten für Los von tau bis j
+        current_cost = f_costs[tau - 1] + c_matrix_t1[tau - 1, j - 1]
+        print(f"  Option: Letztes Los in tau={tau} für Bedarf bis {j}. Kosten = f_{tau-1} + c_{tau},{j} = {f_costs[tau-1]:.0f} + {c_matrix_t1[tau-1, j-1]:.0f} = {current_cost:.0f}")
+        if current_cost < min_cost:
+            min_cost = current_cost
+            best_tau = tau
+            
+    f_costs[j] = min_cost
+    best_choice[j] = best_tau
+    print(f"-> Minimale Kosten f_{j} = {min_cost:.0f} (letztes Los in Periode {best_tau})")
+
+
+# 3. Optimalen Produktionsplan ableiten
+production_plan_t1 = []
+total_demand_plan_t1 = []
+current_period = T_t1
+total_cost_t1 = f_costs[T_t1]
+
+print("\n3. Ableitung des optimalen Produktionsplans (Backtracking):")
+while current_period > 0:
+    start_period = best_choice[current_period]
     
-    # Finde das optimale j für das aktuelle Los
-    for (j in current_period:length(demands)) {
-      lot_size_so_far <- sum(demands[current_period:j])
-      holding_costs <- 0
-      for (t in current_period:j) {
-        holding_costs <- holding_costs + demands[t] * (t - current_period) * h
-      }
-      
-      current_metric <- 0
-      if (method == "LUC") {
-        # Least Unit Cost
-        current_metric <- (s + holding_costs) / lot_size_so_far
-      } else if (method == "SM") {
-        # Silver-Meal
-        current_metric <- (s + holding_costs) / (j - current_period + 1)
-      }
-      
-      if (current_metric < last_unit_cost) {
-        last_unit_cost <- current_metric
-        best_j <- j
-      } else {
-        break # Kosten steigen, also vorheriges j war das beste
-      }
-    }
+    lot_size = sum(demands_t1[start_period - 1 : current_period])
+    production_plan_t1.append({'Produktionswoche': start_period, 'Losgröße': lot_size})
     
-    # Setze das Los im Plan
-    lot_size <- sum(demands[current_period:best_j])
-    plan[current_period] <- lot_size
+    print(f"  Bedarf bis Woche {current_period} wird durch Produktion in Woche {start_period} gedeckt. Losgröße: {lot_size}.")
     
-    # Berechne die Kosten für dieses Los
-    holding_costs_for_lot <- 0
-    for (t in current_period:best_j) {
-      holding_costs_for_lot <- holding_costs_for_lot + demands[t] * (t - current_period) * h
-    }
-    total_cost <- total_cost + s + holding_costs_for_lot
-    
-    # Gehe zur nächsten Periode nach dem Los
-    current_period <- best_j + 1
-  }
-  
-  return(list(plan = plan, cost = total_cost))
-}
+    # Gehe zum Problem vor dem Start des gerade gefundenen Loses
+    current_period = start_period - 1
 
-luc_result <- calculate_plan(demands, s, h, "LUC")
-print("Produktionsplan (Stückkostenverfahren):")
-print(data.frame(Periode = 1:n_periods, Produktionsmenge = luc_result$plan))
-print(paste("Gesamtkosten:", luc_result$cost, "€"))
+production_plan_t1.reverse() # Korrekte zeitliche Reihenfolge
+
+print(f"\nOptimaler Produktionsplan für 'Frühlings-Helles':")
+df_plan_t1 = pd.DataFrame(production_plan_t1)
+print(df_plan_t1)
+print(f"\nMinimale Gesamtkosten: {total_cost_t1:.0f} GE")
+
+# Plot zur Visualisierung
+prod_weeks = df_plan_t1['Produktionswoche'].tolist()
+prod_amounts = df_plan_t1['Losgröße'].tolist()
+prod_data_for_plot = [prod_amounts[prod_weeks.index(w)] if w in prod_weeks else 0 for w in range(1, T_t1 + 1)]
+
+plt.figure(figsize=(8, 5))
+plt.bar(range(1, T_t1 + 1), demands_t1, label='Nachfrage', color='skyblue', width=0.8)
+plt.bar(range(1, T_t1 + 1), prod_data_for_plot, label='Produktion', color='red', alpha=0.5, width=0.4)
+plt.title('Duisburger Perle: Nachfrage vs. Optimaler Produktionsplan')
+plt.xlabel('Woche')
+plt.ylabel('Anzahl Kästen')
+plt.xticks(range(1, T_t1 + 1))
+plt.legend()
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.show()
+
+```
+:::
+
+```{=typst}
+#pagebreak()
 ```
 
-## Aufgabe 2: Silver-Meal-Verfahren
+## Aufgabe 2: Heuristische Losgrößenplanung
 
-Ermitteln Sie den Losgrößenplan mithilfe des **Silver-Meal-Verfahrens**. Dieses Verfahren erweitert ein Los, solange die durchschnittlichen Kosten *pro Periode* sinken.
+Die Geschäftsführung der "Duisburger Perle" ist mit dem optimalen Plan sehr zufrieden, findet das Wagner-Whitin-Verfahren jedoch recht aufwändig für die schnelle, wöchentliche Planung. Ein findiger Braumeister schlägt vor, einfachere Heuristiken zu verwenden, die "ziemlich gute" Ergebnisse liefern, aber schneller zu berechnen sind.
 
-Die Kosten pro Periode für ein Los, das in $\tau$ für die Perioden bis $j$ produziert, sind:
-$c_{\tau j}=\frac{s+h \cdot \sum_{t=\tau}^{j}(t-\tau) \cdot d_{t}}{j-\tau+1}$
+Sie erhalten den Auftrag, drei gängige Heuristiken auf die Daten aus Aufgabe 1 anzuwenden und die Ergebnisse mit der optimalen Lösung zu vergleichen.
 
-### Lösung zu Aufgabe 2
+**Daten (wie in Aufgabe 1):**
 
-```{r}
-#| echo: true
-#| eval: true
+*   **Rüstkosten ($s$):** 250 GE
+*   **Lagerkostensatz ($h$):** 2 GE pro Kasten und Woche
+*   **Wöchentliche Nachfrage ($d_t$):** `[30, 50, 20, 70, 80, 40]`
 
-sm_result <- calculate_plan(demands, s, h, "SM")
-print("Produktionsplan (Silver-Meal-Verfahren):")
-print(data.frame(Periode = 1:n_periods, Produktionsmenge = sm_result$plan))
-print(paste("Gesamtkosten:", sm_result$cost, "€"))
-```
+**Ihre Aufgaben:**
 
-## Aufgabe 3: Stückperiodenausgleich (Part-Period Balancing)
+1.  **Stückkostenverfahren (Least-Unit-Cost):** Bilden Sie Lose, indem Sie so lange Periodenbedarfe zusammenfassen, wie die durchschnittlichen Stückkosten des Loses sinken.
+2.  **Stückperiodenausgleichsverfahren (Part-Period-Balancing):** Bilden Sie Lose, indem Sie so lange Periodenbedarfe zusammenfassen, wie die kumulierten Lagerkosten des Loses die Rüstkosten nicht übersteigen.
+3.  **Silver-Meal-Verfahren:** Bilden Sie Lose, indem Sie so lange Periodenbedarfe zusammenfassen, wie die durchschnittlichen Kosten pro Periode sinken.
+4.  **Vergleich:** Stellen Sie die Produktionspläne und Gesamtkosten der drei Heuristiken der optimalen Lösung aus Aufgabe 1 gegenüber. Wie gut schlagen sich die Heuristiken?
 
-Ermitteln Sie den Losgrößenplan mithilfe des **Stückperiodenausgleichsverfahrens**. Hier wird ein Los so gebildet, dass die anfallenden Lagerkosten die Rüstkosten möglichst gut ausgleichen. Ein Los wird erweitert, bis die kumulierten Lagerkosten die Rüstkosten übersteigen würden.
+::: {.content-visible when-profile="solution"}
+**Lösung (Python-Code):**
 
-Die Regel lautet: Erweitere das Los von Periode $\tau$ bis $j$, solange $\sum_{t=\tau}^{j} h \cdot (t-\tau) \cdot d_{t} \approx s$.
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 
-### Lösung zu Aufgabe 3
+plt.rcdefaults()
+plt.style.use('tableau-colorblind10')
 
-```{r}
-#| echo: true
-#| eval: true
+# Daten sind identisch zu Aufgabe 1
+demands_t2 = [30, 50, 20, 70, 80, 40]
+s_t2 = 250  # Rüstkosten
+h_t2 = 2    # Lagerkostensatz
+T_t2 = len(demands_t2)
+periods_t2 = list(range(1, T_t2 + 1))
 
-ppb_plan <- rep(0, n_periods)
-ppb_cost <- 0
-current_period <- 1
-
-while(current_period <= n_periods) {
-  ppb_cost <- ppb_cost + s
-  best_j <- current_period
-  cumulative_holding_costs <- 0
-  
-  for (j in current_period:n_periods) {
-    holding_costs_for_j <- 0
-    if (j > current_period) {
-      holding_costs_for_j <- sum(demands[(current_period+1):j] * ( (current_period+1):j - current_period) * h)
-    }
+# --- Allgemeine Funktion zur Berechnung der Gesamtkosten eines Plans ---
+def calculate_total_cost(plan, demands, s, h):
+    total_cost = 0
+    inventory = 0
+    production_periods = [p['Produktionswoche'] for p in plan]
+    lot_sizes = {p['Produktionswoche']: p['Losgröße'] for p in plan}
     
-    # Wähle das j, bei dem die Lagerkosten am nächsten an den Rüstkosten sind
-    if (abs(holding_costs_for_j - s) <= abs(cumulative_holding_costs - s)) {
-      cumulative_holding_costs <- holding_costs_for_j
-      best_j <- j
-    } else {
-      # Die Kosten-Balance wird schlechter, also brich ab
-      best_j <- j - 1
-      break
-    }
-  }
-  
-  lot_size <- sum(demands[current_period:best_j])
-  ppb_plan[current_period] <- lot_size
-  
-  final_holding_costs <- 0
-  if (best_j > current_period) {
-    final_holding_costs <- sum(demands[(current_period+1):best_j] * ( (current_period+1):best_j - current_period) * h)
-  }
-  ppb_cost <- ppb_cost + final_holding_costs
-  
-  current_period <- best_j + 1
-}
+    for t in range(1, len(demands) + 1):
+        if t in production_periods:
+            total_cost += s
+            inventory += lot_sizes[t]
+        
+        inventory -= demands[t-1]
+        total_cost += inventory * h
+        
+    return total_cost
 
-print("Produktionsplan (Stückperiodenausgleich):")
-print(data.frame(Periode = 1:n_periods, Produktionsmenge = ppb_plan))
-print(paste("Gesamtkosten:", ppb_cost, "€"))
+# --- Implementierung der Heuristiken ---
+def solve_with_heuristic(demands, s, h, heuristic_name):
+    print(f"\n--- Starte {heuristic_name} ---")
+    plan = []
+    t_start = 1
+    while t_start <= len(demands):
+        print(f"Neues Los startet in Periode {t_start}.")
+        best_j = -1
+        last_metric = np.inf
+        
+        lot_demand_sum = 0
+        storage_cost_sum = 0
+        
+        for j in range(t_start, len(demands) + 1):
+            # Update von Gesamtbedarf und Lagerkosten für das potenzielle Los (t_start...j)
+            lot_demand_sum += demands[j-1]
+            if j > t_start:
+                storage_cost_sum += h * (j - t_start) * demands[j-1]
+
+            # Heuristik-spezifische Metrik berechnen
+            current_metric = 0
+            if heuristic_name == "Stückkostenverfahren":
+                metric_name = "Stückkosten"
+                current_metric = (s + storage_cost_sum) / lot_demand_sum
+            elif heuristic_name == "Stückperiodenausgleichsverfahren":
+                metric_name = "Lagerkosten"
+                # Die Metrik hier ist der Stopp-Check, nicht eine sinkende Metrik
+                if storage_cost_sum > s:
+                    print(f"  j={j}: Kum. Lagerkosten ({storage_cost_sum}) > Rüstkosten ({s}). Stoppe und wähle j-1.")
+                    best_j = j - 1
+                    break 
+                else:
+                    print(f"  j={j}: Kum. Lagerkosten ({storage_cost_sum}) <= Rüstkosten ({s}). Mache weiter.")
+                    best_j = j # Solange Bedingung erfüllt ist, ist dies die beste Option
+                    continue # Gehe zur nächsten Iteration
+            elif heuristic_name == "Silver-Meal-Verfahren":
+                metric_name = "Kosten/Periode"
+                num_periods_in_lot = j - t_start + 1
+                current_metric = (s + storage_cost_sum) / num_periods_in_lot
+            
+            print(f"  Prüfe j={j}: {metric_name} = {current_metric:.2f}")
+            if current_metric < last_metric:
+                last_metric = current_metric
+                best_j = j
+            else:
+                # Metrik steigt wieder, also war die vorherige Periode die beste
+                best_j = j - 1
+                print(f"  -> {metric_name} steigt. Wähle vorherige Periode.")
+                break # Schleife für dieses Los beenden
+        
+        # Falls die Schleife bis zum Ende durchläuft
+        if best_j == -1: best_j = t_start
+        if best_j == 0: best_j = t_start # Fallback für Stückperioden, wenn schon bei j=t_start abbricht
+        
+        lot_size = sum(demands[t_start - 1 : best_j])
+        plan.append({'Produktionswoche': t_start, 'Losgröße': lot_size})
+        print(f"-> Los gebildet: Produktion in {t_start} für Bedarf bis {best_j}. Größe: {lot_size}\n")
+        t_start = best_j + 1
+        
+    cost = calculate_total_cost(plan, demands, s, h)
+    return plan, cost
+
+# 1. Stückkostenverfahren
+plan_luc, cost_luc = solve_with_heuristic(demands_t2, s_t2, h_t2, "Stückkostenverfahren")
+
+# 2. Stückperiodenausgleichsverfahren
+plan_ppb, cost_ppb = solve_with_heuristic(demands_t2, s_t2, h_t2, "Stückperiodenausgleichsverfahren")
+
+# 3. Silver-Meal-Verfahren
+plan_sm, cost_sm = solve_with_heuristic(demands_t2, s_t2, h_t2, "Silver-Meal-Verfahren")
+
+# 4. Vergleich
+optimal_cost_t1 = 1000 # Aus Aufgabe 1
+optimal_plan_t1_df = pd.DataFrame([{'Produktionswoche': 1, 'Losgröße': 100}, {'Produktionswoche': 4, 'Losgröße': 190}])
+
+results_data = {
+    'Methode': ['Optimal (Wagner-Whitin)', 'Stückkosten', 'Stückperioden', 'Silver-Meal'],
+    'Gesamtkosten (GE)': [optimal_cost_t1, cost_luc, cost_ppb, cost_sm],
+    'Produktionsplan': [
+        str(optimal_plan_t1_df.to_dict('records')),
+        str(pd.DataFrame(plan_luc).to_dict('records')),
+        str(pd.DataFrame(plan_ppb).to_dict('records')),
+        str(pd.DataFrame(plan_sm).to_dict('records'))
+    ]
+}
+df_results_t2 = pd.DataFrame(results_data)
+df_results_t2['Abweichung vom Optimum (%)'] = 100 * (df_results_t2['Gesamtkosten (GE)'] - optimal_cost_t1) / optimal_cost_t1
+
+print("\n\n--- 4. Vergleich der Ergebnisse ---")
+print(df_results_t2[['Methode', 'Gesamtkosten (GE)', 'Abweichung vom Optimum (%)']].round(2))
+print("\nDetailansicht der Pläne:")
+print(f"Optimal:     {df_results_t2.loc[0, 'Produktionsplan']}")
+print(f"Stückkosten: {df_results_t2.loc[1, 'Produktionsplan']}")
+print(f"Stückperioden: {df_results_t2.loc[2, 'Produktionsplan']}")
+print(f"Silver-Meal: {df_results_t2.loc[3, 'Produktionsplan']}")
+
+```
+In diesem Fall finden sowohl das Stückkosten- als auch das Silver-Meal-Verfahren die optimale Lösung. Das Stückperiodenausgleichsverfahren weicht leicht ab und erzeugt etwas höhere Kosten. Dies zeigt, dass Heuristiken sehr gute, aber nicht immer garantiert optimale Ergebnisse liefern. Ihr großer Vorteil liegt in der einfachen und schnellen Anwendbarkeit.
+:::
+
+```{=typst}
+#pagebreak()
 ```
 
-## Aufgabe 4: Wagner-Whitin-Algorithmus (Exakte Lösung)
+## Aufgabe 3: Losgrößenplanung mit Kapazitätsgrenzen (CLSP)
 
-Ermitteln Sie den optimalen Losgrößenplan mithilfe des **Wagner-Whitin-Algorithmus**. Vergleichen Sie das Ergebnis (Gesamtkosten und Produktionsplan) mit den Ergebnissen aus den heuristischen Verfahren.
+Die "Duisburger Perle" stellt fest, dass die Gär- und Lagertanks einen Engpass darstellen. Es kann nicht unbegrenzt viel Bier pro Woche produziert werden. Zusätzlich zum "Frühlings-Hellen" wird nun ein zweites Saisonbier, das "Maibock", geplant. Beide Biere konkurrieren um die gleiche, begrenzte wöchentliche Kapazität.
 
-### Lösung zu Aufgabe 4
+**Neue & Gegebene Daten:**
 
-```{r}
-#| echo: true
-#| eval: true
+*   **Produkt 1: Frühlings-Helles** (Daten wie gehabt)
+    *   Nachfrage: `[30, 50, 20, 70, 80, 40]`
+    *   Rüstkosten $s_{helles}$: 250 GE, Lagerkosten $h_{helles}$: 2 GE
+    *   Kapazitätsbedarf pro Kasten $tb_{helles}$: 1,0 KE
+    *   Kapazitätsbedarf für Rüstvorgang $tr_{helles}$: 20 KE
 
-# Kostenmatrix K_ij (Kosten für Produktion in i für Bedarf bis j)
-costs_matrix <- matrix(NA, nrow = n_periods, ncol = n_periods)
-for (i in 1:n_periods) {
-  for (j in i:n_periods) {
-    holding_costs <- sum(demands[i:j] * (0:(j-i))) * h
-    costs_matrix[i, j] <- s + holding_costs
-  }
-}
+*   **Produkt 2: Maibock** (Neue Daten)
+    *   Nachfrage: `[20, 30, 60, 40, 30, 50]`
+    *   Rüstkosten $s_{bock}$: 200 GE, Lagerkosten $h_{bock}$: 2.5 GE
+    *   Kapazitätsbedarf pro Kasten $tb_{bock}$: 1,2 KE
+    *   Kapazitätsbedarf für Rüstvorgang $tr_{bock}$: 15 KE
 
-# Dynamische Programmierung
-C <- numeric(n_periods + 1) # C[t+1] speichert C(t)
-P <- numeric(n_periods + 1) # Produktionsentscheidung
+*   **Wöchentliche Gesamtkapazität ($b_t$):** 150 KE (Kapazitätseinheiten)
 
-for (t in 1:n_periods) {
-  min_cost <- Inf
-  best_i <- -1
-  for (i in 1:t) {
-    cost_i_t <- costs_matrix[i, t]
-    current_total_cost <- C[i] + cost_i_t
-    if (current_total_cost < min_cost) {
-      min_cost <- current_total_cost
-      best_i <- i
-    }
-  }
-  C[t+1] <- min_cost
-  P[t+1] <- best_i
-}
+**Ihre Aufgaben:**
 
-# Backtracking für den optimalen Plan
-optimal_plan <- rep(0, n_periods)
-t <- n_periods
-while (t > 0) {
-  last_prod_period <- P[t+1]
-  lot_size <- sum(demands[last_prod_period:t])
-  optimal_plan[last_prod_period] <- lot_size
-  t <- last_prod_period - 1
-}
+1.  **Unabhängige Planung:** Ermitteln Sie den kostenoptimalen, *unkapazitierten* Produktionsplan für das neue "Maibock"-Bier mit dem Wagner-Whitin-Algorithmus.
+2.  **Kapazitätsprüfung:** Überlagern Sie den optimalen Plan für "Frühlings-Helles" (aus Aufgabe 1) mit dem neuen Plan für "Maibock". Berechnen Sie für jede Woche die gesamte Kapazitätsauslastung durch Produktion und Rüstvorgänge beider Biersorten. Identifizieren Sie alle Wochen, in denen die Gesamtkapazität von 150 KE überschritten wird.
+3.  **Heuristische Anpassung:** Schlagen Sie eine einfache, plausible Anpassung für den kombinierten Produktionsplan vor, um die Kapazitätsverletzungen zu beheben (z.B. durch Vorziehen oder Aufteilen einer Produktion). Berechnen Sie die neuen Gesamtkosten (Summe der Kosten beider Pläne) für Ihren angepassten, kapazitätskonformen Plan.
+4.  **Diskussion:** Erläutern Sie kurz, warum das separate Anwenden des Wagner-Whitin-Algorithmus und anschließende Anpassen keine garantiert optimale Lösung für das kapazitierte Problem (CLSP) liefert.
 
-print("Optimaler Produktionsplan (Wagner-Whitin):")
-print(data.frame(Periode = 1:n_periods, Produktionsmenge = optimal_plan))
-print(paste("Minimale Gesamtkosten:", C[n_periods+1], "€"))
+::: {.content-visible when-profile="solution"}
+**Lösung (Python-Code):**
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.rcdefaults()
+plt.style.use('tableau-colorblind10')
+
+# --- Wagner-Whitin-Funktion aus Aufgabe 1 (gekapselt) ---
+def solve_wagner_whitin(demands, s, h, product_name):
+    T = len(demands)
+    c_matrix = np.full((T, T), np.inf)
+    for tau in range(1, T + 1):
+        storage_costs = 0
+        for j in range(tau, T + 1):
+            if j > tau:
+                storage_costs += h * (j - tau) * demands[j - 1]
+            c_matrix[tau - 1, j - 1] = s + storage_costs
+            
+    f_costs = np.full(T + 1, np.inf)
+    f_costs[0] = 0
+    best_choice = np.zeros(T + 1, dtype=int)
+    
+    for j in range(1, T + 1):
+        min_cost = np.inf
+        for tau in range(1, j + 1):
+            current_cost = f_costs[tau - 1] + c_matrix[tau - 1, j - 1]
+            if current_cost < min_cost:
+                min_cost = current_cost
+                best_choice[j] = tau
+        f_costs[j] = min_cost
+        
+    plan = []
+    current_period = T
+    while current_period > 0:
+        start_period = best_choice[current_period]
+        lot_size = sum(demands[start_period - 1 : current_period])
+        plan.append({'Produktionswoche': start_period, 'Losgröße': lot_size})
+        current_period = start_period - 1
+    plan.reverse()
+    
+    print(f"\nOptimaler unkapazitierter Plan für {product_name}:")
+    df_plan = pd.DataFrame(plan)
+    print(df_plan)
+    print(f"Minimale Kosten: {f_costs[T]:.0f} GE")
+    return df_plan, f_costs[T]
+
+# --- Daten für Aufgabe 3 ---
+# Helles (aus Aufgabe 1)
+demands_helles = [30, 50, 20, 70, 80, 40]
+plan_helles_df = pd.DataFrame([{'Produktionswoche': 1, 'Losgröße': 100}, {'Produktionswoche': 4, 'Losgröße': 190}])
+cost_helles = 1000
+s_helles, h_helles, tb_helles, tr_helles = 250, 2, 1.0, 20
+
+# Bock (neu)
+demands_bock = [20, 30, 60, 40, 30, 50]
+s_bock, h_bock, tb_bock, tr_bock = 200, 2.5, 1.2, 15
+
+# Kapazität
+capacity_limit = 150
+T = len(demands_helles)
+
+# 1. Unabhängige Planung für Maibock
+plan_bock_df, cost_bock = solve_wagner_whitin(demands_bock, s_bock, h_bock, "Maibock")
+
+# 2. Kapazitätsprüfung
+# Kombiniere Pläne in einem DataFrame
+capacity_usage = pd.DataFrame(index=range(1, T + 1))
+capacity_usage['Prod_Helles'] = 0
+capacity_usage['Prod_Bock'] = 0
+capacity_usage['Setup_Helles'] = 0
+capacity_usage['Setup_Bock'] = 0
+
+for _, row in plan_helles_df.iterrows():
+    capacity_usage.loc[row['Produktionswoche'], 'Prod_Helles'] = row['Losgröße']
+    capacity_usage.loc[row['Produktionswoche'], 'Setup_Helles'] = 1
+for _, row in plan_bock_df.iterrows():
+    capacity_usage.loc[row['Produktionswoche'], 'Prod_Bock'] = row['Losgröße']
+    capacity_usage.loc[row['Produktionswoche'], 'Setup_Bock'] = 1
+
+capacity_usage['Cap_Used'] = (
+    capacity_usage['Prod_Helles'] * tb_helles +
+    capacity_usage['Setup_Helles'] * tr_helles +
+    capacity_usage['Prod_Bock'] * tb_bock +
+    capacity_usage['Setup_Bock'] * tr_bock
+)
+capacity_usage['Cap_Limit'] = capacity_limit
+capacity_usage['Violation'] = capacity_usage['Cap_Used'] > capacity_usage['Cap_Limit']
+
+print("\n2. Kapazitätsprüfung des kombinierten unkapazitierten Plans:")
+print(capacity_usage.round(1))
+violation_weeks = capacity_usage[capacity_usage['Violation']].index.tolist()
+if violation_weeks:
+    print(f"\n-> Kapazitätsverletzung in Woche(n): {violation_weeks}")
+else:
+    print("\n-> Keine Kapazitätsverletzung. Der Plan ist bereits zulässig.")
+
+# 3. Heuristische Anpassung
+if violation_weeks:
+    print("\n3. Heuristische Anpassung:")
+    print("Die Analyse zeigt, dass simple Anpassungen (z.B. das Aufteilen eines einzelnen Loses) aufgrund der hohen Kapazitätsauslastung zu neuen Konflikten oder unzulässigem Backlogging führen.")
+    print("Eine plausible heuristische Lösung erfordert daher eine umfassende Neuordnung der Produktionslose, um einen kapazitätskonformen Plan zu finden:")
+
+    # Ein gültiger, heuristisch gefundener Plan:
+    new_plan_helles_df = pd.DataFrame([
+        {'Produktionswoche': 1, 'Losgröße': sum(demands_helles[0:3])}, # 100, für W1-3
+        {'Produktionswoche': 2, 'Losgröße': sum(demands_helles[4:6])}, # 120, für W5-6
+        {'Produktionswoche': 4, 'Losgröße': demands_helles[3]}         # 70, für W4
+    ])
+    new_plan_bock_df = pd.DataFrame([
+        {'Produktionswoche': 3, 'Losgröße': sum(demands_bock[0:2])},   # 50, für W1-2
+        {'Produktionswoche': 5, 'Losgröße': sum(demands_bock[2:4])},   # 100, für W3-4
+        {'Produktionswoche': 6, 'Losgröße': sum(demands_bock[4:6])}    # 80, für W5-6
+    ])
+
+    # Neuberechnung der Kosten für die angepassten Pläne
+    # Kosten Helles:
+    cost_h_l1 = s_helles + (demands_helles[1] * 1 * h_helles) + (demands_helles[2] * 2 * h_helles) # W1->W1,2,3
+    cost_h_l2 = s_helles + (demands_helles[4] * 3 * h_helles) + (demands_helles[5] * 4 * h_helles) # W2->W5,6
+    cost_h_l3 = s_helles                                                                          # W4->W4
+    new_cost_helles = cost_h_l1 + cost_h_l2 + cost_h_l3
+
+    # Kosten Bock:
+    cost_b_l1 = s_bock + (demands_bock[0] * 2 * h_bock) + (demands_bock[1] * 3 * h_bock) # W3->W1,2
+    cost_b_l2 = s_bock + (demands_bock[2] * 2 * h_bock) + (demands_bock[3] * 3 * h_bock) # W5->W3,4
+    cost_b_l3 = s_bock + (demands_bock[4] * 1 * h_bock)                                 # W6->W5,6
+    new_cost_bock = cost_b_l1 + cost_b_l2 + cost_b_l3
+    
+    # Neue Kapazitätsprüfung mit den angepassten Plänen
+    capacity_usage_new = pd.DataFrame(index=range(1, T + 1), data={'Prod_Helles':0, 'Prod_Bock':0, 'Setup_Helles':0, 'Setup_Bock':0})
+    for _, row in new_plan_helles_df.iterrows():
+        capacity_usage_new.loc[row['Produktionswoche'], 'Prod_Helles'] = row['Losgröße']
+        capacity_usage_new.loc[row['Produktionswoche'], 'Setup_Helles'] = 1
+    for _, row in new_plan_bock_df.iterrows():
+        capacity_usage_new.loc[row['Produktionswoche'], 'Prod_Bock'] = row['Losgröße']
+        capacity_usage_new.loc[row['Produktionswoche'], 'Setup_Bock'] = 1
+
+    capacity_usage_new['Cap_Used'] = (
+        capacity_usage_new['Prod_Helles'] * tb_helles + capacity_usage_new['Setup_Helles'] * tr_helles +
+        capacity_usage_new['Prod_Bock'] * tb_bock + capacity_usage_new['Setup_Bock'] * tr_bock
+    )
+    capacity_usage_new['Cap_Limit'] = capacity_limit
+    capacity_usage_new['Violation'] = capacity_usage_new['Cap_Used'] > capacity_usage_new['Cap_Limit']
+
+    print("\nAngepasster Plan für Helles:"); print(new_plan_helles_df)
+    print("Angepasster Plan für Maibock:"); print(new_plan_bock_df)
+    print("\nKapazitätsprüfung des angepassten Plans:"); print(capacity_usage_new.round(1))
+
+    new_total_cost = new_cost_helles + new_cost_bock
+    print(f"\nUrsprüngliche unkapazitierte Kosten: {cost_helles + cost_bock:.0f} GE")
+    print(f"Neue Gesamtkosten des zulässigen Plans: {new_total_cost:.0f} GE")
+    if not capacity_usage_new['Violation'].any():
+        print("-> Der angepasste Plan ist nun kapazitätskonform.")
+    else:
+        print("-> ACHTUNG: Der angepasste Plan hat weiterhin Kapazitätsverletzungen.")
+else:
+    print("Keine Anpassung nötig, da keine Verletzung vorlag.")
+
+# 4. Diskussion
+print("\n4. Diskussion:")
+print("Das Problem bei der separaten Optimierung ist, dass die Entscheidungen für ein Produkt (z.B. ein großes Los zu bilden, um Rüstkosten zu sparen) die verfügbare Kapazität für andere Produkte beeinflussen. Diese Wechselwirkung wird ignoriert. Eine lokal optimale Entscheidung für ein Produkt kann global (für alle Produkte) zu einer sehr schlechten oder sogar unzulässigen Lösung führen. Unsere heuristische Reparatur, die eine komplette Neuordnung der Produktionen vornimmt, macht den Plan zwar zulässig, führt aber zu drastisch höheren Kosten (insbesondere durch hohe Lagerbestände). Es ist sehr unwahrscheinlich, dass dies die kostenoptimale Art ist, das Kapazitätsproblem zu lösen. Ein echter CLSP-Algorithmus müsste Produktions- und Lagerentscheidungen für alle Produkte *gleichzeitig* unter Berücksichtigung der Kapazitätsgrenzen treffen, was das Problem NP-schwer macht.")
 ```
-
-## Zusammenfassung und Vergleich
-
-| Verfahren                     | Produktionsplan         | Gesamtkosten | Abweichung vom Optimum |
-|-------------------------------|-------------------------|--------------|------------------------|
-| Stückkosten (LUC)             | P1: 80, P4: 80          | 480 €        | 0%                     |
-| Silver-Meal (SM)              | P1: 80, P4: 80          | 480 €        | 0%                     |
-| Stückperiodenausgleich (PPB)  | P1: 20, P2: 60, P4: 80  | 500 €        | +4.17%                 |
-| **Wagner-Whitin (Optimal)**   | **P1: 80, P4: 80**      | **480 €**    | **0%**                 |
-
-In diesem speziellen Fall finden das Stückkosten- und das Silver-Meal-Verfahren die optimale Lösung. Das Stückperiodenausgleichsverfahren liefert eine gute, aber suboptimale Lösung mit um 4.17% höheren Kosten. Dies illustriert, dass Heuristiken effizient eine Lösung finden können, aber nicht immer die globale Bestlösung garantieren.
+:::

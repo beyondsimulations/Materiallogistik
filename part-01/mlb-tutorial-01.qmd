@@ -1,7 +1,6 @@
 ---
 title: "Übung 01"
 subtitle: "Materialbedarfsermittlung und Bedarfsmuster"
-jupyter: python3
 format:
     html:
         theme: [sandstone, ../styles.scss]
@@ -11,13 +10,19 @@ format:
         code-overflow: wrap
     typst:
         papersize: a4
+        echo: false
 ---
+
+```{=typst}
+#pagebreak()
+```
 
 ## Aufgabe 1: Materialbedarfsermittlung
 
-Ein Fahrradhersteller in Münster plant die Produktion seines neuen E-Bike-Modells "UrbanCruiser". Die Endmontage des Fahrrads erfordert verschiedene Komponenten, deren Beziehungen in der folgenden Stückliste (Bill of Materials, BOM) dargestellt sind.
+Ein Fahrradhersteller in Münster plant die Produktion seines neuen E-Bike-Modells "UrbanCruiser". Die Endmontage des Fahrrads erfordert verschiedene Komponenten, deren Beziehungen in der folgenden Stückliste dargestellt sind.
 
 **Struktur des "UrbanCruiser" (E):**
+
 - 1x Rahmen-Set (R)
   - 1x Hauptrahmen (H)
   - 1x Gabel (G)
@@ -25,6 +30,7 @@ Ein Fahrradhersteller in Münster plant die Produktion seines neuen E-Bike-Model
 - 1x Antriebs-Set (A)
 
 **Produktionsplan:**
+
 Der Produktionsplan (Primärbedarf) sieht vor, in Periode 10 genau 50 "UrbanCruiser" fertigzustellen.
 
 **Stammdaten der Komponenten:**
@@ -40,9 +46,9 @@ Der Produktionsplan (Primärbedarf) sieht vor, in Periode 10 genau 50 "UrbanCrui
 
 **Ihre Aufgaben:**
 
-1.  Zeichnen Sie die Produktstruktur als Gozinto-Graph.
-2.  Führen Sie eine Materialbedarfsermittlung durch. Berechnen Sie den Brutto- und Nettobedarf für jede Komponente.
-3.  Bestimmen Sie die Bestellzeitpunkte für die Komponenten, um den Produktionsplan einzuhalten.
+1.  **Gozinto-Graph zeichnen:** Zeichnen Sie die Produktstruktur als Gozinto-Graph.
+2.  **Materialbedarfsermittlung:** Führen Sie eine Materialbedarfsermittlung durch. Berechnen Sie den Brutto- und Nettobedarf für jede Komponente.
+3.  **Bestellzeitpunkte:** Bestimmen Sie die Bestellzeitpunkte für die Komponenten, um den Produktionsplan einzuhalten.
 
 ::: {.content-visible when-profile="solution"}
 
@@ -142,19 +148,25 @@ print(df_bestellungen.to_string(index=False))
 
 :::
 
+```{=typst}
+#pagebreak()
+```
+
 ## Aufgabe 2: Analyse von Bedarfsmustern
 
-Ein Online-Shop für Kaffeebohnen möchte das Verbrauchsmuster einer speziellen Sorte "Äthiopischer Yirgacheffe" analysieren, um die Lagerhaltung zu optimieren. Die Verkaufszahlen (in kg) der letzten 12 Wochen liegen vor:
+Ein Online-Shop für Kaffeebohnen möchte das Verbrauchsmuster einer speziellen Sorte analysieren, um die Lagerhaltung zu optimieren. 
+
+Die Verkaufszahlen (in kg) der letzten 12 Wochen liegen vor:
 
 `[5, 8, 6, 25, 7, 4, 9, 5, 30, 6, 7, 8]`
 
 **Ihre Aufgaben:**
 
-1.  Stellen Sie die Zeitreihe grafisch dar.
-2.  Berechnen Sie den durchschnittlichen wöchentlichen Bedarf.
-3.  Berechnen Sie die mittlere absolute Abweichung (MAD), um die Prognosegüte bei Annahme eines konstanten Verbrauchs (Mittelwert) zu bewerten.
-4.  Berechnen Sie den Störpegel (Variationskoeffizient).
-5.  Klassifizieren Sie das Bedarfsmuster basierend auf Ihren Berechnungen. Handelt es sich um einen konstanten, trendförmigen, sporadischen oder unregelmäßigen Bedarf? Begründen Sie Ihre Entscheidung.
+1.  **Grafische Darstellung:** Stellen Sie die Zeitreihe grafisch dar.
+2.  **Durchschnittlicher Bedarf:** Berechnen Sie den durchschnittlichen wöchentlichen Bedarf.
+3.  **Mittlere absolute Abweichung:** Berechnen Sie die mittlere absolute Abweichung (MAD), um die Prognosegüte bei Annahme eines konstanten Verbrauchs (Mittelwert) zu bewerten.
+4.  **Störpegel:** Berechnen Sie den Störpegel (Variationskoeffizient).
+5.  **Klassifizierung:** Klassifizieren Sie das Bedarfsmuster basierend auf Ihren Berechnungen. Handelt es sich um einen konstanten, trendförmigen, sporadischen oder unregelmäßigen Bedarf? Begründen Sie Ihre Entscheidung.
 
 ::: {.content-visible when-profile="solution"}
 
@@ -210,21 +222,25 @@ print(f"4. Störpegel (Variationskoeffizient): {vk:.2f}")
 - **Visuelle Analyse:** Die Grafik zeigt eine relativ stabile Nachfrage mit zwei deutlichen Ausreißern nach oben in den Wochen 4 und 9. Es ist kein klarer Trend (steigend oder fallend) und keine regelmäßige Saisonalität erkennbar.
 
 - **Kennzahlenanalyse:**
-    - Der **durchschnittliche Bedarf** liegt bei 9.67 kg.
-    - Die **mittlere absolute Abweichung (MAD)** von 6.31 kg ist im Verhältnis zum Mittelwert recht hoch. Sie zeigt, dass die einzelnen Werte im Schnitt stark vom Mittelwert abweichen.
-    - Der **Störpegel (Variationskoeffizient)** ist mit 0.83 ein entscheidender Indikator. In der Literatur werden oft folgende Grenzen verwendet:
+    - Der **durchschnittliche Bedarf** liegt bei 10.00 kg.
+    - Die **mittlere absolute Abweichung (MAD)** von 5.83 kg ist im Verhältnis zum Mittelwert recht hoch. Sie zeigt, dass die einzelnen Werte im Schnitt stark vom Mittelwert abweichen.
+    - Der **Störpegel (Variationskoeffizient)** ist mit 0.80 ein entscheidender Indikator. In der Literatur werden oft folgende Grenzen verwendet:
         - VK < 0.25: Konstanter/glatter Bedarf
         - 0.25 <= VK <= 0.5: Schwankender, aber noch regelmäßiger Bedarf
-        - VK > 0.5: Stark unregelmäßiger (erratischer) oder "lumpy" Bedarf
+        - VK > 0.5: Stark unregelmäßiger (erratischer) Bedarf
 
 **Fazit:**
-Mit einem Störpegel von 0.83 liegt ein **stark unregelmäßiger (erratischer) Bedarf** vor. Die Nachfrage ist schwer prognostizierbar. Die beiden hohen Spitzen deuten auf zufällige, große Bestellungen hin. Ein einfacher Prognoseansatz wie der gleitende Durchschnitt oder die exponentielle Glättung würde hier wahrscheinlich zu hohen Prognosefehlern führen. Für solche Artikel sind Sicherheitsbestände oft die bessere Strategie als eine verbrauchsgesteuerte Disposition. Da es keine Perioden mit Null-Bedarf gibt, ist die Klassifizierung "sporadisch" weniger passend als "erratisch" oder "lumpy".
+Mit einem Störpegel von 0.80 liegt ein **stark unregelmäßiger (erratischer) Bedarf** vor. Die Nachfrage ist schwer prognostizierbar. Die beiden hohen Spitzen deuten auf zufällige, große Bestellungen hin. Ein einfacher Prognoseansatz wie der gleitende Durchschnitt oder die exponentielle Glättung würde hier wahrscheinlich zu hohen Prognosefehlern führen. Für solche Artikel sind Sicherheitsbestände oft die bessere Strategie als eine verbrauchsgesteuerte Disposition. Da es keine Perioden mit Null-Bedarf gibt, ist die Klassifizierung "sporadisch" weniger passend als "erratisch".
 
 :::
 
+```{=typst}
+#pagebreak()
+```
+
 ## Aufgabe 3: ABC-Analyse
 
-Ein Unternehmen möchte seine Lagerartikel klassifizieren, um die Management-Anstrengungen zu priorisieren. Die folgenden Daten für 10 Artikel sind verfügbar:
+Ein Unternehmen aus Duisburg möchte seine Lagerartikel klassifizieren, um die Management-Anstrengungen zu priorisieren. Die folgenden Daten für 10 Artikel sind verfügbar:
 
 | Artikel-Nr. | Jahresbedarf (Stück) | Preis pro Stück (€) |
 |-------------|----------------------|---------------------|
@@ -241,12 +257,12 @@ Ein Unternehmen möchte seine Lagerartikel klassifizieren, um die Management-Ans
 
 **Ihre Aufgaben:**
 
-1.  Berechnen Sie für jeden Artikel den jährlichen Verbrauchswert.
-2.  Erstellen Sie eine Rangliste der Artikel nach ihrem Verbrauchswert in absteigender Reihenfolge.
-3.  Berechnen Sie den prozentualen Anteil jedes Artikels am Gesamtverbrauchswert und an der Gesamtmenge aller Artikel.
-4.  Berechnen Sie die kumulierten prozentualen Anteile am Wert und an der Menge.
-5.  Teilen Sie die Artikel in die Klassen A, B und C ein. Verwenden Sie typische Grenzen (z.B. A-Güter: ~80% Wertanteil, B-Güter: ~15% Wertanteil, C-Güter: ~5% Wertanteil).
-6.  Stellen Sie das Ergebnis grafisch in einem Diagramm dar (Lorenz-Kurve).
+1.  **Jährlichen Verbrauchswert berechnen:** Berechnen Sie für jeden Artikel den jährlichen Verbrauchswert.
+2.  **Rangliste erstellen:** Erstellen Sie eine Rangliste der Artikel nach ihrem Verbrauchswert in absteigender Reihenfolge.
+3.  **Prozentuale Anteile berechnen:** Berechnen Sie den prozentualen Anteil jedes Artikels am Gesamtverbrauchswert und an der Gesamtmenge aller Artikel.
+4.  **Kumulierte Anteile berechnen:** Berechnen Sie die kumulierten prozentualen Anteile am Wert und an der Menge.
+5.  **ABC-Klassifizierung:** Teilen Sie die Artikel in die Klassen A, B und C ein. Verwenden Sie typische Grenzen (z.B. A-Güter: ~80% Wertanteil, B-Güter: ~15% Wertanteil, C-Güter: ~5% Wertanteil).
+6.  **Grafische Darstellung:** Stellen Sie das Ergebnis grafisch in einem Diagramm dar (Lorenz-Kurve).
 
 ::: {.content-visible when-profile="solution"}
 
@@ -340,8 +356,8 @@ plt.show()
 
 **Interpretation der Ergebnisse:**
 
-- **A-Güter:** Die Artikel 4, 2 und 9 sind A-Güter. Sie machen nur 30% der Artikelpositionen aus, binden aber rund 79% des Gesamtwertes. Diese Artikel erfordern die größte Aufmerksamkeit (z.B. genaue Bestandsführung, häufige Bestellungen, gute Lieferantenbeziehungen).
-- **B-Güter:** Die Artikel 7, 3 und 1 sind B-Güter. Sie stellen die nächste Gruppe dar und erfordern eine standardmäßige Behandlung.
+- **A-Güter:** Die Artikel 4, 2, 9 und 7 sind A-Güter. Sie machen 40% der Artikelpositionen aus, binden aber rund 73% des Gesamtwertes. Diese Artikel erfordern die größte Aufmerksamkeit (z.B. genaue Bestandsführung, häufige Bestellungen, gute Lieferantenbeziehungen).
+- **B-Güter:** Die Artikel 3 und 1 sind B-Güter. Sie stellen die nächste Gruppe dar und erfordern eine standardmäßige Behandlung.
 - **C-Güter:** Die restlichen Artikel (10, 5, 8, 6) sind C-Güter. Sie haben einen sehr geringen Wertanteil, aber einen hohen Mengenanteil. Hier können vereinfachte Dispositionsverfahren (z.B. hohe Sicherheitsbestände, seltenere Bestellungen) angewendet werden, um den Verwaltungsaufwand zu reduzieren.
 
 :::

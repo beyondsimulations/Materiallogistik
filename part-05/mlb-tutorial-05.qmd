@@ -1,0 +1,288 @@
+---
+title: "Übung 05"
+subtitle: "Einmalige und mehrperiodige Bestandsentscheidungen"
+jupyter: python3
+format:
+    html:
+        theme: [sandstone, ../styles.scss]
+        highlight-style: arrow
+        linkcolor: "#a60000"
+        echo: false
+        code-overflow: wrap
+    typst:
+        papersize: a4
+---
+
+## Aufgabe 1: Das Newsvendor-Problem
+
+Ein Event-Veranstalter plant den Verkauf von T-Shirts für ein einmaliges Open-Air-Konzert. Die Nachfrage nach den T-Shirts ist unsicher und wird als normalverteilt mit einem Erwartungswert von 800 Stück und einer Standardabweichung von 150 Stück geschätzt.
+
+**Kostendaten:**
+
+-   **Einkaufspreis pro T-Shirt:** 10 GE
+-   **Verkaufspreis pro T-Shirt:** 25 GE
+-   **Rückkaufpreis (Restwert) pro nicht verkäuflichem T-Shirt:** 4 GE (Der Lieferant nimmt unverkäufliche Ware zurück)
+
+**Ihre Aufgaben:**
+
+1.  **Underage- und Overage-Kosten:** Bestimmen Sie die Underage-Kosten ($c_U$) und die Overage-Kosten ($c_O$).
+    -   $c_U$: Kosten pro Einheit, die man zu wenig bestellt hat (entgangener Gewinn).
+    -   $c_O$: Kosten pro Einheit, die man zu viel bestellt hat (Verlust pro übrig gebliebenem T-Shirt).
+2.  **Kritisches Verhältnis:** Berechnen Sie das kritisches Verhältnis (Critical Ratio).
+3.  **Optimale Bestellmenge:** Bestimmen Sie die optimale Bestellmenge ($x_{opt}$), die der Veranstalter ordern sollte, um den erwarteten Gewinn zu maximieren.
+4.  **Sicherheitsbestand:** Wie hoch ist der resultierende Sicherheitsbestand?
+
+::: {.content-visible when-profile="solution"}
+**Lösungshinweise:**
+
+```{python}
+from scipy.stats import norm
+import numpy as np
+
+# Gegebene Daten
+mu_Y = 800
+sigma_Y = 150
+einkaufspreis = 10
+verkaufspreis = 25
+restwert = 4
+
+# 1. Underage- und Overage-Kosten
+c_U = verkaufspreis - einkaufspreis
+c_O = einkaufspreis - restwert
+
+print("1. Kostenberechnung:")
+print(f"   - Underage-Kosten (c_U): {verkaufspreis} - {einkaufspreis} = {c_U} GE")
+print(f"   - Overage-Kosten (c_O): {einkaufspreis} - {restwert} = {c_O} GE\n")
+
+# 2. Kritisches Verhältnis
+critical_ratio = c_U / (c_O + c_U)
+
+print("2. Kritisches Verhältnis:")
+print(f"   - F(x_opt) = {c_U} / ({c_O} + {c_U}) = {critical_ratio:.4f}\n")
+
+# 3. Optimale Bestellmenge
+# Wir suchen x_opt, sodass die kumulative Verteilungsfunktion F(x_opt) dem kritischen Verhältnis entspricht.
+# x_opt = F^-1(critical_ratio)
+# Bei Normalverteilung: x_opt = mu + z * sigma
+z_value = norm.ppf(critical_ratio)
+x_opt = mu_Y + z_value * sigma_Y
+
+print("3. Optimale Bestellmenge:")
+print(f"   - z-Wert für F(x)={critical_ratio:.4f}: {z_value:.4f}")
+print(f"   - x_opt = {mu_Y} + {z_value:.4f} * {sigma_Y} = {x_opt:.2f}")
+print(f"   -> Der Veranstalter sollte {int(np.ceil(x_opt))} T-Shirts bestellen.\n")
+
+# 4. Sicherheitsbestand
+safety_stock = x_opt - mu_Y
+print("4. Sicherheitsbestand:")
+print(f"   - Sicherheitsbestand = {x_opt:.2f} - {mu_Y} = {safety_stock:.2f} Stück")
+```
+:::
+
+## Aufgabe 2: Periodische Lagerhaltungspolitik (r, S)
+
+Ein Fachgeschäft für Wander-Ausrüstung verkauft einen speziellen Typ Wanderstiefel. Die Nachfrage ist annähernd normalverteilt. Der Bestand wird alle 4 Wochen (r=4) überprüft. Die Lieferzeit vom Hersteller beträgt konstant 2 Wochen (L=2).
+
+**Daten zur wöchentlichen Nachfrage:**
+
+-   **Erwartungswert ($\mu_D$):** 20 Paar
+-   **Standardabweichung ($\sigma_D$):** 8 Paar
+
+Das Geschäft strebt einen $\beta$-Servicegrad von 98% an. Das bedeutet, dass 98% der gesamten Nachfrage direkt aus dem Lager bedient werden soll.
+
+**Ihre Aufgaben:**
+
+1.  **Risikozeitraum:** Bestimmen Sie den Risikozeitraum für diese $(r, S)$-Politik.
+2.  **Nachfrageparameter:** Berechnen Sie den Erwartungswert und die Standardabweichung der Nachfrage während des gesamten Risikozeitraums.
+3.  **Optimales Bestellniveau:** Bestimmen Sie das optimale Bestellniveau $S_{opt}$. Nehmen Sie zur Vereinfachung an, dass der Fehlmengenanteil direkt aus der Einheiten-Verlustfunktion der Normalverteilung über den gesamten Risikozeitraum $(r+L)$ abgeleitet werden kann.
+    $S_{opt} = \mu_{r+L} + v_{opt} \cdot \sigma_{r+L}$, wobei $v_{opt}$ so gewählt wird, dass $G_Z^{(1)}(v_{opt}) \leq \frac{(1-\beta) \cdot r \cdot \mu_D}{\sigma_{r+L}}$.
+    *Nutzen Sie die Approximation $G_Z^{(1)}(v) \approx \phi(v) - v \cdot (1-\Phi(v))$.*
+
+::: {.content-visible when-profile="solution"}
+**Lösungshinweise:**
+
+```{python}
+from scipy.stats import norm
+import numpy as np
+
+# Gegebene Daten
+r = 4 # Wochen
+L = 2 # Wochen
+mu_d_weekly = 20
+sigma_d_weekly = 8
+beta_target = 0.98
+
+# 1. Risikozeitraum
+risk_period = r + L
+print(f"1. Risikozeitraum: r + L = {r} + {L} = {risk_period} Wochen\n")
+
+# 2. Momente der Nachfrage im Risikozeitraum
+mu_risk_period = risk_period * mu_d_weekly
+sigma_risk_period = np.sqrt(risk_period) * sigma_d_weekly
+print(f"2. Nachfrageparameter im Risikozeitraum ({risk_period} Wochen):")
+print(f"   - Erwartungswert (mu_{r+L}): {risk_period} * {mu_d_weekly} = {mu_risk_period:.2f} Paar")
+print(f"   - Standardabweichung (sigma_{r+L}): sqrt({risk_period}) * {sigma_d_weekly} = {sigma_risk_period:.2f} Paar\n")
+
+# 3. Optimales Bestellniveau S_opt
+# Zielwert für die standardisierte Einheiten-Verlustfunktion
+target_G1_v = ((1 - beta_target) * r * mu_d_weekly) / sigma_risk_period
+
+print("3. Optimales Bestellniveau S_opt:")
+print(f"   - Zielwert für G_Z(v): (1 - {beta_target}) * {r} * {mu_d_weekly} / {sigma_risk_period:.2f} = {target_G1_v:.4f}")
+
+# Iterative Suche nach v_opt (eine einfache Schleife genügt hier)
+v = 0.0
+step = 0.001
+G1_v = norm.pdf(v) - v * (1 - norm.cdf(v))
+
+while G1_v > target_G1_v:
+    v += step
+    G1_v = norm.pdf(v) - v * (1 - norm.cdf(v))
+
+v_opt = v
+print(f"   - Gefundener optimaler standardisierter Bestellpunkt (v_opt): {v_opt:.4f}")
+
+# Berechnung von S_opt
+S_opt = mu_risk_period + v_opt * sigma_risk_period
+safety_stock = v_opt * sigma_risk_period
+
+print(f"   - Optimales Bestellniveau S_opt = {mu_risk_period:.2f} + {v_opt:.4f} * {sigma_risk_period:.2f} = {S_opt:.2f}")
+print(f"   -> Das Bestellniveau S sollte auf {int(np.ceil(S_opt))} Paar gesetzt werden.")
+print(f"   - Der darin enthaltene Sicherheitsbestand beträgt {safety_stock:.2f} Paar.")
+
+```
+:::
+
+## Aufgabe 3: Newsvendor mit diskreter Nachfrage
+
+Ein Bäcker muss morgens entscheiden, wie viele eines speziellen Kuchens er für den Tag backen soll. Die Herstellungskosten pro Kuchen betragen 5 GE, der Verkaufspreis liegt bei 12 GE. Nicht verkaufte Kuchen können am Ende des Tages nicht mehr verkauft werden und haben einen Restwert von 0 GE.
+
+Die Nachfrage nach diesem Kuchen ist erfahrungsgemäß wie folgt verteilt:
+
+| Nachfrage (Y) | 8 Kuchen | 9 Kuchen | 10 Kuchen | 11 Kuchen | 12 Kuchen |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| Wahrscheinlichkeit P(Y) | 0.10 | 0.20 | 0.35 | 0.25 | 0.10 |
+
+**Ihre Aufgaben:**
+
+1.  **Underage- und Overage-Kosten:** Berechnen Sie die Underage- ($c_U$) und Overage-Kosten ($c_O$).
+2.  **Kritisches Verhältnis:** Berechnen Sie das kritische Verhältnis.
+3.  **Tabelle der kumulierten Wahrscheinlichkeiten:** Erstellen Sie eine Tabelle mit der kumulierten Wahrscheinlichkeit $F(x)$ für jede mögliche Bestellmenge $x$.
+4.  **Optimale Bestellmenge:** Bestimmen Sie die optimale Bestellmenge $x_{opt}$, die der Bäcker backen sollte.
+
+::: {.content-visible when-profile="solution"}
+**Lösungshinweise:**
+
+**1. Kostenberechnung:**
+-   **Underage-Kosten ($c_U$):** Entgangener Gewinn pro nicht verkauftem Kuchen.
+    $c_U = \text{Verkaufspreis} - \text{Herstellungskosten} = 12 - 5 = 7$ GE
+-   **Overage-Kosten ($c_O$):** Verlust pro übrig gebliebenem Kuchen.
+    $c_O = \text{Herstellungskosten} - \text{Restwert} = 5 - 0 = 5$ GE
+
+**2. Kritisches Verhältnis:**
+Das kritische Verhältnis ist die Schwelle, die die kumulierte Wahrscheinlichkeit der Nachfrage erreichen oder übersteigen muss.
+$\text{Critical Ratio} = \frac{c_U}{c_O + c_U} = \frac{7}{5 + 7} = \frac{7}{12} \approx 0.5833$
+
+**3. Tabelle der kumulierten Wahrscheinlichkeiten:**
+Wir berechnen die kumulierte Wahrscheinlichkeit $F(x) = P(Y \le x)$ für jede mögliche Nachfragemenge.
+
+| Bestellmenge (x) | P(Y=x) | Kumulierte P(Y<=x) |
+| :--- | :---: | :---: |
+| 8 | 0.10 | 0.10 |
+| 9 | 0.20 | 0.10 + 0.20 = 0.30 |
+| 10 | 0.35 | 0.30 + 0.35 = 0.65 |
+| 11 | 0.25 | 0.65 + 0.25 = 0.90 |
+| 12 | 0.10 | 0.90 + 0.10 = 1.00 |
+
+**4. Optimale Bestellmenge:**
+Die optimale Bestellmenge $x_{opt}$ ist die kleinste Menge, für die die kumulierte Wahrscheinlichkeit $F(x)$ größer oder gleich dem kritischen Verhältnis ist.
+
+$F(x_{opt}) \ge 0.5833$
+
+-   Für $x=8$: $F(8) = 0.10 < 0.5833$
+-   Für $x=9$: $F(9) = 0.30 < 0.5833$
+-   **Für $x=10$:** $F(10) = 0.65 \ge 0.5833$
+
+Die Bedingung ist erstmals für eine Menge von 10 Kuchen erfüllt.
+**Antwort:** Der Bäcker sollte 10 Kuchen backen.
+
+:::
+
+## Aufgabe 4: Bestellpunkt-Politik (s, q) mit Undershoot
+
+Ein Händler für Elektronikbauteile verwendet für ein bestimmtes Bauteil eine $(s, q)$-Politik. Die tägliche Nachfrage $D$ ist normalverteilt mit $\mu_D = 100$ und $\sigma_D = 20$. Die Wiederbeschaffungszeit beträgt $L=5$ Tage. Es wird eine feste Bestellmenge von $q=800$ Stück verwendet.
+
+Das Unternehmen möchte einen $\beta$-Servicegrad von 99% erreichen.
+
+**Ihre Aufgaben:**
+
+1.  **Undershoot:** Berechnen Sie den Erwartungswert $\mathrm{E}\{U\}$ und die Varianz $\operatorname{Var}\{U\}$ des Undershoots. Nehmen Sie an, die Schiefe der Nachfrageverteilung ist 0.
+2.  **Nachfrage im Risikozeitraum:** Berechnen Sie den Erwartungswert $\mu_Y$ und die Varianz $\sigma_Y^2$ der Nachfrage im gesamten Risikozeitraum ($Y = Y^{(L)} + U$).
+3.  **Optimaler Bestellpunkt:** Bestimmen Sie den optimalen Bestellpunkt $s_{opt}$, der für den angestrebten Servicegrad nötig ist. Nehmen Sie an, dass der Fehlbestand am Anfang eines Zyklus vernachlässigbar klein ist ($G_Y^{(1)}(s+q) \approx 0$).
+
+::: {.content-visible when-profile="solution"}
+**Lösungshinweise:**
+
+```{python}
+import numpy as np
+from scipy.stats import norm
+
+# Gegebene Daten
+mu_d = 100
+sigma_d = 20
+L = 5
+q = 800
+beta_target = 0.99
+
+# 1. Undershoot-Berechnung
+# E(U) = (sigma_d^2 + mu_d^2) / (2 * mu_d)
+# Var(U) = E((D-mu_d)^3)/(3*mu_d) + Var(D)/2 * (1 - Var(D)/(2*mu_d^2)) + mu_d^2/12
+# Annahme: Schiefe E((D-mu_d)^3) = 0 für Normalverteilung
+E_U = (sigma_d**2 + mu_d**2) / (2 * mu_d)
+Var_D = sigma_d**2
+Var_U = Var_D / 2 * (1 - Var_D / (2 * mu_d**2)) + mu_d**2 / 12
+
+print("1. Undershoot (Defizit):")
+print(f"   - Erwartungswert E(U): {E_U:.2f}")
+print(f"   - Varianz Var(U): {Var_U:.2f}\n")
+
+# 2. Momente der Nachfrage im Risikozeitraum
+# Y = Y_L + U
+mu_YL = L * mu_d
+Var_YL = L * Var_D
+
+mu_Y = mu_YL + E_U
+Var_Y = Var_YL + Var_U
+sigma_Y = np.sqrt(Var_Y)
+
+print("2. Nachfrage im Risikozeitraum (Y = Y_L + U):")
+print(f"   - Erwartungswert mu_Y: {mu_YL} + {E_U:.2f} = {mu_Y:.2f}")
+print(f"   - Varianz Var_Y: {Var_YL} + {Var_U:.2f} = {Var_Y:.2f}")
+print(f"   - Standardabweichung sigma_Y: {sigma_Y:.2f}\n")
+
+# 3. Optimaler Bestellpunkt s_opt
+# G_Z(v) <= (1 - beta) * q / sigma_Y
+target_G1_v = (1 - beta_target) * q / sigma_Y
+
+print("3. Optimaler Bestellpunkt s_opt:")
+print(f"   - Zielwert für G_Z(v): (1 - {beta_target}) * {q} / {sigma_Y:.2f} = {target_G1_v:.4f}")
+
+# Iterative Suche nach v_opt
+v = 0.0
+step = 0.001
+G1_v = norm.pdf(v) - v * (1 - norm.cdf(v))
+while G1_v > target_G1_v:
+    v += step
+    G1_v = norm.pdf(v) - v * (1 - norm.cdf(v))
+
+v_opt = v
+s_opt = mu_Y + v_opt * sigma_Y
+safety_stock = v_opt * sigma_Y
+
+print(f"   - Gefundener v_opt: {v_opt:.4f}")
+print(f"   - Optimaler Bestellpunkt s_opt = {mu_Y:.2f} + {v_opt:.4f} * {sigma_Y:.2f} = {s_opt:.2f}")
+print(f"   -> Der Bestellpunkt s sollte auf {int(np.ceil(s_opt))} Stück gesetzt werden.")
+print(f"   - Der Sicherheitsbestand beträgt {safety_stock:.2f} Stück.")
+
+```
+:::

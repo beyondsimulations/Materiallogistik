@@ -10,6 +10,10 @@ project:
     - part-04/*.qmd
     - part-05/*.qmd
     - part-06/*.qmd
+
+profile:
+  default: solution
+  
 website:
   title: "Materiallogistik"
   repo-url: https://github.com/beyondsimulations/Materiallogistik
@@ -83,9 +87,10 @@ format:
     toc-location: right
     code-overflow: wrap
     code-block-bg: true
+    echo: false
     code-block-border-left: "#AD1F00"
     include-in-header:
-      - general/header.html
+      - general/header.html    
     include-after-body:
       text: |
         <script>
@@ -121,6 +126,11 @@ format:
 
   typst:
     papersize: a4
+    echo: false
 
 execute:
   freeze: auto
+  
+python:
+  executable: "/Users/tvlcek/jupyter-venv/bin/python3"
+
