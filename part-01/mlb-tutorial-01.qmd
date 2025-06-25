@@ -52,7 +52,26 @@ Der Produktionsplan (Primärbedarf) sieht vor, in Periode 10 genau 50 "UrbanCrui
 
 ::: {.content-visible when-profile="solution"}
 
+```{=typst}
+#pagebreak()
+```
+
 **Lösungshinweise:**
+
+::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
+#### Vorgehensweise bei der Bedarfsermittlung
+Die Materialbedarfsermittlung erfolgt **top-down** durch die Stücklistenstruktur, von der höchsten Dispositionsstufe (0) zu den niedrigsten.
+
+1.  **Stufe 0 (Endprodukt):**
+    *   **Bruttobedarf:** Der gegebene Primärbedarf aus dem Produktionsplan.
+    *   **Nettobedarf:** `Nettobedarf = Bruttobedarf - Lagerbestand`. Dies ist die Menge, die tatsächlich produziert werden muss.
+    *   **Bestelltermin:** `Bestelltermin = Bedarfstermin - Vorlaufzeit`. Dies ist der Zeitpunkt, an dem die Produktion des Endprodukts starten muss.
+
+2.  **Nächste Stufen (Komponenten/Baugruppen):**
+    *   **Bruttobedarf:** Der Bruttobedarf einer Komponente leitet sich aus dem **Nettobedarf** der übergeordneten Baugruppe ab. Der Starttermin der Baugruppe wird zum Bedarfstermin der Komponente.
+        `Bruttobedarf (Komponente) = Nettobedarf (Baugruppe) * Bedarfskoeffizient (Menge pro Baugruppe)`
+    *   **Nettobedarf & Bestelltermin:** Werden für jede Komponente analog zur Stufe 0 berechnet.
+:::
 
 **1. Gozinto-Graph:**
 
@@ -85,6 +104,7 @@ dot
 Wir berechnen den Bedarf rekursiv, beginnend bei der obersten Ebene (Dispositionsstufe 0).
 
 **Dispositionsstufe 0: UrbanCruiser (E)**
+
 - **Bruttobedarf in P10:** 50 Stück
 - **Lagerbestand:** 5 Stück
 - **Nettobedarf in P10:** 50 - 5 = 45 Stück
@@ -170,7 +190,30 @@ Die Verkaufszahlen (in kg) der letzten 12 Wochen liegen vor:
 
 ::: {.content-visible when-profile="solution"}
 
+```{=typst}
+#pagebreak()
+```
+
 **Lösungshinweise:**
+
+::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
+#### Die wichtigsten Kennzahlen zur Bedarfsanalyse
+
+*   **Durchschnittlicher Bedarf ($\bar{x}$):** Der Mittelwert der Nachfrage über den betrachteten Zeitraum. Dient als Basis für einfache Prognosen.
+    $\bar{x} = \frac{1}{n} \sum_{t=1}^{n} d_t$
+
+*   **Mittlere Absolute Abweichung (MAD):** Gibt die durchschnittliche absolute Prognoseabweichung an, wenn man den Mittelwert als Prognose verwendet. Ein Maß für die Streuung.
+    $MAD = \frac{1}{n} \sum_{t=1}^{n} |d_t - \bar{x}|$
+
+*   **Störpegel (SP):** Das wichtigste Maß zur Klassifizierung. Es setzt die mittlere absolute Abweichung ins Verhältnis zum Mittelwert und ist damit eine relative Kennzahl zur Beurteilung der Prognosegenauigkeit.
+    $SP = \frac{MAD}{\bar{x}}$
+
+#### Typische Grenzen für die Klassifizierung
+*   **SP < 0,25:** Konstanter / gleichmäßiger Bedarf (gut prognostizierbar)
+*   **0,25 $\le$ SP $\le$ 0,5:** Trendförmiger oder saisonaler Bedarf (regelmäßige Schwankungen)
+*   **SP > 0,5:** Unregelmäßiger / erratischer Bedarf (schwer prognostizierbar)
+*   **Zusatzkriterium für "sporadisch":** Wenn zusätzlich zum hohen SP viele Perioden einen Bedarf von Null aufweisen.
+:::
 
 ```{python}
 #| label: fig-task2
@@ -202,18 +245,15 @@ plt.legend()
 plt.show()
 
 # 3. Mittlere Absolute Abweichung (MAD)
-# MAD = (1/n) * sum(|y_t - mean(y)|)
 mad = np.mean(np.abs(sales_data - mean_demand))
 
-# 4. Störpegel (Variationskoeffizient)
-# VK = Standardabweichung / Mittelwert
-std_dev = np.std(sales_data, ddof=0) # Populations-Standardabweichung
-vk = std_dev / mean_demand
+# 4. Störpegel
+# SP = Mittlere Absolute Abweichung / Mittelwert
+sp = mad / mean_demand
 
 print(f"2. Durchschnittlicher Bedarf: {mean_demand:.2f} kg/Woche")
 print(f"3. Mittlere Absolute Abweichung (MAD): {mad:.2f} kg")
-print(f"   Standardabweichung: {std_dev:.2f} kg")
-print(f"4. Störpegel (Variationskoeffizient): {vk:.2f}")
+print(f"4. Störpegel: {sp:.2f}")
 
 ```
 
@@ -224,13 +264,13 @@ print(f"4. Störpegel (Variationskoeffizient): {vk:.2f}")
 - **Kennzahlenanalyse:**
     - Der **durchschnittliche Bedarf** liegt bei 10.00 kg.
     - Die **mittlere absolute Abweichung (MAD)** von 5.83 kg ist im Verhältnis zum Mittelwert recht hoch. Sie zeigt, dass die einzelnen Werte im Schnitt stark vom Mittelwert abweichen.
-    - Der **Störpegel (Variationskoeffizient)** ist mit 0.80 ein entscheidender Indikator. In der Literatur werden oft folgende Grenzen verwendet:
-        - VK < 0.25: Konstanter/glatter Bedarf
-        - 0.25 <= VK <= 0.5: Schwankender, aber noch regelmäßiger Bedarf
-        - VK > 0.5: Stark unregelmäßiger (erratischer) Bedarf
+    - Der **Störpegel** ist mit 0.58 ein entscheidender Indikator. In der Literatur werden oft folgende Grenzen verwendet:
+        - SP < 0.25: Konstanter/glatter Bedarf
+        - 0.25 <= SP <= 0.5: Schwankender, aber noch regelmäßiger Bedarf
+        - SP > 0.5: Stark unregelmäßiger (erratischer) Bedarf
 
 **Fazit:**
-Mit einem Störpegel von 0.80 liegt ein **stark unregelmäßiger (erratischer) Bedarf** vor. Die Nachfrage ist schwer prognostizierbar. Die beiden hohen Spitzen deuten auf zufällige, große Bestellungen hin. Ein einfacher Prognoseansatz wie der gleitende Durchschnitt oder die exponentielle Glättung würde hier wahrscheinlich zu hohen Prognosefehlern führen. Für solche Artikel sind Sicherheitsbestände oft die bessere Strategie als eine verbrauchsgesteuerte Disposition. Da es keine Perioden mit Null-Bedarf gibt, ist die Klassifizierung "sporadisch" weniger passend als "erratisch".
+Mit einem Störpegel von 0.58 liegt ein **stark unregelmäßiger (erratischer) Bedarf** vor. Die Nachfrage ist schwer prognostizierbar. Die beiden hohen Spitzen deuten auf zufällige, große Bestellungen hin. Ein einfacher Prognoseansatz wie der gleitende Durchschnitt oder die exponentielle Glättung würde hier wahrscheinlich zu hohen Prognosefehlern führen. Für solche Artikel sind Sicherheitsbestände oft die bessere Strategie als eine verbrauchsgesteuerte Disposition. Da es keine Perioden mit Null-Bedarf gibt, ist die Klassifizierung "sporadisch" weniger passend als "erratisch".
 
 :::
 
@@ -266,7 +306,28 @@ Ein Unternehmen aus Duisburg möchte seine Lagerartikel klassifizieren, um die M
 
 ::: {.content-visible when-profile="solution"}
 
+```{=typst}
+#pagebreak()
+```
+
 **Lösungshinweise:**
+
+::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
+#### Das Prinzip der ABC-Analyse
+Die ABC-Analyse basiert auf dem **Pareto-Prinzip (80-20-Regel)**, das besagt, dass oft ein kleiner Teil der Ursachen für einen großen Teil der Wirkung verantwortlich ist. Übertragen auf die Lagerhaltung bedeutet das: Ein kleiner Prozentsatz der Artikelpositionen verursacht einen großen Prozentschaft des gesamten Kapitalbedarfs (Verbrauchswert).
+
+#### Schrittweises Vorgehen
+1.  **Verbrauchswert berechnen:** Das ist die wichtigste Kennzahl.
+    `Verbrauchswert = Jahresbedarf * Preis pro Stück`
+2.  **Sortieren:** Die Artikel absteigend nach ihrem Verbrauchswert sortieren.
+3.  **Prozentuale Anteile berechnen:** Für jeden Artikel seinen Anteil am Gesamtwert bestimmen.
+    `Wertanteil (%) = (Verbrauchswert / Gesamtverbrauchswert) * 100`
+4.  **Kumulieren:** Die prozentualen Wertanteile von oben nach unten aufsummieren.
+5.  **Klassen zuordnen:** Die kumulierten Wertanteile nutzen, um die Klassen A, B und C zu definieren. Die Grenzen sind nicht starr, aber typische Werte sind:
+    *   **A-Güter:** die Artikel, die zusammen ca. 70-80% des Wertes ausmachen.
+    *   **B-Güter:** die nächsten Artikel, die zusammen ca. 15-20% des Wertes ausmachen.
+    *   **C-Güter:** die restlichen Artikel mit den geringsten Wertanteilen (ca. 5-10%).
+:::
 
 ```{python}
 #| label: fig-task3

@@ -60,7 +60,29 @@ Um das Konzept zu verstehen, analysieren Sie den folgenden, manuell erstellten P
 3.  **Diskussion:** Erläutern Sie, warum die separate Anwendung des Wagner-Whitin-Algorithmus für jedes Produkt hier wahrscheinlich zu einem unzulässigen oder suboptimalen Gesamtplan führen würde.
 
 ::: {.content-visible when-profile="solution"}
+
+```{=typst}
+#pagebreak()
+```
+
 **Lösungshinweise:**
+
+::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
+#### 1. Kostenberechnung
+*   **Gesamtkosten**: Die Summe aus Rüst- und Lagerkosten über den gesamten Zeitraum.
+*   **Rüstkosten**: Fallen nur an, wenn in einer Woche ein Produkt hergestellt wird, das in der Vorwoche nicht hergestellt wurde. Bei Produktionsstart in Woche 1 oder nach einer Leerwoche fallen sie ebenfalls an. Bei Übernahme des Rüstzustands fallen keine Rüstkosten an.
+*   **Lagerkosten**: Werden am Ende jeder Woche auf den Endlagerbestand berechnet: `Lagerkosten_t = Lagerbestand_t * Lagerkostensatz_h`.
+
+#### 2. Kapazitätsprüfung
+*   Die wöchentliche Kapazitätsauslastung berechnet sich wie folgt:
+    `Kapazitätsbedarf_t = Produktionszeit_t + Rüstzeit_t`
+*   `Produktionszeit_t = Produktionsmenge_t * Bearbeitungszeit_pro_Stück_tb`
+*   Die Rüstzeit fällt nur an, wenn auch Rüstkosten anfallen.
+*   Dieser Bedarf muss kleiner oder gleich der Wochenkapazität sein.
+
+#### 3. Wagner-Whitin vs. PLSP
+*   Denken Sie an die Kernannahmen des Wagner-Whitin-Algorithmus: Er optimiert für ein **einzelnes Produkt** und berücksichtigt **keine Kapazitätsgrenzen**. Das PLSP-Problem (Capacitated Lot Sizing Problem) ist hingegen genau für Mehrprodukt-Situationen unter Kapazitätsrestriktionen konzipiert.
+:::
 
 ```{python}
 import pandas as pd
@@ -209,7 +231,29 @@ Ein Hersteller von Smart-Home-Geräten produziert zwei Endprodukte: eine smarte 
 3.  **Nutzen des Echelon-Stock-Konzepts:** Erläutern Sie kurz den betriebswirtschaftlichen Nutzen des Echelon-Stock-Konzepts.
 
 ::: {.content-visible when-profile="solution"}
+
+```{=typst}
+#pagebreak()
+```
+
 **Lösungshinweise:**
+
+::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
+#### 1. Materialbedarfsermittlung (MRP)
+*   **Grundlogik (Stufe für Stufe):**
+    1.  **Bruttobedarf ermitteln:** Für Endprodukte ist dies der Primärbedarf. Für Komponenten ergibt er sich aus den *geplanten Bestellungen* (Netto-Bedarf mit Vorlaufzeit) der übergeordneten Stufe.
+    2.  **Nettobedarf berechnen:** `Nettobedarf_t = Bruttobedarf_t - Lagerbestand_am_Anfang_der_Periode_t`. Wenn das Ergebnis negativ oder null ist, ist der Nettobedarf 0.
+    3.  **Bestelltermin planen:** Der Auftrag zur Deckung des Nettobedarfs in Periode `t` muss in Periode `t - Vorlaufzeit` ausgelöst werden.
+*   **Stück-für-Stück (Lot-for-Lot):** Die Bestellmenge entspricht exakt dem Nettobedarf. Es wird kein Lagerbestand zur Losgrößenoptimierung aufgebaut.
+
+#### 2. Echelon Stock
+*   **Definition:** Der Echelon Stock einer Komponente `i` an einem Ort ist der gesamte Bestand dieser Komponente im System, der sich auf dieser Stufe oder *tiefer* befindet.
+*   **Formel:** `Echelon Stock_i = Physischer Bestand_i + Physischer Bestand aller nachgelagerten Produkte, die i enthalten`
+*   **Beispiel:** `Echelon Stock (W1) = Bestand(W1) + Bestand(L1) + Bestand(S1)`
+
+#### 3. Nutzen des Echelon-Konzepts
+*   Der Hauptnutzen liegt in der **korrekten Bewertung von Lagerkosten** in mehrstufigen Systemen. Er vermeidet die Doppelzählung des Wertes von Komponenten, die bereits in Halbfabrikaten oder Endprodukten enthalten sind.
+:::
 
 **1. Mehrstufige Bedarfsermittlung:**
 
@@ -335,7 +379,24 @@ Beantworten Sie die folgenden konzeptionellen Fragen:
 3.  **Definitionen:** Überlegen Sie kurz, wie die Begriffe "Planungsinstabilität" und "Frozen Zone" im Kontext dieses Beispiels definiert werden können.
 
 ::: {.content-visible when-profile="solution"}
+
+```{=typst}
+#pagebreak()
+```
+
 **Lösungshinweise:**
+
+::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
+#### 1. Frozen Zone (Eingefrorener Horizont)
+*   **Definition:** Der Zeitraum am Anfang des Planungshorizonts, in dem keine Änderungen am Produktionsplan mehr vorgenommen werden.
+*   **Grund:** Die Produktions- und Beschaffungsaufträge wurden bereits freigegeben und sind in der Ausführung (z.B. Material ist schon bestellt, eine Maschine ist bereits gerüstet).
+*   **Identifikation:** Um die "eingefrorenen" Bestellungen zu finden, schauen Sie sich den ursprünglichen Plan aus Aufgabe 2 an. Alle Bestellungen, deren **Bestelltermin** in der Vergangenheit oder der aktuellen Periode liegt (hier: alles <= Woche 2), sind Teil der Frozen Zone.
+
+#### 2. Planungsinstabilität (Planungsnervosität)
+*   **Definition:** Das Phänomen, dass kleine Änderungen in den Eingabedaten (z.B. ein einzelner Bedarfswert in der fernen Zukunft) zu großen, sprunghaften Änderungen in den geplanten Aufträgen führen, auch in naher Zukunft.
+*   **Ursache:** Die komplexe, oft nicht-lineare Logik von Losgrößenalgorithmen und die mehrstufigen Abhängigkeiten. Eine kleine Änderung kann eine Kettenreaktion auslösen, die den "optimalen" Plan komplett umwirft.
+*   **Management:** Die "Frozen Zone" ist eine der wichtigsten Maßnahmen, um diese Nervosität zu dämpfen und Stabilität in die Produktion zu bringen.
+:::
 
 1.  **Eingefrorener Plan:**
     Der "Frozen"-Teil des Plans umfasst alle Bestellungen, deren Bestelltermin in oder vor der aktuellen Periode (Ende Woche 2) liegt. Gemäß der Lösung von Aufgabe 2 sind dies:
@@ -393,7 +454,31 @@ Ein Produktionsplaner hat für die Produkte "Sirius" und "Vega" einen unvollstä
 2.  **Summe der Rüst- und Lagerkosten:** Ermitteln Sie die Summe der Rüstkosten und der Lagerkosten für den gesamten Planungszeitraum.
 
 ::: {.content-visible when-profile="solution"}
+
+```{=typst}
+#pagebreak()
+```
+
 **Lösungshinweise:**
+
+::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
+#### Die entscheidende Formel: Die Lagerbilanzgleichung
+Der Schlüssel zur Lösung dieser Aufgabe ist die Lagerbilanzgleichung, die für jedes Produkt und jede Woche gilt:
+
+`Lagerbestand (Ende)_t = Lagerbestand (Ende)_{t-1} + Produktionsmenge_t - Bedarf_t`
+
+*   Der `Lagerbestand (Ende)_{t-1}` ist der Anfangsbestand der Periode `t`.
+*   Diese Gleichung enthält alle wichtigen Variablen. Wenn eine davon unbekannt ist (z.B. die Produktionsmenge `(f)` oder `(i)`), können Sie die Gleichung einfach nach dieser Unbekannten umstellen.
+
+#### Rüstkosten-Logik
+*   Vergleichen Sie die Spalte `Produzierter Typ` von einer Woche zur nächsten.
+*   `Rüstkosten_t = 0` wenn `Typ_t == Typ_{t-1}` (Rüstzustand wird übernommen).
+*   `Rüstkosten_t > 0` wenn `Typ_t != Typ_{t-1}` (Produktwechsel) oder wenn in Woche `t-1` nichts produziert wurde.
+
+#### Lagerkosten-Logik
+*   Die Summe der Lagerkosten in einer Zeile berechnet sich aus den Endbeständen beider Produkte:
+    `Lagerkosten (Summe)_t = Lager Sirius (Ende)_t * h_S + Lager Vega (Ende)_t * h_V`
+:::
 
 **1. Schrittweise Berechnung der fehlenden Werte:**
 
