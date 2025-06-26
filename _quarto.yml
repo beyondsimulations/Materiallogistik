@@ -95,7 +95,7 @@ format:
       text: |
         <script>
           window.difyChatbotConfig = {
-            token: 'oj8UtJHplG4byLvd',
+            token: 'OkOGHTmCFcXes6Jk',
             baseUrl: 'https://flow.byndsim.com',
             systemVariables: {
               // user_id: 'YOU CAN DEFINE USER ID HERE',
@@ -110,7 +110,7 @@ format:
         </script>
         <script
           src="https://flow.byndsim.com/embed.min.js"
-          id="oj8UtJHplG4byLvd"
+          id="OkOGHTmCFcXes6Jk"
           defer>
         </script>
         <style>
