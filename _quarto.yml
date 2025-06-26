@@ -11,8 +11,8 @@ project:
     - part-05/*.qmd
     - part-06/*.qmd
 
-profile:
-  default: solution
+#profile:
+#  default: solution
   
 website:
   title: "Materiallogistik"

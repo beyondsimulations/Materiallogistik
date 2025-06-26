@@ -37,22 +37,26 @@ Ein Event-Veranstalter plant den Verkauf von T-Shirts für ein einmaliges Open-A
 
 ::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
 #### 1. Underage- und Overage-Kosten
+
 *   **Underage-Kosten ($c_U$):** Die Kosten für jede nachgefragte Einheit, die Sie nicht bedienen können (Opportunitätskosten).
     `c_U = Verkaufspreis - Einkaufspreis`
 *   **Overage-Kosten ($c_O$):** Die Kosten für jede Einheit, die Sie zu viel bestellt haben und die am Ende übrig bleibt.
     `c_O = Einkaufspreis - Restwert`
 
 #### 2. Kritisches Verhältnis (Critical Ratio)
+
 *   Das kritische Verhältnis gibt das Servicelevel an, bei dem der erwartete Gewinn maximiert wird. Es ist die Wahrscheinlichkeit, dass die Nachfrage kleiner oder gleich der optimalen Bestellmenge ist.
 *   **Formel:** `Kritisches Verhältnis = c_U / (c_O + c_U)`
 
 #### 3. Optimale Bestellmenge ($x_{opt}$)
+
 *   **Grundidee:** Bestelle so viel, dass die Wahrscheinlichkeit, die Nachfrage zu decken, genau dem kritischen Verhältnis entspricht.
 *   **Formel (Normalverteilung):**
     1.  Finde den z-Wert, der dem kritischen Verhältnis entspricht: `z = F^-1(kritisches Verhältnis)`, wobei `F^-1` die inverse kumulative Verteilungsfunktion der Standardnormalverteilung ist.
     2.  Berechne die Bestellmenge: `x_opt = μ + z * σ`
 
 #### 4. Sicherheitsbestand
+
 *   Der Sicherheitsbestand ist die Menge, die über den Erwartungswert der Nachfrage hinaus bestellt wird, um Unsicherheit abzufedern.
 *   **Formel:** `Sicherheitsbestand = x_opt - μ`
 :::
@@ -125,16 +129,19 @@ Das Geschäft strebt einen $\beta$-Servicegrad von 98% an. Das bedeutet, dass 98
 
 ::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
 #### 1. Risikozeitraum einer (r,S)-Politik
+
 *   Bei einer periodischen Überprüfung müssen wir die Nachfrageunsicherheit über das **Überprüfungsintervall (r)** und die **Wiederbeschaffungszeit (L)** abdecken. Eine Bestellung, die heute aufgegeben wird, muss die Nachfrage decken, bis die *nächste* Bestellung eintrifft.
 *   **Formel:** `Risikozeitraum = r + L`
 
 #### 2. Nachfrageparameter im Risikozeitraum
+
 *   Wenn die wöchentliche Nachfrage unabhängig ist, können die Kennzahlen für den gesamten Risikozeitraum einfach berechnet werden:
 *   **Erwartungswert:** $\mu_{r+L} = (r+L) \cdot \mu_D$
 *   **Varianz:** $\sigma_{r+L}^2 = (r+L) \cdot \sigma_D^2$
 *   **Standardabweichung:** $\sigma_{r+L} = \sqrt{r+L} \cdot \sigma_D$
 
 #### 3. Optimales Bestellniveau $S_{opt}$
+
 *   Das Bestellniveau $S$ (auch "order-up-to level") ist der Zielbestand, auf den bei jeder Überprüfung aufgefüllt wird.
 *   **Formel:** $S_{opt} = \mu_{r+L} + SS = \mu_{r+L} + v_{opt} \cdot \sigma_{r+L}$
 *   Der Sicherheitsfaktor $v_{opt}$ wird so bestimmt, dass der angestrebte $\beta$-Servicegrad erreicht wird. Dafür wird die **standardisierte Einheiten-Verlustfunktion** $G_Z^{(1)}(v)$ verwendet.
@@ -216,6 +223,7 @@ Die Nachfrage nach diesem Kuchen ist erfahrungsgemäß wie folgt verteilt:
 **Lösungshinweise:**
 
 ::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
+
 #### Vorgehen bei diskreter Nachfrageverteilung
 Das Grundprinzip des Newsvendor-Problems bleibt gleich, aber die Umsetzung ist anders als bei einer stetigen (z.B. normalen) Verteilung.
 
@@ -223,6 +231,7 @@ Das Grundprinzip des Newsvendor-Problems bleibt gleich, aber die Umsetzung ist a
 2.  **Kritisches Verhältnis:** Die Formel `c_U / (c_O + c_U)` ist ebenfalls identisch.
 
 #### 3. & 4. Optimale Bestellmenge $x_{opt}$ finden
+
 *   Wir können keinen z-Wert verwenden. Stattdessen suchen wir die **kleinste Bestellmenge x**, für die die **kumulierte Wahrscheinlichkeit $F(x) = P(Y \le x)$ größer oder gleich dem kritischen Verhältnis** ist.
 *   **Regel:** Finde das kleinste $x$, für das gilt: $F(x) \ge \frac{c_U}{c_O + c_U}$
 *   **Vorgehen:**
@@ -304,14 +313,17 @@ Das Unternehmen möchte einen $\beta$-Servicegrad von 99% erreichen.
 
 ::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
 #### Das Konzept des "Undershoot"
+
 Bei einer $(s,q)$-Politik wird eine Bestellung ausgelöst, sobald der verfügbare Bestand den Bestellpunkt $s$ *erreicht oder unterschreitet*. Da die Nachfrage in diskreten Mengen auftritt, wird der Bestellpunkt oft nicht exakt getroffen, sondern "unterschossen". Dieser Betrag, um den $s$ unterschritten wird, wird als **Undershoot (U)** oder Defizit bezeichnet. Er ist eine Zufallsgröße und muss bei der Berechnung des Sicherheitsbestandes berücksichtigt werden.
 
 #### 1. Berechnung des Undershoots
 Für eine normalverteilte Nachfrage $D \sim N(\mu_D, \sigma_D^2)$ können folgende Approximationen verwendet werden:
+
 *   **Erwartungswert:** $\mathrm{E}\{U\} \approx \frac{\sigma_D^2 + \mu_D^2}{2 \mu_D}$
 *   **Varianz:** $\operatorname{Var}\{U\} \approx \frac{\sigma_D^2}{2} \left(1 - \frac{\sigma_D^2}{2\mu_D^2}\right) + \frac{\mu_D^2}{12}$
 
 #### 2. Nachfrage im Risikozeitraum
+
 *   Der relevante Risikozeitraum deckt die Nachfrage während der **Wiederbeschaffungszeit ($Y^{(L)}$)** plus den **Undershoot ($U$)** ab.
 *   **Gesamtnachfrage im Risikozeitraum:** $Y = Y^{(L)} + U$
 *   Da $Y^{(L)}$ und $U$ als unabhängig angenommen werden, addieren sich Erwartungswerte und Varianzen:
@@ -319,6 +331,7 @@ Für eine normalverteilte Nachfrage $D \sim N(\mu_D, \sigma_D^2)$ können folgen
     *   $\sigma_Y^2 = \sigma_{YL}^2 + \operatorname{Var}\{U\} = (L \cdot \sigma_D^2) + \operatorname{Var}\{U\}$
 
 #### 3. Optimaler Bestellpunkt $s_{opt}$
+
 *   Die Logik ist analog zur $(r,S)$-Politik, aber die Zielgröße für die Einheiten-Verlustfunktion ist anders, da die Bestellmenge $q$ fix ist.
 *   **Formel für s:** $s_{opt} = \mu_Y + v_{opt} \cdot \sigma_Y$
 *   **Zielbedingung für $v_{opt}$:** Finde das kleinste $v$, für das gilt:

@@ -69,11 +69,13 @@ Um das Konzept zu verstehen, analysieren Sie den folgenden, manuell erstellten P
 
 ::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
 #### 1. Kostenberechnung
+
 *   **Gesamtkosten**: Die Summe aus Rüst- und Lagerkosten über den gesamten Zeitraum.
 *   **Rüstkosten**: Fallen nur an, wenn in einer Woche ein Produkt hergestellt wird, das in der Vorwoche nicht hergestellt wurde. Bei Produktionsstart in Woche 1 oder nach einer Leerwoche fallen sie ebenfalls an. Bei Übernahme des Rüstzustands fallen keine Rüstkosten an.
 *   **Lagerkosten**: Werden am Ende jeder Woche auf den Endlagerbestand berechnet: `Lagerkosten_t = Lagerbestand_t * Lagerkostensatz_h`.
 
 #### 2. Kapazitätsprüfung
+
 *   Die wöchentliche Kapazitätsauslastung berechnet sich wie folgt:
     `Kapazitätsbedarf_t = Produktionszeit_t + Rüstzeit_t`
 *   `Produktionszeit_t = Produktionsmenge_t * Bearbeitungszeit_pro_Stück_tb`
@@ -81,6 +83,7 @@ Um das Konzept zu verstehen, analysieren Sie den folgenden, manuell erstellten P
 *   Dieser Bedarf muss kleiner oder gleich der Wochenkapazität sein.
 
 #### 3. Wagner-Whitin vs. PLSP
+
 *   Denken Sie an die Kernannahmen des Wagner-Whitin-Algorithmus: Er optimiert für ein **einzelnes Produkt** und berücksichtigt **keine Kapazitätsgrenzen**. Das PLSP-Problem (Capacitated Lot Sizing Problem) ist hingegen genau für Mehrprodukt-Situationen unter Kapazitätsrestriktionen konzipiert.
 :::
 

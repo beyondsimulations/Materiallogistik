@@ -51,12 +51,15 @@ Um die Gesamtkosten zu minimieren, soll das exakte Verfahren von **Wagner und Wh
 
 ::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
 #### 1. Kostenmatrix $c_{\tau j}$
+
 Die Kostenmatrix ist das Herzstück des Algorithmus. Der Wert $c_{\tau j}$ gibt an, was es kostet, in Periode $\tau$ ein Los zu produzieren, das exakt die Nachfrage von Periode $\tau$ bis einschließlich Periode $j$ deckt.
+
 *   **Formel:** $c_{\tau j} = s + \sum_{k=\tau+1}^{j} h \cdot (k-\tau) \cdot d_k$
 *   **In Worten:** Die Kosten setzen sich zusammen aus **einmaligen Rüstkosten** $s$ und den **kumulierten Lagerkosten**. Die Lagerkosten für den Bedarf $d_k$ (der in Periode $\tau$ produziert, aber erst in $k$ gebraucht wird) betragen $h \cdot (k-\tau) \cdot d_k$, da die Menge $d_k$ für $(k-\tau)$ Perioden gelagert werden muss.
 
 #### 2. Der Wagner-Whitin-Algorithmus (Rekursion)
 Der Algorithmus findet die minimalen Kosten $f_j$ für ein Problem mit $j$ Perioden, indem er alle Möglichkeiten für das letzte Los ausprobiert.
+
 *   **Rekursionsformel:** $f_j = \min_{1 \le \tau \le j} \{ f_{\tau-1} + c_{\tau j} \}$
 *   **Startwert:** $f_0 = 0$
 *   **In Worten:** Die minimalen Kosten für $j$ Perioden ($f_j$) ergeben sich, indem man die beste Option auswählt: "Was kostet es, wenn das letzte Los in Periode $\tau=1$ startet und bis $j$ reicht? Was, wenn es in $\tau=2$ startet?" usw. Die Kosten einer Option sind die Summe der Kosten für das letzte Los ($c_{\tau j}$) und den minimalen Kosten für den Zeitraum davor ($f_{\tau-1}$).
@@ -209,16 +212,19 @@ Sie erhalten den Auftrag, drei gängige Heuristiken auf die Daten aus Aufgabe 1 
 Die Heuristiken entscheiden iterativ, wie viele zukünftige Bedarfe in einem Los zusammengefasst werden. Gestartet wird in der ersten Periode mit Bedarf. Man prüft, ob man den Bedarf der nächsten Periode(n) mit aufnimmt.
 
 #### 1. Stückkostenverfahren (Least-Unit-Cost, LUC)
+
 *   **Entscheidungsmetrik:** Durchschnittliche Kosten pro Produkteinheit.
 *   **Formel:** $\text{Stückkosten}(k) = \frac{s + \text{kumulierte Lagerkosten für } k \text{ Perioden}}{\text{kumulierter Bedarf für } k \text{ Perioden}}$
 *   **Regel:** Fasse so lange weitere Perioden $k$ in das Los mit auf, wie die Stückkosten sinken. Wenn sie steigen, war die vorherige Zusammenfassung die beste.
 
 #### 2. Stückperiodenausgleich (Part-Period-Balancing, PPB)
+
 *   **Grundidee:** Ein Los ist dann "gut", wenn die anfallenden Lagerkosten die eingesparten Rüstkosten ungefähr ausgleichen.
 *   **Formel:** Vergleiche `kumulierte Lagerkosten` mit `Rüstkosten s`.
 *   **Regel:** Fasse so lange weitere Perioden in das Los mit auf, wie die `kumulierten Lagerkosten` die `Rüstkosten s` **nicht** übersteigen. Die letzte Periode, für die das gilt, bestimmt die Losgröße.
 
 #### 3. Silver-Meal-Verfahren (SM)
+
 *   **Entscheidungsmetrik:** Durchschnittliche Kosten pro Periode (nicht pro Einheit).
 *   **Formel:** $\text{Kosten pro Periode}(k) = \frac{s + \text{kumulierte Lagerkosten für } k \text{ Perioden}}{k}$
 *   **Regel:** Identisch zum Stückkostenverfahren: Fasse so lange weitere Perioden $k$ in das Los mit auf, wie die Kosten pro Periode sinken. Wenn sie steigen, war die vorherige Zusammenfassung die beste.
