@@ -1,0 +1,54 @@
+---
+title: "Materiallogistik!"
+subtitle: "Universität Duisburg-Essen - Sommersemester 2025"
+
+html:
+    theme: [default, styles.scss]
+    highlight-style: breezedark
+    linkcolor: "#a60000"
+    include-in-header:
+      - general/header.html
+---
+
+# Beschreibung
+
+Dieser Kurs behandelt das Modul Materiallogistik auf Basis der ursprünglichen Vorlesung von Prof. Dr. Manitz. Ich habe den Kurs kurzfristig übernommen und die Materialien deswegen nur leicht angepasst. Es sind keine neuen Inhalte enthalten, sondern lediglich neue Übungen.
+
+# Lernziele
+
+Mein Ziel ist es, Sie auf die Klausuren vorzubereiten und Ihnen gleichzeitig die Grundlagen der Materiallogistik näherzubringen. Nach Abschluss dieses Kurses werden Sie in der Lage sein:
+
+- Verbrauchsmaterialien zu klassifizieren
+- Losgrößenmodelle aufzustellen
+- Verschiedene Servicelevel zu verstehen
+- Grundlegende Bestellpolitiken anzuwenden
+
+Es sind keine fortgeschrittenen Kenntnisse oder Erfahrungen erforderlich, um den Inhalten zu folgen, obwohl Grundkenntnisse in statistischen Methoden, Operations Research und Mathematik hilfreich sind. Ferner entsprechen **nicht alle Inhalte der Vorlesung dem jeweils letzten Stand der Forschung, da die Folien von Prof. Dr. Manitz stammen und bereits etwas älter sind.** 
+
+# Kursmodule
+Der Kerninhalt des Kurses ist in sechs Module gegliedert:
+
+1. **Klassifikation** - Klassifikation von Materialien
+2. **Einstufige Losgrößen** - Losgrößenplanung mit dem CLSP
+3. **Mehrstufige Losgrößen** - Losgrößenplanung auf Basis des PLSP
+4. **Bestandsmanagement** - Servicelevel und Lieferzeiten
+5. **Bestellpolitiken** - Newsvendorproblem und Bestellpolitiken
+6. **Recap** - Wiederholung und offene Fragen
+
+# Tutorials
+
+Die Tutorials sind von mir auf Basis der Vorlesung von Prof. Dr. Manitz erstellt worden. Sie helfen Ihnen, die Konzepte aus der Vorlesung anzuwenden und zu verstehen. Die Klausur am Ende orientiert sich **an den Probeklausuren von Herrn Manitz sowie an den behandelten Übungsaufgaben** und wird die Themen der Vorlesung abdecken, die wir gemeinsam behandelt haben.
+
+# Erlaubte Hilfsmittel
+
+Da ich Verständnis statt Auswendiglernen fördern möchte, dürfen Sie in der Klausur neben einem Taschenrechner auch einen eigenhändig verfassten, beidseitig beschriebenen A4-Zettel mit Formeln verwenden.
+
+:::{.callout-tip}
+Wichtig: Der Formelzettel muss handschriftlich erstellt werden. Digital erstellte und ausgedruckte Unterlagen sind nicht zugelassen.
+:::
+
+# Fragen und Unterstützung
+
+Für Ihre Fragen stehe ich jederzeit gerne zur Verfügung. Kontaktieren Sie mich einfach per E-Mail unter [tobias.vlcek@uni-due.de](mailto:tobias.vlcek@uni-due.de?subject=Materiallogistik%3A%20%3CIhr%20Betreff%3E). 
+
+Zusätzlich steht Ihnen auf dieser Seite ein Chatbot zur Verfügung, der auf den Inhalten der Vorlesung basiert und Ihnen bei inhaltlichen Fragen unterstützend zur Seite stehen kann. Er ist nicht perfekt und eher eine Beta-Version, aber ich hoffe, dass er Ihnen dennoch hilft.
