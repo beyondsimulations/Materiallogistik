@@ -34,13 +34,13 @@ website:
             href: part-01/mlb-lecture-01.pdf
           - text: "Tutorium"
             href: part-01/mlb-tutorial-01.qmd
-      - section: "02 Losgrößen I"
+      - section: "02 CLSP"
         contents:
           - text: "Vorlesung"
             href: part-02/mlb-lecture-02.pdf
           - text: "Tutorium"
             href: part-02/mlb-tutorial-02.qmd
-      - section: "03 Losgrößen II"
+      - section: "03 PLSP"
         contents:
           - text: "Vorlesung"
             href: part-03/mlb-lecture-03.pdf
