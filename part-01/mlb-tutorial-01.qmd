@@ -217,7 +217,7 @@ Die Verkaufszahlen (in kg) der letzten 12 Wochen liegen vor:
 
 ```{python}
 #| label: fig-task2
-#| fig-cap: "Wöchentlicher Verkauf 'Äthiopischer Yirgacheffe'"
+#| fig-cap: "Wöchentlicher Verkauf"
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -232,7 +232,7 @@ weeks = np.arange(1, len(sales_data) + 1)
 # 1. Grafische Darstellung
 plt.figure(figsize=(8, 5))
 plt.plot(weeks, sales_data, marker='o', linestyle='-', label='Verkauf (kg)')
-plt.title("Wöchentlicher Verkauf 'Äthiopischer Yirgacheffe'")
+plt.title("Wöchentlicher Verkauf")
 plt.xlabel("Woche")
 plt.ylabel("Verkaufte Menge (kg)")
 plt.xticks(weeks)

@@ -18,6 +18,14 @@ format:
 #pagebreak()
 ```
 
+## Einleitung
+
+Wer noch Schwierigkeiten mit dem CLSP und der Lagerbilanzgleichung hat, kann sich gerne folgendes Video aus der Vorlesung Grundlagen des Operations Research ansehen:
+
+{{< video https://www.youtube.com/embed/mJtf-RR9Dvk >}}
+
+
+
 ## Aufgabe 1: Exakte Losgrößenplanung für Saisonbier
 
 Die lokale Traditionsbrauerei "Duisburger Perle" plant die Produktion ihres beliebten Saisonbiers "Frühlings-Helles" für die kommenden 6 Wochen. Da die Nachfrage schwankt und das Aufsetzen eines neuen Brauvorgangs (Rüsten) mit erheblichen Kosten verbunden ist, soll ein kostenoptimaler Produktionsplan gefunden werden.

@@ -21,7 +21,7 @@ website:
   bread-crumbs: true
   sidebar:
     style: floating
-    logo: https://images.beyondsimulations.com/logo/logo_ml.png
+    #logo: https://images.beyondsimulations.com/logo/logo_ml.png
     collapse-level: 2
     search: true
     contents:

@@ -230,8 +230,7 @@ Ein Hersteller von Smart-Home-Geräten produziert zwei Endprodukte: eine smarte 
 **Ihre Aufgaben:**
 
 1.  **Materialbedarfsermittlung:** Führen Sie eine vollständige, mehrstufige Materialbedarfsermittlung (Stück-für-Stück) durch, um die Nettobedarfe und Bestellzeitpunkte für die Komponenten P1 und W1 zu bestimmen.
-2.  **Echelon Stock Berechnung:** Angenommen, am Ende von Woche 4 sind die physischen Lagerbestände wie folgt: `L1: 0, S1: 0, P1: 10, W1: 20`. Berechnen Sie für diesen Zeitpunkt den **Echelon Stock** (systemweiten Bestand) für das Wifi-Modul W1.
-3.  **Nutzen des Echelon-Stock-Konzepts:** Erläutern Sie kurz den betriebswirtschaftlichen Nutzen des Echelon-Stock-Konzepts.
+2.  **Echelon Stock Berechnung:** Angenommen, am Ende von Woche 4 sind die physischen Lagerbestände wie folgt: `L1: 10, S1: 5, P1: 15, W1: 20`. Berechnen Sie für diesen Zeitpunkt den **Echelon Stock** (systemweiten Bestand) für das Wifi-Modul W1 und das LED-Panel P1.
 
 ::: {.content-visible when-profile="solution"}
 
@@ -340,26 +339,24 @@ print(df_results.to_string(index=False))
 
 Der Echelon Stock eines Artikels ist sein eigener physischer Bestand plus alle Bestände von nachgelagerten Artikeln, in die er eingeht.
 
+**Berechnung für Wifi-Modul W1:**
 -   Physischer Bestand W1: 20 Stück
--   Bestand von L1 (enthält W1): 0 Stück
--   Bestand von S1 (enthält W1): 0 Stück
+-   Bestand von L1 (enthält W1): 10 Stück
+-   Bestand von S1 (enthält W1): 5 Stück
 
 $E_{W1} = y_{W1} + y_{L1} + y_{S1}$
-$E_{W1} = 20 + 0 + 0 = 20$
+$E_{W1} = 20 + 10 + 5 = 35$
 
--   Physischer Bestand P1: 10 Stück
--   Bestand von L1 (enthält P1): 0 Stück
+Der Echelon Stock von W1 ist 35. Er ist höher als der physische Bestand, da 15 Module bereits in den Endprodukten L1 und S1 verbaut sind.
+
+**Berechnung für LED-Panel P1:**
+-   Physischer Bestand P1: 15 Stück
+-   Bestand von L1 (enthält P1): 10 Stück
 
 $E_{P1} = y_{P1} + y_{L1}$
-$E_{P1} = 10 + 0 = 10$
+$E_{P1} = 15 + 10 = 25$
 
-In diesem speziellen Fall, da die Endproduktbestände Null sind, entspricht der Echelon Stock dem physischen Bestand der Komponente. Wäre der Bestand von L1 jedoch 5, wäre der Echelon Stock von W1: $E_{W1} = 20 + 5 + 0 = 25$.
-
-**3. Nutzen des Echelon-Stock-Konzepts:**
-
-Das Echelon-Stock-Konzept ist für die **mehrstufige Lagerkostenbewertung** entscheidend. Traditionell werden Lagerkosten auf den physischen Bestand eines Artikels basierend auf dessen vollem Wert berechnet. Dies führt zu einer Doppelzählung: Der Wert einer Komponente (z.B. W1) ist bereits im Wert des Endprodukts (z.B. L1) enthalten. Wenn man die Lagerkosten für beide Bestände separat berechnet, werden die Kosten für das im Endprodukt gebundene Wifi-Modul doppelt gezählt.
-
-Das Echelon-Konzept löst dies, indem es mit **marginalen Lagerkosten** (`echelon holding costs`) arbeitet. Diese berechnen sich aus der Kostendifferenz zur direkten Vorgängerstufe. Die Lagerkosten werden dann auf den Echelon Stock angewendet. Dies führt zu einer korrekten, nicht doppelt zählenden Bewertung der im gesamten Produktionssystem gebundenen Kapital- und Lagerkosten und ermöglicht somit bessere Losgrößenentscheidungen in mehrstufigen Systemen.
+Der Echelon Stock von P1 ist 25. Er ist höher als der physische Bestand, da 10 Panels bereits im Endprodukt L1 verbaut sind.
 
 :::
 
