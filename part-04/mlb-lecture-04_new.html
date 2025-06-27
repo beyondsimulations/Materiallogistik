@@ -77,7 +77,7 @@ ul.task-list li input[type="checkbox"] {
 </style>  
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -288,18 +288,42 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Inhalt</h2>
+    <h2 id="toc-title">On this page</h2>
    
-  <ul class="collapse">
+  <ul>
   <li><a href="#ungewisse-nachfrage" id="toc-ungewisse-nachfrage" class="nav-link active" data-scroll-target="#ungewisse-nachfrage">1. Ungewisse Nachfrage</a></li>
-  <li><a href="#kennzahlen-im-lager" id="toc-kennzahlen-im-lager" class="nav-link" data-scroll-target="#kennzahlen-im-lager">2. Kennzahlen im Lager</a></li>
-  <li><a href="#servicegrade" id="toc-servicegrade" class="nav-link" data-scroll-target="#servicegrade">3. Servicegrade</a></li>
-  <li><a href="#die-nachfrage-im-risikozeitraum" id="toc-die-nachfrage-im-risikozeitraum" class="nav-link" data-scroll-target="#die-nachfrage-im-risikozeitraum">4. Die Nachfrage im Risikozeitraum</a></li>
-  <li><a href="#den-bestellpunkt-s-berechnen" id="toc-den-bestellpunkt-s-berechnen" class="nav-link" data-scroll-target="#den-bestellpunkt-s-berechnen">5. Den Bestellpunkt <span class="math inline">\(s\)</span> berechnen</a></li>
-  <li><a href="#wie-groß-ist-die-fehlmenge" id="toc-wie-groß-ist-die-fehlmenge" class="nav-link" data-scroll-target="#wie-groß-ist-die-fehlmenge">6. Wie groß ist die Fehlmenge?</a></li>
-  <li><a href="#erweiterte-service-perspektiven" id="toc-erweiterte-service-perspektiven" class="nav-link" data-scroll-target="#erweiterte-service-perspektiven">7. Erweiterte Service-Perspektiven</a></li>
+  <li><a href="#kennzahlen-im-lager" id="toc-kennzahlen-im-lager" class="nav-link" data-scroll-target="#kennzahlen-im-lager">2. Kennzahlen im Lager</a>
+  <ul class="collapse">
+  <li><a href="#beispiel-eine-woche-im-lager" id="toc-beispiel-eine-woche-im-lager" class="nav-link" data-scroll-target="#beispiel-eine-woche-im-lager">Beispiel: Eine Woche im Lager</a></li>
+  </ul></li>
+  <li><a href="#servicegrade" id="toc-servicegrade" class="nav-link" data-scroll-target="#servicegrade">3. Servicegrade</a>
+  <ul class="collapse">
+  <li><a href="#der-alpha-servicegrad-zyklus-servicegrad" id="toc-der-alpha-servicegrad-zyklus-servicegrad" class="nav-link" data-scroll-target="#der-alpha-servicegrad-zyklus-servicegrad">Der <span class="math inline">\(\alpha\)</span>-Servicegrad (Zyklus-Servicegrad)</a></li>
+  <li><a href="#der-beta-servicegrad-mengen-servicegrad-oder-fill-rate" id="toc-der-beta-servicegrad-mengen-servicegrad-oder-fill-rate" class="nav-link" data-scroll-target="#der-beta-servicegrad-mengen-servicegrad-oder-fill-rate">Der <span class="math inline">\(\beta\)</span>-Servicegrad (Mengen-Servicegrad oder “Fill Rate”)</a></li>
+  <li><a href="#der-gamma-servicegrad-zeitbezogener-servicegrad" id="toc-der-gamma-servicegrad-zeitbezogener-servicegrad" class="nav-link" data-scroll-target="#der-gamma-servicegrad-zeitbezogener-servicegrad">Der <span class="math inline">\(\gamma\)</span>-Servicegrad (Zeitbezogener Servicegrad)</a></li>
+  </ul></li>
+  <li><a href="#die-nachfrage-im-risikozeitraum" id="toc-die-nachfrage-im-risikozeitraum" class="nav-link" data-scroll-target="#die-nachfrage-im-risikozeitraum">4. Die Nachfrage im Risikozeitraum</a>
+  <ul class="collapse">
+  <li><a href="#fall-1-nachfrage-ist-normalverteilt" id="toc-fall-1-nachfrage-ist-normalverteilt" class="nav-link" data-scroll-target="#fall-1-nachfrage-ist-normalverteilt">Fall 1: Nachfrage ist normalverteilt</a></li>
+  <li><a href="#fall-2-nachfrage-ist-diskret-faltung" id="toc-fall-2-nachfrage-ist-diskret-faltung" class="nav-link" data-scroll-target="#fall-2-nachfrage-ist-diskret-faltung">Fall 2: Nachfrage ist diskret (Faltung)</a></li>
+  </ul></li>
+  <li><a href="#den-bestellpunkt-s-berechnen" id="toc-den-bestellpunkt-s-berechnen" class="nav-link" data-scroll-target="#den-bestellpunkt-s-berechnen">5. Den Bestellpunkt <span class="math inline">\(s\)</span> berechnen</a>
+  <ul class="collapse">
+  <li><a href="#sicherheitsbestand-bei-normalverteilung" id="toc-sicherheitsbestand-bei-normalverteilung" class="nav-link" data-scroll-target="#sicherheitsbestand-bei-normalverteilung">Sicherheitsbestand bei Normalverteilung</a></li>
+  </ul></li>
+  <li><a href="#wie-groß-ist-die-fehlmenge" id="toc-wie-groß-ist-die-fehlmenge" class="nav-link" data-scroll-target="#wie-groß-ist-die-fehlmenge">6. Wie groß ist die Fehlmenge?</a>
+  <ul class="collapse">
+  <li><a href="#erwartete-fehlmenge-bei-normalverteilung" id="toc-erwartete-fehlmenge-bei-normalverteilung" class="nav-link" data-scroll-target="#erwartete-fehlmenge-bei-normalverteilung">Erwartete Fehlmenge bei Normalverteilung</a></li>
+  <li><a href="#erwartete-fehlmenge-bei-diskreter-verteilung" id="toc-erwartete-fehlmenge-bei-diskreter-verteilung" class="nav-link" data-scroll-target="#erwartete-fehlmenge-bei-diskreter-verteilung">Erwartete Fehlmenge bei diskreter Verteilung</a></li>
+  <li><a href="#den-beta-servicegrad-berechnen" id="toc-den-beta-servicegrad-berechnen" class="nav-link" data-scroll-target="#den-beta-servicegrad-berechnen">Den <span class="math inline">\(\beta\)</span>-Servicegrad berechnen</a></li>
+  </ul></li>
+  <li><a href="#erweiterte-service-perspektiven" id="toc-erweiterte-service-perspektiven" class="nav-link" data-scroll-target="#erweiterte-service-perspektiven">7. Erweiterte Service-Perspektiven</a>
+  <ul class="collapse">
+  <li><a href="#kundenpriorisierung" id="toc-kundenpriorisierung" class="nav-link" data-scroll-target="#kundenpriorisierung">Kundenpriorisierung</a></li>
+  <li><a href="#die-kundenwartezeit-reichweite-und-lieferunfähigkeit" id="toc-die-kundenwartezeit-reichweite-und-lieferunfähigkeit" class="nav-link" data-scroll-target="#die-kundenwartezeit-reichweite-und-lieferunfähigkeit">Die Kundenwartezeit: Reichweite und Lieferunfähigkeit</a></li>
+  </ul></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="lecture-presentation.html"><i class="bi bi-file-slides"></i>RevealJS</a></li><li><a href="mlb-lecture-04_new.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -339,10 +363,10 @@ window.Quarto = {
 <li><strong>Zu wenig auf Lager?</strong> Kunden wollen bestellen, aber das Produkt ist ausverkauft. Wir sind unzufrieden, gehen zur Konkurrenz und kommen vielleicht nie wieder. Das sind <strong>Fehlmengenkosten</strong>.</li>
 </ul>
 <p>Im Gegensatz zu den bisherigen Vorlesungen, haben wir dieses mal eine ungewisse Nachfrage! Die zwei zentralen Fragen sind:</p>
-<ol type="1">
+<ul>
 <li><strong>Wann</strong> sollen wir eine neue Lieferung bei unserem Kaffeeröster bestellen?</li>
 <li><strong>Wie viel</strong> sollen wir dann bestellen?</li>
-</ol>
+</ul>
 </section>
 <section id="kennzahlen-im-lager" class="level2">
 <h2 class="anchored" data-anchor-id="kennzahlen-im-lager">2. Kennzahlen im Lager</h2>

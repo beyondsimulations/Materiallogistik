@@ -288,16 +288,27 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Inhalt</h2>
+    <h2 id="toc-title">On this page</h2>
    
-  <ul class="collapse">
+  <ul>
   <li><a href="#das-grundsetting" id="toc-das-grundsetting" class="nav-link active" data-scroll-target="#das-grundsetting">1. Das Grundsetting</a></li>
-  <li><a href="#das-newsvendor-problem" id="toc-das-newsvendor-problem" class="nav-link" data-scroll-target="#das-newsvendor-problem">2. Das Newsvendor-Problem</a></li>
-  <li><a href="#die-s-q-politik-mit-undershoot" id="toc-die-s-q-politik-mit-undershoot" class="nav-link" data-scroll-target="#die-s-q-politik-mit-undershoot">3. Die (s, q)-Politik mit Undershoot</a></li>
-  <li><a href="#die-periodische-politik-r-s" id="toc-die-periodische-politik-r-s" class="nav-link" data-scroll-target="#die-periodische-politik-r-s">4. Die periodische Politik (r, S)</a></li>
+  <li><a href="#das-newsvendor-problem" id="toc-das-newsvendor-problem" class="nav-link" data-scroll-target="#das-newsvendor-problem">2. Das Newsvendor-Problem</a>
+  <ul class="collapse">
+  <li><a href="#das-kritische-verhältnis-critical-ratio" id="toc-das-kritische-verhältnis-critical-ratio" class="nav-link" data-scroll-target="#das-kritische-verhältnis-critical-ratio">Das kritische Verhältnis (Critical Ratio)</a></li>
+  <li><a href="#die-optimale-bestellmenge-finden" id="toc-die-optimale-bestellmenge-finden" class="nav-link" data-scroll-target="#die-optimale-bestellmenge-finden">Die optimale Bestellmenge finden</a></li>
+  </ul></li>
+  <li><a href="#die-s-q-politik-mit-undershoot" id="toc-die-s-q-politik-mit-undershoot" class="nav-link" data-scroll-target="#die-s-q-politik-mit-undershoot">3. Die (s, q)-Politik mit Undershoot</a>
+  <ul class="collapse">
+  <li><a href="#den-bestellpunkt-s-bestimmen" id="toc-den-bestellpunkt-s-bestimmen" class="nav-link" data-scroll-target="#den-bestellpunkt-s-bestimmen">Den Bestellpunkt <code>s</code> bestimmen</a></li>
+  </ul></li>
+  <li><a href="#die-periodische-politik-r-s" id="toc-die-periodische-politik-r-s" class="nav-link" data-scroll-target="#die-periodische-politik-r-s">4. Die periodische Politik (r, S)</a>
+  <ul class="collapse">
+  <li><a href="#der-längere-risikozeitraum-r-l" id="toc-der-längere-risikozeitraum-r-l" class="nav-link" data-scroll-target="#der-längere-risikozeitraum-r-l">Der längere Risikozeitraum: r + L</a></li>
+  <li><a href="#das-bestellniveau-s-bestimmen" id="toc-das-bestellniveau-s-bestimmen" class="nav-link" data-scroll-target="#das-bestellniveau-s-bestimmen">Das Bestellniveau <code>S</code> bestimmen</a></li>
+  </ul></li>
   <li><a href="#welche-politik-für-welches-problem" id="toc-welche-politik-für-welches-problem" class="nav-link" data-scroll-target="#welche-politik-für-welches-problem">5. Welche Politik für welches Problem?</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="lecture-presentation.html"><i class="bi bi-file-slides"></i>RevealJS</a></li><li><a href="mlb-lecture-05_new.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -697,7 +708,7 @@ G_Z^{(1)}(v) \leq \frac{(1-\beta) \cdot q}{\sigma_Y}
 <section id="das-bestellniveau-s-bestimmen" class="level3">
 <h3 class="anchored" data-anchor-id="das-bestellniveau-s-bestimmen">Das Bestellniveau <code>S</code> bestimmen</h3>
 <p>Auch hier können wir das optimale Bestellniveau <span class="math inline">\(S_{opt}\)</span> für einen Ziel-<strong><span class="math inline">\(\beta\)</span>-Servicegrad</strong> bestimmen. Die Logik ist sehr ähnlich zur (s,q)-Politik, aber die Formel für die Zielbedingung ist leicht anders, da die erwartete Fehlmenge ins Verhältnis zur erwarteten Nachfrage im Bestellintervall (<span class="math inline">\(r \cdot \mu_d\)</span>) gesetzt wird.</p>
-<p><strong>Zielbedingung (vereinfacht):</strong> Finde den kleinsten Sicherheitsfaktor <span class="math inline">\(v\)</span>, für den gilt: <span class="math display">\[
+<p><strong>Zielbedingung (vereinfacht):</strong><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Finde den kleinsten Sicherheitsfaktor <span class="math inline">\(v\)</span>, für den gilt: <span class="math display">\[
 G_Z^{(1)}(v) \leq \frac{(1-\beta) \cdot r \cdot \mu_d}{\sigma_{r+L}}
 \]</span> Das optimale Bestellniveau ist dann: <span class="math inline">\(S_{opt} = \mu_{r+L} + v_{opt} \cdot \sigma_{r+L}\)</span>.</p>
 <p><strong>Beispiel:</strong> Ein Supermarkt verkauft Frischmilch.</p>
@@ -735,6 +746,7 @@ G_Z^{(1)}(v) \leq \frac{(1-\beta) \cdot r \cdot \mu_d}{\sigma_{r+L}}
 
 <ol>
 <li id="fn1"><p>Mit Excel <code>NORM.S.INV(0.714)</code>, Python <code>norm.ppf(0.714)</code> oder aus einer Tabelle ablesen.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Die Formel ist exakt unter der Annahme, dass die durchschnittliche Bestellmenge genau <span class="math inline">\(r \cdot \mu_d\)</span> ist. In einem System mit Fehlbeständen (Backorders) ist die durchschnittliche Bestellmenge jedoch leicht höher als die durchschnittliche Nachfrage, da in Zyklen nach einem Fehlbestand nicht nur die Nachfrage der aktuellen Periode, sondern auch der aufgestaute Fehlbestand aus der Vorperiode bedient werden muss.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
