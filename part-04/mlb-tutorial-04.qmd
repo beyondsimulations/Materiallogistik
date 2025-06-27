@@ -21,34 +21,34 @@ format:
 
 Ein Händler für hochwertige Espressomaschinen nutzt zur Steuerung seines Lagers eine $(s, q)$-Politik mit kontinuierlicher Überwachung. Die Politik ist wie folgt definiert:
 
--   Bestellpunkt (Meldebestand) **$s$**: 100 Maschinen
--   Bestellmenge **$q$**: 250 Maschinen
--   Wiederbeschaffungszeit **$L$**: 3 Wochen (deterministisch)
+-   Bestellpunkt (Meldebestand) **$s$**: 80 Maschinen
+-   Bestellmenge **$q$**: 200 Maschinen
+-   Wiederbeschaffungszeit **$L$**: 2 Wochen (deterministisch)
 
 Der Händler startet in Woche 0 mit den folgenden Beständen:
 
--   Physischer Bestand $I_0^P$: 120 Maschinen
+-   Physischer Bestand $I_0^P$: 100 Maschinen
 -   Bestellbestand (offene Bestellungen) $I_0^O$: 0 Maschinen
 
 **Wöchentliche Nachfragen (deterministisch für diese Aufgabe):**
 
 | Woche (t) | 1 | 2 | 3 | 4 | 5 | 6 |
 | :--- | :-: | :-: | :-: | :-: | :-: | :-: |
-| Nachfrage $d_t$| 30 | 40 | 50 | 45 | 60 | 55 |
+| Nachfrage $d_t$| 40 | 35 | 50 | 40 | 55 | 60 |
 
 **Ihre Aufgaben:**
 
-1. **Tabelle ausfüllen:** Füllen Sie die folgende Tabelle aus. Verfolgen Sie alle Bestandsgrößen über den Zeitraum von 6 Wochen. Eine Bestellung wird am Ende der Woche ausgelöst, in der der disponible Bestand den Meldebestand $s$ erreicht oder unterschreitet. Der Wareneingang erfolgt dann genau $L=3$ Wochen später zu Beginn der Woche.
+1. **Tabelle ausfüllen:** Füllen Sie die folgende Tabelle aus. Verfolgen Sie alle Bestandsgrößen über den Zeitraum von 6 Wochen. Eine Bestellung wird am Ende der Woche ausgelöst, in der der disponible Bestand den Meldebestand $s$ erreicht oder unterschreitet. Der Wareneingang erfolgt dann genau $L=2$ Wochen später zu Beginn der Woche.
 
 | Woche (t) | Nachfrage $d_t$ | Disp. Bestand (Anfang) | Bestellung? (Menge) | Disp. Bestand (Ende) | Phys. Bestand (Ende) | Bestellbestand (Ende) | Fehlbestand (Ende) |
 |---|---|---|---|---|---|---|---|
-| **0** | - | - | - | 120 | 120 | 0 | 0 |
-| **1** | 30 | 120 | ? | ? | ? | ? | ? |
-| **2** | 40 | ? | ? | ? | ? | ? | ? |
+| **0** | - | - | - | 100 | 100 | 0 | 0 |
+| **1** | 40 | 100 | ? | ? | ? | ? | ? |
+| **2** | 35 | ? | ? | ? | ? | ? | ? |
 | **3** | 50 | ? | ? | ? | ? | ? | ? |
-| **4** | 45 | ? | ? | ? | ? | ? | ? |
-| **5** | 60 | ? | ? | ? | ? | ? | ? |
-| **6** | 55 | ? | ? | ? | ? | ? | ? |
+| **4** | 40 | ? | ? | ? | ? | ? | ? |
+| **5** | 55 | ? | ? | ? | ? | ? | ? |
+| **6** | 60 | ? | ? | ? | ? | ? | ? |
 
 ::: {.content-visible when-profile="solution"}
 
@@ -63,7 +63,7 @@ Der Händler startet in Woche 0 mit den folgenden Beständen:
 
 Beachten Sie die korrekte Reihenfolge der Aktionen **innerhalb jeder Woche**:
 
-1.  **Wareneingang:** Zu Beginn der Woche kommt eine eventuell vor $L=3$ Wochen getätigte Bestellung an. Dadurch steigt der physische Bestand und der Bestellbestand sinkt.
+1.  **Wareneingang:** Zu Beginn der Woche kommt eine eventuell vor $L=2$ Wochen getätigte Bestellung an. Dadurch steigt der physische Bestand und der Bestellbestand sinkt.
 2.  **Nachfrage-Erfüllung:** Die Nachfrage der aktuellen Woche wird bedient. Dies senkt den physischen und den disponiblen Bestand.
 3.  **Bestellentscheidung:** Am **Ende der Woche** wird geprüft, ob eine neue Bestellung ausgelöst werden muss.
 
@@ -93,13 +93,13 @@ Die Logik ist wie folgt:
 import pandas as pd
 
 # Initialwerte
-s, q, L = 100, 250, 3
-demands = [30, 40, 50, 45, 60, 55]
+s, q, L = 80, 200, 2
+demands = [40, 35, 50, 40, 55, 60]
 T = len(demands)
 
 # Tracking-Variablen
-disp_bestand = 120
-phys_bestand = 120
+disp_bestand = 100
+phys_bestand = 100
 bestell_bestand = 0
 fehl_bestand = 0
 
@@ -168,14 +168,14 @@ print(df_results.to_string(index=False))
 
 ## Aufgabe 2: Sicherheitsbestand und Servicegrade
 
-Ein Online-Händler für ein populäres Smartphone-Modell möchte seinen Lagerbestand optimieren. Die wöchentliche Nachfrage ist annähernd normalverteilt mit einem **Mittelwert von 50 Stück** und einer **Standardabweichung von 15 Stück**. Die Wiederbeschaffungszeit vom Hersteller beträgt konstant **4 Wochen**. Der Händler nutzt eine Politik der kontinuierlichen Überprüfung.
+Ein Online-Händler für ein populäres Smartphone-Modell möchte seinen Lagerbestand optimieren. Die wöchentliche Nachfrage ist annähernd normalverteilt mit einem **Mittelwert von 60 Stück** und einer **Standardabweichung von 20 Stück**. Die Wiederbeschaffungszeit vom Hersteller beträgt konstant **3 Wochen**. Der Händler nutzt eine Politik der kontinuierlichen Überprüfung.
 
 **Ihre Aufgaben:**
 
 1.  **Mittelwert und Standardabweichung:** Berechnen Sie den Mittelwert und die Standardabweichung der Nachfrage während der Wiederbeschaffungszeit (dem Risikozeitraum).
-2.  **Bestellpunkt und Sicherheitsbestand:** Der Händler strebt einen $\alpha$-Servicegrad (Zyklus-Servicegrad) von 99% an. Das bedeutet, die Wahrscheinlichkeit eines Fehlbestands während eines Bestellzyklus soll nur 1% betragen. Welcher Bestellpunkt (reorder point) $s$ muss gewählt werden? Wie hoch ist der resultierende Sicherheitsbestand?
-3.  **Erwartete Fehlmenge:** Gegeben der Bestellpunkt $s$ aus Teil 2: Berechnen Sie die erwartete Fehlmenge pro Bestellzyklus $E(B)$. Nutzen Sie dafür die standardisierte Einheiten-Verlustfunktion, die approximiert werden kann als $\phi(z) - z(1 - \Phi(z))$, wobei $z$ der Sicherheitsfaktor ist und $\phi(z)$ bzw. $\Phi(z)$ die Dichte- bzw. Verteilungsfunktion der Standardnormalverteilung sind.
-4.  **Servicegrad:** Wenn der Händler eine feste Bestellmenge von $q=500$ Stück verwendet, welchen $\beta$-Servicegrad (Mengen-Servicegrad) erreicht er mit seiner Politik?
+2.  **Bestellpunkt und Sicherheitsbestand:** Der Händler strebt einen $\alpha$-Servicegrad (Zyklus-Servicegrad) von 95% an. Das bedeutet, die Wahrscheinlichkeit eines Fehlbestands während eines Bestellzyklus soll nur 5% betragen. Welcher Bestellpunkt (reorder point) $s$ muss gewählt werden? Wie hoch ist der resultierende Sicherheitsbestand?
+3.  **Erwartete Fehlmenge:** Gegeben der Bestellpunkt $s$ aus Teil 2: Berechnen Sie die erwartete Fehlmenge pro Bestellzyklus $E(B)$. Nutzen Sie dafür die in der Vorlesung vorgestellte **standardisierte Einheiten-Verlustfunktion $G_u(z)$**. Die benötigten Werte für $G_u(z)$ finden Sie in den Tabellen der Vorlesung oder in den Lösungshinweisen zu dieser Aufgabe.
+4.  **Servicegrad:** Wenn der Händler eine feste Bestellmenge von $q=450$ Stück verwendet, welchen $\beta$-Servicegrad (Mengen-Servicegrad) erreicht er mit seiner Politik?
 
 ::: {.content-visible when-profile="solution"}
 
@@ -199,17 +199,7 @@ Der Bestellpunkt $s$ deckt die erwartete Nachfrage während der WBZ ab und enth�
 
 *   **Bestellpunkt ($s$):** $s = \mu_L + SS$
 *   **Sicherheitsbestand ($SS$):** $SS = z \cdot \sigma_L$
-*   **Sicherheitsfaktor ($z$):** Dieser Wert hängt vom gewünschten $\alpha$-Servicegrad (Zyklus-Servicegrad) ab und wird aus der Standardnormalverteilung abgelesen: 
-    *   $z = \Phi^{-1}(\alpha)$, wobei $\Phi^{-1}$ die inverse kumulative Verteilungsfunktion ist (auch Quantilfunktion genannt).
-
-    Man kann den z-Wert in einer z-Tabelle (Standardnormalverteilungstabelle) nachschlagen. In der Tabelle sucht man den Wert, der der gewünschten Wahrscheinlichkeit $\alpha$ am nächsten kommt. Hier sind einige gebräuchliche Werte:
-
-    | Servicegrad ($\alpha$) | z-Wert |
-    | :--- | :--- |
-    | 90% (0.90) | 1.282 |
-    | 95% (0.95) | 1.645 |
-    | 99% (0.99) | 2.326 |
-    | 99.9% (0.999)| 3.090 |
+*   **Sicherheitsfaktor ($z$):** Dieser Wert hängt vom gewünschten $\alpha$-Servicegrad (Zyklus-Servicegrad) ab und wird aus der Standardnormalverteilung abgelesen.
 
 #### 3. Erwartete Fehlmenge ($E(B)$)
 
@@ -219,16 +209,6 @@ Dies ist die durchschnittliche Anzahl an Einheiten, die pro Zyklus aufgrund von 
 *   **Standardisierte Verlustfunktion ($G_u(z)$):** $G_u(z) = \phi(z) - z(1 - \Phi(z))$
     *   $\phi(z)$: Dichtefunktion der Standardnormalverteilung.
     *   $\Phi(z)$: Kumulative Verteilungsfunktion der Standardnormalverteilung. 
-
-    Hier einige gebräuchliche z-Werte für die Verlustfunktion $G_u(z)$:
-
-    | z-Wert  | $G_u(z)$ |
-    | :---    | :---     |
-    | 1.282   | 0.047    |
-    | 1.645   | 0.021    |
-    | 2.326   | 0.003    |
-    | 3.090   | 0.0002   |
-
 
 #### 4. $\beta$-Servicegrad (Fill Rate)
 
@@ -242,10 +222,10 @@ import numpy as np
 from scipy.stats import norm
 
 # Gegebene Daten
-mu_d_weekly = 50
-sigma_d_weekly = 15
-L = 4 # Wochen
-q = 500
+mu_d_weekly = 60
+sigma_d_weekly = 20
+L = 3 # Wochen
+q = 450
 
 # 1. Momente der Nachfrage während der WBZ
 mu_L = L * mu_d_weekly
@@ -255,8 +235,8 @@ print(f"   - Erwartungswert (mu_L): {mu_L:.2f} Stück")
 print(f"   - Standardabweichung (sigma_L): {sigma_L:.2f} Stück\n")
 
 # 2. Bestellpunkt und Sicherheitsbestand für alpha-Servicegrad
-alpha_target = 0.99
-# Finde den z-Wert (Sicherheitsfaktor) für 99%
+alpha_target = 0.95
+# Finde den z-Wert (Sicherheitsfaktor) für 95%
 z = norm.ppf(alpha_target)
 
 # Sicherheitsbestand = z * sigma_L
@@ -295,19 +275,19 @@ print(f"   - beta = 1 - ({E_B:.4f} / {q}) = {beta:.4f} oder {beta*100:.2f}%")
 
 ## Aufgabe 3: Diskrete Nachfrage und Faltung
 
-Ein kleiner Kiosk verkauft eine spezielle importierte Limonade. Die tägliche Nachfrage ist nicht normalverteilt, sondern folgt einer einfachen diskreten Verteilung:
+Ein Comic-Laden verkauft eine beliebte wöchentliche Manga-Ausgabe. Die tägliche Nachfrage ist nicht normalverteilt, sondern folgt dieser diskreten Verteilung:
 
-| Nachfrage (D) pro Tag | 0 Flaschen | 1 Flasche | 2 Flaschen |
-| :--- | :--- | :--- | :--- |
-| Wahrscheinlichkeit P(D) | 0.2 | 0.6 | 0.2 |
+| Nachfrage (D) pro Tag | 0 Hefte | 1 Heft | 2 Hefte | 3 Hefte |
+| :--- | :--- | :--- | :--- | :--- |
+| Wahrscheinlichkeit P(D) | 0.3 | 0.4 | 0.2 | 0.1 |
 
 Die Wiederbeschaffungszeit beträgt genau **2 Tage**.
 
 **Ihre Aufgaben:**
 
 1.  **Wahrscheinlichkeitsverteilung:** Leiten Sie die Wahrscheinlichkeitsverteilung für die Gesamtnachfrage $Y_2$ über den Risikozeitraum von 2 Tagen her. (Tipp: Nutzen Sie die Faltung der Verteilung mit sich selbst).
-2.  **Fehlbestandswahrscheinlichkeit:** Wenn der Kioskbesitzer einen Bestellpunkt von $s=3$ Flaschen festlegt, wie hoch ist die Wahrscheinlichkeit, dass es zu einem Fehlbestand kommt (d.h. der $\alpha$-Servicegrad *nicht* eingehalten wird)?
-3.  **Erwartete Fehlmenge:** Berechnen Sie die erwartete Fehlmenge $E(B)$ für den Bestellpunkt $s=3$.
+2.  **Fehlbestandswahrscheinlichkeit:** Wenn der Ladenbesitzer einen Bestellpunkt von $s=4$ Heften festlegt, wie hoch ist die Wahrscheinlichkeit, dass es zu einem Fehlbestand kommt (d.h. der $\alpha$-Servicegrad *nicht* eingehalten wird)?
+3.  **Erwartete Fehlmenge:** Berechnen Sie die erwartete Fehlmenge $E(B)$ für den Bestellpunkt $s=4$.
 
 ::: {.content-visible when-profile="solution"}
 
@@ -339,43 +319,42 @@ Sie müssen also für jeden möglichen Nachfragewert $y$ die Fehlmenge $(y-s)$ b
 
 **1. Wahrscheinlichkeitsverteilung der Gesamtnachfrage über 2 Tage (Y2):**
 
-Wir müssen alle möglichen Kombinationen der Nachfrage an Tag 1 ($D_1$) und Tag 2 ($D_2$) betrachten. Die Gesamtnachfrage ist $Y_2 = D_1 + D_2$.
+Wir müssen alle möglichen Kombinationen der Nachfrage an Tag 1 ($D_1$) und Tag 2 ($D_2$) betrachten. Die Gesamtnachfrage ist $Y_2 = D_1 + D_2$. Die möglichen Werte für $Y_2$ reichen von 0 (0+0) bis 6 (3+3).
 
--   **P(Y2 = 0):** Nur wenn $D_1=0$ und $D_2=0$.
-    -   $P(Y2 = 0) = 0.2 \cdot 0.2 = 0.04$
--   **P(Y2 = 1):** Wenn ($D_1=0, D_2=1$) oder ($D_1=1, D_2=0$).
-    -   $P(Y2 = 1) = 0.2 \cdot 0.6 + 0.6 \cdot 0.2 = 0.12 + 0.12 = 0.24$
--   **P(Y2 = 2):** Wenn ($D_1=0, D_2=2$), ($D_1=1, D_2=1$), oder ($D_1=2, D_2=0$).
-    -   $P(Y2 = 2) = 0.2 \cdot 0.2 + 0.6 \cdot 0.6 + 0.2 \cdot 0.2 = 0.04 + 0.36 + 0.04 = 0.44$
--   **P(Y2 = 3):** Wenn ($D_1=1, D_2=2$) oder ($D_1=2, D_2=1$).
-    -   $P(Y2 = 3) = 0.6 \cdot 0.2 + 0.2 \cdot 0.6 = 0.12 + 0.12 = 0.24$
--   **P(Y2 = 4):** Nur wenn $D_1=2$ und $D_2=2$.
-    -   $P(Y2 = 4) = 0.2 \cdot 0.2 = 0.04$
+-   **P(Y2 = 0):** $P(D_1=0, D_2=0) = 0.3 \cdot 0.3 = 0.09$
+-   **P(Y2 = 1):** $P(D_1=0, D_2=1) + P(D_1=1, D_2=0) = (0.3 \cdot 0.4) + (0.4 \cdot 0.3) = 0.12 + 0.12 = 0.24$
+-   **P(Y2 = 2):** $P(D_1=0, D_2=2) + P(D_1=1, D_2=1) + P(D_1=2, D_2=0) = (0.3 \cdot 0.2) + (0.4 \cdot 0.4) + (0.2 \cdot 0.3) = 0.06 + 0.16 + 0.06 = 0.28$
+-   **P(Y2 = 3):** $P(D_1=0, D_2=3) + P(D_1=1, D_2=2) + P(D_1=2, D_2=1) + P(D_1=3, D_2=0) = (0.3 \cdot 0.1) + (0.4 \cdot 0.2) + (0.2 \cdot 0.4) + (0.1 \cdot 0.3) = 0.03 + 0.08 + 0.08 + 0.03 = 0.22$
+-   **P(Y2 = 4):** $P(D_1=1, D_2=3) + P(D_1=2, D_2=2) + P(D_1=3, D_2=1) = (0.4 \cdot 0.1) + (0.2 \cdot 0.2) + (0.1 \cdot 0.4) = 0.04 + 0.04 + 0.04 = 0.12$
+-   **P(Y2 = 5):** $P(D_1=2, D_2=3) + P(D_1=3, D_2=2) = (0.2 \cdot 0.1) + (0.1 \cdot 0.2) = 0.02 + 0.02 = 0.04$
+-   **P(Y2 = 6):** $P(D_1=3, D_2=3) = 0.1 \cdot 0.1 = 0.01$
+
 
 **Zusammenfassung der Verteilung für Y2:**
 
-| $Y_2$ | 0 | 1 | 2 | 3 | 4 |
-| :--- | :-- | :-- | :-- | :-- | :-- |
-| P($Y_2$) | 0.04| 0.24| 0.44| 0.24| 0.04|
+| $Y_2$ | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
+| :--- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
+| P($Y_2$) | 0.09| 0.24| 0.28| 0.22| 0.12| 0.04| 0.01|
 
-**2. Wahrscheinlichkeit eines Fehlbestands für s=3:**
+**2. Wahrscheinlichkeit eines Fehlbestands für s=4:**
 
-Ein Fehlbestand tritt auf, wenn die Nachfrage $Y_2$ den Bestellpunkt $s=3$ übersteigt.
-$P(\text{Fehlbestand}) = P(Y_2 > 3) = P(Y_2 = 4)$
-$P(\text{Fehlbestand}) = 0.04$ oder 4%.
+Ein Fehlbestand tritt auf, wenn die Nachfrage $Y_2$ den Bestellpunkt $s=4$ übersteigt.
+$P(\text{Fehlbestand}) = P(Y_2 > 4) = P(Y_2 = 5) + P(Y_2 = 6)$
+$P(\text{Fehlbestand}) = 0.04 + 0.01 = 0.05$ oder 5%.
 
-Der $\alpha$-Servicegrad wäre demnach $1 - 0.04 = 0.96$ oder 96%.
+Der $\alpha$-Servicegrad wäre demnach $1 - 0.05 = 0.95$ oder 95%.
 
-**3. Erwartete Fehlmenge E(B) für s=3:**
+**3. Erwartete Fehlmenge E(B) für s=4:**
 
 Die Fehlmenge $B$ ist $\max(0, Y_2 - s)$. Wir berechnen den Erwartungswert, indem wir jede mögliche Fehlmenge mit ihrer Wahrscheinlichkeit multiplizieren.
 
--   Wenn $Y_2 \le 3$, ist die Fehlmenge 0.
--   Wenn $Y_2 = 4$, ist die Fehlmenge $4 - 3 = 1$.
+-   Wenn $Y_2 \le 4$, ist die Fehlmenge 0.
+-   Wenn $Y_2 = 5$, ist die Fehlmenge $5 - 4 = 1$. Die Wahrscheinlichkeit dafür ist $P(Y_2=5) = 0.04$.
+-   Wenn $Y_2 = 6$, ist die Fehlmenge $6 - 4 = 2$. Die Wahrscheinlichkeit dafür ist $P(Y_2=6) = 0.01$.
 
 $E(B) = \sum \max(0, y - s) \cdot P(Y_2=y)$
-$E(B) = (0 \cdot P(Y_2=0)) + (0 \cdot P(Y_2=1)) + (0 \cdot P(Y_2=2)) + (0 \cdot P(Y_2=3)) + ((4-3) \cdot P(Y_2=4))$
-$E(B) = 1 \cdot 0.04 = 0.04$
+$E(B) = (1 \cdot P(Y_2=5)) + (2 \cdot P(Y_2=6))$
+$E(B) = (1 \cdot 0.04) + (2 \cdot 0.01) = 0.04 + 0.02 = 0.06$
 
-Die erwartete Fehlmenge pro Bestellzyklus beträgt 0.04 Flaschen.
+Die erwartete Fehlmenge pro Bestellzyklus beträgt 0.06 Hefte.
 ::: 

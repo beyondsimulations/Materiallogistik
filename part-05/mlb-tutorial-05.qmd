@@ -109,104 +109,7 @@ print(f"   - Sicherheitsbestand = {x_opt:.2f} - {mu_Y} = {safety_stock:.2f} Stü
 ```
 :::
 
-## Aufgabe 2: Periodische Lagerhaltungspolitik (r, S)
-
-Ein Fachgeschäft für Wander-Ausrüstung verkauft einen speziellen Typ Wanderstiefel. Die Nachfrage ist annähernd normalverteilt. Der Bestand wird alle 4 Wochen (r=4) überprüft. Die Lieferzeit vom Hersteller beträgt konstant 2 Wochen (L=2).
-
-**Daten zur wöchentlichen Nachfrage:**
-
--   **Erwartungswert ($\mu_D$):** 20 Paar
--   **Standardabweichung ($\sigma_D$):** 8 Paar
-
-Das Geschäft strebt einen $\beta$-Servicegrad von 98% an. Das bedeutet, dass 98% der gesamten Nachfrage direkt aus dem Lager bedient werden soll.
-
-**Ihre Aufgaben:**
-
-1.  **Risikozeitraum:** Bestimmen Sie den Risikozeitraum für diese $(r, S)$-Politik.
-2.  **Nachfrageparameter:** Berechnen Sie den Erwartungswert und die Standardabweichung der Nachfrage während des gesamten Risikozeitraums.
-3.  **Optimales Bestellniveau:** Bestimmen Sie das optimale Bestellniveau $S_{opt}$. Nehmen Sie zur Vereinfachung an, dass der Fehlmengenanteil direkt aus der Einheiten-Verlustfunktion der Normalverteilung über den gesamten Risikozeitraum $(r+L)$ abgeleitet werden kann.
-    $S_{opt} = \mu_{r+L} + v_{opt} \cdot \sigma_{r+L}$, wobei $v_{opt}$ so gewählt wird, dass $G_Z^{(1)}(v_{opt}) \leq \frac{(1-\beta) \cdot r \cdot \mu_D}{\sigma_{r+L}}$.
-    *Nutzen Sie die Approximation $G_Z^{(1)}(v) \approx \phi(v) - v \cdot (1-\Phi(v))$.*
-
-::: {.content-visible when-profile="solution"}
-**Lösungshinweise:**
-
-::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
-#### 1. Risikozeitraum einer (r,S)-Politik
-
-*   Bei einer periodischen Überprüfung müssen wir die Nachfrageunsicherheit über das **Überprüfungsintervall (r)** und die **Wiederbeschaffungszeit (L)** abdecken. Eine Bestellung, die heute aufgegeben wird, muss die Nachfrage decken, bis die *nächste* Bestellung eintrifft.
-*   **Formel:** `Risikozeitraum = r + L`
-
-#### 2. Nachfrageparameter im Risikozeitraum
-
-*   Wenn die wöchentliche Nachfrage unabhängig ist, können die Kennzahlen für den gesamten Risikozeitraum einfach berechnet werden:
-*   **Erwartungswert:** $\mu_{r+L} = (r+L) \cdot \mu_D$
-*   **Varianz:** $\sigma_{r+L}^2 = (r+L) \cdot \sigma_D^2$
-*   **Standardabweichung:** $\sigma_{r+L} = \sqrt{r+L} \cdot \sigma_D$
-
-#### 3. Optimales Bestellniveau $S_{opt}$
-
-*   Das Bestellniveau $S$ (auch "order-up-to level") ist der Zielbestand, auf den bei jeder Überprüfung aufgefüllt wird.
-*   **Formel:** $S_{opt} = \mu_{r+L} + SS = \mu_{r+L} + v_{opt} \cdot \sigma_{r+L}$
-*   Der Sicherheitsfaktor $v_{opt}$ wird so bestimmt, dass der angestrebte $\beta$-Servicegrad erreicht wird. Dafür wird die **standardisierte Einheiten-Verlustfunktion** $G_Z^{(1)}(v)$ verwendet.
-*   **Zielbedingung:** Finde das kleinste $v$, für das gilt:
-    $G_Z^{(1)}(v) \leq \frac{(1-\beta) \cdot \text{erwartete Nachfrage im Intervall r}}{\sigma_{r+L}} = \frac{(1-\beta) \cdot r \cdot \mu_D}{\sigma_{r+L}}$
-*   Da es keine geschlossene Formel zur Umkehrung von $G_Z^{(1)}(v)$ gibt, muss der Wert für $v$ iterativ gesucht werden (z.B. durch Ausprobieren oder mit einem Solver).
-:::
-
-```{python}
-from scipy.stats import norm
-import numpy as np
-
-# Gegebene Daten
-r = 4 # Wochen
-L = 2 # Wochen
-mu_d_weekly = 20
-sigma_d_weekly = 8
-beta_target = 0.98
-
-# 1. Risikozeitraum
-risk_period = r + L
-print(f"1. Risikozeitraum: r + L = {r} + {L} = {risk_period} Wochen\n")
-
-# 2. Momente der Nachfrage im Risikozeitraum
-mu_risk_period = risk_period * mu_d_weekly
-sigma_risk_period = np.sqrt(risk_period) * sigma_d_weekly
-print(f"2. Nachfrageparameter im Risikozeitraum ({risk_period} Wochen):")
-print(f"   - Erwartungswert (mu_{r+L}): {risk_period} * {mu_d_weekly} = {mu_risk_period:.2f} Paar")
-print(f"   - Standardabweichung (sigma_{r+L}): sqrt({risk_period}) * {sigma_d_weekly} = {sigma_risk_period:.2f} Paar\n")
-
-# 3. Optimales Bestellniveau S_opt
-# Zielwert für die standardisierte Einheiten-Verlustfunktion
-target_G1_v = ((1 - beta_target) * r * mu_d_weekly) / sigma_risk_period
-
-print("3. Optimales Bestellniveau S_opt:")
-print(f"   - Zielwert für G_Z(v): (1 - {beta_target}) * {r} * {mu_d_weekly} / {sigma_risk_period:.2f} = {target_G1_v:.4f}")
-
-# Iterative Suche nach v_opt (eine einfache Schleife genügt hier)
-v = 0.0
-step = 0.001
-G1_v = norm.pdf(v) - v * (1 - norm.cdf(v))
-
-while G1_v > target_G1_v:
-    v += step
-    G1_v = norm.pdf(v) - v * (1 - norm.cdf(v))
-
-v_opt = v
-print(f"   - Gefundener optimaler standardisierter Bestellpunkt (v_opt): {v_opt:.4f}")
-
-# Berechnung von S_opt
-S_opt = mu_risk_period + v_opt * sigma_risk_period
-safety_stock = v_opt * sigma_risk_period
-
-print(f"   - Optimales Bestellniveau S_opt = {mu_risk_period:.2f} + {v_opt:.4f} * {sigma_risk_period:.2f} = {S_opt:.2f}")
-print(f"   -> Das Bestellniveau S sollte auf {int(np.ceil(S_opt))} Paar gesetzt werden.")
-print(f"   - Der darin enthaltene Sicherheitsbestand beträgt {safety_stock:.2f} Paar.")
-
-```
-:::
-
-## Aufgabe 3: Newsvendor mit diskreter Nachfrage
+## Aufgabe 2: Newsvendor mit diskreter Nachfrage
 
 Ein Bäcker muss morgens entscheiden, wie viele eines speziellen Kuchens er für den Tag backen soll. Die Herstellungskosten pro Kuchen betragen 5 GE, der Verkaufspreis liegt bei 12 GE. Nicht verkaufte Kuchen können am Ende des Tages nicht mehr verkauft werden und haben einen Restwert von 0 GE.
 
@@ -299,6 +202,102 @@ print(f"Antwort: Der Bäcker sollte {x_opt} Kuchen backen.")
 
 ```
 :::
+
+## Aufgabe 3: Periodische Lagerhaltungspolitik (r, S)
+
+Ein Fachgeschäft für Wander-Ausrüstung verkauft einen speziellen Typ Wanderstiefel. Die Nachfrage ist annähernd normalverteilt. Der Bestand wird alle 4 Wochen (r=4) überprüft. Die Lieferzeit vom Hersteller beträgt konstant 2 Wochen (L=2).
+
+**Daten zur wöchentlichen Nachfrage:**
+
+-   **Erwartungswert ($\mu_D$):** 20 Paar
+-   **Standardabweichung ($\sigma_D$):** 8 Paar
+
+Das Geschäft strebt einen $\beta$-Servicegrad von 98% an. Das bedeutet, dass 98% der gesamten Nachfrage direkt aus dem Lager bedient werden soll.
+
+**Ihre Aufgaben:**
+
+1.  **Risikozeitraum:** Bestimmen Sie den Risikozeitraum für diese $(r, S)$-Politik.
+2.  **Nachfrageparameter:** Berechnen Sie den Erwartungswert und die Standardabweichung der Nachfrage während des gesamten Risikozeitraums.
+3.  **Optimales Bestellniveau:** Bestimmen Sie das optimale Bestellniveau $S_{opt}$, analog zur Vorlesung.
+
+::: {.content-visible when-profile="solution"}
+**Lösungshinweise:**
+
+::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
+#### 1. Risikozeitraum einer (r,S)-Politik
+
+*   Bei einer periodischen Überprüfung müssen wir die Nachfrageunsicherheit über das **Überprüfungsintervall (r)** und die **Wiederbeschaffungszeit (L)** abdecken. Eine Bestellung, die heute aufgegeben wird, muss die Nachfrage decken, bis die *nächste* Bestellung eintrifft.
+*   **Formel:** `Risikozeitraum = r + L`
+
+#### 2. Nachfrageparameter im Risikozeitraum
+
+*   Wenn die wöchentliche Nachfrage unabhängig ist, können die Kennzahlen für den gesamten Risikozeitraum einfach berechnet werden:
+*   **Erwartungswert:** $\mu_{r+L} = (r+L) \cdot \mu_D$
+*   **Varianz:** $\sigma_{r+L}^2 = (r+L) \cdot \sigma_D^2$
+*   **Standardabweichung:** $\sigma_{r+L} = \sqrt{r+L} \cdot \sigma_D$
+
+#### 3. Optimales Bestellniveau $S_{opt}$
+
+*   Das Bestellniveau $S$ (auch "order-up-to level") ist der Zielbestand, auf den bei jeder Überprüfung aufgefüllt wird.
+*   **Formel:** $S_{opt} = \mu_{r+L} + SS = \mu_{r+L} + v_{opt} \cdot \sigma_{r+L}$
+*   Der Sicherheitsfaktor $v_{opt}$ wird so bestimmt, dass der angestrebte $\beta$-Servicegrad erreicht wird. Dafür wird die **standardisierte Einheiten-Verlustfunktion** $G_Z^{(1)}(v)$ verwendet.
+*   **Zielbedingung:** Finde das kleinste $v$, für das gilt:
+    $G_Z^{(1)}(v) \leq \frac{(1-\beta) \cdot \text{erwartete Nachfrage im Intervall r}}{\sigma_{r+L}} = \frac{(1-\beta) \cdot r \cdot \mu_D}{\sigma_{r+L}}$
+*   Da es keine geschlossene Formel zur Umkehrung von $G_Z^{(1)}(v)$ gibt, muss der Wert für $v$ iterativ gesucht werden.
+:::
+
+```{python}
+from scipy.stats import norm
+import numpy as np
+
+# Gegebene Daten
+r = 4 # Wochen
+L = 2 # Wochen
+mu_d_weekly = 20
+sigma_d_weekly = 8
+beta_target = 0.98
+
+# 1. Risikozeitraum
+risk_period = r + L
+print(f"1. Risikozeitraum: r + L = {r} + {L} = {risk_period} Wochen\n")
+
+# 2. Momente der Nachfrage im Risikozeitraum
+mu_risk_period = risk_period * mu_d_weekly
+sigma_risk_period = np.sqrt(risk_period) * sigma_d_weekly
+print(f"2. Nachfrageparameter im Risikozeitraum ({risk_period} Wochen):")
+print(f"   - Erwartungswert (mu_{r+L}): {risk_period} * {mu_d_weekly} = {mu_risk_period:.2f} Paar")
+print(f"   - Standardabweichung (sigma_{r+L}): sqrt({risk_period}) * {sigma_d_weekly} = {sigma_risk_period:.2f} Paar\n")
+
+# 3. Optimales Bestellniveau S_opt
+# Zielwert für die standardisierte Einheiten-Verlustfunktion
+target_G1_v = ((1 - beta_target) * r * mu_d_weekly) / sigma_risk_period
+
+print("3. Optimales Bestellniveau S_opt:")
+print(f"   - Zielwert für G_Z(v): (1 - {beta_target}) * {r} * {mu_d_weekly} / {sigma_risk_period:.2f} = {target_G1_v:.4f}")
+
+# Iterative Suche nach v_opt (eine einfache Schleife genügt hier)
+v = 0.0
+step = 0.001
+G1_v = norm.pdf(v) - v * (1 - norm.cdf(v))
+
+while G1_v > target_G1_v:
+    v += step
+    G1_v = norm.pdf(v) - v * (1 - norm.cdf(v))
+
+v_opt = v
+print(f"   - Gefundener optimaler standardisierter Bestellpunkt (v_opt): {v_opt:.4f}")
+
+# Berechnung von S_opt
+S_opt = mu_risk_period + v_opt * sigma_risk_period
+safety_stock = v_opt * sigma_risk_period
+
+print(f"   - Optimales Bestellniveau S_opt = {mu_risk_period:.2f} + {v_opt:.4f} * {sigma_risk_period:.2f} = {S_opt:.2f}")
+print(f"   -> Das Bestellniveau S sollte auf {int(np.ceil(S_opt))} Paar gesetzt werden.")
+print(f"   - Der darin enthaltene Sicherheitsbestand beträgt {safety_stock:.2f} Paar.")
+
+```
+:::
+
 
 ## Aufgabe 4: Bestellpunkt-Politik (s, q) mit Undershoot
 

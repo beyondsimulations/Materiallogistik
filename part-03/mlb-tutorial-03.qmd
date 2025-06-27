@@ -289,7 +289,7 @@ Für die kommende Neuplanung (beginnend in Woche 3 für die nächsten 6 Wochen) 
 
 Beantworten Sie die folgenden konzeptionellen Fragen:
 
-1.  **Eingefrorener Plan:** Welcher Teil des ursprünglichen Produktionsplans für die Komponenten (Ihre Bestellungen aus Aufgabe 2) ist nun "eingefroren" und muss als gegeben hingenommen werden?
+1.  **Eingefrorener Plan:** Welcher Teil des ursprünglichen Produktionsplans für die Komponenten (Ihre Bestellungen aus Aufgabe 2) ist nun mindestens "eingefroren" und muss als gegeben hingenommen werden?
 2.  **Planungsinstabilität:** Erklären Sie, warum der ursprüngliche Plan für die Wochen 3-6 wahrscheinlich nicht mehr optimal ist, selbst wenn sich nur ein einziger Bedarfswert in der Zukunft geändert hat. Beziehen Sie sich dabei auf die Losgrößenentscheidung für das Wifi-Modul (W1).
 3.  **Definitionen:** Überlegen Sie kurz, wie die Begriffe "Planungsinstabilität" und "Frozen Zone" im Kontext dieses Beispiels definiert werden können.
 
@@ -331,7 +331,7 @@ Beantworten Sie die folgenden konzeptionellen Fragen:
     -   Fazit: Eine kleine Änderung in der Zukunft kann durch die komplexen, mehrstufigen Abhängigkeiten und Losgrößenlogiken die Optimalität des gesamten bestehenden Plans zunichtemachen.
 
 3.  **Definitionen:**
-    -   **Frozen Zone:** Dies ist der unmittelbar bevorstehende Zeitraum des Plans (hier: Woche 1-2), in dem keine Änderungen mehr vorgenommen werden. Die Produktionsaufträge sind bereits freigegeben, Material ist unterwegs. Dies schafft Stabilität in der Produktion. Die Länge der Frozen Zone wird oft durch die kumulierte Vorlaufzeit der Produkte bestimmt.
+    -   **Frozen Zone:** Dies ist der unmittelbar bevorstehende Zeitraum des Plans (hier: Woche 1-2), in dem keine Änderungen mehr vorgenommen werden. Die Produktionsaufträge sind bereits freigegeben, Material ist unterwegs. Dies schafft Stabilität in der Produktion. Die Länge der Frozen Zone orientiert sich oft an der kumulierten Vorlaufzeit der Produkte, kann aber aus strategischen Gründen (z.B. zur Kapazitätsglättung oder aufgrund von Lieferantenverträgen) bewusst länger gewählt werden.
     -   **Planungsinstabilität (Nervosität):** Dies beschreibt das Phänomen, dass kleine Änderungen der Eingabedaten (z.B. ein einzelner Bedarfswert) in einer Neuplanung zu signifikanten Änderungen der Produktions- und Bestellaufträge führen, auch in naher Zukunft. Im Beispiel könnte der neue Plan für Woche 3 und 4 komplett anders aussehen als der alte Plan für dieselben Wochen. Diese "Nervosität" ist oft unerwünscht, da sie Unruhe in die Fertigung und Beschaffung bringt. Die Frozen Zone ist eine Maßnahme, um diese Instabilität zu dämpfen.
 
 :::
@@ -353,7 +353,7 @@ Ein Produktionsplaner hat für die Produkte "Sirius" und "Vega" einen unvollstä
 
 **Die unvollständige Tabelle:**
 
-| Woche (t) | Produzierter Typ | Bedarf Sirius | Prod. Sirius | Lager Sirius (Ende) | Bedarf Vega | Prod. Vega | Lager Vega (Ende) | Rüstkosten | Lagerkosten (Summe) |
+| Woche (t) | Prod. Typ | Bedarf Sirius | Prod. Sirius | Lager Sirius (Ende) | Bedarf Vega | Prod. Vega | Lager Vega (Ende) | Rüstk. | Lagerk. (Summe) |
 |---|---|---|---|---|---|---|---|---|---|
 | 0 | - | - | - | 0 | - | - | 0 | - | - |
 | 1 | Sirius | 20 | 50 | **(a)** | 0 | 0 | 0 | **(b)** | **(c)** |

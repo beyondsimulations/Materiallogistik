@@ -49,13 +49,13 @@ website:
       - section: "04 Bestandsmanagement"
         contents:
           - text: "Vorlesung"
-            href: part-04/mlb-lecture-04.pdf
+            href: part-04/mlb-lecture-04_new.qmd
           - text: "Tutorium"
             href: part-04/mlb-tutorial-04.qmd
       - section: "05 Bestellpolitiken"
         contents:
           - text: "Vorlesung"
-            href: part-05/mlb-lecture-05.pdf
+            href: part-05/mlb-lecture-05_new.qmd
           - text: "Tutorium"
             href: part-05/mlb-tutorial-05.qmd
       - text: "***"
