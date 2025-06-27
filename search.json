@@ -318,7 +318,18 @@
     "href": "part-02/mlb-tutorial-02.html",
     "title": "Übung 02",
     "section": "",
-    "text": "Die lokale Traditionsbrauerei “Duisburger Perle” plant die Produktion ihres beliebten Saisonbiers “Frühlings-Helles” für die kommenden 6 Wochen. Da die Nachfrage schwankt und das Aufsetzen eines neuen Brauvorgangs (Rüsten) mit erheblichen Kosten verbunden ist, soll ein kostenoptimaler Produktionsplan gefunden werden.\nDie Brauerei hat die folgenden Daten ermittelt:\n\nRüstkosten (\\(s\\)): 250 GE pro Brauvorgang (Los)\nLagerkostensatz (\\(h\\)): 2 GE pro Kasten und Woche\n\nWöchentliche Nachfrage (\\(d_t\\)):\n\n\n\nWoche (t)\n1\n2\n3\n4\n5\n6\n\n\n\n\nNachfrage (Kästen)\n30\n50\n20\n70\n80\n40\n\n\n\nUm die Gesamtkosten zu minimieren, soll das exakte Verfahren von Wagner und Whitin (Dynamische Optimierung) angewendet werden. Es wird angenommen, dass zu Beginn kein Lagerbestand vorhanden ist und am Ende der 6. Woche ebenfalls kein Bestand verbleiben soll.\nIhre Aufgaben:\n\nKostenmatrix erstellen: Berechnen Sie die Kosten \\(c_{\\tau j}\\) für jedes mögliche Los, das in Woche \\(\\tau\\) produziert wird, um die Nachfrage bis einschließlich Woche \\(j\\) zu decken.\nWagner-Whitin-Algorithmus anwenden: Ermitteln Sie rekursiv die minimalen Gesamtkosten \\(f_i\\) für einen Planungszeitraum von \\(i = 1, \\ldots, 6\\) Wochen. Notieren Sie sich bei jedem Schritt, welche Entscheidung zur minimalen Kosten führt.\nOptimalen Produktionsplan ableiten: Bestimmen Sie durch Rückverfolgung (Backtracking) aus den Ergebnissen von Schritt 2, in welchen Wochen eine Produktion stattfinden soll und wie groß die jeweilige Losgröße ist. Wie hoch sind die minimalen Gesamtkosten?",
+    "text": "Wer noch Schwierigkeiten mit dem CLSP und der Lagerbilanzgleichung hat, kann sich gerne folgendes Video aus meiner anderen Vorlesung Grundlagen des Operations Research ansehen:",
+    "crumbs": [
+      "02 CLSP",
+      "Tutorium"
+    ]
+  },
+  {
+    "objectID": "part-02/mlb-tutorial-02.html#einleitung",
+    "href": "part-02/mlb-tutorial-02.html#einleitung",
+    "title": "Übung 02",
+    "section": "",
+    "text": "Wer noch Schwierigkeiten mit dem CLSP und der Lagerbilanzgleichung hat, kann sich gerne folgendes Video aus meiner anderen Vorlesung Grundlagen des Operations Research ansehen:",
     "crumbs": [
       "02 CLSP",
       "Tutorium"
@@ -328,8 +339,8 @@
     "objectID": "part-02/mlb-tutorial-02.html#aufgabe-1-exakte-losgrößenplanung-für-saisonbier",
     "href": "part-02/mlb-tutorial-02.html#aufgabe-1-exakte-losgrößenplanung-für-saisonbier",
     "title": "Übung 02",
-    "section": "",
-    "text": "Die lokale Traditionsbrauerei “Duisburger Perle” plant die Produktion ihres beliebten Saisonbiers “Frühlings-Helles” für die kommenden 6 Wochen. Da die Nachfrage schwankt und das Aufsetzen eines neuen Brauvorgangs (Rüsten) mit erheblichen Kosten verbunden ist, soll ein kostenoptimaler Produktionsplan gefunden werden.\nDie Brauerei hat die folgenden Daten ermittelt:\n\nRüstkosten (\\(s\\)): 250 GE pro Brauvorgang (Los)\nLagerkostensatz (\\(h\\)): 2 GE pro Kasten und Woche\n\nWöchentliche Nachfrage (\\(d_t\\)):\n\n\n\nWoche (t)\n1\n2\n3\n4\n5\n6\n\n\n\n\nNachfrage (Kästen)\n30\n50\n20\n70\n80\n40\n\n\n\nUm die Gesamtkosten zu minimieren, soll das exakte Verfahren von Wagner und Whitin (Dynamische Optimierung) angewendet werden. Es wird angenommen, dass zu Beginn kein Lagerbestand vorhanden ist und am Ende der 6. Woche ebenfalls kein Bestand verbleiben soll.\nIhre Aufgaben:\n\nKostenmatrix erstellen: Berechnen Sie die Kosten \\(c_{\\tau j}\\) für jedes mögliche Los, das in Woche \\(\\tau\\) produziert wird, um die Nachfrage bis einschließlich Woche \\(j\\) zu decken.\nWagner-Whitin-Algorithmus anwenden: Ermitteln Sie rekursiv die minimalen Gesamtkosten \\(f_i\\) für einen Planungszeitraum von \\(i = 1, \\ldots, 6\\) Wochen. Notieren Sie sich bei jedem Schritt, welche Entscheidung zur minimalen Kosten führt.\nOptimalen Produktionsplan ableiten: Bestimmen Sie durch Rückverfolgung (Backtracking) aus den Ergebnissen von Schritt 2, in welchen Wochen eine Produktion stattfinden soll und wie groß die jeweilige Losgröße ist. Wie hoch sind die minimalen Gesamtkosten?",
+    "section": "Aufgabe 1: Exakte Losgrößenplanung für Saisonbier",
+    "text": "Aufgabe 1: Exakte Losgrößenplanung für Saisonbier\nDie lokale Traditionsbrauerei “Duisburger Perle” plant die Produktion ihres beliebten Saisonbiers “Frühlings-Helles” für die kommenden 6 Wochen. Da die Nachfrage schwankt und das Aufsetzen eines neuen Brauvorgangs (Rüsten) mit erheblichen Kosten verbunden ist, soll ein kostenoptimaler Produktionsplan gefunden werden.\nDie Brauerei hat die folgenden Daten ermittelt:\n\nRüstkosten (\\(s\\)): 250 GE pro Brauvorgang (Los)\nLagerkostensatz (\\(h\\)): 2 GE pro Kasten und Woche\n\nWöchentliche Nachfrage (\\(d_t\\)):\n\n\n\nWoche (t)\n1\n2\n3\n4\n5\n6\n\n\n\n\nNachfrage (Kästen)\n30\n50\n20\n70\n80\n40\n\n\n\nUm die Gesamtkosten zu minimieren, soll das exakte Verfahren von Wagner und Whitin (Dynamische Optimierung) angewendet werden. Es wird angenommen, dass zu Beginn kein Lagerbestand vorhanden ist und am Ende der 6. Woche ebenfalls kein Bestand verbleiben soll.\nIhre Aufgaben:\n\nKostenmatrix erstellen: Berechnen Sie die Kosten \\(c_{\\tau j}\\) für jedes mögliche Los, das in Woche \\(\\tau\\) produziert wird, um die Nachfrage bis einschließlich Woche \\(j\\) zu decken.\nWagner-Whitin-Algorithmus anwenden: Ermitteln Sie rekursiv die minimalen Gesamtkosten \\(f_i\\) für einen Planungszeitraum von \\(i = 1, \\ldots, 6\\) Wochen. Notieren Sie sich bei jedem Schritt, welche Entscheidung zur minimalen Kosten führt.\nOptimalen Produktionsplan ableiten: Bestimmen Sie durch Rückverfolgung (Backtracking) aus den Ergebnissen von Schritt 2, in welchen Wochen eine Produktion stattfinden soll und wie groß die jeweilige Losgröße ist. Wie hoch sind die minimalen Gesamtkosten?",
     "crumbs": [
       "02 CLSP",
       "Tutorium"
