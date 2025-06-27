@@ -2,11 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://beyondsimulations.github.io/Materiallogistik/part-05/mlb-tutorial-05.html</loc>
-    <lastmod>2025-06-27T13:06:18.881Z</lastmod>
+    <lastmod>2025-06-27T19:54:56.494Z</lastmod>
+  </url>
+  <url>
+    <loc>https://beyondsimulations.github.io/Materiallogistik/part-04/mlb-tutorial-04.html</loc>
+    <lastmod>2025-06-27T20:09:21.250Z</lastmod>
   </url>
   <url>
     <loc>https://beyondsimulations.github.io/Materiallogistik/part-03/mlb-tutorial-03.html</loc>
-    <lastmod>2025-06-27T14:19:47.388Z</lastmod>
+    <lastmod>2025-06-27T15:18:08.587Z</lastmod>
   </url>
   <url>
     <loc>https://beyondsimulations.github.io/Materiallogistik/part-01/mlb-tutorial-01.html</loc>
@@ -33,7 +37,11 @@
     <lastmod>2025-06-27T09:23:14.853Z</lastmod>
   </url>
   <url>
-    <loc>https://beyondsimulations.github.io/Materiallogistik/part-04/mlb-tutorial-04.html</loc>
-    <lastmod>2025-06-27T13:06:11.572Z</lastmod>
+    <loc>https://beyondsimulations.github.io/Materiallogistik/part-04/mlb-lecture-04_new.html</loc>
+    <lastmod>2025-06-27T19:45:21.389Z</lastmod>
+  </url>
+  <url>
+    <loc>https://beyondsimulations.github.io/Materiallogistik/part-05/mlb-lecture-05_new.html</loc>
+    <lastmod>2025-06-27T19:54:00.216Z</lastmod>
   </url>
 </urlset>

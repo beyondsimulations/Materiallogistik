@@ -116,7 +116,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-04/mlb-lecture-04.pdf">04 Bestandsmanagement</a></li><li class="breadcrumb-item"><a href="../part-04/mlb-tutorial-04.html">Tutorium</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-04/mlb-lecture-04_new.html">04 Bestandsmanagement</a></li><li class="breadcrumb-item"><a href="../part-04/mlb-tutorial-04.html">Tutorium</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -230,7 +230,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../part-04/mlb-lecture-04.pdf" class="sidebar-item-text sidebar-link">
+  <a href="../part-04/mlb-lecture-04_new.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Vorlesung</span></a>
   </div>
 </li>
@@ -253,7 +253,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../part-05/mlb-lecture-05.pdf" class="sidebar-item-text sidebar-link">
+  <a href="../part-05/mlb-lecture-05_new.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Vorlesung</span></a>
   </div>
 </li>
@@ -299,7 +299,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-04/mlb-lecture-04.pdf">04 Bestandsmanagement</a></li><li class="breadcrumb-item"><a href="../part-04/mlb-tutorial-04.html">Tutorium</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-04/mlb-lecture-04_new.html">04 Bestandsmanagement</a></li><li class="breadcrumb-item"><a href="../part-04/mlb-tutorial-04.html">Tutorium</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Übung 04</h1>
 <p class="subtitle lead">Bestandsmanagement unter Unsicherheit</p>
@@ -323,13 +323,13 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="aufgabe-1-bestandsgrößen-im-zeitverlauf">Aufgabe 1: Bestandsgrößen im Zeitverlauf</h2>
 <p>Ein Händler für hochwertige Espressomaschinen nutzt zur Steuerung seines Lagers eine <span class="math inline">\((s, q)\)</span>-Politik mit kontinuierlicher Überwachung. Die Politik ist wie folgt definiert:</p>
 <ul>
-<li>Bestellpunkt (Meldebestand) <strong><span class="math inline">\(s\)</span></strong>: 100 Maschinen</li>
-<li>Bestellmenge <strong><span class="math inline">\(q\)</span></strong>: 250 Maschinen</li>
-<li>Wiederbeschaffungszeit <strong><span class="math inline">\(L\)</span></strong>: 3 Wochen (deterministisch)</li>
+<li>Bestellpunkt (Meldebestand) <strong><span class="math inline">\(s\)</span></strong>: 80 Maschinen</li>
+<li>Bestellmenge <strong><span class="math inline">\(q\)</span></strong>: 200 Maschinen</li>
+<li>Wiederbeschaffungszeit <strong><span class="math inline">\(L\)</span></strong>: 2 Wochen (deterministisch)</li>
 </ul>
 <p>Der Händler startet in Woche 0 mit den folgenden Beständen:</p>
 <ul>
-<li>Physischer Bestand <span class="math inline">\(I_0^P\)</span>: 120 Maschinen</li>
+<li>Physischer Bestand <span class="math inline">\(I_0^P\)</span>: 100 Maschinen</li>
 <li>Bestellbestand (offene Bestellungen) <span class="math inline">\(I_0^O\)</span>: 0 Maschinen</li>
 </ul>
 <p><strong>Wöchentliche Nachfragen (deterministisch für diese Aufgabe):</strong></p>
@@ -348,18 +348,18 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Nachfrage <span class="math inline">\(d_t\)</span></td>
-<td style="text-align: center;">30</td>
 <td style="text-align: center;">40</td>
+<td style="text-align: center;">35</td>
 <td style="text-align: center;">50</td>
-<td style="text-align: center;">45</td>
-<td style="text-align: center;">60</td>
+<td style="text-align: center;">40</td>
 <td style="text-align: center;">55</td>
+<td style="text-align: center;">60</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Ihre Aufgaben:</strong></p>
 <ol type="1">
-<li><strong>Tabelle ausfüllen:</strong> Füllen Sie die folgende Tabelle aus. Verfolgen Sie alle Bestandsgrößen über den Zeitraum von 6 Wochen. Eine Bestellung wird am Ende der Woche ausgelöst, in der der disponible Bestand den Meldebestand <span class="math inline">\(s\)</span> erreicht oder unterschreitet. Der Wareneingang erfolgt dann genau <span class="math inline">\(L=3\)</span> Wochen später zu Beginn der Woche.</li>
+<li><strong>Tabelle ausfüllen:</strong> Füllen Sie die folgende Tabelle aus. Verfolgen Sie alle Bestandsgrößen über den Zeitraum von 6 Wochen. Eine Bestellung wird am Ende der Woche ausgelöst, in der der disponible Bestand den Meldebestand <span class="math inline">\(s\)</span> erreicht oder unterschreitet. Der Wareneingang erfolgt dann genau <span class="math inline">\(L=2\)</span> Wochen später zu Beginn der Woche.</li>
 </ol>
 <table class="caption-top table">
 <colgroup>
@@ -390,15 +390,15 @@ window.Quarto = {
 <td>-</td>
 <td>-</td>
 <td>-</td>
-<td>120</td>
-<td>120</td>
+<td>100</td>
+<td>100</td>
 <td>0</td>
 <td>0</td>
 </tr>
 <tr class="even">
 <td><strong>1</strong></td>
-<td>30</td>
-<td>120</td>
+<td>40</td>
+<td>100</td>
 <td>?</td>
 <td>?</td>
 <td>?</td>
@@ -407,7 +407,7 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td><strong>2</strong></td>
-<td>40</td>
+<td>35</td>
 <td>?</td>
 <td>?</td>
 <td>?</td>
@@ -427,7 +427,7 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td><strong>4</strong></td>
-<td>45</td>
+<td>40</td>
 <td>?</td>
 <td>?</td>
 <td>?</td>
@@ -437,7 +437,7 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td><strong>5</strong></td>
-<td>60</td>
+<td>55</td>
 <td>?</td>
 <td>?</td>
 <td>?</td>
@@ -447,7 +447,7 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td><strong>6</strong></td>
-<td>55</td>
+<td>60</td>
 <td>?</td>
 <td>?</td>
 <td>?</td>
@@ -460,33 +460,35 @@ window.Quarto = {
 </section>
 <section id="aufgabe-2-sicherheitsbestand-und-servicegrade" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-2-sicherheitsbestand-und-servicegrade">Aufgabe 2: Sicherheitsbestand und Servicegrade</h2>
-<p>Ein Online-Händler für ein populäres Smartphone-Modell möchte seinen Lagerbestand optimieren. Die wöchentliche Nachfrage ist annähernd normalverteilt mit einem <strong>Mittelwert von 50 Stück</strong> und einer <strong>Standardabweichung von 15 Stück</strong>. Die Wiederbeschaffungszeit vom Hersteller beträgt konstant <strong>4 Wochen</strong>. Der Händler nutzt eine Politik der kontinuierlichen Überprüfung.</p>
+<p>Ein Online-Händler für ein populäres Smartphone-Modell möchte seinen Lagerbestand optimieren. Die wöchentliche Nachfrage ist annähernd normalverteilt mit einem <strong>Mittelwert von 60 Stück</strong> und einer <strong>Standardabweichung von 20 Stück</strong>. Die Wiederbeschaffungszeit vom Hersteller beträgt konstant <strong>3 Wochen</strong>. Der Händler nutzt eine Politik der kontinuierlichen Überprüfung.</p>
 <p><strong>Ihre Aufgaben:</strong></p>
 <ol type="1">
 <li><strong>Mittelwert und Standardabweichung:</strong> Berechnen Sie den Mittelwert und die Standardabweichung der Nachfrage während der Wiederbeschaffungszeit (dem Risikozeitraum).</li>
-<li><strong>Bestellpunkt und Sicherheitsbestand:</strong> Der Händler strebt einen <span class="math inline">\(\alpha\)</span>-Servicegrad (Zyklus-Servicegrad) von 99% an. Das bedeutet, die Wahrscheinlichkeit eines Fehlbestands während eines Bestellzyklus soll nur 1% betragen. Welcher Bestellpunkt (reorder point) <span class="math inline">\(s\)</span> muss gewählt werden? Wie hoch ist der resultierende Sicherheitsbestand?</li>
-<li><strong>Erwartete Fehlmenge:</strong> Gegeben der Bestellpunkt <span class="math inline">\(s\)</span> aus Teil 2: Berechnen Sie die erwartete Fehlmenge pro Bestellzyklus <span class="math inline">\(E(B)\)</span>. Nutzen Sie dafür die standardisierte Einheiten-Verlustfunktion, die approximiert werden kann als <span class="math inline">\(\phi(z) - z(1 - \Phi(z))\)</span>, wobei <span class="math inline">\(z\)</span> der Sicherheitsfaktor ist und <span class="math inline">\(\phi(z)\)</span> bzw. <span class="math inline">\(\Phi(z)\)</span> die Dichte- bzw. Verteilungsfunktion der Standardnormalverteilung sind.</li>
-<li><strong>Servicegrad:</strong> Wenn der Händler eine feste Bestellmenge von <span class="math inline">\(q=500\)</span> Stück verwendet, welchen <span class="math inline">\(\beta\)</span>-Servicegrad (Mengen-Servicegrad) erreicht er mit seiner Politik?</li>
+<li><strong>Bestellpunkt und Sicherheitsbestand:</strong> Der Händler strebt einen <span class="math inline">\(\alpha\)</span>-Servicegrad (Zyklus-Servicegrad) von 95% an. Das bedeutet, die Wahrscheinlichkeit eines Fehlbestands während eines Bestellzyklus soll nur 5% betragen. Welcher Bestellpunkt (reorder point) <span class="math inline">\(s\)</span> muss gewählt werden? Wie hoch ist der resultierende Sicherheitsbestand?</li>
+<li><strong>Erwartete Fehlmenge:</strong> Gegeben der Bestellpunkt <span class="math inline">\(s\)</span> aus Teil 2: Berechnen Sie die erwartete Fehlmenge pro Bestellzyklus <span class="math inline">\(E(B)\)</span>. Nutzen Sie dafür die in der Vorlesung vorgestellte <strong>standardisierte Einheiten-Verlustfunktion <span class="math inline">\(G_u(z)\)</span></strong>. Die benötigten Werte für <span class="math inline">\(G_u(z)\)</span> finden Sie in den Tabellen der Vorlesung oder in den Lösungshinweisen zu dieser Aufgabe.</li>
+<li><strong>Servicegrad:</strong> Wenn der Händler eine feste Bestellmenge von <span class="math inline">\(q=450\)</span> Stück verwendet, welchen <span class="math inline">\(\beta\)</span>-Servicegrad (Mengen-Servicegrad) erreicht er mit seiner Politik?</li>
 </ol>
 </section>
 <section id="aufgabe-3-diskrete-nachfrage-und-faltung" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-3-diskrete-nachfrage-und-faltung">Aufgabe 3: Diskrete Nachfrage und Faltung</h2>
-<p>Ein kleiner Kiosk verkauft eine spezielle importierte Limonade. Die tägliche Nachfrage ist nicht normalverteilt, sondern folgt einer einfachen diskreten Verteilung:</p>
+<p>Ein Comic-Laden verkauft eine beliebte wöchentliche Manga-Ausgabe. Die tägliche Nachfrage ist nicht normalverteilt, sondern folgt dieser diskreten Verteilung:</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Nachfrage (D) pro Tag</th>
-<th style="text-align: left;">0 Flaschen</th>
-<th style="text-align: left;">1 Flasche</th>
-<th style="text-align: left;">2 Flaschen</th>
+<th style="text-align: left;">0 Hefte</th>
+<th style="text-align: left;">1 Heft</th>
+<th style="text-align: left;">2 Hefte</th>
+<th style="text-align: left;">3 Hefte</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Wahrscheinlichkeit P(D)</td>
+<td style="text-align: left;">0.3</td>
+<td style="text-align: left;">0.4</td>
 <td style="text-align: left;">0.2</td>
-<td style="text-align: left;">0.6</td>
-<td style="text-align: left;">0.2</td>
+<td style="text-align: left;">0.1</td>
 </tr>
 </tbody>
 </table>
@@ -494,8 +496,8 @@ window.Quarto = {
 <p><strong>Ihre Aufgaben:</strong></p>
 <ol type="1">
 <li><strong>Wahrscheinlichkeitsverteilung:</strong> Leiten Sie die Wahrscheinlichkeitsverteilung für die Gesamtnachfrage <span class="math inline">\(Y_2\)</span> über den Risikozeitraum von 2 Tagen her. (Tipp: Nutzen Sie die Faltung der Verteilung mit sich selbst).</li>
-<li><strong>Fehlbestandswahrscheinlichkeit:</strong> Wenn der Kioskbesitzer einen Bestellpunkt von <span class="math inline">\(s=3\)</span> Flaschen festlegt, wie hoch ist die Wahrscheinlichkeit, dass es zu einem Fehlbestand kommt (d.h. der <span class="math inline">\(\alpha\)</span>-Servicegrad <em>nicht</em> eingehalten wird)?</li>
-<li><strong>Erwartete Fehlmenge:</strong> Berechnen Sie die erwartete Fehlmenge <span class="math inline">\(E(B)\)</span> für den Bestellpunkt <span class="math inline">\(s=3\)</span>.</li>
+<li><strong>Fehlbestandswahrscheinlichkeit:</strong> Wenn der Ladenbesitzer einen Bestellpunkt von <span class="math inline">\(s=4\)</span> Heften festlegt, wie hoch ist die Wahrscheinlichkeit, dass es zu einem Fehlbestand kommt (d.h. der <span class="math inline">\(\alpha\)</span>-Servicegrad <em>nicht</em> eingehalten wird)?</li>
+<li><strong>Erwartete Fehlmenge:</strong> Berechnen Sie die erwartete Fehlmenge <span class="math inline">\(E(B)\)</span> für den Bestellpunkt <span class="math inline">\(s=4\)</span>.</li>
 </ol>
 
 
