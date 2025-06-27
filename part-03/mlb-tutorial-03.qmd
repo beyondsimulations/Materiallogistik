@@ -206,31 +206,13 @@ Das PLSP-Modell ist genau dafür konzipiert, diese beiden Aspekte – geteilte K
 #pagebreak()
 ```
 
-## Aufgabe 2: Mehrstufige Bedarfsermittlung & Echelon Stock
+## Aufgabe 2: Echelon Stock
 
 Ein Hersteller von Smart-Home-Geräten produziert zwei Endprodukte: eine smarte Lampe (L1) und einen smarten Stecker (S1). Beide benötigen ein universelles Wifi-Modul (W1). Die Lampe benötigt zusätzlich ein spezifisches LED-Panel (P1).
 
-**Produktdaten:**
-
-| Artikel | Struktur | Vorlaufzeit | Lagerbestand | Lagerkostensatz (h) |
-| :--- | :--- | :--- | :--- | :--- |
-| L1 | Endprodukt | 1 | 20 | 10 GE |
-| S1 | Endprodukt | 1 | 50 | 8 GE |
-| P1 | Benötigt für L1 | 2 | 30 | 4 GE |
-| W1 | Benötigt für L1 & S1 | 3 | 100 | 5 GE |
-
-**Primärbedarf:**
-
-| Woche | 1 | 2 | 3 | 4 | 5 | 6 |
-| :--- | :-: | :-: | :-: | :-: | :-: | :-: |
-| Bedarf L1 | 0 | 40 | 0 | 60 | 0 | 50 |
-| Bedarf S1 | 30 | 0 | 80 | 0 | 70 | 0 |
-
-
 **Ihre Aufgaben:**
 
-1.  **Materialbedarfsermittlung:** Führen Sie eine vollständige, mehrstufige Materialbedarfsermittlung (Stück-für-Stück) durch, um die Nettobedarfe und Bestellzeitpunkte für die Komponenten P1 und W1 zu bestimmen.
-2.  **Echelon Stock Berechnung:** Angenommen, am Ende von Woche 4 sind die physischen Lagerbestände wie folgt: `L1: 10, S1: 5, P1: 15, W1: 20`. Berechnen Sie für diesen Zeitpunkt den **Echelon Stock** (systemweiten Bestand) für das Wifi-Modul W1 und das LED-Panel P1.
+1.  **Echelon Stock Berechnung:** Angenommen, am Ende von Woche 4 sind die physischen Lagerbestände wie folgt: `L1: 10, S1: 5, P1: 15, W1: 20`. Berechnen Sie für diesen Zeitpunkt den **Echelon Stock** (systemweiten Bestand) für das Wifi-Modul W1 und das LED-Panel P1.
 
 ::: {.content-visible when-profile="solution"}
 
@@ -241,101 +223,18 @@ Ein Hersteller von Smart-Home-Geräten produziert zwei Endprodukte: eine smarte 
 **Lösungshinweise:**
 
 ::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
-#### 1. Materialbedarfsermittlung (MRP)
-*   **Grundlogik (Stufe für Stufe):**
-    1.  **Bruttobedarf ermitteln:** Für Endprodukte ist dies der Primärbedarf. Für Komponenten ergibt er sich aus den *geplanten Bestellungen* (Netto-Bedarf mit Vorlaufzeit) der übergeordneten Stufe.
-    2.  **Nettobedarf berechnen:** `Nettobedarf_t = Bruttobedarf_t - Lagerbestand_am_Anfang_der_Periode_t`. Wenn das Ergebnis negativ oder null ist, ist der Nettobedarf 0.
-    3.  **Bestelltermin planen:** Der Auftrag zur Deckung des Nettobedarfs in Periode `t` muss in Periode `t - Vorlaufzeit` ausgelöst werden.
-*   **Stück-für-Stück (Lot-for-Lot):** Die Bestellmenge entspricht exakt dem Nettobedarf. Es wird kein Lagerbestand zur Losgrößenoptimierung aufgebaut.
 
-#### 2. Echelon Stock
+#### 1. Echelon Stock
 *   **Definition:** Der Echelon Stock einer Komponente `i` an einem Ort ist der gesamte Bestand dieser Komponente im System, der sich auf dieser Stufe oder *tiefer* befindet.
 *   **Formel:** `Echelon Stock_i = Physischer Bestand_i + Physischer Bestand aller nachgelagerten Produkte, die i enthalten`
 *   **Beispiel:** `Echelon Stock (W1) = Bestand(W1) + Bestand(L1) + Bestand(S1)`
 
-#### 3. Nutzen des Echelon-Konzepts
+#### 2. Nutzen des Echelon-Konzepts
 *   Der Hauptnutzen liegt in der **korrekten Bewertung von Lagerkosten** in mehrstufigen Systemen. Er vermeidet die Doppelzählung des Wertes von Komponenten, die bereits in Halbfabrikaten oder Endprodukten enthalten sind.
 :::
 
-**1. Mehrstufige Bedarfsermittlung:**
 
-Wir gehen stufenweise vor, von den Endprodukten zu den Komponenten.
-
-```{python}
-import pandas as pd
-
-# Bedarfsdaten
-demands = {
-    'L1': [0, 40, 0, 60, 0, 50],
-    'S1': [30, 0, 80, 0, 70, 0]
-}
-# Stammdaten
-lead_times = {'L1': 1, 'S1': 1, 'P1': 2, 'W1': 3}
-inventory = {'L1': 20, 'S1': 50, 'P1': 30, 'W1': 100}
-
-# Initialisiere Bedarfs-Array für alle Komponenten
-T = len(demands['L1'])
-gross_req = {k: [0]*T for k in lead_times.keys()}
-net_req = {k: [0]*T for k in lead_times.keys()}
-
-# Stufe 0: Endprodukte L1, S1
-for p in ['L1', 'S1']:
-    gross_req[p] = demands[p]
-    current_inv = inventory[p]
-    for t in range(T):
-        if gross_req[p][t] > current_inv:
-            net_req[p][t] = gross_req[p][t] - current_inv
-            current_inv = 0
-        else:
-            current_inv -= gross_req[p][t]
-
-# Stufe 1: Komponenten P1, W1
-# Bruttobedarf P1 aus Nettobedarf L1
-for t in range(T):
-    order_release_period = t - lead_times['L1']
-    if order_release_period >= 0:
-        gross_req['P1'][order_release_period] += net_req['L1'][t] # 1-zu-1 Beziehung
-
-# Bruttobedarf W1 aus Nettobedarf L1 und S1
-for t in range(T):
-    order_release_period_l1 = t - lead_times['L1']
-    if order_release_period_l1 >= 0:
-        gross_req['W1'][order_release_period_l1] += net_req['L1'][t]
-        
-    order_release_period_s1 = t - lead_times['S1']
-    if order_release_period_s1 >= 0:
-        gross_req['W1'][order_release_period_s1] += net_req['S1'][t]
-
-# Nettobedarf für Komponenten berechnen
-for p in ['P1', 'W1']:
-    current_inv = inventory[p]
-    for t in range(T):
-        if gross_req[p][t] > current_inv:
-            net_req[p][t] = gross_req[p][t] - current_inv
-            current_inv = 0
-        else:
-            current_inv -= gross_req[p][t]
-
-# Ergebnisse in Tabellenform
-results = []
-for p in ['L1', 'S1', 'P1', 'W1']:
-    for t in range(T):
-        if net_req[p][t] > 0:
-            order_period = t - lead_times[p]
-            results.append({
-                'Artikel': p,
-                'Bedarfstermin': t + 1,
-                'Nettobedarf': net_req[p][t],
-                'Bestelltermin': order_period + 1
-            })
-
-df_results = pd.DataFrame(results).sort_values(by=['Bestelltermin', 'Artikel'])
-print("Bestellplan (Stück-für-Stück):")
-print(df_results.to_string(index=False))
-
-```
-
-**2. Echelon Stock Berechnung:**
+**1. Echelon Stock Berechnung:**
 
 Der Echelon Stock eines Artikels ist sein eigener physischer Bestand plus alle Bestände von nachgelagerten Artikeln, in die er eingeht.
 
@@ -366,7 +265,23 @@ Der Echelon Stock von P1 ist 25. Er ist höher als der physische Bestand, da 10 
 
 ## Aufgabe 3: Rollierende Planung
 
-Stellen Sie sich vor, Sie sind der Produktionsplaner aus Aufgabe 2. Der 6-Wochen-Plan wurde am Anfang von Woche 1 erstellt. Sie befinden sich nun am Ende von Woche 2. Die Produktion für die Wochen 1 und 2 wurde bereits freigegeben und kann nicht mehr geändert werden.
+Stellen Sie sich vor, Sie sind der Produktionsplaner. Der 6-Wochen-Plan wurde am Anfang von Woche 1 erstellt. Sie befinden sich nun am Ende von Woche 2. Die Produktion für die Wochen 1 und 2 wurde bereits freigegeben und kann nicht mehr geändert werden.
+
+**Produktdaten:**
+
+| Artikel | Struktur | Vorlaufzeit | Lagerbestand | Lagerkostensatz (h) |
+| :--- | :--- | :--- | :--- | :--- |
+| L1 | Endprodukt | 1 | 20 | 10 GE |
+| S1 | Endprodukt | 1 | 50 | 8 GE |
+| P1 | Benötigt für L1 | 2 | 30 | 4 GE |
+| W1 | Benötigt für L1 & S1 | 3 | 100 | 5 GE |
+
+**Primärbedarf:**
+
+| Woche | 1 | 2 | 3 | 4 | 5 | 6 |
+| :--- | :-: | :-: | :-: | :-: | :-: | :-: |
+| Bedarf L1 | 0 | 40 | 0 | 60 | 0 | 50 |
+| Bedarf S1 | 30 | 0 | 80 | 0 | 70 | 0 |
 
 Für die kommende Neuplanung (beginnend in Woche 3 für die nächsten 6 Wochen) erhalten Sie aktualisierte Bedarfszahlen: Der Bedarf für die smarte Lampe (L1) in Woche 6 ist unerwartet von 50 auf 80 gestiegen.
 

@@ -13,6 +13,10 @@ format:
         papersize: a4
 ---
 
+```{=typst}
+#pagebreak()
+```
+
 ## Aufgabe 1: Bestandsgrößen im Zeitverlauf
 
 Ein Händler für hochwertige Espressomaschinen nutzt zur Steuerung seines Lagers eine $(s, q)$-Politik mit kontinuierlicher Überwachung. Die Politik ist wie folgt definiert:
@@ -198,6 +202,15 @@ Der Bestellpunkt $s$ deckt die erwartete Nachfrage während der WBZ ab und enth�
 *   **Sicherheitsfaktor ($z$):** Dieser Wert hängt vom gewünschten $\alpha$-Servicegrad (Zyklus-Servicegrad) ab und wird aus der Standardnormalverteilung abgelesen: 
     *   $z = \Phi^{-1}(\alpha)$, wobei $\Phi^{-1}$ die inverse kumulative Verteilungsfunktion ist (auch Quantilfunktion genannt).
 
+    Man kann den z-Wert in einer z-Tabelle (Standardnormalverteilungstabelle) nachschlagen. In der Tabelle sucht man den Wert, der der gewünschten Wahrscheinlichkeit $\alpha$ am nächsten kommt. Hier sind einige gebräuchliche Werte:
+
+    | Servicegrad ($\alpha$) | z-Wert |
+    | :--- | :--- |
+    | 90% (0.90) | 1.282 |
+    | 95% (0.95) | 1.645 |
+    | 99% (0.99) | 2.326 |
+    | 99.9% (0.999)| 3.090 |
+
 #### 3. Erwartete Fehlmenge ($E(B)$)
 
 Dies ist die durchschnittliche Anzahl an Einheiten, die pro Zyklus aufgrund von zu hoher Nachfrage nicht geliefert werden können.
@@ -205,7 +218,17 @@ Dies ist die durchschnittliche Anzahl an Einheiten, die pro Zyklus aufgrund von 
 *   **Formel:** $E(B) = \sigma_L \cdot G_u(z)$
 *   **Standardisierte Verlustfunktion ($G_u(z)$):** $G_u(z) = \phi(z) - z(1 - \Phi(z))$
     *   $\phi(z)$: Dichtefunktion der Standardnormalverteilung.
-    *   $\Phi(z)$: Kumulative Verteilungsfunktion der Standardnormalverteilung. Beachten Sie, dass $1 - \Phi(z)$ genau der Fehlbestandswahrscheinlichkeit $(1-\alpha)$ entspricht.
+    *   $\Phi(z)$: Kumulative Verteilungsfunktion der Standardnormalverteilung. 
+
+    Hier einige gebräuchliche z-Werte für die Verlustfunktion $G_u(z)$:
+
+    | z-Wert  | $G_u(z)$ |
+    | :---    | :---     |
+    | 1.282   | 0.047    |
+    | 1.645   | 0.021    |
+    | 2.326   | 0.003    |
+    | 3.090   | 0.0002   |
+
 
 #### 4. $\beta$-Servicegrad (Fill Rate)
 

@@ -13,6 +13,10 @@ format:
         papersize: a4
 ---
 
+```{=typst}
+#pagebreak()
+```
+
 ## Aufgabe 1: Das Newsvendor-Problem
 
 Ein Event-Veranstalter plant den Verkauf von T-Shirts für ein einmaliges Open-Air-Konzert. Die Nachfrage nach den T-Shirts ist unsicher und wird als normalverteilt mit einem Erwartungswert von 800 Stück und einer Standardabweichung von 150 Stück geschätzt.
