@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Tobias Vlćek">
 
-<title>Vorlesung 05: Bestandspolitiken – Materiallogistik</title>
+<title>Übung 02 – Materiallogistik</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -77,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
 </style>  
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -117,7 +116,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-05/mlb-lecture-05_new.html">05 Bestellpolitiken</a></li><li class="breadcrumb-item"><a href="../part-05/mlb-lecture-05_new.html">Vorlesung</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-02/mlb-lecture-02.pdf">02 CLSP</a></li><li class="breadcrumb-item"><a href="../part-02/mlb-tutorial-02.html">Tutorium</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -191,7 +190,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../part-02/mlb-tutorial-02.html" class="sidebar-item-text sidebar-link">
+  <a href="../part-02/mlb-tutorial-02.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Tutorium</span></a>
   </div>
 </li>
@@ -254,7 +253,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../part-05/mlb-lecture-05_new.html" class="sidebar-item-text sidebar-link active">
+  <a href="../part-05/mlb-lecture-05_new.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Vorlesung</span></a>
   </div>
 </li>
@@ -291,44 +290,26 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#das-grundsetting" id="toc-das-grundsetting" class="nav-link active" data-scroll-target="#das-grundsetting">1. Das Grundsetting</a></li>
-  <li><a href="#das-newsvendor-problem" id="toc-das-newsvendor-problem" class="nav-link" data-scroll-target="#das-newsvendor-problem">2. Das Newsvendor-Problem</a>
-  <ul class="collapse">
-  <li><a href="#das-kritische-verhältnis-critical-ratio" id="toc-das-kritische-verhältnis-critical-ratio" class="nav-link" data-scroll-target="#das-kritische-verhältnis-critical-ratio">Das kritische Verhältnis (Critical Ratio)</a></li>
-  <li><a href="#die-optimale-bestellmenge-finden" id="toc-die-optimale-bestellmenge-finden" class="nav-link" data-scroll-target="#die-optimale-bestellmenge-finden">Die optimale Bestellmenge finden</a></li>
-  </ul></li>
-  <li><a href="#die-s-q-politik-mit-undershoot" id="toc-die-s-q-politik-mit-undershoot" class="nav-link" data-scroll-target="#die-s-q-politik-mit-undershoot">3. Die (s, q)-Politik mit Undershoot</a>
-  <ul class="collapse">
-  <li><a href="#den-bestellpunkt-s-bestimmen" id="toc-den-bestellpunkt-s-bestimmen" class="nav-link" data-scroll-target="#den-bestellpunkt-s-bestimmen">Den Bestellpunkt <code>s</code> bestimmen</a></li>
-  </ul></li>
-  <li><a href="#die-periodische-politik-r-s" id="toc-die-periodische-politik-r-s" class="nav-link" data-scroll-target="#die-periodische-politik-r-s">4. Die periodische Politik (r, S)</a>
-  <ul class="collapse">
-  <li><a href="#der-längere-risikozeitraum-r-l" id="toc-der-längere-risikozeitraum-r-l" class="nav-link" data-scroll-target="#der-längere-risikozeitraum-r-l">Der längere Risikozeitraum: r + L</a></li>
-  <li><a href="#das-bestellniveau-s-bestimmen" id="toc-das-bestellniveau-s-bestimmen" class="nav-link" data-scroll-target="#das-bestellniveau-s-bestimmen">Das Bestellniveau <code>S</code> bestimmen</a></li>
-  </ul></li>
-  <li><a href="#welche-politik-für-welches-problem" id="toc-welche-politik-für-welches-problem" class="nav-link" data-scroll-target="#welche-politik-für-welches-problem">5. Welche Politik für welches Problem?</a></li>
+  <li><a href="#einleitung" id="toc-einleitung" class="nav-link active" data-scroll-target="#einleitung">Einleitung</a></li>
+  <li><a href="#aufgabe-1-exakte-losgrößenplanung-für-saisonbier" id="toc-aufgabe-1-exakte-losgrößenplanung-für-saisonbier" class="nav-link" data-scroll-target="#aufgabe-1-exakte-losgrößenplanung-für-saisonbier">Aufgabe 1: Exakte Losgrößenplanung für Saisonbier</a></li>
+  <li><a href="#aufgabe-2-heuristische-losgrößenplanung" id="toc-aufgabe-2-heuristische-losgrößenplanung" class="nav-link" data-scroll-target="#aufgabe-2-heuristische-losgrößenplanung">Aufgabe 2: Heuristische Losgrößenplanung</a></li>
+  <li><a href="#aufgabe-3-losgrößenplanung-mit-kapazitätsgrenzen-clsp" id="toc-aufgabe-3-losgrößenplanung-mit-kapazitätsgrenzen-clsp" class="nav-link" data-scroll-target="#aufgabe-3-losgrößenplanung-mit-kapazitätsgrenzen-clsp">Aufgabe 3: Losgrößenplanung mit Kapazitätsgrenzen (CLSP)</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="lecture-presentation.html"><i class="bi bi-file-slides"></i>RevealJS</a></li><li><a href="mlb-lecture-05_new.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="mlb-tutorial-02.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-05/mlb-lecture-05_new.html">05 Bestellpolitiken</a></li><li class="breadcrumb-item"><a href="../part-05/mlb-lecture-05_new.html">Vorlesung</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-02/mlb-lecture-02.pdf">02 CLSP</a></li><li class="breadcrumb-item"><a href="../part-02/mlb-tutorial-02.html">Tutorium</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Vorlesung 05: Bestandspolitiken</h1>
-<p class="subtitle lead">Newsvendor-Problem, (s,q)-Politik, (r,S)-Politik</p>
+<h1 class="title">Übung 02</h1>
+<p class="subtitle lead">Dynamische Losgrößenplanung</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Tobias Vlćek </p>
-          </div>
-  </div>
     
   
     
@@ -339,416 +320,103 @@ window.Quarto = {
 </header>
 
 
-<section id="das-grundsetting" class="level2">
-<h2 class="anchored" data-anchor-id="das-grundsetting">1. Das Grundsetting</h2>
-<p>Nehmen wir an, wir leiten eine kleine Brauerei.</p>
-<ul>
-<li>Jedes Jahr zu Weihnachten brauen wir ein ganz besonderes, limitiertes Festbier. Die Nachfrage ist riesig, aber auch ungewiss.</li>
-<li>Wenn wir zu viel brauen, bleiben wir auf den Flaschen sitzen und machen Verlust.</li>
-<li>Brauen wir zu wenig, sind unsere treuen Kunden enttäuscht, und uns entgeht ein Gewinn.</li>
-<li>Dies ist eine <strong>einmalige Entscheidung</strong>.</li>
-</ul>
-<p>Ganz anders sieht es bei unserem Standard-Pils aus.</p>
-<ul>
-<li>Es wird das ganze Jahr über verkauft.</li>
-<li>Hier müssen wir nicht einmal, sondern <strong>laufend</strong> entscheiden: Wann bestellen wir neuen Hopfen und Malz, und wie viel davon?</li>
-<li>Das ist eine <strong>mehrperiodige Entscheidung</strong>.</li>
-</ul>
-<p>Beides schauen wir uns nun genauer an.</p>
+<section id="einleitung" class="level2">
+<h2 class="anchored" data-anchor-id="einleitung">Einleitung</h2>
+<p>Wer noch Schwierigkeiten mit dem CLSP und der Lagerbilanzgleichung hat, kann sich gerne folgendes Video aus der Vorlesung Grundlagen des Operations Research ansehen:</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/mJtf-RR9Dvk" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </section>
-<section id="das-newsvendor-problem" class="level2">
-<h2 class="anchored" data-anchor-id="das-newsvendor-problem">2. Das Newsvendor-Problem</h2>
-<p>Das “Zeitungsverkäufer-Problem” (Newsvendor Problem) ist der Klassiker für einmalige Bestandsentscheidungen. Der Name kommt von einem Zeitungsjungen, der morgens entscheiden muss, wie viele Zeitungen er kauft, ohne die genaue Nachfrage des Tages zu kennen. Abends sind die übrigen Zeitungen wertlos.</p>
-<p>Dieses Prinzip gilt für viele Produkte:</p>
+<section id="aufgabe-1-exakte-losgrößenplanung-für-saisonbier" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-1-exakte-losgrößenplanung-für-saisonbier">Aufgabe 1: Exakte Losgrößenplanung für Saisonbier</h2>
+<p>Die lokale Traditionsbrauerei “Duisburger Perle” plant die Produktion ihres beliebten Saisonbiers “Frühlings-Helles” für die kommenden 6 Wochen. Da die Nachfrage schwankt und das Aufsetzen eines neuen Brauvorgangs (Rüsten) mit erheblichen Kosten verbunden ist, soll ein kostenoptimaler Produktionsplan gefunden werden.</p>
+<p>Die Brauerei hat die folgenden Daten ermittelt:</p>
 <ul>
-<li>Saisonale Modeartikel</li>
-<li>Tickets für ein Konzert oder Sportereignis</li>
-<li>Der Tannenbaumverkauf vor Weihnachten</li>
-<li><strong>Unser limitiertes Festbier</strong></li>
+<li><strong>Rüstkosten (<span class="math inline">\(s\)</span>):</strong> 250 GE pro Brauvorgang (Los)</li>
+<li><strong>Lagerkostensatz (<span class="math inline">\(h\)</span>):</strong> 2 GE pro Kasten und Woche</li>
 </ul>
-<p>Im Kern geht es immer um die Abwägung zweier Risiken:</p>
-<ul>
-<li><strong>Overage-Kosten (<span class="math inline">\(c_O\)</span>):</strong> Die Kosten für jede Einheit, die wir <strong>zu viel</strong> bestellt haben und die am Ende übrig bleibt.</li>
-<li><strong>Underage-Kosten (<span class="math inline">\(c_U\)</span>):</strong> Die Kosten für jede nachgefragte Einheit, die wir <strong>zu wenig</strong> bestellt haben (entgangener Gewinn).</li>
-</ul>
-<p><strong>Beispiel: Unser Festbier</strong></p>
-<ul>
-<li><strong>Herstellungskosten pro Flasche:</strong> 3 GE</li>
-<li><strong>Verkaufspreis pro Flasche:</strong> 8 GE</li>
-<li><strong>Restwert:</strong> Nicht verkaufte Flaschen können wir für 1 GE pro Stück an einen Restposten-Händler verkaufen.</li>
-</ul>
-<p>Daraus berechnen wir die Kosten:</p>
-<ul>
-<li><strong>Underage-Kosten (<span class="math inline">\(c_U\)</span>):</strong> Wenn uns eine Flasche zur Bedienung der Nachfrage fehlt, entgeht uns der Gewinn. <span class="math display">\[c_U = \text{Verkaufspreis} - \text{Herstellungskosten} = 8 - 3 = 5 \text{ GE}\]</span></li>
-<li><strong>Overage-Kosten (<span class="math inline">\(c_O\)</span>):</strong> Jede Flasche, die wir zu viel produzieren, verursacht einen Verlust. <span class="math display">\[c_O = \text{Herstellungskosten} - \text{Restwert} = 3 - 1 = 2 \text{ GE}\]</span></li>
-</ul>
-<section id="das-kritische-verhältnis-critical-ratio" class="level3">
-<h3 class="anchored" data-anchor-id="das-kritische-verhältnis-critical-ratio">Das kritische Verhältnis (Critical Ratio)</h3>
-<p>Wir suchen die optimale Bestellmenge, die den erwarteten Gewinn maximiert.</p>
-<ul>
-<li>Die Lösung liegt im <strong>kritischen Verhältnis</strong>, auch “Critical Ratio” genannt.</li>
-<li>Es gibt uns den optimalen Servicegrad vor, bei dem der <strong>erwartete Gewinn maximiert wird</strong>.</li>
-</ul>
-<p><strong>Die Logik:</strong></p>
-<ul>
-<li>Wir sollten so lange eine zusätzliche Einheit auf Lager nehmen, wie der erwartete Gewinn aus dem Verkauf dieser Einheit größer ist als der erwartete Verlust, falls wir sie nicht verkaufen.</li>
-<li><span class="math inline">\(c_U \cdot P(\text{Nachfrage} \ge x)\)</span> ist der erwartete Gewinn aus dem Verkauf dieser Einheit.</li>
-<li><span class="math inline">\(c_O \cdot P(\text{Nachfrage} &lt; x)\)</span> ist der erwartete Verlust, falls wir sie nicht verkaufen.</li>
-<li><strong>Das kritische Verhältnis ist der Punkt, an dem sich diese beiden die Waage halten.</strong></li>
-</ul>
-<p><span class="math display">\[
-\text{Kritisches Verhältnis} = F(x_{opt}) = \frac{c_U}{c_O + c_U}
-\]</span></p>
-<p>Für unser Festbier bedeutet das:</p>
-<p><span class="math display">\[
-\text{Kritisches Verhältnis} = \frac{5}{2 + 5} = \frac{5}{7} \approx 0.714
-\]</span></p>
-<p>Das bedeutet: Wir sollten so viele Flaschen brauen, dass die Wahrscheinlichkeit, die gesamte Nachfrage zu decken, bei ca. 71,4% liegt.</p>
-</section>
-<section id="die-optimale-bestellmenge-finden" class="level3">
-<h3 class="anchored" data-anchor-id="die-optimale-bestellmenge-finden">Die optimale Bestellmenge finden</h3>
-<p>Jetzt, da wir das Ziel kennen (71,4% Servicegrad), müssen wir nur noch die passende Bestellmenge finden. Wie wir das tun, hängt von der Art der Nachfrageverteilung ab.</p>
-<section id="fall-1-diskrete-nachfrage" class="level4">
-<h4 class="anchored" data-anchor-id="fall-1-diskrete-nachfrage">Fall 1: Diskrete Nachfrage</h4>
-<p>Stellen wir uns einen Food-Truck vor, der an einem einzigen Tag auf einem Festival ein spezielles, teures Gericht anbietet.</p>
-<ul>
-<li>Die Herstellungskosten liegen bei 8 GE.</li>
-<li>Der Verkaufspreis beträgt 20 GE.</li>
-<li>Reste sind wertlos (<span class="math inline">\(c_O = 8, c_U = 12\)</span>).</li>
-<li>Das kritische Verhältnis ist <span class="math inline">\(12 / (8 + 12) = 0.6\)</span>.</li>
-</ul>
-<p>Die Erfahrung zeigt folgende Nachfrageverteilung:</p>
+<p><strong>Wöchentliche Nachfrage (<span class="math inline">\(d_t\)</span>):</strong></p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th style="text-align: left;">Nachfrage (x)</th>
-<th style="text-align: center;">P(x)</th>
-<th style="text-align: center;">Kumulierte P(Y&lt;=x)</th>
+<th style="text-align: left;">Woche (t)</th>
+<th style="text-align: left;">1</th>
+<th style="text-align: left;">2</th>
+<th style="text-align: left;">3</th>
+<th style="text-align: left;">4</th>
+<th style="text-align: left;">5</th>
+<th style="text-align: left;">6</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">10 Gerichte</td>
-<td style="text-align: center;">0.20</td>
-<td style="text-align: center;">0.20</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">11 Gerichte</td>
-<td style="text-align: center;">0.25</td>
-<td style="text-align: center;">0.45</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">12 Gerichte</td>
-<td style="text-align: center;">0.30</td>
-<td style="text-align: center;"><strong>0.75</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">13 Gerichte</td>
-<td style="text-align: center;">0.15</td>
-<td style="text-align: center;">0.90</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">14 Gerichte</td>
-<td style="text-align: center;">0.10</td>
-<td style="text-align: center;">1.00</td>
+<td style="text-align: left;">Nachfrage (Kästen)</td>
+<td style="text-align: left;">30</td>
+<td style="text-align: left;">50</td>
+<td style="text-align: left;">20</td>
+<td style="text-align: left;">70</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">40</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Regel:</strong></p>
-<p>Wir suchen die <strong>kleinste Bestellmenge x</strong>, für die die kumulierte Wahrscheinlichkeit <span class="math inline">\(F(x) = P(Y \le x)\)</span> <strong>größer oder gleich</strong> dem kritischen Verhältnis ist.</p>
-<ul>
-<li><span class="math inline">\(F(10) = 0.20 &lt; 0.6\)</span></li>
-<li><span class="math inline">\(F(11) = 0.45 &lt; 0.6\)</span></li>
-<li><span class="math inline">\(F(12) = 0.75 \ge 0.6\)</span> –&gt; <strong>STOPP!</strong></li>
-</ul>
-<p>Die optimale Bestellmenge ist <strong>12 Gerichte</strong>. Obwohl die Wahrscheinlichkeit für 12 verkaufte Gerichte nur bei 30% liegt, ist das die beste Entscheidung, um den erwarteten Gewinn zu maximieren.</p>
-</section>
-<section id="fall-2-stetige-normalverteilte-nachfrage" class="level4">
-<h4 class="anchored" data-anchor-id="fall-2-stetige-normalverteilte-nachfrage">Fall 2: Stetige (Normalverteilte) Nachfrage</h4>
-<p>Zurück zu unserem Beispiel mit dem Festbier unserer Brauerei.</p>
-<ul>
-<li>Bei Tausenden von Kunden ist die Nachfrage eher eine stetige, glockenförmige Kurve.</li>
-<li>Nehmen wir an, die Nachfrage ist <strong>normalverteilt</strong>.</li>
-<li>Wir haben einen Erwartungswert von <span class="math inline">\(\mu=2000\)</span> Flaschen.</li>
-<li>Ferner schätzen wir eine Standardabweichung von <span class="math inline">\(\sigma=300\)</span> Flaschen.</li>
-</ul>
-<p>Hier nutzen wir die Formel:</p>
-<p><span class="math display">\[
-x_{opt} = \mu + z \cdot \sigma
-\]</span></p>
-<ul>
-<li>Der <strong>Sicherheitsfaktor z</strong> ist die Brücke zwischen unserem kritischen Verhältnis und der Bestellmenge.</li>
-<li>Wir finden ihn, indem wir die <strong>inverse Standardnormalverteilung</strong> für unser kritisches Verhältnis von 0.714 berechnen. Je höher der angestrebte Servicegrad (das kritische Verhältnis), desto überproportional größer wird der notwendige Sicherheitsfaktor.</li>
-</ul>
-<p><strong>Z-Werte für gängige Servicegrade (Kritisches Verhältnis)</strong></p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 28%">
-<col style="width: 11%">
-<col style="width: 59%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;"><span class="math inline">\(\alpha\)</span>-Servicegrad</th>
-<th style="text-align: center;">z-Wert</th>
-<th style="text-align: left;">Bedeutung</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">50%</td>
-<td style="text-align: center;">0.000</td>
-<td style="text-align: left;">Exakt der Erwartungswert (kein Puffer).</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">55%</td>
-<td style="text-align: center;">0.126</td>
-<td style="text-align: left;">0.126 Standardabweichungen als Puffer.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">60%</td>
-<td style="text-align: center;">0.253</td>
-<td style="text-align: left;">0.253 Standardabweichungen als Puffer.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">65%</td>
-<td style="text-align: center;">0.385</td>
-<td style="text-align: left;">0.385 Standardabweichungen als Puffer.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">70%</td>
-<td style="text-align: center;">0.524</td>
-<td style="text-align: left;">0.524 Standardabweichungen als Puffer.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">75%</td>
-<td style="text-align: center;">0.674</td>
-<td style="text-align: left;">0.674 Standardabweichungen als Puffer.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">80%</td>
-<td style="text-align: center;">0.842</td>
-<td style="text-align: left;">0.842 Standardabweichungen als Puffer.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">85%</td>
-<td style="text-align: center;">1.036</td>
-<td style="text-align: left;">1.036 Standardabweichungen als Puffer.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">90%</td>
-<td style="text-align: center;">1.282</td>
-<td style="text-align: left;">1.282 Standardabweichungen als Puffer.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">95%</td>
-<td style="text-align: center;">1.645</td>
-<td style="text-align: left;">1.645 Standardabweichungen als Puffer.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">99%</td>
-<td style="text-align: center;">2.326</td>
-<td style="text-align: left;">2.326 Standardabweichungen als Puffer.</td>
-</tr>
-</tbody>
-</table>
-<p>Wir gehen wie folgt vor:</p>
+<p>Um die Gesamtkosten zu minimieren, soll das exakte Verfahren von <strong>Wagner und Whitin</strong> (Dynamische Optimierung) angewendet werden. Es wird angenommen, dass zu Beginn kein Lagerbestand vorhanden ist und am Ende der 6. Woche ebenfalls kein Bestand verbleiben soll.</p>
+<p><strong>Ihre Aufgaben:</strong></p>
 <ol type="1">
-<li><strong>z-Wert finden:</strong> <span class="math inline">\(\Phi(z) = 0.714 \implies z \approx 0.565\)</span> <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
-<li><strong>Optimale Menge berechnen:</strong> <span class="math inline">\(x_{opt} = 2000 + 0.565 \cdot 300 \approx 2000 + 170 = 2170\)</span> Flaschen.</li>
-<li><strong>Sicherheitsbestand:</strong> Der Teil über dem Erwartungswert ist unser Puffer gegen Unsicherheit. Sicherheitsbestand = <span class="math inline">\(x_{opt} - \mu = 2170 - 2000 = 170\)</span> Flaschen.</li>
+<li><strong>Kostenmatrix erstellen:</strong> Berechnen Sie die Kosten <span class="math inline">\(c_{\tau j}\)</span> für jedes mögliche Los, das in Woche <span class="math inline">\(\tau\)</span> produziert wird, um die Nachfrage bis einschließlich Woche <span class="math inline">\(j\)</span> zu decken.</li>
+<li><strong>Wagner-Whitin-Algorithmus anwenden:</strong> Ermitteln Sie rekursiv die minimalen Gesamtkosten <span class="math inline">\(f_i\)</span> für einen Planungszeitraum von <span class="math inline">\(i = 1, \ldots, 6\)</span> Wochen. Notieren Sie sich bei jedem Schritt, welche Entscheidung zur minimalen Kosten führt.</li>
+<li><strong>Optimalen Produktionsplan ableiten:</strong> Bestimmen Sie durch Rückverfolgung (Backtracking) aus den Ergebnissen von Schritt 2, in welchen Wochen eine Produktion stattfinden soll und wie groß die jeweilige Losgröße ist. Wie hoch sind die minimalen Gesamtkosten?</li>
 </ol>
-<p>Wir sollten also 2170 Flaschen brauen, um unseren erwarteten Gewinn zu maximieren.</p>
 </section>
-</section>
-</section>
-<section id="die-s-q-politik-mit-undershoot" class="level2">
-<h2 class="anchored" data-anchor-id="die-s-q-politik-mit-undershoot">3. Die (s, q)-Politik mit Undershoot</h2>
-<p>Für Produkte, die wir kontinuierlich führen, brauchen wir eine laufende Strategie. Hier ist die <strong>(s, q)-Politik</strong>, die wir bereits in der letzten Vorlesung kennengelernt haben, eine oft verwendete Strategie.</p>
-<p>Zur Erinnerung:</p>
+<section id="aufgabe-2-heuristische-losgrößenplanung" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-2-heuristische-losgrößenplanung">Aufgabe 2: Heuristische Losgrößenplanung</h2>
+<p>Die Geschäftsführung der “Duisburger Perle” ist mit dem optimalen Plan sehr zufrieden, findet das Wagner-Whitin-Verfahren jedoch recht aufwändig für die schnelle, wöchentliche Planung. Ein findiger Braumeister schlägt vor, einfachere Heuristiken zu verwenden, die “ziemlich gute” Ergebnisse liefern, aber schneller zu berechnen sind.</p>
+<p>Sie erhalten den Auftrag, drei gängige Heuristiken auf die Daten aus Aufgabe 1 anzuwenden und die Ergebnisse mit der optimalen Lösung zu vergleichen.</p>
+<p><strong>Daten (wie in Aufgabe 1):</strong></p>
 <ul>
-<li>Wir überwachen den Lagerbestand <strong>kontinuierlich</strong>.</li>
-<li>Fällt der <em>disponible Bestand</em> auf oder unter den <strong>Bestellpunkt (s)</strong>, lösen wir eine Bestellung aus.</li>
-<li>Die <strong>Bestellmenge (q)</strong> ist immer fest.</li>
+<li><strong>Rüstkosten (<span class="math inline">\(s\)</span>):</strong> 250 GE</li>
+<li><strong>Lagerkostensatz (<span class="math inline">\(h\)</span>):</strong> 2 GE pro Kasten und Woche</li>
+<li><strong>Wöchentliche Nachfrage (<span class="math inline">\(d_t\)</span>):</strong> <code>[30, 50, 20, 70, 80, 40]</code></li>
 </ul>
-<p>Ein Problem dabei ist das “Unterschießen” des Bestellpunkts, der sogenannte <strong>Undershoot</strong>. Wenn wir den Bestand nur täglich prüfen, kann eine große Nachfrage den Bestand weit unter <code>s</code> drücken, bevor wir überhaupt bestellen. Dieser Undershoot (<span class="math inline">\(U\)</span>) ist eine zusätzliche Zufallsgröße, die wir berücksichtigen müssen.</p>
-<p>Für eine normalverteilte Tagesnachfrage <span class="math inline">\(D \sim N(\mu_D, \sigma_D^2)\)</span> können wir den Undershoot so abschätzen:</p>
-<ul>
-<li><strong>Erwarteter Undershoot:</strong> <span class="math inline">\(E\{U\} \approx \frac{\sigma_D^2 + \mu_D^2}{2 \mu_D}\)</span></li>
-<li><strong>Varianz des Undershoots:</strong> <span class="math inline">\(\operatorname{Var}\{U\} \approx \frac{\sigma_D^2}{2} \left(1 - \frac{\sigma_D^2}{2\mu_D^2}\right) + \frac{\mu_D^2}{12}\)</span></li>
-</ul>
-<section id="den-bestellpunkt-s-bestimmen" class="level3">
-<h3 class="anchored" data-anchor-id="den-bestellpunkt-s-bestimmen">Den Bestellpunkt <code>s</code> bestimmen</h3>
-<p>Der <strong>Risikozeitraum</strong> ist die Wiederbeschaffungszeit <span class="math inline">\(L\)</span>. Die Nachfrage <span class="math inline">\(Y\)</span>, die unser Bestellpunkt abdecken muss, ist die Summe aus der Nachfrage während der WBZ (<span class="math inline">\(Y^{(L)}\)</span>) und dem Undershoot (<span class="math inline">\(U\)</span>).</p>
-<ul>
-<li>Erwartungswert: <span class="math inline">\(\mu_Y = \mu_L + E\{U\} = (L \cdot \mu_D) + E\{U\}\)</span></li>
-<li>Varianz: <span class="math inline">\(\sigma_Y^2 = \sigma_L^2 + \operatorname{Var}\{U\} = (L \cdot \sigma_D^2) + \operatorname{Var}\{U\}\)</span></li>
-</ul>
-<p>Um den optimalen Bestellpunkt <span class="math inline">\(s_{opt}\)</span> für einen angestrebten <strong><span class="math inline">\(\beta\)</span>-Servicegrad</strong> (Fill Rate) zu finden, nutzen wir wieder eine Formel, die auf der Einheiten-Verlustfunktion <span class="math inline">\(G_Z^{(1)}(v)\)</span> basiert.</p>
-<p><strong>Zielbedingung:</strong> Finde den kleinsten Sicherheitsfaktor <span class="math inline">\(v\)</span>, für den gilt: <span class="math display">\[
-G_Z^{(1)}(v) \leq \frac{(1-\beta) \cdot q}{\sigma_Y}
-\]</span> Der optimale Bestellpunkt ist dann: <span class="math inline">\(s_{opt} = \mu_Y + v_{opt} \cdot \sigma_Y\)</span>.</p>
-<p>Den Wert für <span class="math inline">\(v_{opt}\)</span> findet man, indem man den Zielwert für die Verlustfunktion in einer Tabelle nachschlägt oder einfach in einer Software berechnet.</p>
-<p><strong>Tabelle der Standard-Verlustfunktion <span class="math inline">\(G_Z^{(1)}(v)\)</span></strong></p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">v</th>
-<th style="text-align: center;"><span class="math inline">\(G_Z^{(1)}(v)\)</span></th>
-<th style="text-align: center;">v</th>
-<th style="text-align: center;"><span class="math inline">\(G_Z^{(1)}(v)\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">0.0</td>
-<td style="text-align: center;">0.399</td>
-<td style="text-align: center;">1.1</td>
-<td style="text-align: center;">0.069</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">0.1</td>
-<td style="text-align: center;">0.359</td>
-<td style="text-align: center;">1.2</td>
-<td style="text-align: center;">0.056</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">0.2</td>
-<td style="text-align: center;">0.323</td>
-<td style="text-align: center;"><strong>1.25</strong></td>
-<td style="text-align: center;"><strong>0.051</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">0.3</td>
-<td style="text-align: center;">0.291</td>
-<td style="text-align: center;">1.3</td>
-<td style="text-align: center;">0.046</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">0.4</td>
-<td style="text-align: center;">0.262</td>
-<td style="text-align: center;">1.4</td>
-<td style="text-align: center;">0.038</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">0.5</td>
-<td style="text-align: center;">0.235</td>
-<td style="text-align: center;">1.5</td>
-<td style="text-align: center;">0.031</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">0.6</td>
-<td style="text-align: center;">0.211</td>
-<td style="text-align: center;">1.6</td>
-<td style="text-align: center;">0.026</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">0.7</td>
-<td style="text-align: center;">0.189</td>
-<td style="text-align: center;">1.7</td>
-<td style="text-align: center;">0.021</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">0.8</td>
-<td style="text-align: center;">0.169</td>
-<td style="text-align: center;">1.8</td>
-<td style="text-align: center;">0.017</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">0.9</td>
-<td style="text-align: center;">0.148</td>
-<td style="text-align: center;">1.9</td>
-<td style="text-align: center;">0.014</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">1.0</td>
-<td style="text-align: center;">0.083</td>
-<td style="text-align: center;">2.0</td>
-<td style="text-align: center;">0.011</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Beispiel:</strong></p>
-<ul>
-<li>Ein Bauteil hat eine tägliche Nachfrage von <span class="math inline">\(\mu_D=20, \sigma_D=5\)</span>.</li>
-<li>Die WBZ ist <span class="math inline">\(L=10\)</span> Tage, die feste Bestellmenge <span class="math inline">\(q=300\)</span>.</li>
-<li>Wir streben <span class="math inline">\(\beta=97\%\)</span> an.</li>
-</ul>
+<p><strong>Ihre Aufgaben:</strong></p>
 <ol type="1">
-<li><strong>Undershoot berechnen:</strong> <span class="math inline">\(E\{U\} \approx (5^2 + 20^2) / (2 \cdot 20) = 10.625\)</span> <span class="math inline">\(\operatorname{Var}\{U\} \approx 5^2/2 \cdot (1 - 5^2/(2 \cdot 20^2)) + 20^2/12 \approx 45.42\)</span></li>
-<li><strong>Nachfrage im Risikozeitraum:</strong> <span class="math inline">\(\mu_Y = (10 \cdot 20) + 10.625 = 210.625\)</span> <span class="math inline">\(\sigma_Y^2 = (10 \cdot 5^2) + 45.42 = 295.42 \implies \sigma_Y \approx 17.19\)</span></li>
-<li><strong>Zielwert für Verlustfunktion:</strong> Target <span class="math inline">\(G_Z^{(1)}(v) = (1 - 0.97) \cdot 300 / 17.19 \approx 0.523\)</span></li>
-<li><strong><span class="math inline">\(v_{opt}\)</span> finden:</strong>
+<li><strong>Stückkostenverfahren (Least-Unit-Cost):</strong> Bilden Sie Lose, indem Sie so lange Periodenbedarfe zusammenfassen, wie die durchschnittlichen Stückkosten des Loses sinken.</li>
+<li><strong>Stückperiodenausgleichsverfahren (Part-Period-Balancing):</strong> Bilden Sie Lose, indem Sie so lange Periodenbedarfe zusammenfassen, wie die kumulierten Lagerkosten des Loses die Rüstkosten nicht übersteigen.</li>
+<li><strong>Silver-Meal-Verfahren:</strong> Bilden Sie Lose, indem Sie so lange Periodenbedarfe zusammenfassen, wie die durchschnittlichen Kosten pro Periode sinken.</li>
+<li><strong>Vergleich:</strong> Stellen Sie die Produktionspläne und Gesamtkosten der drei Heuristiken der optimalen Lösung aus Aufgabe 1 gegenüber. Wie gut schlagen sich die Heuristiken?</li>
+</ol>
+</section>
+<section id="aufgabe-3-losgrößenplanung-mit-kapazitätsgrenzen-clsp" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-3-losgrößenplanung-mit-kapazitätsgrenzen-clsp">Aufgabe 3: Losgrößenplanung mit Kapazitätsgrenzen (CLSP)</h2>
+<p>Die “Duisburger Perle” stellt fest, dass die Gär- und Lagertanks einen Engpass darstellen. Es kann nicht unbegrenzt viel Bier pro Woche produziert werden. Zusätzlich zum “Frühlings-Hellen” wird nun ein zweites Saisonbier, das “Maibock”, geplant. Beide Biere konkurrieren um die gleiche, begrenzte wöchentliche Kapazität.</p>
+<p><strong>Neue &amp; Gegebene Daten:</strong></p>
 <ul>
-<li>Wir suchen <code>v</code>, sodass <span class="math inline">\(G_Z^{(1)}(v) \le 0.523\)</span>. Dies geschieht durch Nachschlagen in einer Tabelle der Standard-Verlustfunktion oder mittels Software.</li>
-<li>Die Funktion <span class="math inline">\(G_Z^{(1)}(v)\)</span> hat für <span class="math inline">\(v=0\)</span> einen Wert von ca. 0.399. Für alle <span class="math inline">\(v&gt;0\)</span> ist der Funktionswert kleiner.</li>
-<li>Da unser Zielwert von <span class="math inline">\(0.523\)</span> größer ist als <span class="math inline">\(0.399\)</span>, ist die Bedingung bereits für <span class="math inline">\(v=0\)</span> erfüllt.</li>
-<li>In der Praxis wird in diesem Fall der Sicherheitsfaktor auf 0 gesetzt, da kein positiver Puffer benötigt wird.</li>
-<li>Daher: <span class="math inline">\(v_{opt} \approx 0.0\)</span>.</li>
+<li><strong>Produkt 1: Frühlings-Helles</strong> (Daten wie gehabt)
+<ul>
+<li>Nachfrage: <code>[30, 50, 20, 70, 80, 40]</code></li>
+<li>Rüstkosten <span class="math inline">\(s_{helles}\)</span>: 250 GE, Lagerkosten <span class="math inline">\(h_{helles}\)</span>: 2 GE</li>
+<li>Kapazitätsbedarf pro Kasten <span class="math inline">\(tb_{helles}\)</span>: 1,0 KE</li>
+<li>Kapazitätsbedarf für Rüstvorgang <span class="math inline">\(tr_{helles}\)</span>: 20 KE</li>
 </ul></li>
-<li><strong>Bestellpunkt <span class="math inline">\(s_{opt}\)</span>:</strong> <span class="math inline">\(s_{opt} = 210.625 + 0.0 \cdot 17.19 \approx 211\)</span> Stück. Der Bestellpunkt sollte auf 211 Stück gesetzt werden.</li>
-</ol>
-</section>
-</section>
-<section id="die-periodische-politik-r-s" class="level2">
-<h2 class="anchored" data-anchor-id="die-periodische-politik-r-s">4. Die periodische Politik (r, S)</h2>
-<p>Nicht für jedes Produkt lohnt sich eine ständige Überwachung. Für Joghurt im Supermarkt ist es effizienter, nur einmal pro Woche (periodisch) nachzusehen und aufzufüllen. Hierfür eignet sich die <strong>(r, S)-Politik</strong>.</p>
+<li><strong>Produkt 2: Maibock</strong> (Neue Daten)
 <ul>
-<li>Wir prüfen den Bestand nur in festen Intervallen, z.B. alle <strong>r=7 Tage</strong>.</li>
-<li>Wir bestellen dann eine variable Menge, um den Bestand auf ein festes <strong>Bestellniveau (S)</strong> aufzufüllen.</li>
-</ul>
-<section id="der-längere-risikozeitraum-r-l" class="level3">
-<h3 class="anchored" data-anchor-id="der-längere-risikozeitraum-r-l">Der längere Risikozeitraum: r + L</h3>
-<p>Hier müssen wir umdenken: Der <strong>Risikozeitraum ist jetzt <span class="math inline">\(r+L\)</span></strong>! Warum? Eine Bestellung, die wir heute aufgeben, muss die Nachfrage so lange decken, bis die <em>nächste</em> Lieferung eintrifft. Die nächste Bestellung lösen wir erst in <span class="math inline">\(r\)</span> Tagen aus, und diese braucht dann nochmal <span class="math inline">\(L\)</span> Tage, um anzukommen.</p>
-<ul>
-<li>Nachfrage im Risikozeitraum: <span class="math inline">\(\mu_{r+L} = (r+L) \cdot \mu_d\)</span></li>
-<li>Standardabweichung: <span class="math inline">\(\sigma_{r+L} = \sqrt{r+L} \cdot \sigma_d\)</span></li>
-</ul>
-</section>
-<section id="das-bestellniveau-s-bestimmen" class="level3">
-<h3 class="anchored" data-anchor-id="das-bestellniveau-s-bestimmen">Das Bestellniveau <code>S</code> bestimmen</h3>
-<p>Auch hier können wir das optimale Bestellniveau <span class="math inline">\(S_{opt}\)</span> für einen Ziel-<strong><span class="math inline">\(\beta\)</span>-Servicegrad</strong> bestimmen. Die Logik ist sehr ähnlich zur (s,q)-Politik, aber die Formel für die Zielbedingung ist leicht anders, da die erwartete Fehlmenge ins Verhältnis zur erwarteten Nachfrage im Bestellintervall (<span class="math inline">\(r \cdot \mu_d\)</span>) gesetzt wird.</p>
-<p><strong>Zielbedingung (vereinfacht):</strong><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Finde den kleinsten Sicherheitsfaktor <span class="math inline">\(v\)</span>, für den gilt: <span class="math display">\[
-G_Z^{(1)}(v) \leq \frac{(1-\beta) \cdot r \cdot \mu_d}{\sigma_{r+L}}
-\]</span> Das optimale Bestellniveau ist dann: <span class="math inline">\(S_{opt} = \mu_{r+L} + v_{opt} \cdot \sigma_{r+L}\)</span>.</p>
-<p><strong>Beispiel:</strong> Ein Supermarkt verkauft Frischmilch.</p>
-<ul>
-<li>Bestand wird alle <strong>r=3 Tage</strong> geprüft.</li>
-<li>Die Lieferzeit beträgt <strong>L=1 Tag</strong>.</li>
-<li>Tägliche Nachfrage: <span class="math inline">\(\mu_d=50\)</span> Packungen, <span class="math inline">\(\sigma_d=15\)</span>.</li>
-<li>Angestrebter Servicegrad: <span class="math inline">\(\beta=99\%\)</span>.</li>
-</ul>
-<ol type="1">
-<li><strong>Risikozeitraum:</strong> <span class="math inline">\(r+L = 3 + 1 = 4\)</span> Tage.</li>
-<li><strong>Nachfrage im Risikozeitraum:</strong> <span class="math inline">\(\mu_{r+L} = 4 \cdot 50 = 200\)</span> <span class="math inline">\(\sigma_{r+L} = \sqrt{4} \cdot 15 = 30\)</span></li>
-<li><strong>Zielwert für Verlustfunktion:</strong> Target <span class="math inline">\(G_Z^{(1)}(v) = (1-0.99) \cdot 3 \cdot 50 / 30 = 0.05\)</span></li>
-<li><strong><span class="math inline">\(v_{opt}\)</span> finden:</strong>
-<ul>
-<li>Wir suchen den <code>v</code>-Wert, für den <span class="math inline">\(G_Z^{(1)}(v) \leq 0.05\)</span> ist. Aus der Tabelle finden wir, dass <span class="math inline">\(G_Z^{(1)}(1.3) \approx 0.046\)</span> der erste Wert ist, der die Bedingung erfüllt. Also <span class="math inline">\(v_{opt} \approx 1.3\)</span>.</li>
+<li>Nachfrage: <code>[20, 30, 60, 40, 30, 50]</code></li>
+<li>Rüstkosten <span class="math inline">\(s_{bock}\)</span>: 200 GE, Lagerkosten <span class="math inline">\(h_{bock}\)</span>: 2.5 GE</li>
+<li>Kapazitätsbedarf pro Kasten <span class="math inline">\(tb_{bock}\)</span>: 1,2 KE</li>
+<li>Kapazitätsbedarf für Rüstvorgang <span class="math inline">\(tr_{bock}\)</span>: 15 KE</li>
 </ul></li>
-<li><strong>Bestellniveau <span class="math inline">\(S_{opt}\)</span>:</strong> <span class="math inline">\(S_{opt} = 200 + 1.3 \cdot 30 = 200 + 39 = 239\)</span> Packungen. Jeden dritten Tag wird so viel Milch bestellt, dass der verfügbare Bestand wieder auf 239 Packungen ansteigt.</li>
-</ol>
-</section>
-</section>
-<section id="welche-politik-für-welches-problem" class="level2">
-<h2 class="anchored" data-anchor-id="welche-politik-für-welches-problem">5. Welche Politik für welches Problem?</h2>
-<ul>
-<li><strong>Newsvendor-Modell:</strong> Perfekt für <strong>einmalige Bestellentscheidungen</strong> bei saisonalen oder verderblichen Produkten. Es balanciert elegant die Kosten von “zu viel” und “zu wenig”.</li>
-<li><strong>(s, q)-Politik:</strong> Ideal für <strong>wichtige oder teure Produkte</strong>, bei denen sich eine <strong>kontinuierliche Überwachung</strong> lohnt. Sie arbeitet mit einem festen Sicherheitsbestand und einer festen Bestellmenge.</li>
-<li><strong>(r, S)-Politik:</strong> Die richtige Wahl für <strong>Standardprodukte</strong> mit geringerem Wert, bei denen eine <strong>periodische Überprüfung</strong> ausreicht. Sie ist einfacher zu handhaben, erfordert aber einen höheren Sicherheitsbestand, da der Risikozeitraum länger ist.</li>
+<li><strong>Wöchentliche Gesamtkapazität (<span class="math inline">\(b_t\)</span>):</strong> 150 KE (Kapazitätseinheiten)</li>
 </ul>
+<p><strong>Ihre Aufgaben:</strong></p>
+<ol type="1">
+<li><strong>Unabhängige Planung:</strong> Ermitteln Sie den kostenoptimalen, <em>unkapazitierten</em> Produktionsplan für das neue “Maibock”-Bier mit dem Wagner-Whitin-Algorithmus.</li>
+<li><strong>Kapazitätsprüfung:</strong> Überlagern Sie den optimalen Plan für “Frühlings-Helles” (aus Aufgabe 1) mit dem neuen Plan für “Maibock”. Berechnen Sie für jede Woche die gesamte Kapazitätsauslastung durch Produktion und Rüstvorgänge beider Biersorten. Identifizieren Sie alle Wochen, in denen die Gesamtkapazität von 150 KE überschritten wird.</li>
+<li><strong>Heuristische Anpassung:</strong> Schlagen Sie eine einfache, plausible Anpassung für den kombinierten Produktionsplan vor, um die Kapazitätsverletzungen zu beheben (z.B. durch Vorziehen oder Aufteilen einer Produktion). Berechnen Sie die neuen Gesamtkosten (Summe der Kosten beider Pläne) für Ihren angepassten, kapazitätskonformen Plan.</li>
+<li><strong>Diskussion:</strong> Erläutern Sie kurz, warum das separate Anwenden des Wagner-Whitin-Algorithmus und anschließende Anpassen keine garantiert optimale Lösung für das kapazitierte Problem (CLSP) liefert.</li>
+</ol>
 
 
 </section>
 
-
-<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>Mit Excel <code>NORM.S.INV(0.714)</code>, Python <code>norm.ppf(0.714)</code> oder aus einer Tabelle ablesen.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Die Formel ist exakt unter der Annahme, dass die durchschnittliche Bestellmenge genau <span class="math inline">\(r \cdot \mu_d\)</span> ist. In einem System mit Fehlbeständen (Backorders) ist die durchschnittliche Bestellmenge jedoch leicht höher als die durchschnittliche Nachfrage, da in Zyklen nach einem Fehlbestand nicht nur die Nachfrage der aktuellen Periode, sondern auch der aufgestaute Fehlbestand aus der Vorperiode bedient werden muss.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

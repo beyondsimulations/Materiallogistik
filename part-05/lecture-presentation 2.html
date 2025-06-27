@@ -514,9 +514,9 @@ G_Z^{(1)}(v) \leq \frac{(1-\beta) \cdot r \cdot \mu_d}{\sigma_{r+L}}
 <li><strong>Zielwert für Verlustfunktion:</strong> Target <span class="math inline">\(G_Z^{(1)}(v) = (1-0.99) \cdot 3 \cdot 50 / 30 = 0.05\)</span></li>
 <li><strong><span class="math inline">\(v_{opt}\)</span> finden:</strong>
 <ul>
-<li>Wir suchen den <code>v</code>-Wert, für den <span class="math inline">\(G_Z^{(1)}(v) \leq 0.05\)</span> ist. Aus der Tabelle finden wir, dass <span class="math inline">\(G_Z^{(1)}(1.3) \approx 0.046\)</span> der erste Wert ist, der die Bedingung erfüllt. Also <span class="math inline">\(v_{opt} \approx 1.3\)</span>.</li>
+<li>Wir suchen den <code>v</code>-Wert, für den <span class="math inline">\(G_Z^{(1)}(v) \leq 0.05\)</span> ist.</li>
 </ul></li>
-<li><strong>Bestellniveau <span class="math inline">\(S_{opt}\)</span>:</strong> <span class="math inline">\(S_{opt} = 200 + 1.3 \cdot 30 = 200 + 39 = 239\)</span> Packungen. Jeden dritten Tag wird so viel Milch bestellt, dass der verfügbare Bestand wieder auf 239 Packungen ansteigt.</li>
+<li><strong>Bestellniveau <span class="math inline">\(S_{opt}\)</span>:</strong> <span class="math inline">\(S_{opt} = 200 + 1.25 \cdot 30 = 237.5 \approx 238\)</span> Packungen. Jeden dritten Tag wird so viel Milch bestellt, dass der verfügbare Bestand wieder auf 238 Packungen ansteigt.</li>
 </ol>
 <aside><ol class="aside-footnotes"><li id="fn2"><p>Die Formel ist exakt unter der Annahme, dass die durchschnittliche Bestellmenge genau <span class="math inline">\(r \cdot \mu_d\)</span> ist. In einem System mit Fehlbeständen (Backorders) ist die durchschnittliche Bestellmenge jedoch leicht höher als die durchschnittliche Nachfrage, da in Zyklen nach einem Fehlbestand nicht nur die Nachfrage der aktuellen Periode, sondern auch der aufgestaute Fehlbestand aus der Vorperiode bedient werden muss.</p></li></ol></aside></section>
 <section id="welche-politik-für-welches-problem" class="slide level2">

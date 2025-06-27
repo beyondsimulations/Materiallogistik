@@ -804,15 +804,7 @@ E(B) = \sum_{\text{alle } y} \max(0, y - s) \cdot P(Y_L=y)
 \]</span> wobei <span class="math inline">\(s\)</span> der Bestellpunkt und <span class="math inline">\(\mu_d\)</span> die durchschnittliche Nachfrage <em>pro Periode</em> ist. Bei einem Bestellpunkt von <span class="math inline">\(s=270\)</span> und einer wöchentlichen Nachfrage von <span class="math inline">\(\mu_d=50\)</span> wäre die erwartete Reichweite also <span class="math inline">\(270 / 50 = 5.4\)</span> Wochen. <a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p></li>
 <li><p><strong>Lieferunfähigkeitsdauer:</strong> Dies ist die durchschnittliche Zeit, in der wir <em>keine Ware</em> haben. Eine Lieferunfähigkeit entsteht, wenn die Wiederbeschaffungszeit länger ist als die Reichweite des Bestands. <span class="math display">\[
 \text{Erwartete Lieferunfähigkeitsdauer} \approx \max(0, L - \text{Erwartete Reichweite})
-\]</span> wobei <span class="math inline">\(L\)</span> die Wiederbeschaffungszeit ist. Nehmen wir an, wir würden einen niedrigeren Servicegrad von 85% anstreben (<span class="math inline">\(\alpha=0.85\)</span>, <span class="math inline">\(z=1.036\)</span>). Der neue Bestellpunkt wäre <span class="math inline">\(s = 200 + 1.036 \cdot 30 \approx 231\)</span>. Die erwartete Reichweite wäre dann <span class="math inline">\(231 / 50 \approx 4.62\)</span> Wochen. Mit einer Wiederbeschaffungszeit von <span class="math inline">\(L=4\)</span> Wochen ergibt sich:</p>
-<p><span class="math display">\[
-\text{Erwartete Lieferunfähigkeitsdauer} \approx \max(0, 4 - 4.62) = 0
-\]</span></p>
-<p>Selbst bei einem 85%-Servicegrad erwarten wir nach dieser Näherung keine Lieferunfähigkeit. Würde unsere Wiederbeschaffungszeit jedoch auf <span class="math inline">\(L=5\)</span> Wochen steigen, wäre die Situation anders:</p>
-<p><span class="math display">\[
-\text{Erwartete Lieferunfähigkeitsdauer} \approx \max(0, 5 - 4.62) = 0.38 \text{ Wochen}
-\]</span></p>
-<p>Wir müssten also mit einer durchschnittlichen Lieferunfähigkeit von fast einer halben Woche rechnen. <a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p></li>
+\]</span> wobei <span class="math inline">\(L\)</span> die Wiederbeschaffungszeit ist. <a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p></li>
 </ul>
 <p>Beide Kennzahlen hängen direkt von unserem Sicherheitsbestand ab. Ein höherer Sicherheitsbestand (und damit ein höherer Bestellpunkt <span class="math inline">\(s\)</span>) erhöht die Reichweite und senkt die Dauer der Lieferunfähigkeit. Diese Kennzahlen helfen uns, die Auswirkungen unserer Bestandsentscheidungen direkt in “Kundenwartezeit” zu übersetzen.</p>
 
