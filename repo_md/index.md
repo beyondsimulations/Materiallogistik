@@ -1,4 +1,4 @@
-# Materiallogistik!
+# Materiallogistik
 
 
 # Beschreibung

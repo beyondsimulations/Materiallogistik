@@ -1,7 +1,13 @@
 ---
-title: "Vorlesung 05: Bestandsentscheidungen bei Unsicherheit"
-subtitle: "Vom Zeitungsverkäufer zum smarten Lagermanagement"
+title: "Vorlesung 05: Bestandspolitiken"
+subtitle: "Newsvendor-Problem, (s,q)-Politik, (r,S)-Politik"
 author: "Tobias Vlćek"
+title-slide-attributes:
+    data-background-color: "#025259"
+html-math-method:
+  method: mathjax
+  url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  
 format:
     html:
         theme: [sandstone, ../styles.scss]
