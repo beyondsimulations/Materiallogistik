@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Übung 02 – Materiallogistik</title>
+<title>Übung 01 – Materiallogistik</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -75,35 +75,6 @@ ul.task-list li input[type="checkbox"] {
     }
 </style>  
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -116,7 +87,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-02/mlb-lecture-02.pdf">02 CLSP</a></li><li class="breadcrumb-item"><a href="../part-02/mlb-tutorial-02.html">Tutorium</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-01/mlb-lecture-01.pdf">01 Klassifikation</a></li><li class="breadcrumb-item"><a href="../part-01/mlb-tutorial-01.html">Tutorium</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -167,7 +138,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../part-01/mlb-tutorial-01.html" class="sidebar-item-text sidebar-link">
+  <a href="../part-01/mlb-tutorial-01.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Tutorium</span></a>
   </div>
 </li>
@@ -190,7 +161,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../part-02/mlb-tutorial-02.html" class="sidebar-item-text sidebar-link active">
+  <a href="../part-02/mlb-tutorial-02.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tutorium</span></a>
   </div>
 </li>
@@ -290,20 +261,19 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#einleitung" id="toc-einleitung" class="nav-link active" data-scroll-target="#einleitung">Einleitung</a></li>
-  <li><a href="#aufgabe-1-exakte-losgrößenplanung-für-saisonbier" id="toc-aufgabe-1-exakte-losgrößenplanung-für-saisonbier" class="nav-link" data-scroll-target="#aufgabe-1-exakte-losgrößenplanung-für-saisonbier">Aufgabe 1: Exakte Losgrößenplanung für Saisonbier</a></li>
-  <li><a href="#aufgabe-2-heuristische-losgrößenplanung" id="toc-aufgabe-2-heuristische-losgrößenplanung" class="nav-link" data-scroll-target="#aufgabe-2-heuristische-losgrößenplanung">Aufgabe 2: Heuristische Losgrößenplanung</a></li>
-  <li><a href="#aufgabe-3-losgrößenplanung-mit-kapazitätsgrenzen-clsp" id="toc-aufgabe-3-losgrößenplanung-mit-kapazitätsgrenzen-clsp" class="nav-link" data-scroll-target="#aufgabe-3-losgrößenplanung-mit-kapazitätsgrenzen-clsp">Aufgabe 3: Losgrößenplanung mit Kapazitätsgrenzen (CLSP)</a></li>
+  <li><a href="#aufgabe-1-materialbedarfsermittlung" id="toc-aufgabe-1-materialbedarfsermittlung" class="nav-link active" data-scroll-target="#aufgabe-1-materialbedarfsermittlung">Aufgabe 1: Materialbedarfsermittlung</a></li>
+  <li><a href="#aufgabe-2-analyse-von-bedarfsmustern" id="toc-aufgabe-2-analyse-von-bedarfsmustern" class="nav-link" data-scroll-target="#aufgabe-2-analyse-von-bedarfsmustern">Aufgabe 2: Analyse von Bedarfsmustern</a></li>
+  <li><a href="#aufgabe-3-abc-analyse" id="toc-aufgabe-3-abc-analyse" class="nav-link" data-scroll-target="#aufgabe-3-abc-analyse">Aufgabe 3: ABC-Analyse</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="mlb-tutorial-02.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="mlb-tutorial-01.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-02/mlb-lecture-02.pdf">02 CLSP</a></li><li class="breadcrumb-item"><a href="../part-02/mlb-tutorial-02.html">Tutorium</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-01/mlb-lecture-01.pdf">01 Klassifikation</a></li><li class="breadcrumb-item"><a href="../part-01/mlb-tutorial-01.html">Tutorium</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Übung 02</h1>
-<p class="subtitle lead">Dynamische Losgrößenplanung</p>
+<h1 class="title">Übung 01</h1>
+<p class="subtitle lead">Materialbedarfsermittlung und Bedarfsmuster</p>
 </div>
 
 
@@ -320,97 +290,156 @@ window.Quarto = {
 </header>
 
 
-<section id="einleitung" class="level2">
-<h2 class="anchored" data-anchor-id="einleitung">Einleitung</h2>
-<p>Wer noch Schwierigkeiten mit dem CLSP und der Lagerbilanzgleichung hat, kann sich gerne folgendes Video aus der Vorlesung Grundlagen des Operations Research ansehen:</p>
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/mJtf-RR9Dvk" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-</section>
-<section id="aufgabe-1-exakte-losgrößenplanung-für-saisonbier" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-1-exakte-losgrößenplanung-für-saisonbier">Aufgabe 1: Exakte Losgrößenplanung für Saisonbier</h2>
-<p>Die lokale Traditionsbrauerei “Duisburger Perle” plant die Produktion ihres beliebten Saisonbiers “Frühlings-Helles” für die kommenden 6 Wochen. Da die Nachfrage schwankt und das Aufsetzen eines neuen Brauvorgangs (Rüsten) mit erheblichen Kosten verbunden ist, soll ein kostenoptimaler Produktionsplan gefunden werden.</p>
-<p>Die Brauerei hat die folgenden Daten ermittelt:</p>
+<section id="aufgabe-1-materialbedarfsermittlung" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-1-materialbedarfsermittlung">Aufgabe 1: Materialbedarfsermittlung</h2>
+<p>Ein Fahrradhersteller in Münster plant die Produktion seines neuen E-Bike-Modells “UrbanCruiser”. Die Endmontage des Fahrrads erfordert verschiedene Komponenten, deren Beziehungen in der folgenden Stückliste dargestellt sind.</p>
+<p><strong>Struktur des “UrbanCruiser” (E):</strong></p>
 <ul>
-<li><strong>Rüstkosten (<span class="math inline">\(s\)</span>):</strong> 250 GE pro Brauvorgang (Los)</li>
-<li><strong>Lagerkostensatz (<span class="math inline">\(h\)</span>):</strong> 2 GE pro Kasten und Woche</li>
+<li>1x Rahmen-Set (R)
+<ul>
+<li>1x Hauptrahmen (H)</li>
+<li>1x Gabel (G)</li>
+</ul></li>
+<li>2x Rad (W)</li>
+<li>1x Antriebs-Set (A)</li>
 </ul>
-<p><strong>Wöchentliche Nachfrage (<span class="math inline">\(d_t\)</span>):</strong></p>
+<p><strong>Produktionsplan:</strong></p>
+<p>Der Produktionsplan (Primärbedarf) sieht vor, in Periode 10 genau 50 “UrbanCruiser” fertigzustellen.</p>
+<p><strong>Stammdaten der Komponenten:</strong></p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th style="text-align: left;">Woche (t)</th>
-<th style="text-align: left;">1</th>
-<th style="text-align: left;">2</th>
-<th style="text-align: left;">3</th>
-<th style="text-align: left;">4</th>
-<th style="text-align: left;">5</th>
-<th style="text-align: left;">6</th>
+<th>Komponente</th>
+<th>Lagerbestand</th>
+<th>Vorlaufzeit (Perioden)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Nachfrage (Kästen)</td>
-<td style="text-align: left;">30</td>
-<td style="text-align: left;">50</td>
-<td style="text-align: left;">20</td>
-<td style="text-align: left;">70</td>
-<td style="text-align: left;">80</td>
-<td style="text-align: left;">40</td>
+<td>E (UrbanCruiser)</td>
+<td>5</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>R (Rahmen-Set)</td>
+<td>10</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>W (Rad)</td>
+<td>30</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>A (Antriebs-Set)</td>
+<td>15</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>H (Hauptrahmen)</td>
+<td>20</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>G (Gabel)</td>
+<td>8</td>
+<td>1</td>
 </tr>
 </tbody>
 </table>
-<p>Um die Gesamtkosten zu minimieren, soll das exakte Verfahren von <strong>Wagner und Whitin</strong> (Dynamische Optimierung) angewendet werden. Es wird angenommen, dass zu Beginn kein Lagerbestand vorhanden ist und am Ende der 6. Woche ebenfalls kein Bestand verbleiben soll.</p>
 <p><strong>Ihre Aufgaben:</strong></p>
 <ol type="1">
-<li><strong>Kostenmatrix erstellen:</strong> Berechnen Sie die Kosten <span class="math inline">\(c_{\tau j}\)</span> für jedes mögliche Los, das in Woche <span class="math inline">\(\tau\)</span> produziert wird, um die Nachfrage bis einschließlich Woche <span class="math inline">\(j\)</span> zu decken.</li>
-<li><strong>Wagner-Whitin-Algorithmus anwenden:</strong> Ermitteln Sie rekursiv die minimalen Gesamtkosten <span class="math inline">\(f_i\)</span> für einen Planungszeitraum von <span class="math inline">\(i = 1, \ldots, 6\)</span> Wochen. Notieren Sie sich bei jedem Schritt, welche Entscheidung zur minimalen Kosten führt.</li>
-<li><strong>Optimalen Produktionsplan ableiten:</strong> Bestimmen Sie durch Rückverfolgung (Backtracking) aus den Ergebnissen von Schritt 2, in welchen Wochen eine Produktion stattfinden soll und wie groß die jeweilige Losgröße ist. Wie hoch sind die minimalen Gesamtkosten?</li>
+<li><strong>Gozinto-Graph zeichnen:</strong> Zeichnen Sie die Produktstruktur als Gozinto-Graph.</li>
+<li><strong>Materialbedarfsermittlung:</strong> Führen Sie eine Materialbedarfsermittlung durch. Berechnen Sie den Brutto- und Nettobedarf für jede Komponente.</li>
+<li><strong>Bestellzeitpunkte:</strong> Bestimmen Sie die Bestellzeitpunkte für die Komponenten, um den Produktionsplan einzuhalten.</li>
 </ol>
 </section>
-<section id="aufgabe-2-heuristische-losgrößenplanung" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-2-heuristische-losgrößenplanung">Aufgabe 2: Heuristische Losgrößenplanung</h2>
-<p>Die Geschäftsführung der “Duisburger Perle” ist mit dem optimalen Plan sehr zufrieden, findet das Wagner-Whitin-Verfahren jedoch recht aufwändig für die schnelle, wöchentliche Planung. Ein findiger Braumeister schlägt vor, einfachere Heuristiken zu verwenden, die “ziemlich gute” Ergebnisse liefern, aber schneller zu berechnen sind.</p>
-<p>Sie erhalten den Auftrag, drei gängige Heuristiken auf die Daten aus Aufgabe 1 anzuwenden und die Ergebnisse mit der optimalen Lösung zu vergleichen.</p>
-<p><strong>Daten (wie in Aufgabe 1):</strong></p>
-<ul>
-<li><strong>Rüstkosten (<span class="math inline">\(s\)</span>):</strong> 250 GE</li>
-<li><strong>Lagerkostensatz (<span class="math inline">\(h\)</span>):</strong> 2 GE pro Kasten und Woche</li>
-<li><strong>Wöchentliche Nachfrage (<span class="math inline">\(d_t\)</span>):</strong> <code>[30, 50, 20, 70, 80, 40]</code></li>
-</ul>
+<section id="aufgabe-2-analyse-von-bedarfsmustern" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-2-analyse-von-bedarfsmustern">Aufgabe 2: Analyse von Bedarfsmustern</h2>
+<p>Ein Online-Shop für Kaffeebohnen möchte das Verbrauchsmuster einer speziellen Sorte analysieren, um die Lagerhaltung zu optimieren.</p>
+<p>Die Verkaufszahlen (in kg) der letzten 12 Wochen liegen vor:</p>
+<p><code>[5, 8, 6, 25, 7, 4, 9, 5, 30, 6, 7, 8]</code></p>
 <p><strong>Ihre Aufgaben:</strong></p>
 <ol type="1">
-<li><strong>Stückkostenverfahren (Least-Unit-Cost):</strong> Bilden Sie Lose, indem Sie so lange Periodenbedarfe zusammenfassen, wie die durchschnittlichen Stückkosten des Loses sinken.</li>
-<li><strong>Stückperiodenausgleichsverfahren (Part-Period-Balancing):</strong> Bilden Sie Lose, indem Sie so lange Periodenbedarfe zusammenfassen, wie die kumulierten Lagerkosten des Loses die Rüstkosten nicht übersteigen.</li>
-<li><strong>Silver-Meal-Verfahren:</strong> Bilden Sie Lose, indem Sie so lange Periodenbedarfe zusammenfassen, wie die durchschnittlichen Kosten pro Periode sinken.</li>
-<li><strong>Vergleich:</strong> Stellen Sie die Produktionspläne und Gesamtkosten der drei Heuristiken der optimalen Lösung aus Aufgabe 1 gegenüber. Wie gut schlagen sich die Heuristiken?</li>
+<li><strong>Grafische Darstellung:</strong> Stellen Sie die Zeitreihe grafisch dar.</li>
+<li><strong>Durchschnittlicher Bedarf:</strong> Berechnen Sie den durchschnittlichen wöchentlichen Bedarf.</li>
+<li><strong>Mittlere absolute Abweichung:</strong> Berechnen Sie die mittlere absolute Abweichung (MAD), um die Prognosegüte bei Annahme eines konstanten Verbrauchs (Mittelwert) zu bewerten.</li>
+<li><strong>Störpegel:</strong> Berechnen Sie den Störpegel (Variationskoeffizient).</li>
+<li><strong>Klassifizierung:</strong> Klassifizieren Sie das Bedarfsmuster basierend auf Ihren Berechnungen. Handelt es sich um einen konstanten, trendförmigen, sporadischen oder unregelmäßigen Bedarf? Begründen Sie Ihre Entscheidung.</li>
 </ol>
 </section>
-<section id="aufgabe-3-losgrößenplanung-mit-kapazitätsgrenzen-clsp" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-3-losgrößenplanung-mit-kapazitätsgrenzen-clsp">Aufgabe 3: Losgrößenplanung mit Kapazitätsgrenzen (CLSP)</h2>
-<p>Die “Duisburger Perle” stellt fest, dass die Gär- und Lagertanks einen Engpass darstellen. Es kann nicht unbegrenzt viel Bier pro Woche produziert werden. Zusätzlich zum “Frühlings-Hellen” wird nun ein zweites Saisonbier, das “Maibock”, geplant. Beide Biere konkurrieren um die gleiche, begrenzte wöchentliche Kapazität.</p>
-<p><strong>Neue &amp; Gegebene Daten:</strong></p>
-<ul>
-<li><strong>Produkt 1: Frühlings-Helles</strong> (Daten wie gehabt)
-<ul>
-<li>Nachfrage: <code>[30, 50, 20, 70, 80, 40]</code></li>
-<li>Rüstkosten <span class="math inline">\(s_{helles}\)</span>: 250 GE, Lagerkosten <span class="math inline">\(h_{helles}\)</span>: 2 GE</li>
-<li>Kapazitätsbedarf pro Kasten <span class="math inline">\(tb_{helles}\)</span>: 1,0 KE</li>
-<li>Kapazitätsbedarf für Rüstvorgang <span class="math inline">\(tr_{helles}\)</span>: 20 KE</li>
-</ul></li>
-<li><strong>Produkt 2: Maibock</strong> (Neue Daten)
-<ul>
-<li>Nachfrage: <code>[20, 30, 60, 40, 30, 50]</code></li>
-<li>Rüstkosten <span class="math inline">\(s_{bock}\)</span>: 200 GE, Lagerkosten <span class="math inline">\(h_{bock}\)</span>: 2.5 GE</li>
-<li>Kapazitätsbedarf pro Kasten <span class="math inline">\(tb_{bock}\)</span>: 1,2 KE</li>
-<li>Kapazitätsbedarf für Rüstvorgang <span class="math inline">\(tr_{bock}\)</span>: 15 KE</li>
-</ul></li>
-<li><strong>Wöchentliche Gesamtkapazität (<span class="math inline">\(b_t\)</span>):</strong> 150 KE (Kapazitätseinheiten)</li>
-</ul>
+<section id="aufgabe-3-abc-analyse" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-3-abc-analyse">Aufgabe 3: ABC-Analyse</h2>
+<p>Ein Unternehmen aus Duisburg möchte seine Lagerartikel klassifizieren, um die Management-Anstrengungen zu priorisieren. Die folgenden Daten für 10 Artikel sind verfügbar:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Artikel-Nr.</th>
+<th>Jahresbedarf (Stück)</th>
+<th>Preis pro Stück (€)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1.000</td>
+<td>50,00</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>500</td>
+<td>300,00</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>12.000</td>
+<td>5,00</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>400</td>
+<td>450,00</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>8.000</td>
+<td>2,00</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>300</td>
+<td>10,00</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>2.500</td>
+<td>25,00</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>15.000</td>
+<td>1,00</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>700</td>
+<td>150,00</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>5.000</td>
+<td>8,00</td>
+</tr>
+</tbody>
+</table>
 <p><strong>Ihre Aufgaben:</strong></p>
 <ol type="1">
-<li><strong>Unabhängige Planung:</strong> Ermitteln Sie den kostenoptimalen, <em>unkapazitierten</em> Produktionsplan für das neue “Maibock”-Bier mit dem Wagner-Whitin-Algorithmus.</li>
-<li><strong>Kapazitätsprüfung:</strong> Überlagern Sie den optimalen Plan für “Frühlings-Helles” (aus Aufgabe 1) mit dem neuen Plan für “Maibock”. Berechnen Sie für jede Woche die gesamte Kapazitätsauslastung durch Produktion und Rüstvorgänge beider Biersorten. Identifizieren Sie alle Wochen, in denen die Gesamtkapazität von 150 KE überschritten wird.</li>
-<li><strong>Heuristische Anpassung:</strong> Schlagen Sie eine einfache, plausible Anpassung für den kombinierten Produktionsplan vor, um die Kapazitätsverletzungen zu beheben (z.B. durch Vorziehen oder Aufteilen einer Produktion). Berechnen Sie die neuen Gesamtkosten (Summe der Kosten beider Pläne) für Ihren angepassten, kapazitätskonformen Plan.</li>
-<li><strong>Diskussion:</strong> Erläutern Sie kurz, warum das separate Anwenden des Wagner-Whitin-Algorithmus und anschließende Anpassen keine garantiert optimale Lösung für das kapazitierte Problem (CLSP) liefert.</li>
+<li><strong>Jährlichen Verbrauchswert berechnen:</strong> Berechnen Sie für jeden Artikel den jährlichen Verbrauchswert.</li>
+<li><strong>Rangliste erstellen:</strong> Erstellen Sie eine Rangliste der Artikel nach ihrem Verbrauchswert in absteigender Reihenfolge.</li>
+<li><strong>Prozentuale Anteile berechnen:</strong> Berechnen Sie den prozentualen Anteil jedes Artikels am Gesamtverbrauchswert und an der Gesamtmenge aller Artikel.</li>
+<li><strong>Kumulierte Anteile berechnen:</strong> Berechnen Sie die kumulierten prozentualen Anteile am Wert und an der Menge.</li>
+<li><strong>ABC-Klassifizierung:</strong> Teilen Sie die Artikel in die Klassen A, B und C ein. Verwenden Sie typische Grenzen (z.B. A-Güter: ~80% Wertanteil, B-Güter: ~15% Wertanteil, C-Güter: ~5% Wertanteil).</li>
+<li><strong>Grafische Darstellung:</strong> Stellen Sie das Ergebnis grafisch in einem Diagramm dar (Lorenz-Kurve).</li>
 </ol>
 
 

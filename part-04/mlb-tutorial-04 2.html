@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Übung 02 – Materiallogistik</title>
+<title>Übung 04 – Materiallogistik</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -116,7 +116,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-02/mlb-lecture-02.pdf">02 CLSP</a></li><li class="breadcrumb-item"><a href="../part-02/mlb-tutorial-02.html">Tutorium</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-04/mlb-lecture-04.pdf">04 Bestandsmanagement</a></li><li class="breadcrumb-item"><a href="../part-04/mlb-tutorial-04.html">Tutorium</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -190,7 +190,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../part-02/mlb-tutorial-02.html" class="sidebar-item-text sidebar-link active">
+  <a href="../part-02/mlb-tutorial-02.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tutorium</span></a>
   </div>
 </li>
@@ -236,7 +236,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../part-04/mlb-tutorial-04.html" class="sidebar-item-text sidebar-link">
+  <a href="../part-04/mlb-tutorial-04.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Tutorium</span></a>
   </div>
 </li>
@@ -290,20 +290,19 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#einleitung" id="toc-einleitung" class="nav-link active" data-scroll-target="#einleitung">Einleitung</a></li>
-  <li><a href="#aufgabe-1-exakte-losgrößenplanung-für-saisonbier" id="toc-aufgabe-1-exakte-losgrößenplanung-für-saisonbier" class="nav-link" data-scroll-target="#aufgabe-1-exakte-losgrößenplanung-für-saisonbier">Aufgabe 1: Exakte Losgrößenplanung für Saisonbier</a></li>
-  <li><a href="#aufgabe-2-heuristische-losgrößenplanung" id="toc-aufgabe-2-heuristische-losgrößenplanung" class="nav-link" data-scroll-target="#aufgabe-2-heuristische-losgrößenplanung">Aufgabe 2: Heuristische Losgrößenplanung</a></li>
-  <li><a href="#aufgabe-3-losgrößenplanung-mit-kapazitätsgrenzen-clsp" id="toc-aufgabe-3-losgrößenplanung-mit-kapazitätsgrenzen-clsp" class="nav-link" data-scroll-target="#aufgabe-3-losgrößenplanung-mit-kapazitätsgrenzen-clsp">Aufgabe 3: Losgrößenplanung mit Kapazitätsgrenzen (CLSP)</a></li>
+  <li><a href="#aufgabe-1-bestandsgrößen-im-zeitverlauf" id="toc-aufgabe-1-bestandsgrößen-im-zeitverlauf" class="nav-link active" data-scroll-target="#aufgabe-1-bestandsgrößen-im-zeitverlauf">Aufgabe 1: Bestandsgrößen im Zeitverlauf</a></li>
+  <li><a href="#aufgabe-2-sicherheitsbestand-und-servicegrade" id="toc-aufgabe-2-sicherheitsbestand-und-servicegrade" class="nav-link" data-scroll-target="#aufgabe-2-sicherheitsbestand-und-servicegrade">Aufgabe 2: Sicherheitsbestand und Servicegrade</a></li>
+  <li><a href="#aufgabe-3-diskrete-nachfrage-und-faltung" id="toc-aufgabe-3-diskrete-nachfrage-und-faltung" class="nav-link" data-scroll-target="#aufgabe-3-diskrete-nachfrage-und-faltung">Aufgabe 3: Diskrete Nachfrage und Faltung</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="mlb-tutorial-02.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="mlb-tutorial-04.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-02/mlb-lecture-02.pdf">02 CLSP</a></li><li class="breadcrumb-item"><a href="../part-02/mlb-tutorial-02.html">Tutorium</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-04/mlb-lecture-04.pdf">04 Bestandsmanagement</a></li><li class="breadcrumb-item"><a href="../part-04/mlb-tutorial-04.html">Tutorium</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Übung 02</h1>
-<p class="subtitle lead">Dynamische Losgrößenplanung</p>
+<h1 class="title">Übung 04</h1>
+<p class="subtitle lead">Bestandsmanagement unter Unsicherheit</p>
 </div>
 
 
@@ -320,97 +319,183 @@ window.Quarto = {
 </header>
 
 
-<section id="einleitung" class="level2">
-<h2 class="anchored" data-anchor-id="einleitung">Einleitung</h2>
-<p>Wer noch Schwierigkeiten mit dem CLSP und der Lagerbilanzgleichung hat, kann sich gerne folgendes Video aus der Vorlesung Grundlagen des Operations Research ansehen:</p>
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/mJtf-RR9Dvk" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-</section>
-<section id="aufgabe-1-exakte-losgrößenplanung-für-saisonbier" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-1-exakte-losgrößenplanung-für-saisonbier">Aufgabe 1: Exakte Losgrößenplanung für Saisonbier</h2>
-<p>Die lokale Traditionsbrauerei “Duisburger Perle” plant die Produktion ihres beliebten Saisonbiers “Frühlings-Helles” für die kommenden 6 Wochen. Da die Nachfrage schwankt und das Aufsetzen eines neuen Brauvorgangs (Rüsten) mit erheblichen Kosten verbunden ist, soll ein kostenoptimaler Produktionsplan gefunden werden.</p>
-<p>Die Brauerei hat die folgenden Daten ermittelt:</p>
+<section id="aufgabe-1-bestandsgrößen-im-zeitverlauf" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-1-bestandsgrößen-im-zeitverlauf">Aufgabe 1: Bestandsgrößen im Zeitverlauf</h2>
+<p>Ein Händler für hochwertige Espressomaschinen nutzt zur Steuerung seines Lagers eine <span class="math inline">\((s, q)\)</span>-Politik mit kontinuierlicher Überwachung. Die Politik ist wie folgt definiert:</p>
 <ul>
-<li><strong>Rüstkosten (<span class="math inline">\(s\)</span>):</strong> 250 GE pro Brauvorgang (Los)</li>
-<li><strong>Lagerkostensatz (<span class="math inline">\(h\)</span>):</strong> 2 GE pro Kasten und Woche</li>
+<li>Bestellpunkt (Meldebestand) <strong><span class="math inline">\(s\)</span></strong>: 100 Maschinen</li>
+<li>Bestellmenge <strong><span class="math inline">\(q\)</span></strong>: 250 Maschinen</li>
+<li>Wiederbeschaffungszeit <strong><span class="math inline">\(L\)</span></strong>: 3 Wochen (deterministisch)</li>
 </ul>
-<p><strong>Wöchentliche Nachfrage (<span class="math inline">\(d_t\)</span>):</strong></p>
+<p>Der Händler startet in Woche 0 mit den folgenden Beständen:</p>
+<ul>
+<li>Physischer Bestand <span class="math inline">\(I_0^P\)</span>: 120 Maschinen</li>
+<li>Bestellbestand (offene Bestellungen) <span class="math inline">\(I_0^O\)</span>: 0 Maschinen</li>
+</ul>
+<p><strong>Wöchentliche Nachfragen (deterministisch für diese Aufgabe):</strong></p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Woche (t)</th>
-<th style="text-align: left;">1</th>
-<th style="text-align: left;">2</th>
-<th style="text-align: left;">3</th>
-<th style="text-align: left;">4</th>
-<th style="text-align: left;">5</th>
-<th style="text-align: left;">6</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">6</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Nachfrage (Kästen)</td>
-<td style="text-align: left;">30</td>
-<td style="text-align: left;">50</td>
-<td style="text-align: left;">20</td>
-<td style="text-align: left;">70</td>
-<td style="text-align: left;">80</td>
-<td style="text-align: left;">40</td>
+<td style="text-align: left;">Nachfrage <span class="math inline">\(d_t\)</span></td>
+<td style="text-align: center;">30</td>
+<td style="text-align: center;">40</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">45</td>
+<td style="text-align: center;">60</td>
+<td style="text-align: center;">55</td>
 </tr>
 </tbody>
 </table>
-<p>Um die Gesamtkosten zu minimieren, soll das exakte Verfahren von <strong>Wagner und Whitin</strong> (Dynamische Optimierung) angewendet werden. Es wird angenommen, dass zu Beginn kein Lagerbestand vorhanden ist und am Ende der 6. Woche ebenfalls kein Bestand verbleiben soll.</p>
 <p><strong>Ihre Aufgaben:</strong></p>
 <ol type="1">
-<li><strong>Kostenmatrix erstellen:</strong> Berechnen Sie die Kosten <span class="math inline">\(c_{\tau j}\)</span> für jedes mögliche Los, das in Woche <span class="math inline">\(\tau\)</span> produziert wird, um die Nachfrage bis einschließlich Woche <span class="math inline">\(j\)</span> zu decken.</li>
-<li><strong>Wagner-Whitin-Algorithmus anwenden:</strong> Ermitteln Sie rekursiv die minimalen Gesamtkosten <span class="math inline">\(f_i\)</span> für einen Planungszeitraum von <span class="math inline">\(i = 1, \ldots, 6\)</span> Wochen. Notieren Sie sich bei jedem Schritt, welche Entscheidung zur minimalen Kosten führt.</li>
-<li><strong>Optimalen Produktionsplan ableiten:</strong> Bestimmen Sie durch Rückverfolgung (Backtracking) aus den Ergebnissen von Schritt 2, in welchen Wochen eine Produktion stattfinden soll und wie groß die jeweilige Losgröße ist. Wie hoch sind die minimalen Gesamtkosten?</li>
+<li><strong>Tabelle ausfüllen:</strong> Füllen Sie die folgende Tabelle aus. Verfolgen Sie alle Bestandsgrößen über den Zeitraum von 6 Wochen. Eine Bestellung wird am Ende der Woche ausgelöst, in der der disponible Bestand den Meldebestand <span class="math inline">\(s\)</span> erreicht oder unterschreitet. Der Wareneingang erfolgt dann genau <span class="math inline">\(L=3\)</span> Wochen später zu Beginn der Woche.</li>
+</ol>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Woche (t)</th>
+<th>Nachfrage <span class="math inline">\(d_t\)</span></th>
+<th>Disp. Bestand (Anfang)</th>
+<th>Bestellung? (Menge)</th>
+<th>Disp. Bestand (Ende)</th>
+<th>Phys. Bestand (Ende)</th>
+<th>Bestellbestand (Ende)</th>
+<th>Fehlbestand (Ende)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>0</strong></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>120</td>
+<td>120</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><strong>1</strong></td>
+<td>30</td>
+<td>120</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td><strong>2</strong></td>
+<td>40</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td><strong>3</strong></td>
+<td>50</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td><strong>4</strong></td>
+<td>45</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td><strong>5</strong></td>
+<td>60</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td><strong>6</strong></td>
+<td>55</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+<td>?</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="aufgabe-2-sicherheitsbestand-und-servicegrade" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-2-sicherheitsbestand-und-servicegrade">Aufgabe 2: Sicherheitsbestand und Servicegrade</h2>
+<p>Ein Online-Händler für ein populäres Smartphone-Modell möchte seinen Lagerbestand optimieren. Die wöchentliche Nachfrage ist annähernd normalverteilt mit einem <strong>Mittelwert von 50 Stück</strong> und einer <strong>Standardabweichung von 15 Stück</strong>. Die Wiederbeschaffungszeit vom Hersteller beträgt konstant <strong>4 Wochen</strong>. Der Händler nutzt eine Politik der kontinuierlichen Überprüfung.</p>
+<p><strong>Ihre Aufgaben:</strong></p>
+<ol type="1">
+<li><strong>Mittelwert und Standardabweichung:</strong> Berechnen Sie den Mittelwert und die Standardabweichung der Nachfrage während der Wiederbeschaffungszeit (dem Risikozeitraum).</li>
+<li><strong>Bestellpunkt und Sicherheitsbestand:</strong> Der Händler strebt einen <span class="math inline">\(\alpha\)</span>-Servicegrad (Zyklus-Servicegrad) von 99% an. Das bedeutet, die Wahrscheinlichkeit eines Fehlbestands während eines Bestellzyklus soll nur 1% betragen. Welcher Bestellpunkt (reorder point) <span class="math inline">\(s\)</span> muss gewählt werden? Wie hoch ist der resultierende Sicherheitsbestand?</li>
+<li><strong>Erwartete Fehlmenge:</strong> Gegeben der Bestellpunkt <span class="math inline">\(s\)</span> aus Teil 2: Berechnen Sie die erwartete Fehlmenge pro Bestellzyklus <span class="math inline">\(E(B)\)</span>. Nutzen Sie dafür die standardisierte Einheiten-Verlustfunktion, die approximiert werden kann als <span class="math inline">\(\phi(z) - z(1 - \Phi(z))\)</span>, wobei <span class="math inline">\(z\)</span> der Sicherheitsfaktor ist und <span class="math inline">\(\phi(z)\)</span> bzw. <span class="math inline">\(\Phi(z)\)</span> die Dichte- bzw. Verteilungsfunktion der Standardnormalverteilung sind.</li>
+<li><strong>Servicegrad:</strong> Wenn der Händler eine feste Bestellmenge von <span class="math inline">\(q=500\)</span> Stück verwendet, welchen <span class="math inline">\(\beta\)</span>-Servicegrad (Mengen-Servicegrad) erreicht er mit seiner Politik?</li>
 </ol>
 </section>
-<section id="aufgabe-2-heuristische-losgrößenplanung" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-2-heuristische-losgrößenplanung">Aufgabe 2: Heuristische Losgrößenplanung</h2>
-<p>Die Geschäftsführung der “Duisburger Perle” ist mit dem optimalen Plan sehr zufrieden, findet das Wagner-Whitin-Verfahren jedoch recht aufwändig für die schnelle, wöchentliche Planung. Ein findiger Braumeister schlägt vor, einfachere Heuristiken zu verwenden, die “ziemlich gute” Ergebnisse liefern, aber schneller zu berechnen sind.</p>
-<p>Sie erhalten den Auftrag, drei gängige Heuristiken auf die Daten aus Aufgabe 1 anzuwenden und die Ergebnisse mit der optimalen Lösung zu vergleichen.</p>
-<p><strong>Daten (wie in Aufgabe 1):</strong></p>
-<ul>
-<li><strong>Rüstkosten (<span class="math inline">\(s\)</span>):</strong> 250 GE</li>
-<li><strong>Lagerkostensatz (<span class="math inline">\(h\)</span>):</strong> 2 GE pro Kasten und Woche</li>
-<li><strong>Wöchentliche Nachfrage (<span class="math inline">\(d_t\)</span>):</strong> <code>[30, 50, 20, 70, 80, 40]</code></li>
-</ul>
+<section id="aufgabe-3-diskrete-nachfrage-und-faltung" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-3-diskrete-nachfrage-und-faltung">Aufgabe 3: Diskrete Nachfrage und Faltung</h2>
+<p>Ein kleiner Kiosk verkauft eine spezielle importierte Limonade. Die tägliche Nachfrage ist nicht normalverteilt, sondern folgt einer einfachen diskreten Verteilung:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Nachfrage (D) pro Tag</th>
+<th style="text-align: left;">0 Flaschen</th>
+<th style="text-align: left;">1 Flasche</th>
+<th style="text-align: left;">2 Flaschen</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Wahrscheinlichkeit P(D)</td>
+<td style="text-align: left;">0.2</td>
+<td style="text-align: left;">0.6</td>
+<td style="text-align: left;">0.2</td>
+</tr>
+</tbody>
+</table>
+<p>Die Wiederbeschaffungszeit beträgt genau <strong>2 Tage</strong>.</p>
 <p><strong>Ihre Aufgaben:</strong></p>
 <ol type="1">
-<li><strong>Stückkostenverfahren (Least-Unit-Cost):</strong> Bilden Sie Lose, indem Sie so lange Periodenbedarfe zusammenfassen, wie die durchschnittlichen Stückkosten des Loses sinken.</li>
-<li><strong>Stückperiodenausgleichsverfahren (Part-Period-Balancing):</strong> Bilden Sie Lose, indem Sie so lange Periodenbedarfe zusammenfassen, wie die kumulierten Lagerkosten des Loses die Rüstkosten nicht übersteigen.</li>
-<li><strong>Silver-Meal-Verfahren:</strong> Bilden Sie Lose, indem Sie so lange Periodenbedarfe zusammenfassen, wie die durchschnittlichen Kosten pro Periode sinken.</li>
-<li><strong>Vergleich:</strong> Stellen Sie die Produktionspläne und Gesamtkosten der drei Heuristiken der optimalen Lösung aus Aufgabe 1 gegenüber. Wie gut schlagen sich die Heuristiken?</li>
-</ol>
-</section>
-<section id="aufgabe-3-losgrößenplanung-mit-kapazitätsgrenzen-clsp" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-3-losgrößenplanung-mit-kapazitätsgrenzen-clsp">Aufgabe 3: Losgrößenplanung mit Kapazitätsgrenzen (CLSP)</h2>
-<p>Die “Duisburger Perle” stellt fest, dass die Gär- und Lagertanks einen Engpass darstellen. Es kann nicht unbegrenzt viel Bier pro Woche produziert werden. Zusätzlich zum “Frühlings-Hellen” wird nun ein zweites Saisonbier, das “Maibock”, geplant. Beide Biere konkurrieren um die gleiche, begrenzte wöchentliche Kapazität.</p>
-<p><strong>Neue &amp; Gegebene Daten:</strong></p>
-<ul>
-<li><strong>Produkt 1: Frühlings-Helles</strong> (Daten wie gehabt)
-<ul>
-<li>Nachfrage: <code>[30, 50, 20, 70, 80, 40]</code></li>
-<li>Rüstkosten <span class="math inline">\(s_{helles}\)</span>: 250 GE, Lagerkosten <span class="math inline">\(h_{helles}\)</span>: 2 GE</li>
-<li>Kapazitätsbedarf pro Kasten <span class="math inline">\(tb_{helles}\)</span>: 1,0 KE</li>
-<li>Kapazitätsbedarf für Rüstvorgang <span class="math inline">\(tr_{helles}\)</span>: 20 KE</li>
-</ul></li>
-<li><strong>Produkt 2: Maibock</strong> (Neue Daten)
-<ul>
-<li>Nachfrage: <code>[20, 30, 60, 40, 30, 50]</code></li>
-<li>Rüstkosten <span class="math inline">\(s_{bock}\)</span>: 200 GE, Lagerkosten <span class="math inline">\(h_{bock}\)</span>: 2.5 GE</li>
-<li>Kapazitätsbedarf pro Kasten <span class="math inline">\(tb_{bock}\)</span>: 1,2 KE</li>
-<li>Kapazitätsbedarf für Rüstvorgang <span class="math inline">\(tr_{bock}\)</span>: 15 KE</li>
-</ul></li>
-<li><strong>Wöchentliche Gesamtkapazität (<span class="math inline">\(b_t\)</span>):</strong> 150 KE (Kapazitätseinheiten)</li>
-</ul>
-<p><strong>Ihre Aufgaben:</strong></p>
-<ol type="1">
-<li><strong>Unabhängige Planung:</strong> Ermitteln Sie den kostenoptimalen, <em>unkapazitierten</em> Produktionsplan für das neue “Maibock”-Bier mit dem Wagner-Whitin-Algorithmus.</li>
-<li><strong>Kapazitätsprüfung:</strong> Überlagern Sie den optimalen Plan für “Frühlings-Helles” (aus Aufgabe 1) mit dem neuen Plan für “Maibock”. Berechnen Sie für jede Woche die gesamte Kapazitätsauslastung durch Produktion und Rüstvorgänge beider Biersorten. Identifizieren Sie alle Wochen, in denen die Gesamtkapazität von 150 KE überschritten wird.</li>
-<li><strong>Heuristische Anpassung:</strong> Schlagen Sie eine einfache, plausible Anpassung für den kombinierten Produktionsplan vor, um die Kapazitätsverletzungen zu beheben (z.B. durch Vorziehen oder Aufteilen einer Produktion). Berechnen Sie die neuen Gesamtkosten (Summe der Kosten beider Pläne) für Ihren angepassten, kapazitätskonformen Plan.</li>
-<li><strong>Diskussion:</strong> Erläutern Sie kurz, warum das separate Anwenden des Wagner-Whitin-Algorithmus und anschließende Anpassen keine garantiert optimale Lösung für das kapazitierte Problem (CLSP) liefert.</li>
+<li><strong>Wahrscheinlichkeitsverteilung:</strong> Leiten Sie die Wahrscheinlichkeitsverteilung für die Gesamtnachfrage <span class="math inline">\(Y_2\)</span> über den Risikozeitraum von 2 Tagen her. (Tipp: Nutzen Sie die Faltung der Verteilung mit sich selbst).</li>
+<li><strong>Fehlbestandswahrscheinlichkeit:</strong> Wenn der Kioskbesitzer einen Bestellpunkt von <span class="math inline">\(s=3\)</span> Flaschen festlegt, wie hoch ist die Wahrscheinlichkeit, dass es zu einem Fehlbestand kommt (d.h. der <span class="math inline">\(\alpha\)</span>-Servicegrad <em>nicht</em> eingehalten wird)?</li>
+<li><strong>Erwartete Fehlmenge:</strong> Berechnen Sie die erwartete Fehlmenge <span class="math inline">\(E(B)\)</span> für den Bestellpunkt <span class="math inline">\(s=3\)</span>.</li>
 </ol>
 
 
