@@ -268,6 +268,47 @@ window.Quarto = {
         <li class="sidebar-item">
  <span class="menu-text">***</span>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="true">
+ <span class="menu-text">Zusatzaufgaben</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 01</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 02</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 03</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 04</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 05</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../general/faqs.html" class="sidebar-item-text sidebar-link">
@@ -457,7 +498,7 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p><strong>Lösungshinweise:</strong></p>
+<p><strong>Lösung:</strong></p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -509,7 +550,7 @@ Tipps und wichtige Formeln
 <li><strong>Physischer Bestand / Fehlbestand:</strong> <code>Physischer Bestand (Anfang) + Wareneingang - Nachfrage</code>.</li>
 <li><strong>Bestellbestand:</strong> <code>Bestellbestand (Anfang) + Neue Bestellung - Wareneingang</code>.</li>
 </ol>
-<div id="04800f66" class="cell" data-execution_count="1">
+<div id="7fc113ae" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-stdout">
 <pre><code>Berechnung Schritt für Schritt:
 Woche 1: Meldebestand unterschritten (60 &lt;= 80). Bestellung ausgelöst.
@@ -517,13 +558,13 @@ Woche 3: Wareneingang von 200 Stück.
 Woche 5: Meldebestand unterschritten (80 &lt;= 80). Bestellung ausgelöst.
 
 Vervollständigte Tabelle:
- Woche (t)  Nachfrage $d_t$  Disp. Bestand (A)  Phys. Bestand (E)  Disp. Bestand (E)  Bestellung? (E)  Bestellbestand (E)  Fehlbestand (E)
-         1               40                100                 60                260              200                 200                0
-         2               35                260                 25                225                0                 200                0
-         3               50                225                175                175                0                   0                0
-         4               40                175                135                135                0                   0                0
-         5               55                135                 80                280              200                 200                0
-         6               60                280                 20                220                0                 200                0</code></pre>
+ Woche (t)  Nachfrage $d_t$  Disp. Bestand (A)  Bestellung? (E)  Disp. Bestand (E)  Phys. Bestand (E)  Bestellbestand (E)  Fehlbestand (E)
+         1               40                100              200                260                 60                 200                0
+         2               35                260                0                225                 25                 200                0
+         3               50                225                0                175                175                   0                0
+         4               40                175                0                135                135                   0                0
+         5               55                135              200                280                 80                 200                0
+         6               60                280                0                220                 20                 200                0</code></pre>
 </div>
 </div>
 </section>
@@ -534,10 +575,10 @@ Vervollständigte Tabelle:
 <ol type="1">
 <li><strong>Mittelwert und Standardabweichung:</strong> Berechnen Sie den Mittelwert und die Standardabweichung der Nachfrage während der Wiederbeschaffungszeit (dem Risikozeitraum).</li>
 <li><strong>Bestellpunkt und Sicherheitsbestand:</strong> Der Händler strebt einen <span class="math inline">\(\alpha\)</span>-Servicegrad (Zyklus-Servicegrad) von 95% an. Das bedeutet, die Wahrscheinlichkeit eines Fehlbestands während eines Bestellzyklus soll nur 5% betragen. Welcher Bestellpunkt (reorder point) <span class="math inline">\(s\)</span> muss gewählt werden? Wie hoch ist der resultierende Sicherheitsbestand?</li>
-<li><strong>Erwartete Fehlmenge:</strong> Gegeben der Bestellpunkt <span class="math inline">\(s\)</span> aus Teil 2: Berechnen Sie die erwartete Fehlmenge pro Bestellzyklus <span class="math inline">\(E(B)\)</span>. Nutzen Sie dafür die in der Vorlesung vorgestellte <strong>standardisierte Einheiten-Verlustfunktion <span class="math inline">\(G_u(z)\)</span></strong>. Die benötigten Werte für <span class="math inline">\(G_u(z)\)</span> finden Sie in den Tabellen der Vorlesung oder in den Lösungshinweisen zu dieser Aufgabe.</li>
+<li><strong>Erwartete Fehlmenge:</strong> Gegeben der Bestellpunkt <span class="math inline">\(s\)</span> aus Teil 2: Berechnen Sie die erwartete Fehlmenge pro Bestellzyklus <span class="math inline">\(E(B)\)</span>. Nutzen Sie dafür die in der Vorlesung vorgestellte <strong>standardisierte Einheiten-Verlustfunktion <span class="math inline">\(G_u(z)\)</span></strong>. Die benötigten Werte für <span class="math inline">\(G_u(z)\)</span> finden Sie in den Tabellen der Vorlesung oder in den Lösungn zu dieser Aufgabe.</li>
 <li><strong>Servicegrad:</strong> Wenn der Händler eine feste Bestellmenge von <span class="math inline">\(q=450\)</span> Stück verwendet, welchen <span class="math inline">\(\beta\)</span>-Servicegrad (Mengen-Servicegrad) erreicht er mit seiner Politik?</li>
 </ol>
-<p><strong>Lösungshinweise:</strong></p>
+<p><strong>Lösung:</strong></p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -590,7 +631,7 @@ Tipps und wichtige Formeln
 </div>
 </div>
 </div>
-<div id="11011854" class="cell" data-execution_count="2">
+<div id="d518c37c" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
 <pre><code>1. Nachfrage während der WBZ:
    - Erwartungswert (mu_L): 180.00 Stück
@@ -641,7 +682,7 @@ Tipps und wichtige Formeln
 <li><strong>Fehlbestandswahrscheinlichkeit:</strong> Wenn der Ladenbesitzer einen Bestellpunkt von <span class="math inline">\(s=4\)</span> Heften festlegt, wie hoch ist die Wahrscheinlichkeit, dass es zu einem Fehlbestand kommt (d.h. der <span class="math inline">\(\alpha\)</span>-Servicegrad <em>nicht</em> eingehalten wird)?</li>
 <li><strong>Erwartete Fehlmenge:</strong> Berechnen Sie die erwartete Fehlmenge <span class="math inline">\(E(B)\)</span> für den Bestellpunkt <span class="math inline">\(s=4\)</span>.</li>
 </ol>
-<p><strong>Lösungshinweise:</strong></p>
+<p><strong>Lösung:</strong></p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
