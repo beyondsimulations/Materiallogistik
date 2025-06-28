@@ -66,7 +66,7 @@ der kontinuierlichen Überprüfung.
     Nutzen Sie dafür die in der Vorlesung vorgestellte **standardisierte
     Einheiten-Verlustfunktion $G_u(z)$**. Die benötigten Werte für
     $G_u(z)$ finden Sie in den Tabellen der Vorlesung oder in den
-    Lösungshinweisen zu dieser Aufgabe.
+    Lösungn zu dieser Aufgabe.
 4.  **Servicegrad:** Wenn der Händler eine feste Bestellmenge von
     $q=450$ Stück verwendet, welchen $\beta$-Servicegrad
     (Mengen-Servicegrad) erreicht er mit seiner Politik?

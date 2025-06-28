@@ -56,7 +56,7 @@ Der Händler startet in Woche 0 mit den folgenden Beständen:
 #pagebreak()
 ```
 
-**Lösungshinweise:**
+**Lösung:**
 
 ::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
 #### Reihenfolge der Ereignisse
@@ -149,9 +149,9 @@ for t in range(1, T + 1):
         'Woche (t)': t,
         'Nachfrage $d_t$': demand_t,
         'Disp. Bestand (A)': disp_bestand_anfang,
-        'Phys. Bestand (E)': phys_bestand,
-        'Disp. Bestand (E)': disp_bestand,
         'Bestellung? (E)': bestellung_getaetigt,
+        'Disp. Bestand (E)': disp_bestand,
+        'Phys. Bestand (E)': phys_bestand,
         'Bestellbestand (E)': bestell_bestand,
         'Fehlbestand (E)': fehl_bestand
     })
@@ -174,7 +174,7 @@ Ein Online-Händler für ein populäres Smartphone-Modell möchte seinen Lagerbe
 
 1.  **Mittelwert und Standardabweichung:** Berechnen Sie den Mittelwert und die Standardabweichung der Nachfrage während der Wiederbeschaffungszeit (dem Risikozeitraum).
 2.  **Bestellpunkt und Sicherheitsbestand:** Der Händler strebt einen $\alpha$-Servicegrad (Zyklus-Servicegrad) von 95% an. Das bedeutet, die Wahrscheinlichkeit eines Fehlbestands während eines Bestellzyklus soll nur 5% betragen. Welcher Bestellpunkt (reorder point) $s$ muss gewählt werden? Wie hoch ist der resultierende Sicherheitsbestand?
-3.  **Erwartete Fehlmenge:** Gegeben der Bestellpunkt $s$ aus Teil 2: Berechnen Sie die erwartete Fehlmenge pro Bestellzyklus $E(B)$. Nutzen Sie dafür die in der Vorlesung vorgestellte **standardisierte Einheiten-Verlustfunktion $G_u(z)$**. Die benötigten Werte für $G_u(z)$ finden Sie in den Tabellen der Vorlesung oder in den Lösungshinweisen zu dieser Aufgabe.
+3.  **Erwartete Fehlmenge:** Gegeben der Bestellpunkt $s$ aus Teil 2: Berechnen Sie die erwartete Fehlmenge pro Bestellzyklus $E(B)$. Nutzen Sie dafür die in der Vorlesung vorgestellte **standardisierte Einheiten-Verlustfunktion $G_u(z)$**. Die benötigten Werte für $G_u(z)$ finden Sie in den Tabellen der Vorlesung oder in den Lösungn zu dieser Aufgabe.
 4.  **Servicegrad:** Wenn der Händler eine feste Bestellmenge von $q=450$ Stück verwendet, welchen $\beta$-Servicegrad (Mengen-Servicegrad) erreicht er mit seiner Politik?
 
 ::: {.content-visible when-profile="solution"}
@@ -183,7 +183,7 @@ Ein Online-Händler für ein populäres Smartphone-Modell möchte seinen Lagerbe
 #pagebreak()
 ```
 
-**Lösungshinweise:**
+**Lösung:**
 
 ::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
 #### 1. Nachfrage während der Wiederbeschaffungszeit (WBZ)
@@ -295,7 +295,7 @@ Die Wiederbeschaffungszeit beträgt genau **2 Tage**.
 #pagebreak()
 ```
 
-**Lösungshinweise:**
+**Lösung:**
 
 ::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
 #### 1. Faltung von Wahrscheinlichkeitsverteilungen

@@ -14,6 +14,12 @@ html:
 
 Dieser Kurs behandelt das Modul Materiallogistik auf Basis der ursprünglichen Vorlesung von Prof. Dr. Manitz. Ich habe den Kurs kurzfristig übernommen und die Materialien deswegen nur leicht angepasst. Es sind keine neuen Inhalte enthalten, sondern lediglich neue Übungen.
 
+# Neuigkeiten
+
+- Unsere nächste Besprechung findet am **Dienstag, 8. Juli 2025, 13:00 Uhr** statt.
+- [Klicken Sie hier, um zur Besprechung zu gelangen](https://meet.google.com/efc-hgep-ibr).
+- Als Beispiel für das Klausurformat finden Sie [hier](general/pw2-2025.pdf) die PW2 Klausur 2025 von mir.
+
 # Lernziele
 
 Mein Ziel ist es, Sie auf die Klausuren vorzubereiten und Ihnen gleichzeitig die Grundlagen der Materiallogistik näherzubringen. Nach Abschluss dieses Kurses werden Sie in der Lage sein:

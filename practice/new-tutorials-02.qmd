@@ -1,0 +1,272 @@
+---
+title: "Weitere Aufgaben zu Vorlesung 02"
+subtitle: "Wagner-Whitin, Heuristiken und CLSP"
+jupyter: python3
+format:
+    html:
+        theme: [sandstone, ../styles.scss]
+        highlight-style: arrow
+        linkcolor: "#a60000"
+        echo: false
+        code-overflow: wrap
+    typst:
+        papersize: a4
+        echo: false
+---
+
+
+```{=typst}
+#pagebreak()
+```
+## Aufgabe 1: Losgrößenplanung für einen E-Bike-Motorcontroller
+
+Ein Hersteller von E-Bike-Komponenten plant die Produktion eines neuen, leistungsstarken Motorcontrollers. Die Nachfrage für die nächsten 6 Monate ist prognostiziert, und das Unternehmen möchte einen kostenoptimalen Produktionsplan erstellen, um die variierende Nachfrage zu bedienen.
+
+Die relevanten Daten sind:
+
+*   **Rüstkosten ($s$):** 500 GE pro Produktionslauf
+*   **Lagerkostensatz ($h$):** 3 GE pro Einheit und Monat
+
+**Monatliche Nachfrage ($d_t$):**
+
+| Monat (t) | 1 | 2 | 3 | 4 | 5 | 6 |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Nachfrage (Einheiten) | 40 | 60 | 30 | 90 | 20 | 50 |
+
+Annahmen: Der Anfangslagerbestand ist null, und am Ende von Monat 6 soll kein Lagerbestand mehr vorhanden sein.
+
+**Ihre Aufgaben:**
+
+1.  **Optimaler Plan (Wagner-Whitin):** Wenden Sie den Wagner-Whitin-Algorithmus an, um den exakten kostenoptimalen Produktionsplan zu finden. Bestimmen Sie die Produktionszeitpunkte, Losgrößen und die minimalen Gesamtkosten.
+2.  **Heuristische Pläne:** Ermitteln Sie die Produktionspläne und Gesamtkosten mit dem **Silver-Meal-Verfahren** und dem **Stückkostenverfahren**.
+3.  **Vergleich:** Vergleichen Sie die Kosten der heuristischen Pläne mit der optimalen Lösung. Wie groß ist die prozentuale Abweichung?
+
+::: {.content-visible when-profile="solution"}
+
+```{=typst}
+#pagebreak()
+```
+
+::: {.callout-note title="Lösung" collapse="true"}
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# --- Daten ---
+demands = [40, 60, 30, 90, 20, 50]
+s = 500  # Rüstkosten
+h = 3    # Lagerkostensatz
+T = len(demands)
+
+# --- 1. Wagner-Whitin Algorithmus ---
+def solve_wagner_whitin(demands, s, h):
+    T = len(demands)
+    c_matrix = np.full((T, T), np.inf)
+    for tau in range(1, T + 1):
+        storage_costs = 0
+        for j in range(tau, T + 1):
+            if j > tau:
+                storage_costs += h * (j - tau) * demands[j - 1]
+            c_matrix[tau - 1, j - 1] = s + storage_costs
+            
+    f_costs = np.full(T + 1, np.inf)
+    f_costs[0] = 0
+    best_choice = np.zeros(T + 1, dtype=int)
+    
+    for j in range(1, T + 1):
+        min_cost = np.inf
+        for tau in range(1, j + 1):
+            current_cost = f_costs[tau - 1] + c_matrix[tau - 1, j - 1]
+            if current_cost < min_cost:
+                min_cost = current_cost
+                best_choice[j] = tau
+        f_costs[j] = min_cost
+        
+    plan = []
+    current_period = T
+    while current_period > 0:
+        start_period = best_choice[current_period]
+        lot_size = sum(demands[start_period - 1 : current_period])
+        plan.append({'Produktionswoche': start_period, 'Losgröße': lot_size})
+        current_period = start_period - 1
+    plan.reverse()
+    
+    return plan, f_costs[T]
+
+# --- Allgemeine Heuristik-Funktion ---
+def calculate_total_cost(plan, demands, s, h):
+    total_cost = 0; inventory = 0
+    production_periods = {p['Produktionswoche']: p['Losgröße'] for p in plan}
+    for t in range(1, len(demands) + 1):
+        if t in production_periods:
+            total_cost += s; inventory += production_periods[t]
+        inventory -= demands[t-1]
+        total_cost += inventory * h
+    return total_cost
+
+def solve_with_heuristic(demands, s, h, heuristic_name):
+    plan = []; t_start = 1
+    while t_start <= len(demands):
+        best_j = -1; last_metric = np.inf
+        lot_demand_sum = 0; storage_cost_sum = 0
+        for j in range(t_start, len(demands) + 1):
+            lot_demand_sum += demands[j-1]
+            if j > t_start:
+                storage_cost_sum += h * (j - t_start) * demands[j-1]
+            if heuristic_name == "Stückkostenverfahren":
+                current_metric = (s + storage_cost_sum) / lot_demand_sum
+            elif heuristic_name == "Silver-Meal-Verfahren":
+                num_periods_in_lot = j - t_start + 1
+                current_metric = (s + storage_cost_sum) / num_periods_in_lot
+            if current_metric < last_metric:
+                last_metric = current_metric; best_j = j
+            else:
+                best_j = j - 1; break
+        if best_j == -1 or best_j == 0 : best_j = t_start
+        lot_size = sum(demands[t_start - 1 : best_j])
+        plan.append({'Produktionswoche': t_start, 'Losgröße': lot_size})
+        t_start = best_j + 1
+    cost = calculate_total_cost(plan, demands, s, h)
+    return plan, cost
+
+# --- Berechnungen durchführen ---
+plan_ww, cost_ww = solve_wagner_whitin(demands, s, h)
+plan_sm, cost_sm = solve_with_heuristic(demands, s, h, "Silver-Meal-Verfahren")
+plan_luc, cost_luc = solve_with_heuristic(demands, s, h, "Stückkostenverfahren")
+
+# --- Ergebnisse darstellen ---
+results = {
+    'Methode': ['Optimal (Wagner-Whitin)', 'Silver-Meal', 'Stückkosten'],
+    'Gesamtkosten (GE)': [cost_ww, cost_sm, cost_luc],
+    'Produktionsplan': [
+        str(pd.DataFrame(plan_ww).to_dict('records')),
+        str(pd.DataFrame(plan_sm).to_dict('records')),
+        str(pd.DataFrame(plan_luc).to_dict('records'))
+    ]
+}
+df_results = pd.DataFrame(results)
+df_results['Abweichung (%)'] = 100 * (df_results['Gesamtkosten (GE)'] - cost_ww) / cost_ww
+
+print("--- Ergebnisse für Motorcontroller ---")
+print(df_results[['Methode', 'Gesamtkosten (GE)', 'Abweichung (%)']].round(2))
+print("\nDetailpläne:")
+for _, row in df_results.iterrows():
+    print(f"{row['Methode']}: {row['Produktionsplan']}")
+```
+
+:::
+:::
+
+```{=typst}
+#pagebreak()
+```
+
+## Aufgabe 2: Kapazitierte Planung (CLSP) für zwei Komponenten
+
+Der Komponentenhersteller aus Aufgabe 1 möchte auf derselben Fertigungslinie ein zweites Produkt herstellen: ein intelligentes Batterie-Management-System (BMS). Beide Produkte, der Motorcontroller und das BMS, benötigen Kapazität auf der kritischen Montagelinie, die begrenzt ist.
+
+**Daten:**
+
+*   **Produkt 1: Motorcontroller (MC)** (Daten aus Aufgabe 1)
+    *   Nachfrage: `[40, 60, 30, 90, 20, 50]`
+    *   Rüstkosten $s_{MC}$: 500 GE, Lagerkosten $h_{MC}$: 3 GE
+    *   Kapazitätsbedarf/Einheit $tb_{MC}$: 1.5 KE
+    *   Kapazitätsbedarf/Rüstvorgang $tr_{MC}$: 30 KE
+    *   Optimaler Plan: (Ergebnis aus Ihrer Lösung zu Aufgabe 1)
+
+*   **Produkt 2: Batterie-Management-System (BMS)**
+    *   Nachfrage: `[30, 30, 70, 50, 40, 60]`
+    *   Rüstkosten $s_{BMS}$: 400 GE, Lagerkosten $h_{BMS}$: 4 GE
+    *   Kapazitätsbedarf/Einheit $tb_{BMS}$: 1.0 KE
+    *   Kapazitätsbedarf/Rüstvorgang $tr_{BMS}$: 25 KE
+
+*   **Monatliche Gesamtkapazität ($b_t$):** 200 KE (Kapazitätseinheiten)
+
+**Ihre Aufgaben:**
+
+1.  **Unabhängiger Plan für BMS:** Ermitteln Sie den kostenoptimalen, *unkapazitierten* Produktionsplan für das BMS mit dem Wagner-Whitin-Algorithmus.
+2.  **Kapazitätskonflikt:** Überlagern Sie den optimalen Plan für den Motorcontroller (aus Aufgabe 1) mit dem neu berechneten Plan für das BMS. Berechnen Sie die monatliche Kapazitätsauslastung. Identifizieren Sie alle Monate mit Kapazitätsüberschreitungen.
+
+::: {.content-visible when-profile="solution"}
+
+```{=typst}
+#pagebreak()
+```
+
+::: {.callout-note title="Lösung" collapse="true"}
+
+```{python}
+import pandas as pd
+import numpy as np
+
+# --- Daten ---
+demands_mc = [40, 60, 30, 90, 20, 50]
+s_mc, h_mc, tb_mc, tr_mc = 500, 3, 1.5, 30
+
+demands_bms = [30, 30, 70, 50, 40, 60]
+s_bms, h_bms, tb_bms, tr_bms = 400, 4, 1.0, 25
+
+capacity_limit = 200
+T = len(demands_mc)
+
+# --- Wiederverwendung der WW-Funktion ---
+def solve_wagner_whitin(demands, s, h):
+    T = len(demands); c_matrix = np.full((T, T), np.inf)
+    for tau in range(1, T + 1):
+        storage_costs = 0
+        for j in range(tau, T + 1):
+            if j > tau: storage_costs += h * (j - tau) * demands[j - 1]
+            c_matrix[tau - 1, j - 1] = s + storage_costs
+    f_costs = np.full(T + 1, np.inf); f_costs[0] = 0
+    best_choice = np.zeros(T + 1, dtype=int)
+    for j in range(1, T + 1):
+        min_cost = np.inf
+        for tau in range(1, j + 1):
+            current_cost = f_costs[tau - 1] + c_matrix[tau - 1, j - 1]
+            if current_cost < min_cost:
+                min_cost = current_cost; best_choice[j] = tau
+        f_costs[j] = min_cost
+    plan = []; current_period = T
+    while current_period > 0:
+        start_period = best_choice[current_period]
+        lot_size = sum(demands[start_period - 1 : current_period])
+        plan.append({'Produktionswoche': start_period, 'Losgröße': lot_size})
+        current_period = start_period - 1
+    plan.reverse()
+    return pd.DataFrame(plan), f_costs[T]
+
+# --- 1. Unabhängige Pläne ---
+plan_mc_df, cost_mc = solve_wagner_whitin(demands_mc, s_mc, h_mc)
+plan_bms_df, cost_bms = solve_wagner_whitin(demands_bms, s_bms, h_bms)
+
+print("--- 1. Unabhängige optimale Pläne ---")
+print("\nMotorcontroller (MC):"); print(plan_mc_df)
+print(f"Kosten MC: {cost_mc:.0f} GE")
+print("\nBatterie-Management-System (BMS):"); print(plan_bms_df)
+print(f"Kosten BMS: {cost_bms:.0f} GE")
+print(f"Summe unkapazitierte Kosten: {cost_mc + cost_bms:.0f} GE")
+
+
+# --- 2. Kapazitätsprüfung ---
+capacity_usage = pd.DataFrame(index=range(1, T + 1), data={'Prod_MC': 0, 'Prod_BMS': 0, 'Setup_MC': 0, 'Setup_BMS': 0})
+for _, row in plan_mc_df.iterrows():
+    capacity_usage.loc[row['Produktionswoche'], 'Prod_MC'] = row['Losgröße']; capacity_usage.loc[row['Produktionswoche'], 'Setup_MC'] = 1
+for _, row in plan_bms_df.iterrows():
+    capacity_usage.loc[row['Produktionswoche'], 'Prod_BMS'] = row['Losgröße']; capacity_usage.loc[row['Produktionswoche'], 'Setup_BMS'] = 1
+
+capacity_usage['Cap_Used'] = (capacity_usage['Prod_MC'] * tb_mc + capacity_usage['Setup_MC'] * tr_mc + 
+                            capacity_usage['Prod_BMS'] * tb_bms + capacity_usage['Setup_BMS'] * tr_bms)
+capacity_usage['Violation'] = capacity_usage['Cap_Used'] > capacity_limit
+
+print("\n--- 2. Kapazitätsprüfung ---")
+print(capacity_usage.round(1))
+violation_weeks = capacity_usage[capacity_usage['Violation']].index.tolist()
+if violation_weeks:
+    print(f"\n-> Kapazitätsverletzung in Monat/Monaten: {violation_weeks}")
+
+```
+
+:::
+:::

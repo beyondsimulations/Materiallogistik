@@ -9,10 +9,10 @@ project:
     - part-03/*.qmd
     - part-04/*.qmd
     - part-05/*.qmd
-    - part-06/*.qmd
+    - practice/*.qmd
 
-#profile:
-#  default: solution
+profile:
+  default: solution
   
 website:
   title: "Materiallogistik"
@@ -59,6 +59,18 @@ website:
           - text: "Tutorium"
             href: part-05/mlb-tutorial-05.qmd
       - text: "***"
+      - text: "Zusatzaufgaben"
+        contents:
+          - text: "Thema 01"
+            href: practice/new-tutorials-01.qmd
+          - text: "Thema 02"
+            href: practice/new-tutorials-02.qmd
+          - text: "Thema 03"
+            href: practice/new-tutorials-03.qmd
+          - text: "Thema 04"
+            href: practice/new-tutorials-04.qmd
+          - text: "Thema 05"
+            href: practice/new-tutorials-05.qmd
       - text: "FAQs"
         href: general/faqs.qmd
       - text: "Chat"

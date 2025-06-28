@@ -37,7 +37,12 @@ Ein Event-Veranstalter plant den Verkauf von T-Shirts für ein einmaliges Open-A
 4.  **Sicherheitsbestand:** Wie hoch ist der resultierende Sicherheitsbestand?
 
 ::: {.content-visible when-profile="solution"}
-**Lösungshinweise:**
+
+```{=typst}
+#pagebreak()
+```
+
+**Lösung:**
 
 ::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
 #### 1. Underage- und Overage-Kosten
@@ -109,6 +114,10 @@ print(f"   - Sicherheitsbestand = {x_opt:.2f} - {mu_Y} = {safety_stock:.2f} Stü
 ```
 :::
 
+```{=typst}
+#pagebreak()
+```
+
 ## Aufgabe 2: Newsvendor mit diskreter Nachfrage
 
 Ein Bäcker muss morgens entscheiden, wie viele eines speziellen Kuchens er für den Tag backen soll. Die Herstellungskosten pro Kuchen betragen 5 GE, der Verkaufspreis liegt bei 12 GE. Nicht verkaufte Kuchen können am Ende des Tages nicht mehr verkauft werden und haben einen Restwert von 0 GE.
@@ -127,7 +136,12 @@ Die Nachfrage nach diesem Kuchen ist erfahrungsgemäß wie folgt verteilt:
 4.  **Optimale Bestellmenge:** Bestimmen Sie die optimale Bestellmenge $x_{opt}$, die der Bäcker backen sollte.
 
 ::: {.content-visible when-profile="solution"}
-**Lösungshinweise:**
+
+```{=typst}
+#pagebreak()
+```
+
+**Lösung:**
 
 ::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
 
@@ -203,6 +217,10 @@ print(f"Antwort: Der Bäcker sollte {x_opt} Kuchen backen.")
 ```
 :::
 
+```{=typst}
+#pagebreak()
+```
+
 ## Aufgabe 3: Periodische Lagerhaltungspolitik (r, S)
 
 Ein Fachgeschäft für Wander-Ausrüstung verkauft einen speziellen Typ Wanderstiefel. Die Nachfrage ist annähernd normalverteilt. Der Bestand wird alle 4 Wochen (r=4) überprüft. Die Lieferzeit vom Hersteller beträgt konstant 2 Wochen (L=2).
@@ -221,7 +239,12 @@ Das Geschäft strebt einen $\beta$-Servicegrad von 98% an. Das bedeutet, dass 98
 3.  **Optimales Bestellniveau:** Bestimmen Sie das optimale Bestellniveau $S_{opt}$, analog zur Vorlesung.
 
 ::: {.content-visible when-profile="solution"}
-**Lösungshinweise:**
+
+```{=typst}
+#pagebreak()
+```
+
+**Lösung:**
 
 ::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
 #### 1. Risikozeitraum einer (r,S)-Politik
@@ -298,6 +321,9 @@ print(f"   - Der darin enthaltene Sicherheitsbestand beträgt {safety_stock:.2f}
 ```
 :::
 
+```{=typst}
+#pagebreak()
+```
 
 ## Aufgabe 4: Bestellpunkt-Politik (s, q) mit Undershoot
 
@@ -312,7 +338,12 @@ Das Unternehmen möchte einen $\beta$-Servicegrad von 99% erreichen.
 3.  **Optimaler Bestellpunkt:** Bestimmen Sie den optimalen Bestellpunkt $s_{opt}$, der für den angestrebten Servicegrad nötig ist. Nehmen Sie an, dass der Fehlbestand am Anfang eines Zyklus vernachlässigbar klein ist ($G_Y^{(1)}(s+q) \approx 0$).
 
 ::: {.content-visible when-profile="solution"}
-**Lösungshinweise:**
+
+```{=typst}
+#pagebreak()
+```
+
+**Lösung:**
 
 ::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
 #### Das Konzept des "Undershoot"

@@ -56,7 +56,7 @@ Der Produktionsplan (Primärbedarf) sieht vor, in Periode 10 genau 50 "UrbanCrui
 #pagebreak()
 ```
 
-**Lösungshinweise:**
+**Lösung:**
 
 ::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
 #### Vorgehensweise bei der Bedarfsermittlung
@@ -194,7 +194,7 @@ Die Verkaufszahlen (in kg) der letzten 12 Wochen liegen vor:
 #pagebreak()
 ```
 
-**Lösungshinweise:**
+**Lösung:**
 
 ::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
 #### Die wichtigsten Kennzahlen zur Bedarfsanalyse
@@ -310,7 +310,7 @@ Ein Unternehmen aus Duisburg möchte seine Lagerartikel klassifizieren, um die M
 #pagebreak()
 ```
 
-**Lösungshinweise:**
+**Lösung:**
 
 ::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
 #### Das Prinzip der ABC-Analyse
@@ -382,7 +382,7 @@ print(df_sorted.round(2).to_string())
 
 
 # 6. Grafische Darstellung (Lorenz-Kurve)
-fig, ax1 = plt.subplots(figsize=(10, 6))
+fig, ax1 = plt.subplots(figsize=(8, 5))
 
 ax1.set_xlabel('Anteil der Artikelpositionen (%)')
 ax1.set_ylabel('Kumulierter Wertanteil (%)', color='blue')

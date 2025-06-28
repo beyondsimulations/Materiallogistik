@@ -170,7 +170,7 @@ prod_weeks = df_plan_t1['Produktionswoche'].tolist()
 prod_amounts = df_plan_t1['Losgröße'].tolist()
 prod_data_for_plot = [prod_amounts[prod_weeks.index(w)] if w in prod_weeks else 0 for w in range(1, T_t1 + 1)]
 
-plt.figure(figsize=(8, 5))
+plt.figure(figsize=(7, 4))
 plt.bar(range(1, T_t1 + 1), demands_t1, label='Nachfrage', color='skyblue', width=0.8)
 plt.bar(range(1, T_t1 + 1), prod_data_for_plot, label='Produktion', color='red', alpha=0.5, width=0.4)
 plt.title('Duisburger Perle: Nachfrage vs. Optimaler Produktionsplan')
@@ -214,7 +214,7 @@ Sie erhalten den Auftrag, drei gängige Heuristiken auf die Daten aus Aufgabe 1 
 #pagebreak()
 ```
 
-**Lösungshinweise:**
+**Lösung:**
 
 ::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
 Die Heuristiken entscheiden iterativ, wie viele zukünftige Bedarfe in einem Los zusammengefasst werden. Gestartet wird in der ersten Periode mit Bedarf. Man prüft, ob man den Bedarf der nächsten Periode(n) mit aufnimmt.
@@ -407,7 +407,7 @@ Die "Duisburger Perle" stellt fest, dass die Gär- und Lagertanks einen Engpass 
 #pagebreak()
 ```
 
-**Lösungshinweise:**
+**Lösung:**
 
 ::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
 #### 1. Unkapazitierte Planung (Wagner-Whitin)

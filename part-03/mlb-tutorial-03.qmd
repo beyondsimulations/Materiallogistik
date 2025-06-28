@@ -65,7 +65,7 @@ Um das Konzept zu verstehen, analysieren Sie den folgenden, manuell erstellten P
 #pagebreak()
 ```
 
-**Lösungshinweise:**
+**Lösung:**
 
 ::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
 #### 1. Kostenberechnung
@@ -220,7 +220,7 @@ Ein Hersteller von Smart-Home-Geräten produziert zwei Endprodukte: eine smarte 
 #pagebreak()
 ```
 
-**Lösungshinweise:**
+**Lösung:**
 
 ::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
 
@@ -299,7 +299,7 @@ Beantworten Sie die folgenden konzeptionellen Fragen:
 #pagebreak()
 ```
 
-**Lösungshinweise:**
+**Lösung:**
 
 ::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
 #### 1. Frozen Zone (Eingefrorener Horizont)
@@ -374,7 +374,7 @@ Ein Produktionsplaner hat für die Produkte "Sirius" und "Vega" einen unvollstä
 #pagebreak()
 ```
 
-**Lösungshinweise:**
+**Lösung:**
 
 ::: {.callout-tip collapse="true" title="Tipps und wichtige Formeln"}
 #### Die entscheidende Formel: Die Lagerbilanzgleichung
