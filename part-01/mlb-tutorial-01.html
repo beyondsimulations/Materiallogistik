@@ -75,6 +75,35 @@ ul.task-list li input[type="checkbox"] {
     }
 </style>  
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -353,6 +382,117 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Materialbedarfsermittlung:</strong> Führen Sie eine Materialbedarfsermittlung durch. Berechnen Sie den Brutto- und Nettobedarf für jede Komponente.</li>
 <li><strong>Bestellzeitpunkte:</strong> Bestimmen Sie die Bestellzeitpunkte für die Komponenten, um den Produktionsplan einzuhalten.</li>
 </ol>
+<p><strong>Lösungshinweise:</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipps und wichtige Formeln
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<section id="vorgehensweise-bei-der-bedarfsermittlung" class="level4 callout-body-container callout-body">
+<h4 class="anchored" data-anchor-id="vorgehensweise-bei-der-bedarfsermittlung">Vorgehensweise bei der Bedarfsermittlung</h4>
+<p>Die Materialbedarfsermittlung erfolgt <strong>top-down</strong> durch die Stücklistenstruktur, von der höchsten Dispositionsstufe (0) zu den niedrigsten.</p>
+<ol type="1">
+<li><strong>Stufe 0 (Endprodukt):</strong>
+<ul>
+<li><strong>Bruttobedarf:</strong> Der gegebene Primärbedarf aus dem Produktionsplan.</li>
+<li><strong>Nettobedarf:</strong> <code>Nettobedarf = Bruttobedarf - Lagerbestand</code>. Dies ist die Menge, die tatsächlich produziert werden muss.</li>
+<li><strong>Bestelltermin:</strong> <code>Bestelltermin = Bedarfstermin - Vorlaufzeit</code>. Dies ist der Zeitpunkt, an dem die Produktion des Endprodukts starten muss.</li>
+</ul></li>
+<li><strong>Nächste Stufen (Komponenten/Baugruppen):</strong>
+<ul>
+<li><strong>Bruttobedarf:</strong> Der Bruttobedarf einer Komponente leitet sich aus dem <strong>Nettobedarf</strong> der übergeordneten Baugruppe ab. Der Starttermin der Baugruppe wird zum Bedarfstermin der Komponente. <code>Bruttobedarf (Komponente) = Nettobedarf (Baugruppe) * Bedarfskoeffizient (Menge pro Baugruppe)</code></li>
+<li><strong>Nettobedarf &amp; Bestelltermin:</strong> Werden für jede Komponente analog zur Stufe 0 berechnet.</li>
+</ul></li>
+</ol>
+</section>
+</div>
+</div>
+<p><strong>1. Gozinto-Graph:</strong></p>
+<p>Der Gozinto-Graph visualisiert die “geht-in-Beziehung” der Komponenten.</p>
+<div id="cell-fig-task1" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div id="fig-task1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-task1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mlb-tutorial-01_files/figure-html/fig-task1-output-1.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-task1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Gozinto-Graph für UrbanCruiser
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>2. &amp; 3. Materialbedarfsermittlung:</strong></p>
+<p>Wir berechnen den Bedarf rekursiv, beginnend bei der obersten Ebene (Dispositionsstufe 0).</p>
+<p><strong>Dispositionsstufe 0: UrbanCruiser (E)</strong></p>
+<ul>
+<li><strong>Bruttobedarf in P10:</strong> 50 Stück</li>
+<li><strong>Lagerbestand:</strong> 5 Stück</li>
+<li><strong>Nettobedarf in P10:</strong> 50 - 5 = 45 Stück</li>
+<li><strong>Bestellzeitpunkt:</strong> P10 - 1 (Vorlaufzeit) = <strong>P9</strong></li>
+</ul>
+<p>Der Nettobedarf von 45 Stück für E wird zum Bruttobedarf für die Komponenten der nächsten Stufe.</p>
+<p><strong>Dispositionsstufe 1: Rahmen-Set (R), Rad (W), Antriebs-Set (A)</strong></p>
+<ul>
+<li><strong>Rahmen-Set (R):</strong>
+<ul>
+<li><strong>Bruttobedarf in P9:</strong> 1 * 45 = 45 Stück</li>
+<li><strong>Lagerbestand:</strong> 10 Stück</li>
+<li><strong>Nettobedarf in P9:</strong> 45 - 10 = 35 Stück</li>
+<li><strong>Bestellzeitpunkt:</strong> P9 - 2 = <strong>P7</strong></li>
+</ul></li>
+<li><strong>Rad (W):</strong>
+<ul>
+<li><strong>Bruttobedarf in P9:</strong> 2 * 45 = 90 Stück</li>
+<li><strong>Lagerbestand:</strong> 30 Stück</li>
+<li><strong>Nettobedarf in P9:</strong> 90 - 30 = 60 Stück</li>
+<li><strong>Bestellzeitpunkt:</strong> P9 - 3 = <strong>P6</strong></li>
+</ul></li>
+<li><strong>Antriebs-Set (A):</strong>
+<ul>
+<li><strong>Bruttobedarf in P9:</strong> 1 * 45 = 45 Stück</li>
+<li><strong>Lagerbestand:</strong> 15 Stück</li>
+<li><strong>Nettobedarf in P9:</strong> 45 - 15 = 30 Stück</li>
+<li><strong>Bestellzeitpunkt:</strong> P9 - 2 = <strong>P7</strong></li>
+</ul></li>
+</ul>
+<p><strong>Dispositionsstufe 2: Hauptrahmen (H), Gabel (G)</strong></p>
+<p>Der Nettobedarf von 35 Rahmen-Sets (R) wird zum Bruttobedarf für H und G.</p>
+<ul>
+<li><strong>Hauptrahmen (H):</strong>
+<ul>
+<li><strong>Bruttobedarf in P7:</strong> 1 * 35 = 35 Stück</li>
+<li><strong>Lagerbestand:</strong> 20 Stück</li>
+<li><strong>Nettobedarf in P7:</strong> 35 - 20 = 15 Stück</li>
+<li><strong>Bestellzeitpunkt:</strong> P7 - 2 = <strong>P5</strong></li>
+</ul></li>
+<li><strong>Gabel (G):</strong>
+<ul>
+<li><strong>Bruttobedarf in P7:</strong> 1 * 35 = 35 Stück</li>
+<li><strong>Lagerbestand:</strong> 8 Stück</li>
+<li><strong>Nettobedarf in P7:</strong> 35 - 8 = 27 Stück</li>
+<li><strong>Bestellzeitpunkt:</strong> P7 - 1 = <strong>P6</strong></li>
+</ul></li>
+</ul>
+<p><strong>Zusammenfassung der Bestellungen:</strong></p>
+<div id="6acd8be3" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-stdout">
+<pre><code>      Komponente  Bestellmenge (Nettobedarf)  Bestellperiode
+ Hauptrahmen (H)                          15               5
+       Gabel (G)                          27               6
+         Rad (W)                          60               6
+  Rahmen-Set (R)                          35               7
+Antriebs-Set (A)                          30               7
+UrbanCruiser (E)                          45               9</code></pre>
+</div>
+</div>
 </section>
 <section id="aufgabe-2-analyse-von-bedarfsmustern" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-2-analyse-von-bedarfsmustern">Aufgabe 2: Analyse von Bedarfsmustern</h2>
@@ -367,6 +507,74 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Störpegel:</strong> Berechnen Sie den Störpegel (Variationskoeffizient).</li>
 <li><strong>Klassifizierung:</strong> Klassifizieren Sie das Bedarfsmuster basierend auf Ihren Berechnungen. Handelt es sich um einen konstanten, trendförmigen, sporadischen oder unregelmäßigen Bedarf? Begründen Sie Ihre Entscheidung.</li>
 </ol>
+<p><strong>Lösungshinweise:</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipps und wichtige Formeln
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="die-wichtigsten-kennzahlen-zur-bedarfsanalyse" class="level4">
+<h4 class="anchored" data-anchor-id="die-wichtigsten-kennzahlen-zur-bedarfsanalyse">Die wichtigsten Kennzahlen zur Bedarfsanalyse</h4>
+<ul>
+<li><p><strong>Durchschnittlicher Bedarf (<span class="math inline">\(\bar{x}\)</span>):</strong> Der Mittelwert der Nachfrage über den betrachteten Zeitraum. Dient als Basis für einfache Prognosen. <span class="math inline">\(\bar{x} = \frac{1}{n} \sum_{t=1}^{n} d_t\)</span></p></li>
+<li><p><strong>Mittlere Absolute Abweichung (MAD):</strong> Gibt die durchschnittliche absolute Prognoseabweichung an, wenn man den Mittelwert als Prognose verwendet. Ein Maß für die Streuung. <span class="math inline">\(MAD = \frac{1}{n} \sum_{t=1}^{n} |d_t - \bar{x}|\)</span></p></li>
+<li><p><strong>Störpegel (SP):</strong> Das wichtigste Maß zur Klassifizierung. Es setzt die mittlere absolute Abweichung ins Verhältnis zum Mittelwert und ist damit eine relative Kennzahl zur Beurteilung der Prognosegenauigkeit. <span class="math inline">\(SP = \frac{MAD}{\bar{x}}\)</span></p></li>
+</ul>
+</section>
+<section id="typische-grenzen-für-die-klassifizierung" class="level4">
+<h4 class="anchored" data-anchor-id="typische-grenzen-für-die-klassifizierung">Typische Grenzen für die Klassifizierung</h4>
+<ul>
+<li><strong>SP &lt; 0,25:</strong> Konstanter / gleichmäßiger Bedarf (gut prognostizierbar)</li>
+<li><strong>0,25 <span class="math inline">\(\le\)</span> SP <span class="math inline">\(\le\)</span> 0,5:</strong> Trendförmiger oder saisonaler Bedarf (regelmäßige Schwankungen)</li>
+<li><strong>SP &gt; 0,5:</strong> Unregelmäßiger / erratischer Bedarf (schwer prognostizierbar)</li>
+<li><strong>Zusatzkriterium für “sporadisch”:</strong> Wenn zusätzlich zum hohen SP viele Perioden einen Bedarf von Null aufweisen.</li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+<div id="cell-fig-task2" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div id="fig-task2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-task2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mlb-tutorial-01_files/figure-html/fig-task2-output-1.png" width="686" height="469" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-task2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Wöchentlicher Verkauf
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2. Durchschnittlicher Bedarf: 10.00 kg/Woche
+3. Mittlere Absolute Abweichung (MAD): 5.83 kg
+4. Störpegel: 0.58</code></pre>
+</div>
+</div>
+<p><strong>5. Klassifizierung des Bedarfsmusters:</strong></p>
+<ul>
+<li><p><strong>Visuelle Analyse:</strong> Die Grafik zeigt eine relativ stabile Nachfrage mit zwei deutlichen Ausreißern nach oben in den Wochen 4 und 9. Es ist kein klarer Trend (steigend oder fallend) und keine regelmäßige Saisonalität erkennbar.</p></li>
+<li><p><strong>Kennzahlenanalyse:</strong></p>
+<ul>
+<li>Der <strong>durchschnittliche Bedarf</strong> liegt bei 10.00 kg.</li>
+<li>Die <strong>mittlere absolute Abweichung (MAD)</strong> von 5.83 kg ist im Verhältnis zum Mittelwert recht hoch. Sie zeigt, dass die einzelnen Werte im Schnitt stark vom Mittelwert abweichen.</li>
+<li>Der <strong>Störpegel</strong> ist mit 0.58 ein entscheidender Indikator. In der Literatur werden oft folgende Grenzen verwendet:
+<ul>
+<li>SP &lt; 0.25: Konstanter/glatter Bedarf</li>
+<li>0.25 &lt;= SP &lt;= 0.5: Schwankender, aber noch regelmäßiger Bedarf</li>
+<li>SP &gt; 0.5: Stark unregelmäßiger (erratischer) Bedarf</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><strong>Fazit:</strong> Mit einem Störpegel von 0.58 liegt ein <strong>stark unregelmäßiger (erratischer) Bedarf</strong> vor. Die Nachfrage ist schwer prognostizierbar. Die beiden hohen Spitzen deuten auf zufällige, große Bestellungen hin. Ein einfacher Prognoseansatz wie der gleitende Durchschnitt oder die exponentielle Glättung würde hier wahrscheinlich zu hohen Prognosefehlern führen. Für solche Artikel sind Sicherheitsbestände oft die bessere Strategie als eine verbrauchsgesteuerte Disposition. Da es keine Perioden mit Null-Bedarf gibt, ist die Klassifizierung “sporadisch” weniger passend als “erratisch”.</p>
 </section>
 <section id="aufgabe-3-abc-analyse" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-3-abc-analyse">Aufgabe 3: ABC-Analyse</h2>
@@ -441,6 +649,75 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>ABC-Klassifizierung:</strong> Teilen Sie die Artikel in die Klassen A, B und C ein. Verwenden Sie typische Grenzen (z.B. A-Güter: ~80% Wertanteil, B-Güter: ~15% Wertanteil, C-Güter: ~5% Wertanteil).</li>
 <li><strong>Grafische Darstellung:</strong> Stellen Sie das Ergebnis grafisch in einem Diagramm dar (Lorenz-Kurve).</li>
 </ol>
+<p><strong>Lösungshinweise:</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipps und wichtige Formeln
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="das-prinzip-der-abc-analyse" class="level4">
+<h4 class="anchored" data-anchor-id="das-prinzip-der-abc-analyse">Das Prinzip der ABC-Analyse</h4>
+<p>Die ABC-Analyse basiert auf dem <strong>Pareto-Prinzip (80-20-Regel)</strong>, das besagt, dass oft ein kleiner Teil der Ursachen für einen großen Teil der Wirkung verantwortlich ist. Übertragen auf die Lagerhaltung bedeutet das: Ein kleiner Prozentsatz der Artikelpositionen verursacht einen großen Prozentschaft des gesamten Kapitalbedarfs (Verbrauchswert).</p>
+</section>
+<section id="schrittweises-vorgehen" class="level4">
+<h4 class="anchored" data-anchor-id="schrittweises-vorgehen">Schrittweises Vorgehen</h4>
+<ol type="1">
+<li><strong>Verbrauchswert berechnen:</strong> Das ist die wichtigste Kennzahl. <code>Verbrauchswert = Jahresbedarf * Preis pro Stück</code></li>
+<li><strong>Sortieren:</strong> Die Artikel absteigend nach ihrem Verbrauchswert sortieren.</li>
+<li><strong>Prozentuale Anteile berechnen:</strong> Für jeden Artikel seinen Anteil am Gesamtwert bestimmen. <code>Wertanteil (%) = (Verbrauchswert / Gesamtverbrauchswert) * 100</code></li>
+<li><strong>Kumulieren:</strong> Die prozentualen Wertanteile von oben nach unten aufsummieren.</li>
+<li><strong>Klassen zuordnen:</strong> Die kumulierten Wertanteile nutzen, um die Klassen A, B und C zu definieren. Die Grenzen sind nicht starr, aber typische Werte sind:
+<ul>
+<li><strong>A-Güter:</strong> die Artikel, die zusammen ca. 70-80% des Wertes ausmachen.</li>
+<li><strong>B-Güter:</strong> die nächsten Artikel, die zusammen ca. 15-20% des Wertes ausmachen.</li>
+<li><strong>C-Güter:</strong> die restlichen Artikel mit den geringsten Wertanteilen (ca. 5-10%).</li>
+</ul></li>
+</ol>
+</section>
+</div>
+</div>
+</div>
+<div id="cell-fig-task3" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-stdout">
+<pre><code>Tabelle zur ABC-Analyse:
+   Artikel-Nr.  Jahresbedarf  Preis  Verbrauchswert  Wertanteil (%)  Mengenanteil (%)  Kum. Wertanteil (%)  Kum. Mengenanteil (%)  Kum. Artikelanteil (%) ABC-Klasse
+0            4           400    450          180000           26.41              0.88                26.41                   0.88                    10.0          A
+1            2           500    300          150000           22.01              1.10                48.42                   1.98                    20.0          A
+2            9           700    150          105000           15.41              1.54                63.83                   3.52                    30.0          A
+3            7          2500     25           62500            9.17              5.51                73.00                   9.03                    40.0          A
+4            3         12000      5           60000            8.80             26.43                81.80                  35.46                    50.0          B
+5            1          1000     50           50000            7.34              2.20                89.14                  37.67                    60.0          B
+6           10          5000      8           40000            5.87             11.01                95.01                  48.68                    70.0          C
+7            5          8000      2           16000            2.35             17.62                97.36                  66.30                    80.0          C
+8            8         15000      1           15000            2.20             33.04                99.56                  99.34                    90.0          C
+9            6           300     10            3000            0.44              0.66               100.00                 100.00                   100.0          C</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div id="fig-task3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-task3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mlb-tutorial-01_files/figure-html/fig-task3-output-2.png" width="989" height="590" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-task3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: ABC-Analyse der Lagerartikel
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretation der Ergebnisse:</strong></p>
+<ul>
+<li><strong>A-Güter:</strong> Die Artikel 4, 2, 9 und 7 sind A-Güter. Sie machen 40% der Artikelpositionen aus, binden aber rund 73% des Gesamtwertes. Diese Artikel erfordern die größte Aufmerksamkeit (z.B. genaue Bestandsführung, häufige Bestellungen, gute Lieferantenbeziehungen).</li>
+<li><strong>B-Güter:</strong> Die Artikel 3 und 1 sind B-Güter. Sie stellen die nächste Gruppe dar und erfordern eine standardmäßige Behandlung.</li>
+<li><strong>C-Güter:</strong> Die restlichen Artikel (10, 5, 8, 6) sind C-Güter. Sie haben einen sehr geringen Wertanteil, aber einen hohen Mengenanteil. Hier können vereinfachte Dispositionsverfahren (z.B. hohe Sicherheitsbestände, seltenere Bestellungen) angewendet werden, um den Verwaltungsaufwand zu reduzieren.</li>
+</ul>
 
 
 </section>

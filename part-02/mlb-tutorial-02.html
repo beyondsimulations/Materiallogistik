@@ -365,6 +365,153 @@ window.Quarto = {
 <li><strong>Wagner-Whitin-Algorithmus anwenden:</strong> Ermitteln Sie rekursiv die minimalen Gesamtkosten <span class="math inline">\(f_i\)</span> für einen Planungszeitraum von <span class="math inline">\(i = 1, \ldots, 6\)</span> Wochen. Notieren Sie sich bei jedem Schritt, welche Entscheidung zur minimalen Kosten führt.</li>
 <li><strong>Optimalen Produktionsplan ableiten:</strong> Bestimmen Sie durch Rückverfolgung (Backtracking) aus den Ergebnissen von Schritt 2, in welchen Wochen eine Produktion stattfinden soll und wie groß die jeweilige Losgröße ist. Wie hoch sind die minimalen Gesamtkosten?</li>
 </ol>
+<p><strong>Lösung (Python-Code):</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipps und wichtige Formeln
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="kostenmatrix-c_tau-j" class="level4">
+<h4 class="anchored" data-anchor-id="kostenmatrix-c_tau-j">1. Kostenmatrix <span class="math inline">\(c_{\tau j}\)</span></h4>
+<p>Die Kostenmatrix ist das Herzstück des Algorithmus. Der Wert <span class="math inline">\(c_{\tau j}\)</span> gibt an, was es kostet, in Periode <span class="math inline">\(\tau\)</span> ein Los zu produzieren, das exakt die Nachfrage von Periode <span class="math inline">\(\tau\)</span> bis einschließlich Periode <span class="math inline">\(j\)</span> deckt.</p>
+<ul>
+<li><strong>Formel:</strong> <span class="math inline">\(c_{\tau j} = s + \sum_{k=\tau+1}^{j} h \cdot (k-\tau) \cdot d_k\)</span></li>
+<li><strong>In Worten:</strong> Die Kosten setzen sich zusammen aus <strong>einmaligen Rüstkosten</strong> <span class="math inline">\(s\)</span> und den <strong>kumulierten Lagerkosten</strong>. Die Lagerkosten für den Bedarf <span class="math inline">\(d_k\)</span> (der in Periode <span class="math inline">\(\tau\)</span> produziert, aber erst in <span class="math inline">\(k\)</span> gebraucht wird) betragen <span class="math inline">\(h \cdot (k-\tau) \cdot d_k\)</span>, da die Menge <span class="math inline">\(d_k\)</span> für <span class="math inline">\((k-\tau)\)</span> Perioden gelagert werden muss.</li>
+</ul>
+</section>
+<section id="der-wagner-whitin-algorithmus-rekursion" class="level4">
+<h4 class="anchored" data-anchor-id="der-wagner-whitin-algorithmus-rekursion">2. Der Wagner-Whitin-Algorithmus (Rekursion)</h4>
+<p>Der Algorithmus findet die minimalen Kosten <span class="math inline">\(f_j\)</span> für ein Problem mit <span class="math inline">\(j\)</span> Perioden, indem er alle Möglichkeiten für das letzte Los ausprobiert.</p>
+<ul>
+<li><strong>Rekursionsformel:</strong> <span class="math inline">\(f_j = \min_{1 \le \tau \le j} \{ f_{\tau-1} + c_{\tau j} \}\)</span></li>
+<li><strong>Startwert:</strong> <span class="math inline">\(f_0 = 0\)</span></li>
+<li><strong>In Worten:</strong> Die minimalen Kosten für <span class="math inline">\(j\)</span> Perioden (<span class="math inline">\(f_j\)</span>) ergeben sich, indem man die beste Option auswählt: “Was kostet es, wenn das letzte Los in Periode <span class="math inline">\(\tau=1\)</span> startet und bis <span class="math inline">\(j\)</span> reicht? Was, wenn es in <span class="math inline">\(\tau=2\)</span> startet?” usw. Die Kosten einer Option sind die Summe der Kosten für das letzte Los (<span class="math inline">\(c_{\tau j}\)</span>) und den minimalen Kosten für den Zeitraum davor (<span class="math inline">\(f_{\tau-1}\)</span>).</li>
+</ul>
+</section>
+<section id="backtracking" class="level4">
+<h4 class="anchored" data-anchor-id="backtracking">3. Backtracking</h4>
+<ul>
+<li>Starten Sie bei <span class="math inline">\(j=T\)</span> (im Beispiel <span class="math inline">\(j=6\)</span>). Schauen Sie nach, welches <span class="math inline">\(\tau\)</span> zu den minimalen Kosten <span class="math inline">\(f_6\)</span> geführt hat. Das ist Ihr letztes Produktionslos (von <span class="math inline">\(\tau\)</span> bis 6).</li>
+<li>Der nächste Untersuchungszeitpunkt ist nun <span class="math inline">\(j = \tau - 1\)</span>. Schauen Sie wieder nach, welches <span class="math inline">\(\tau'\)</span> zu den minimalen Kosten <span class="math inline">\(f_{\tau-1}\)</span> geführt hat. Das ist Ihr vorletztes Los.</li>
+<li>Wiederholen Sie dies, bis Sie bei <span class="math inline">\(j=0\)</span> angekommen sind.</li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+<div id="263fcc0f" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-stdout">
+<pre><code>1. Berechnung der Kostenmatrix c_tau,j:
+
+Produktion in Periode tau=1:
+  Bedarf bis Periode j=1: Lagerkosten=0, Gesamtkosten c_1,1 = 250
+  Bedarf bis Periode j=2: Lagerkosten=100, Gesamtkosten c_1,2 = 350
+  Bedarf bis Periode j=3: Lagerkosten=180, Gesamtkosten c_1,3 = 430
+  Bedarf bis Periode j=4: Lagerkosten=600, Gesamtkosten c_1,4 = 850
+  Bedarf bis Periode j=5: Lagerkosten=1240, Gesamtkosten c_1,5 = 1490
+  Bedarf bis Periode j=6: Lagerkosten=1640, Gesamtkosten c_1,6 = 1890
+
+Produktion in Periode tau=2:
+  Bedarf bis Periode j=2: Lagerkosten=0, Gesamtkosten c_2,2 = 250
+  Bedarf bis Periode j=3: Lagerkosten=40, Gesamtkosten c_2,3 = 290
+  Bedarf bis Periode j=4: Lagerkosten=320, Gesamtkosten c_2,4 = 570
+  Bedarf bis Periode j=5: Lagerkosten=800, Gesamtkosten c_2,5 = 1050
+  Bedarf bis Periode j=6: Lagerkosten=1120, Gesamtkosten c_2,6 = 1370
+
+Produktion in Periode tau=3:
+  Bedarf bis Periode j=3: Lagerkosten=0, Gesamtkosten c_3,3 = 250
+  Bedarf bis Periode j=4: Lagerkosten=140, Gesamtkosten c_3,4 = 390
+  Bedarf bis Periode j=5: Lagerkosten=460, Gesamtkosten c_3,5 = 710
+  Bedarf bis Periode j=6: Lagerkosten=700, Gesamtkosten c_3,6 = 950
+
+Produktion in Periode tau=4:
+  Bedarf bis Periode j=4: Lagerkosten=0, Gesamtkosten c_4,4 = 250
+  Bedarf bis Periode j=5: Lagerkosten=160, Gesamtkosten c_4,5 = 410
+  Bedarf bis Periode j=6: Lagerkosten=320, Gesamtkosten c_4,6 = 570
+
+Produktion in Periode tau=5:
+  Bedarf bis Periode j=5: Lagerkosten=0, Gesamtkosten c_5,5 = 250
+  Bedarf bis Periode j=6: Lagerkosten=80, Gesamtkosten c_5,6 = 330
+
+Produktion in Periode tau=6:
+  Bedarf bis Periode j=6: Lagerkosten=0, Gesamtkosten c_6,6 = 250
+
+Kostenmatrix c_τj:
+       j=1    j=2    j=3    j=4     j=5     j=6
+τ=1  250.0  350.0  430.0  850.0  1490.0  1890.0
+τ=2    inf  250.0  290.0  570.0  1050.0  1370.0
+τ=3    inf    inf  250.0  390.0   710.0   950.0
+τ=4    inf    inf    inf  250.0   410.0   570.0
+τ=5    inf    inf    inf    inf   250.0   330.0
+τ=6    inf    inf    inf    inf     inf   250.0
+
+2. Anwendung des Wagner-Whitin-Algorithmus:
+
+Berechne minimale Kosten f_1:
+  Option: Letztes Los in tau=1 für Bedarf bis 1. Kosten = f_0 + c_1,1 = 0 + 250 = 250
+-&gt; Minimale Kosten f_1 = 250 (letztes Los in Periode 1)
+
+Berechne minimale Kosten f_2:
+  Option: Letztes Los in tau=1 für Bedarf bis 2. Kosten = f_0 + c_1,2 = 0 + 350 = 350
+  Option: Letztes Los in tau=2 für Bedarf bis 2. Kosten = f_1 + c_2,2 = 250 + 250 = 500
+-&gt; Minimale Kosten f_2 = 350 (letztes Los in Periode 1)
+
+Berechne minimale Kosten f_3:
+  Option: Letztes Los in tau=1 für Bedarf bis 3. Kosten = f_0 + c_1,3 = 0 + 430 = 430
+  Option: Letztes Los in tau=2 für Bedarf bis 3. Kosten = f_1 + c_2,3 = 250 + 290 = 540
+  Option: Letztes Los in tau=3 für Bedarf bis 3. Kosten = f_2 + c_3,3 = 350 + 250 = 600
+-&gt; Minimale Kosten f_3 = 430 (letztes Los in Periode 1)
+
+Berechne minimale Kosten f_4:
+  Option: Letztes Los in tau=1 für Bedarf bis 4. Kosten = f_0 + c_1,4 = 0 + 850 = 850
+  Option: Letztes Los in tau=2 für Bedarf bis 4. Kosten = f_1 + c_2,4 = 250 + 570 = 820
+  Option: Letztes Los in tau=3 für Bedarf bis 4. Kosten = f_2 + c_3,4 = 350 + 390 = 740
+  Option: Letztes Los in tau=4 für Bedarf bis 4. Kosten = f_3 + c_4,4 = 430 + 250 = 680
+-&gt; Minimale Kosten f_4 = 680 (letztes Los in Periode 4)
+
+Berechne minimale Kosten f_5:
+  Option: Letztes Los in tau=1 für Bedarf bis 5. Kosten = f_0 + c_1,5 = 0 + 1490 = 1490
+  Option: Letztes Los in tau=2 für Bedarf bis 5. Kosten = f_1 + c_2,5 = 250 + 1050 = 1300
+  Option: Letztes Los in tau=3 für Bedarf bis 5. Kosten = f_2 + c_3,5 = 350 + 710 = 1060
+  Option: Letztes Los in tau=4 für Bedarf bis 5. Kosten = f_3 + c_4,5 = 430 + 410 = 840
+  Option: Letztes Los in tau=5 für Bedarf bis 5. Kosten = f_4 + c_5,5 = 680 + 250 = 930
+-&gt; Minimale Kosten f_5 = 840 (letztes Los in Periode 4)
+
+Berechne minimale Kosten f_6:
+  Option: Letztes Los in tau=1 für Bedarf bis 6. Kosten = f_0 + c_1,6 = 0 + 1890 = 1890
+  Option: Letztes Los in tau=2 für Bedarf bis 6. Kosten = f_1 + c_2,6 = 250 + 1370 = 1620
+  Option: Letztes Los in tau=3 für Bedarf bis 6. Kosten = f_2 + c_3,6 = 350 + 950 = 1300
+  Option: Letztes Los in tau=4 für Bedarf bis 6. Kosten = f_3 + c_4,6 = 430 + 570 = 1000
+  Option: Letztes Los in tau=5 für Bedarf bis 6. Kosten = f_4 + c_5,6 = 680 + 330 = 1010
+  Option: Letztes Los in tau=6 für Bedarf bis 6. Kosten = f_5 + c_6,6 = 840 + 250 = 1090
+-&gt; Minimale Kosten f_6 = 1000 (letztes Los in Periode 4)
+
+3. Ableitung des optimalen Produktionsplans (Backtracking):
+  Bedarf bis Woche 6 wird durch Produktion in Woche 4 gedeckt. Losgröße: 190.
+  Bedarf bis Woche 3 wird durch Produktion in Woche 1 gedeckt. Losgröße: 100.
+
+Optimaler Produktionsplan für 'Frühlings-Helles':
+   Produktionswoche  Losgröße
+0                 1       100
+1                 4       190
+
+Minimale Gesamtkosten: 1000 GE</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="mlb-tutorial-02_files/figure-html/cell-2-output-2.png" width="789" height="491" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="aufgabe-2-heuristische-losgrößenplanung" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-2-heuristische-losgrößenplanung">Aufgabe 2: Heuristische Losgrößenplanung</h2>
@@ -383,6 +530,122 @@ window.Quarto = {
 <li><strong>Silver-Meal-Verfahren:</strong> Bilden Sie Lose, indem Sie so lange Periodenbedarfe zusammenfassen, wie die durchschnittlichen Kosten pro Periode sinken.</li>
 <li><strong>Vergleich:</strong> Stellen Sie die Produktionspläne und Gesamtkosten der drei Heuristiken der optimalen Lösung aus Aufgabe 1 gegenüber. Wie gut schlagen sich die Heuristiken?</li>
 </ol>
+<p><strong>Lösungshinweise:</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipps und wichtige Formeln
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Die Heuristiken entscheiden iterativ, wie viele zukünftige Bedarfe in einem Los zusammengefasst werden. Gestartet wird in der ersten Periode mit Bedarf. Man prüft, ob man den Bedarf der nächsten Periode(n) mit aufnimmt.</p>
+<section id="stückkostenverfahren-least-unit-cost-luc" class="level4">
+<h4 class="anchored" data-anchor-id="stückkostenverfahren-least-unit-cost-luc">1. Stückkostenverfahren (Least-Unit-Cost, LUC)</h4>
+<ul>
+<li><strong>Entscheidungsmetrik:</strong> Durchschnittliche Kosten pro Produkteinheit.</li>
+<li><strong>Formel:</strong> <span class="math inline">\(\text{Stückkosten}(k) = \frac{s + \text{kumulierte Lagerkosten für } k \text{ Perioden}}{\text{kumulierter Bedarf für } k \text{ Perioden}}\)</span></li>
+<li><strong>Regel:</strong> Fasse so lange weitere Perioden <span class="math inline">\(k\)</span> in das Los mit auf, wie die Stückkosten sinken. Wenn sie steigen, war die vorherige Zusammenfassung die beste.</li>
+</ul>
+</section>
+<section id="stückperiodenausgleich-part-period-balancing-ppb" class="level4">
+<h4 class="anchored" data-anchor-id="stückperiodenausgleich-part-period-balancing-ppb">2. Stückperiodenausgleich (Part-Period-Balancing, PPB)</h4>
+<ul>
+<li><strong>Grundidee:</strong> Ein Los ist dann “gut”, wenn die anfallenden Lagerkosten die eingesparten Rüstkosten ungefähr ausgleichen.</li>
+<li><strong>Formel:</strong> Vergleiche <code>kumulierte Lagerkosten</code> mit <code>Rüstkosten s</code>.</li>
+<li><strong>Regel:</strong> Fasse so lange weitere Perioden in das Los mit auf, wie die <code>kumulierten Lagerkosten</code> die <code>Rüstkosten s</code> <strong>nicht</strong> übersteigen. Die letzte Periode, für die das gilt, bestimmt die Losgröße.</li>
+</ul>
+</section>
+<section id="silver-meal-verfahren-sm" class="level4">
+<h4 class="anchored" data-anchor-id="silver-meal-verfahren-sm">3. Silver-Meal-Verfahren (SM)</h4>
+<ul>
+<li><strong>Entscheidungsmetrik:</strong> Durchschnittliche Kosten pro Periode (nicht pro Einheit).</li>
+<li><strong>Formel:</strong> <span class="math inline">\(\text{Kosten pro Periode}(k) = \frac{s + \text{kumulierte Lagerkosten für } k \text{ Perioden}}{k}\)</span></li>
+<li><strong>Regel:</strong> Identisch zum Stückkostenverfahren: Fasse so lange weitere Perioden <span class="math inline">\(k\)</span> in das Los mit auf, wie die Kosten pro Periode sinken. Wenn sie steigen, war die vorherige Zusammenfassung die beste.</li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+<div id="365da8a5" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- Starte Stückkostenverfahren ---
+Neues Los startet in Periode 1.
+  Prüfe j=1: Stückkosten = 8.33
+  Prüfe j=2: Stückkosten = 4.38
+  Prüfe j=3: Stückkosten = 4.30
+  Prüfe j=4: Stückkosten = 5.00
+  -&gt; Stückkosten steigt. Wähle vorherige Periode.
+-&gt; Los gebildet: Produktion in 1 für Bedarf bis 3. Größe: 100
+
+Neues Los startet in Periode 4.
+  Prüfe j=4: Stückkosten = 3.57
+  Prüfe j=5: Stückkosten = 2.73
+  Prüfe j=6: Stückkosten = 3.00
+  -&gt; Stückkosten steigt. Wähle vorherige Periode.
+-&gt; Los gebildet: Produktion in 4 für Bedarf bis 5. Größe: 150
+
+Neues Los startet in Periode 6.
+  Prüfe j=6: Stückkosten = 6.25
+-&gt; Los gebildet: Produktion in 6 für Bedarf bis 6. Größe: 40
+
+
+--- Starte Stückperiodenausgleichsverfahren ---
+Neues Los startet in Periode 1.
+  j=1: Kum. Lagerkosten (0) &lt;= Rüstkosten (250). Mache weiter.
+  j=2: Kum. Lagerkosten (100) &lt;= Rüstkosten (250). Mache weiter.
+  j=3: Kum. Lagerkosten (180) &lt;= Rüstkosten (250). Mache weiter.
+  j=4: Kum. Lagerkosten (600) &gt; Rüstkosten (250). Stoppe und wähle j-1.
+-&gt; Los gebildet: Produktion in 1 für Bedarf bis 3. Größe: 100
+
+Neues Los startet in Periode 4.
+  j=4: Kum. Lagerkosten (0) &lt;= Rüstkosten (250). Mache weiter.
+  j=5: Kum. Lagerkosten (160) &lt;= Rüstkosten (250). Mache weiter.
+  j=6: Kum. Lagerkosten (320) &gt; Rüstkosten (250). Stoppe und wähle j-1.
+-&gt; Los gebildet: Produktion in 4 für Bedarf bis 5. Größe: 150
+
+Neues Los startet in Periode 6.
+  j=6: Kum. Lagerkosten (0) &lt;= Rüstkosten (250). Mache weiter.
+-&gt; Los gebildet: Produktion in 6 für Bedarf bis 6. Größe: 40
+
+
+--- Starte Silver-Meal-Verfahren ---
+Neues Los startet in Periode 1.
+  Prüfe j=1: Kosten/Periode = 250.00
+  Prüfe j=2: Kosten/Periode = 175.00
+  Prüfe j=3: Kosten/Periode = 143.33
+  Prüfe j=4: Kosten/Periode = 212.50
+  -&gt; Kosten/Periode steigt. Wähle vorherige Periode.
+-&gt; Los gebildet: Produktion in 1 für Bedarf bis 3. Größe: 100
+
+Neues Los startet in Periode 4.
+  Prüfe j=4: Kosten/Periode = 250.00
+  Prüfe j=5: Kosten/Periode = 205.00
+  Prüfe j=6: Kosten/Periode = 190.00
+-&gt; Los gebildet: Produktion in 4 für Bedarf bis 6. Größe: 190
+
+
+
+--- 4. Vergleich der Ergebnisse ---
+                   Methode  Gesamtkosten (GE)  Abweichung vom Optimum (%)
+0  Optimal (Wagner-Whitin)               1000                         0.0
+1              Stückkosten               1090                         9.0
+2            Stückperioden               1090                         9.0
+3              Silver-Meal               1000                         0.0
+
+Detailansicht der Pläne:
+Optimal:     [{'Produktionswoche': 1, 'Losgröße': 100}, {'Produktionswoche': 4, 'Losgröße': 190}]
+Stückkosten: [{'Produktionswoche': 1, 'Losgröße': 100}, {'Produktionswoche': 4, 'Losgröße': 150}, {'Produktionswoche': 6, 'Losgröße': 40}]
+Stückperioden: [{'Produktionswoche': 1, 'Losgröße': 100}, {'Produktionswoche': 4, 'Losgröße': 150}, {'Produktionswoche': 6, 'Losgröße': 40}]
+Silver-Meal: [{'Produktionswoche': 1, 'Losgröße': 100}, {'Produktionswoche': 4, 'Losgröße': 190}]</code></pre>
+</div>
+</div>
+<p>In diesem Fall finden sowohl das Stückkosten- als auch das Silver-Meal-Verfahren die optimale Lösung. Das Stückperiodenausgleichsverfahren weicht leicht ab und erzeugt etwas höhere Kosten. Dies zeigt, dass Heuristiken sehr gute, aber nicht immer garantiert optimale Ergebnisse liefern. Ihr großer Vorteil liegt in der einfachen und schnellen Anwendbarkeit.</p>
 </section>
 <section id="aufgabe-3-losgrößenplanung-mit-kapazitätsgrenzen-clsp" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-3-losgrößenplanung-mit-kapazitätsgrenzen-clsp">Aufgabe 3: Losgrößenplanung mit Kapazitätsgrenzen (CLSP)</h2>
@@ -412,6 +675,125 @@ window.Quarto = {
 <li><strong>Heuristische Anpassung:</strong> Schlagen Sie eine einfache, plausible Anpassung für den kombinierten Produktionsplan vor, um die Kapazitätsverletzungen zu beheben (z.B. durch Vorziehen oder Aufteilen einer Produktion). Berechnen Sie die neuen Gesamtkosten (Summe der Kosten beider Pläne) für Ihren angepassten, kapazitätskonformen Plan.</li>
 <li><strong>Diskussion:</strong> Erläutern Sie kurz, warum das separate Anwenden des Wagner-Whitin-Algorithmus und anschließende Anpassen keine garantiert optimale Lösung für das kapazitierte Problem (CLSP) liefert.</li>
 </ol>
+<p><strong>Lösungshinweise:</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipps und wichtige Formeln
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="unkapazitierte-planung-wagner-whitin" class="level4">
+<h4 class="anchored" data-anchor-id="unkapazitierte-planung-wagner-whitin">1. Unkapazitierte Planung (Wagner-Whitin)</h4>
+<ul>
+<li>Dieser Schritt ist identisch zur Aufgabe 1. Sie wenden den Wagner-Whitin-Algorithmus einfach mit den Daten des neuen Produkts (“Maibock”) an, um dessen (isoliert betrachtet) optimalen Produktionsplan zu finden.</li>
+</ul>
+</section>
+<section id="kapazitätsprüfung" class="level4">
+<h4 class="anchored" data-anchor-id="kapazitätsprüfung">2. Kapazitätsprüfung</h4>
+<ul>
+<li>Die Gesamtkapazität in einer Woche <code>t</code> wird durch die Summe aller Produktions- und Rüstaktivitäten in dieser Woche verbraucht.</li>
+<li><strong>Formel:</strong> <span class="math inline">\(\text{Kapazitätsbedarf}_t = (\text{Menge}_{Helles, t} \cdot tb_{Helles} + \text{Setup}_{Helles,t} \cdot tr_{Helles}) + (\text{Menge}_{Bock, t} \cdot tb_{Bock} + \text{Setup}_{Bock, t} \cdot tr_{Bock})\)</span></li>
+<li><code>Setup_{Produkt,t}</code> ist eine binäre Variable: 1, wenn für das Produkt in Woche <code>t</code> produziert (also gerüstet) wird, sonst 0.</li>
+<li>Der berechnete <code>Kapazitätsbedarf_t</code> wird mit dem <code>Kapazitätslimit_t</code> (150 KE) verglichen.</li>
+</ul>
+</section>
+<section id="heuristische-anpassung" class="level4">
+<h4 class="anchored" data-anchor-id="heuristische-anpassung">3. Heuristische Anpassung</h4>
+<ul>
+<li>Hier gibt es keine Standardformel, es geht um eine logische “Reparatur” des Plans.</li>
+<li><strong>Ansätze:</strong>
+<ul>
+<li><strong>Vorziehen:</strong> Kann die Produktion eines Loses, das den Konflikt verursacht, in eine frühere Woche mit freier Kapazität verschoben werden? (Achtung, erhöht Lagerkosten!)</li>
+<li><strong>Aufteilen:</strong> Kann ein großes Los in zwei kleinere aufgeteilt werden, die in unterschiedlichen Wochen produziert werden? (Achtung, verursacht zusätzliche Rüstkosten!)</li>
+</ul></li>
+<li>Ziel ist es, einen zulässigen Plan zu finden und die dadurch entstehenden Mehrkosten zu berechnen.</li>
+</ul>
+</section>
+<section id="diskussion-clsp---capacitated-lot-sizing-problem" class="level4">
+<h4 class="anchored" data-anchor-id="diskussion-clsp---capacitated-lot-sizing-problem">4. Diskussion (CLSP - Capacitated Lot-Sizing Problem)</h4>
+<ul>
+<li>Das Kernproblem ist die <strong>Ressourcenkonkurrenz</strong>. Die Entscheidung, ein großes Los für Produkt A zu produzieren (lokal optimal, um Rüstkosten zu sparen), kann Produkt B die Kapazität “stehlen” und es zu einem teureren Produktionszeitpunkt zwingen.</li>
+<li>Eine <strong>simultane Optimierung</strong> (die sehr komplex ist) würde diesen Trade-off zwischen den Produkten direkt berücksichtigen, anstatt sie getrennt zu betrachten und nachträglich zu reparieren. Die “Reparatur” ist selten der global optimale Weg.</li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+<div id="c2e5bc68" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Optimaler unkapazitierter Plan für Maibock:
+   Produktionswoche  Losgröße
+0                 1        50
+1                 3       100
+2                 5        80
+Minimale Kosten: 900 GE
+
+2. Kapazitätsprüfung des kombinierten unkapazitierten Plans:
+   Prod_Helles  Prod_Bock  Setup_Helles  Setup_Bock  Cap_Used  Cap_Limit  \
+1          100         50             1           1     195.0        150   
+2            0          0             0           0       0.0        150   
+3            0        100             0           1     135.0        150   
+4          190          0             1           0     210.0        150   
+5            0         80             0           1     111.0        150   
+6            0          0             0           0       0.0        150   
+
+   Violation  
+1       True  
+2      False  
+3      False  
+4       True  
+5      False  
+6      False  
+
+-&gt; Kapazitätsverletzung in Woche(n): [1, 4]
+
+3. Heuristische Anpassung:
+Die Analyse zeigt, dass simple Anpassungen (z.B. das Aufteilen eines einzelnen Loses) aufgrund der hohen Kapazitätsauslastung zu neuen Konflikten oder unzulässigem Backlogging führen.
+Eine plausible heuristische Lösung erfordert daher eine umfassende Neuordnung der Produktionslose, um einen kapazitätskonformen Plan zu finden:
+
+Angepasster Plan für Helles:
+   Produktionswoche  Losgröße
+0                 1       100
+1                 2       120
+2                 4        70
+Angepasster Plan für Maibock:
+   Produktionswoche  Losgröße
+0                 3        50
+1                 5       100
+2                 6        80
+
+Kapazitätsprüfung des angepassten Plans:
+   Prod_Helles  Prod_Bock  Setup_Helles  Setup_Bock  Cap_Used  Cap_Limit  \
+1          100          0             1           0     120.0        150   
+2          120          0             1           0     140.0        150   
+3            0         50             0           1      75.0        150   
+4           70          0             1           0      90.0        150   
+5            0        100             0           1     135.0        150   
+6            0         80             0           1     111.0        150   
+
+   Violation  
+1      False  
+2      False  
+3      False  
+4      False  
+5      False  
+6      False  
+
+Ursprüngliche unkapazitierte Kosten: 1900 GE
+Neue Gesamtkosten des zulässigen Plans: 3330 GE
+-&gt; Der angepasste Plan ist nun kapazitätskonform.
+
+4. Diskussion:
+Das Problem bei der separaten Optimierung ist, dass die Entscheidungen für ein Produkt (z.B. ein großes Los zu bilden, um Rüstkosten zu sparen) die verfügbare Kapazität für andere Produkte beeinflussen. Diese Wechselwirkung wird ignoriert. Eine lokal optimale Entscheidung für ein Produkt kann global (für alle Produkte) zu einer sehr schlechten oder sogar unzulässigen Lösung führen. Unsere heuristische Reparatur, die eine komplette Neuordnung der Produktionen vornimmt, macht den Plan zwar zulässig, führt aber zu drastisch höheren Kosten (insbesondere durch hohe Lagerbestände). Es ist sehr unwahrscheinlich, dass dies die kostenoptimale Art ist, das Kapazitätsproblem zu lösen. Ein echter CLSP-Algorithmus müsste Produktions- und Lagerentscheidungen für alle Produkte *gleichzeitig* unter Berücksichtigung der Kapazitätsgrenzen treffen, was das Problem NP-schwer macht.</code></pre>
+</div>
+</div>
 
 
 </section>

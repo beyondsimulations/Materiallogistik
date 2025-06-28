@@ -402,6 +402,85 @@ window.Quarto = {
 <li><strong>Kapazitätsprüfung:</strong> Überprüfen Sie für jede Woche, ob die Produktions- und Rüstzeiten die verfügbare Kapazität von 60 Stunden einhalten.</li>
 <li><strong>Diskussion:</strong> Erläutern Sie, warum die separate Anwendung des Wagner-Whitin-Algorithmus für jedes Produkt hier wahrscheinlich zu einem unzulässigen oder suboptimalen Gesamtplan führen würde.</li>
 </ol>
+<p><strong>Lösungshinweise:</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipps und wichtige Formeln
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="kostenberechnung" class="level4">
+<h4 class="anchored" data-anchor-id="kostenberechnung">1. Kostenberechnung</h4>
+<ul>
+<li><strong>Gesamtkosten</strong>: Die Summe aus Rüst- und Lagerkosten über den gesamten Zeitraum.</li>
+<li><strong>Rüstkosten</strong>: Fallen nur an, wenn in einer Woche ein Produkt hergestellt wird, das in der Vorwoche nicht hergestellt wurde. Bei Produktionsstart in Woche 1 oder nach einer Leerwoche fallen sie ebenfalls an. Bei Übernahme des Rüstzustands fallen keine Rüstkosten an.</li>
+<li><strong>Lagerkosten</strong>: Werden am Ende jeder Woche auf den Endlagerbestand berechnet: <code>Lagerkosten_t = Lagerbestand_t * Lagerkostensatz_h</code>.</li>
+</ul>
+</section>
+<section id="kapazitätsprüfung" class="level4">
+<h4 class="anchored" data-anchor-id="kapazitätsprüfung">2. Kapazitätsprüfung</h4>
+<ul>
+<li>Die wöchentliche Kapazitätsauslastung berechnet sich wie folgt: <code>Kapazitätsbedarf_t = Produktionszeit_t + Rüstzeit_t</code></li>
+<li><code>Produktionszeit_t = Produktionsmenge_t * Bearbeitungszeit_pro_Stück_tb</code></li>
+<li>Die Rüstzeit fällt nur an, wenn auch Rüstkosten anfallen.</li>
+<li>Dieser Bedarf muss kleiner oder gleich der Wochenkapazität sein.</li>
+</ul>
+</section>
+<section id="wagner-whitin-vs.-plsp" class="level4">
+<h4 class="anchored" data-anchor-id="wagner-whitin-vs.-plsp">3. Wagner-Whitin vs.&nbsp;PLSP</h4>
+<ul>
+<li>Denken Sie an die Kernannahmen des Wagner-Whitin-Algorithmus: Er optimiert für ein <strong>einzelnes Produkt</strong> und berücksichtigt <strong>keine Kapazitätsgrenzen</strong>. Das PLSP-Problem (Capacitated Lot Sizing Problem) ist hingegen genau für Mehrprodukt-Situationen unter Kapazitätsrestriktionen konzipiert.</li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+<div id="3b2856ef" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-stdout">
+<pre><code>1. Kostenberechnung:
+
+Woche 1: Rüstvorgang für Typ A (Kosten: 200 GE)
+  Bestand Ende Woche 1: 30x Typ A, 0x Typ B
+  Lagerkosten Woche 1: 150 GE
+
+Woche 2: Rüstzustand für Typ A übernommen (Kosten: 0 GE)
+  Bestand Ende Woche 2: 0x Typ A, 0x Typ B
+  Lagerkosten Woche 2: 0 GE
+
+Woche 3: Rüstvorgang für Typ B (Kosten: 150 GE)
+  Bestand Ende Woche 3: 0x Typ A, 20x Typ B
+  Lagerkosten Woche 3: 140 GE
+
+Woche 4: Keine Produktion, kein Rüstvorgang.
+  Bestand Ende Woche 4: 0x Typ A, 0x Typ B
+  Lagerkosten Woche 4: 0 GE
+
+Gesamte Rüstkosten: 350 GE
+Gesamte Lagerkosten: 290 GE
+Gesamtkosten des Plans: 640 GE
+
+2. Kapazitätsprüfung:
+
+ Woche  Prod. Typ A  Prod. Typ B  Kapazitätsbedarf (h)  Kapazitätslimit (h) Einhaltung
+     1           50            0                  60.0                   60         Ja
+     2           25            0                  25.0                   60         Ja
+     3            0           55                  74.0                   60       NEIN
+     4            0            0                   0.0                   60         Ja</code></pre>
+</div>
+</div>
+<p><strong>3. Diskussion:</strong></p>
+<p>Der Wagner-Whitin-Algorithmus (WW) optimiert ein <strong>Einproduktproblem ohne Kapazitätsgrenzen</strong>. Die separate Anwendung würde zu folgenden Problemen führen:</p>
+<ol type="1">
+<li><strong>Ignorierte Kapazitäten:</strong> WW für Produkt A könnte ein Los in Woche 1 planen, WW für Produkt B ebenfalls. Die Summe der benötigten Kapazitäten (Produktion + Rüstung) würde aber sehr wahrscheinlich die verfügbaren 60 Stunden überschreiten, was zu einem <strong>unzulässigen Plan</strong> führt.</li>
+<li><strong>Ignorierte Rüstkopplung:</strong> WW würde für jede Produktion Rüstkosten ansetzen. Er kann nicht das Konzept der <strong>Rüstzustandsübernahme</strong> berücksichtigen. Wenn WW für A in Woche 1 und 2 eine Produktion vorsieht und für B in Woche 3 und 4, würde er für alle vier Lose Rüstkosten berechnen. Ein intelligenterer, gekoppelter Plan (wie PLSP) würde erkennen, dass die Rüstung in Woche 2 und 4 eingespart werden kann, was zu <strong>suboptimalen Kosten</strong> bei separater Planung führt.</li>
+</ol>
+<p>Das PLSP-Modell ist genau dafür konzipiert, diese beiden Aspekte – geteilte Kapazitäten und gekoppelte Rüstentscheidungen – simultan zu optimieren.</p>
 </section>
 <section id="aufgabe-2-echelon-stock" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-2-echelon-stock">Aufgabe 2: Echelon Stock</h2>
@@ -410,6 +489,44 @@ window.Quarto = {
 <ol type="1">
 <li><strong>Echelon Stock Berechnung:</strong> Angenommen, am Ende von Woche 4 sind die physischen Lagerbestände wie folgt: <code>L1: 10, S1: 5, P1: 15, W1: 20</code>. Berechnen Sie für diesen Zeitpunkt den <strong>Echelon Stock</strong> (systemweiten Bestand) für das Wifi-Modul W1 und das LED-Panel P1.</li>
 </ol>
+<p><strong>Lösungshinweise:</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipps und wichtige Formeln
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="echelon-stock" class="level4">
+<h4 class="anchored" data-anchor-id="echelon-stock">1. Echelon Stock</h4>
+<ul>
+<li><strong>Definition:</strong> Der Echelon Stock einer Komponente <code>i</code> an einem Ort ist der gesamte Bestand dieser Komponente im System, der sich auf dieser Stufe oder <em>tiefer</em> befindet.</li>
+<li><strong>Formel:</strong> <code>Echelon Stock_i = Physischer Bestand_i + Physischer Bestand aller nachgelagerten Produkte, die i enthalten</code></li>
+<li><strong>Beispiel:</strong> <code>Echelon Stock (W1) = Bestand(W1) + Bestand(L1) + Bestand(S1)</code></li>
+</ul>
+</section>
+<section id="nutzen-des-echelon-konzepts" class="level4">
+<h4 class="anchored" data-anchor-id="nutzen-des-echelon-konzepts">2. Nutzen des Echelon-Konzepts</h4>
+<ul>
+<li>Der Hauptnutzen liegt in der <strong>korrekten Bewertung von Lagerkosten</strong> in mehrstufigen Systemen. Er vermeidet die Doppelzählung des Wertes von Komponenten, die bereits in Halbfabrikaten oder Endprodukten enthalten sind.</li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+<p><strong>1. Echelon Stock Berechnung:</strong></p>
+<p>Der Echelon Stock eines Artikels ist sein eigener physischer Bestand plus alle Bestände von nachgelagerten Artikeln, in die er eingeht.</p>
+<p><strong>Berechnung für Wifi-Modul W1:</strong> - Physischer Bestand W1: 20 Stück - Bestand von L1 (enthält W1): 10 Stück - Bestand von S1 (enthält W1): 5 Stück</p>
+<p><span class="math inline">\(E_{W1} = y_{W1} + y_{L1} + y_{S1}\)</span> <span class="math inline">\(E_{W1} = 20 + 10 + 5 = 35\)</span></p>
+<p>Der Echelon Stock von W1 ist 35. Er ist höher als der physische Bestand, da 15 Module bereits in den Endprodukten L1 und S1 verbaut sind.</p>
+<p><strong>Berechnung für LED-Panel P1:</strong> - Physischer Bestand P1: 15 Stück - Bestand von L1 (enthält P1): 10 Stück</p>
+<p><span class="math inline">\(E_{P1} = y_{P1} + y_{L1}\)</span> <span class="math inline">\(E_{P1} = 15 + 10 = 25\)</span></p>
+<p>Der Echelon Stock von P1 ist 25. Er ist höher als der physische Bestand, da 10 Panels bereits im Endprodukt L1 verbaut sind.</p>
 </section>
 <section id="aufgabe-3-rollierende-planung" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-3-rollierende-planung">Aufgabe 3: Rollierende Planung</h2>
@@ -504,6 +621,61 @@ window.Quarto = {
 <li><strong>Eingefrorener Plan:</strong> Welcher Teil des ursprünglichen Produktionsplans für die Komponenten (Ihre Bestellungen aus Aufgabe 2) ist nun mindestens “eingefroren” und muss als gegeben hingenommen werden?</li>
 <li><strong>Planungsinstabilität:</strong> Erklären Sie, warum der ursprüngliche Plan für die Wochen 3-6 wahrscheinlich nicht mehr optimal ist, selbst wenn sich nur ein einziger Bedarfswert in der Zukunft geändert hat. Beziehen Sie sich dabei auf die Losgrößenentscheidung für das Wifi-Modul (W1).</li>
 <li><strong>Definitionen:</strong> Überlegen Sie kurz, wie die Begriffe “Planungsinstabilität” und “Frozen Zone” im Kontext dieses Beispiels definiert werden können.</li>
+</ol>
+<p><strong>Lösungshinweise:</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipps und wichtige Formeln
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="frozen-zone-eingefrorener-horizont" class="level4">
+<h4 class="anchored" data-anchor-id="frozen-zone-eingefrorener-horizont">1. Frozen Zone (Eingefrorener Horizont)</h4>
+<ul>
+<li><strong>Definition:</strong> Der Zeitraum am Anfang des Planungshorizonts, in dem keine Änderungen am Produktionsplan mehr vorgenommen werden.</li>
+<li><strong>Grund:</strong> Die Produktions- und Beschaffungsaufträge wurden bereits freigegeben und sind in der Ausführung (z.B. Material ist schon bestellt, eine Maschine ist bereits gerüstet).</li>
+<li><strong>Identifikation:</strong> Um die “eingefrorenen” Bestellungen zu finden, schauen Sie sich den ursprünglichen Plan aus Aufgabe 2 an. Alle Bestellungen, deren <strong>Bestelltermin</strong> in der Vergangenheit oder der aktuellen Periode liegt (hier: alles &lt;= Woche 2), sind Teil der Frozen Zone.</li>
+</ul>
+</section>
+<section id="planungsinstabilität-planungsnervosität" class="level4">
+<h4 class="anchored" data-anchor-id="planungsinstabilität-planungsnervosität">2. Planungsinstabilität (Planungsnervosität)</h4>
+<ul>
+<li><strong>Definition:</strong> Das Phänomen, dass kleine Änderungen in den Eingabedaten (z.B. ein einzelner Bedarfswert in der fernen Zukunft) zu großen, sprunghaften Änderungen in den geplanten Aufträgen führen, auch in naher Zukunft.</li>
+<li><strong>Ursache:</strong> Die komplexe, oft nicht-lineare Logik von Losgrößenalgorithmen und die mehrstufigen Abhängigkeiten. Eine kleine Änderung kann eine Kettenreaktion auslösen, die den “optimalen” Plan komplett umwirft.</li>
+<li><strong>Management:</strong> Die “Frozen Zone” ist eine der wichtigsten Maßnahmen, um diese Nervosität zu dämpfen und Stabilität in die Produktion zu bringen.</li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+<ol type="1">
+<li><p><strong>Eingefrorener Plan:</strong> Der “Frozen”-Teil des Plans umfasst alle Bestellungen, deren Bestelltermin in oder vor der aktuellen Periode (Ende Woche 2) liegt. Gemäß der Lösung von Aufgabe 2 sind dies:</p>
+<ul>
+<li>Bestellung für <strong>Stecker S1</strong> in Woche 0 (für Bedarf in Woche 1)</li>
+<li>Bestellung für <strong>Lampe L1</strong> in Woche 1 (für Bedarf in Woche 2)</li>
+<li>Bestellung für <strong>Panel P1</strong> in Woche -1 und 2 (für L1-Bedarf in P2 und P4)</li>
+<li>Bestellung für <strong>Wifi-Modul W1</strong> in Woche -2, 0 und 1.</li>
+</ul>
+<p>Alle Produktions- und Beschaffungsvorgänge, die bereits gestartet wurden (Bestellzeitpunkt &lt;= 2), sind fix. Die daraus resultierenden Zugänge und Bestände zu Beginn von Woche 3 sind die Ausgangsbasis für die Neuplanung.</p></li>
+<li><p><strong>Verlust der Optimalität:</strong> Der ursprüngliche Plan basierte auf einer Stück-für-Stück-Politik, welche die Bedarfe exakt deckt. Die Erhöhung des Bedarfs für L1 in Woche 6 hat eine Kaskade von Effekten:</p>
+<ul>
+<li>Der Bruttobedarf für P1 und W1 in Woche 5 (Vorlaufzeit von L1) erhöht sich.</li>
+<li>Diese Bedarfsänderung wird an die Komponente W1 weitergereicht.</li>
+<li>Die Losgrößenentscheidung für W1 im ursprünglichen Plan war darauf ausgelegt, die Bedarfe bis Woche 6 zu decken. Durch den neuen, höheren Bedarf in der Zukunft könnte es nun kostenoptimaler sein, eine frühere Bestellung für W1 (z.B. die in Woche 1 für den Bedarf in Woche 4) zu vergrößern, um die Bedarfe bis Woche 6 abzudecken und so einen Rüstvorgang zu sparen (falls eine andere Losgrößenregel als Stück-für-Stück verwendet würde).</li>
+<li>Selbst bei Stück-für-Stück ändert sich die benötigte Bestellmenge für W1. Da die ursprüngliche Bestellung für den Bedarf in Woche 5 (ausgelöst in P2) bereits “frozen” sein könnte, muss nun eine zusätzliche, evtl. kleine und ineffiziente Bestellung für den Mehrbedarf aufgegeben werden.</li>
+<li>Fazit: Eine kleine Änderung in der Zukunft kann durch die komplexen, mehrstufigen Abhängigkeiten und Losgrößenlogiken die Optimalität des gesamten bestehenden Plans zunichtemachen.</li>
+</ul></li>
+<li><p><strong>Definitionen:</strong></p>
+<ul>
+<li><strong>Frozen Zone:</strong> Dies ist der unmittelbar bevorstehende Zeitraum des Plans (hier: Woche 1-2), in dem keine Änderungen mehr vorgenommen werden. Die Produktionsaufträge sind bereits freigegeben, Material ist unterwegs. Dies schafft Stabilität in der Produktion. Die Länge der Frozen Zone orientiert sich oft an der kumulierten Vorlaufzeit der Produkte, kann aber aus strategischen Gründen (z.B. zur Kapazitätsglättung oder aufgrund von Lieferantenverträgen) bewusst länger gewählt werden.</li>
+<li><strong>Planungsinstabilität (Nervosität):</strong> Dies beschreibt das Phänomen, dass kleine Änderungen der Eingabedaten (z.B. ein einzelner Bedarfswert) in einer Neuplanung zu signifikanten Änderungen der Produktions- und Bestellaufträge führen, auch in naher Zukunft. Im Beispiel könnte der neue Plan für Woche 3 und 4 komplett anders aussehen als der alte Plan für dieselben Wochen. Diese “Nervosität” ist oft unerwünscht, da sie Unruhe in die Fertigung und Beschaffung bringt. Die Frozen Zone ist eine Maßnahme, um diese Instabilität zu dämpfen.</li>
+</ul></li>
 </ol>
 </section>
 <section id="aufgabe-4-analyse-eines-produktionsplans" class="level2">
@@ -636,6 +808,140 @@ window.Quarto = {
 <li><strong>Schrittweise Berechnung:</strong> Berechnen Sie schrittweise die fehlenden Werte (gekennzeichnet mit Buchstaben) in der Tabelle. Begründen Sie Ihre Berechnungen für jede Zelle kurz.</li>
 <li><strong>Summe der Rüst- und Lagerkosten:</strong> Ermitteln Sie die Summe der Rüstkosten und der Lagerkosten für den gesamten Planungszeitraum.</li>
 </ol>
+<p><strong>Lösungshinweise:</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipps und wichtige Formeln
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="die-entscheidende-formel-die-lagerbilanzgleichung" class="level4">
+<h4 class="anchored" data-anchor-id="die-entscheidende-formel-die-lagerbilanzgleichung">Die entscheidende Formel: Die Lagerbilanzgleichung</h4>
+<p>Der Schlüssel zur Lösung dieser Aufgabe ist die Lagerbilanzgleichung, die für jedes Produkt und jede Woche gilt:</p>
+<p><code>Lagerbestand (Ende)_t = Lagerbestand (Ende)_{t-1} + Produktionsmenge_t - Bedarf_t</code></p>
+<ul>
+<li>Der <code>Lagerbestand (Ende)_{t-1}</code> ist der Anfangsbestand der Periode <code>t</code>.</li>
+<li>Diese Gleichung enthält alle wichtigen Variablen. Wenn eine davon unbekannt ist (z.B. die Produktionsmenge <code>(f)</code> oder <code>(i)</code>), können Sie die Gleichung einfach nach dieser Unbekannten umstellen.</li>
+</ul>
+</section>
+<section id="rüstkosten-logik" class="level4">
+<h4 class="anchored" data-anchor-id="rüstkosten-logik">Rüstkosten-Logik</h4>
+<ul>
+<li>Vergleichen Sie die Spalte <code>Produzierter Typ</code> von einer Woche zur nächsten.</li>
+<li><code>Rüstkosten_t = 0</code> wenn <code>Typ_t == Typ_{t-1}</code> (Rüstzustand wird übernommen).</li>
+<li><code>Rüstkosten_t &gt; 0</code> wenn <code>Typ_t != Typ_{t-1}</code> (Produktwechsel) oder wenn in Woche <code>t-1</code> nichts produziert wurde.</li>
+</ul>
+</section>
+<section id="lagerkosten-logik" class="level4">
+<h4 class="anchored" data-anchor-id="lagerkosten-logik">Lagerkosten-Logik</h4>
+<ul>
+<li>Die Summe der Lagerkosten in einer Zeile berechnet sich aus den Endbeständen beider Produkte: <code>Lagerkosten (Summe)_t = Lager Sirius (Ende)_t * h_S + Lager Vega (Ende)_t * h_V</code></li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+<p><strong>1. Schrittweise Berechnung der fehlenden Werte:</strong></p>
+<p>Wir verwenden die Lagerbilanzgleichung: <span class="math inline">\(y_t = y_{t-1} + q_t - d_t\)</span></p>
+<ul>
+<li><strong>Woche 1:</strong>
+<ul>
+<li><ol type="a">
+<li><code>Lager Sirius (Ende)</code>: <span class="math inline">\(y_{S,1} = y_{S,0} + q_{S,1} - d_{S,1} = 0 + 50 - 20 = 30\)</span></li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><code>Rüstkosten</code>: Erster Produktionslauf, daher fallen Rüstkosten für Sirius an. Kosten = 250 GE.</li>
+</ol></li>
+<li><ol start="3" type="a">
+<li><code>Lagerkosten</code>: <span class="math inline">\(y_{S,1} \cdot h_S + y_{V,1} \cdot h_V = 30 \cdot 4 + 0 \cdot 5 = 120\)</span> GE.</li>
+</ol></li>
+</ul></li>
+<li><strong>Woche 2:</strong>
+<ul>
+<li><ol start="4" type="a">
+<li><code>Lager Sirius (Ende)</code>: <span class="math inline">\(y_{S,2} = y_{S,1} + q_{S,2} - d_{S,2} = 30 + 0 - 10 = 20\)</span></li>
+</ol></li>
+<li><ol start="5" type="a">
+<li><code>Lager Vega (Ende)</code>: <span class="math inline">\(y_{V,2} = y_{V,1} + q_{V,2} - d_{V,2} = 0 + 50 - 30 = 20\)</span></li>
+</ol></li>
+<li>Die Lagerkosten sind gegeben (180 GE) und stimmen mit unserer Berechnung überein: <span class="math inline">\(20 \cdot 4 + 20 \cdot 5 = 80 + 100 = 180\)</span>.</li>
+<li>Die Rüstkosten sind gegeben (200 GE), was den Wechsel von Sirius auf Vega bestätigt.</li>
+</ul></li>
+<li><strong>Woche 3:</strong>
+<ul>
+<li><ol start="6" type="a">
+<li><code>Prod. Vega</code>: Aus der Lagerbilanzgleichung für Vega: <span class="math inline">\(y_{V,3} = y_{V,2} + q_{V,3} - d_{V,3} \implies 20 = 20 + q_{V,3} - 20 \implies q_{V,3} = 20\)</span>.</li>
+</ol></li>
+<li><ol start="7" type="a">
+<li><code>Rüstkosten</code>: In Woche 2 wurde Vega produziert, in Woche 3 ebenfalls. Der Rüstzustand wird übernommen. Kosten = 0 GE.</li>
+</ol></li>
+<li><ol start="8" type="a">
+<li><code>Lagerkosten</code>: <span class="math inline">\(y_{S,3} \cdot h_S + y_{V,3} \cdot h_V = 15 \cdot 4 + 20 \cdot 5 = 60 + 100 = 160\)</span> GE.</li>
+</ol></li>
+<li><ol start="7" type="a">
+<li><code>Lager Sirius (Ende)</code>: <span class="math inline">\(y_{S,3} = y_{S,2} + q_{S,3} - d_{S,3} = 20 + 0 - 5 = 15\)</span>.</li>
+</ol></li>
+</ul></li>
+<li><strong>Woche 4:</strong>
+<ul>
+<li><ol type="i">
+<li><code>Prod. Sirius</code>: <span class="math inline">\(y_{S,4} = y_{S,3} + q_{S,4} - d_{S,4} \implies 35 = 15 + q_{S,4} - 30 \implies q_{S,4} = 50\)</span>.</li>
+</ol></li>
+<li><ol start="10" type="a">
+<li><code>Lager Vega (Ende)</code>: <span class="math inline">\(y_{V,4} = y_{V,3} + q_{V,4} - d_{V,4} = 20 + 0 - 10 = 10\)</span>.</li>
+</ol></li>
+<li><ol start="11" type="a">
+<li><code>Rüstkosten</code>: Wechsel von Vega auf Sirius. Kosten = 250 GE.</li>
+</ol></li>
+<li><ol start="12" type="a">
+<li><code>Lagerkosten</code>: <span class="math inline">\(y_{S,4} \cdot h_S + y_{V,4} \cdot h_V = 35 \cdot 4 + 10 \cdot 5 = 140 + 50 = 190\)</span> GE.</li>
+</ol></li>
+</ul></li>
+<li><strong>Woche 5:</strong>
+<ul>
+<li><ol start="13" type="a">
+<li><code>Lager Sirius (Ende)</code>: <span class="math inline">\(y_{S,5} = y_{S,4} + q_{S,5} - d_{S,5} = 35 + 0 - 10 = 25\)</span>.</li>
+</ol></li>
+<li><ol start="14" type="a">
+<li><code>Lager Vega (Ende)</code>: <span class="math inline">\(y_{V,5} = y_{V,4} + q_{V,5} - d_{V,5} = 10 + 0 - 5 = 5\)</span>.</li>
+</ol></li>
+<li>Die Lagerkosten sind gegeben (125 GE): <span class="math inline">\(25 \cdot 4 + 5 \cdot 5 = 100 + 25 = 125\)</span>.</li>
+<li><ol start="15" type="a">
+<li><code>Rüstkosten</code>: Keine Produktion, daher keine Rüstkosten. Kosten = 0 GE.</li>
+</ol></li>
+</ul></li>
+<li><strong>Summen:</strong>
+<ul>
+<li><ol start="16" type="a">
+<li><code>Summe Rüstkosten</code> = 250 (W1) + 200 (W2) + 0 (W3) + 250 (W4) + 0 (W5) = 700 GE.</li>
+</ol></li>
+<li><ol start="17" type="a">
+<li><code>Summe Lagerkosten</code> = 120 (W1) + 180 (W2) + 160 (W3) + 190 (W4) + 125 (W5) = 775 GE.</li>
+</ol></li>
+</ul></li>
+</ul>
+<p><strong>2. Vervollständigte Tabelle &amp; Code-Verifikation:</strong></p>
+<div id="afc11533" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-stdout">
+<pre><code>Vervollständigte Tabelle:
+      Produzierter Typ  Bedarf Sirius  Prod. Sirius  Lager Sirius (Ende)  Bedarf Vega  Prod. Vega  Lager Vega (Ende)  Rüstkosten  Lagerkosten (Summe)
+Woche                                                                                                                                                
+1               Sirius             20            50                   30            0           0                  0         250                  120
+2                 Vega             10             0                   20           30          50                 20         200                  180
+3                 Vega              5             0                   15           20          20                 20           0                  160
+4               Sirius             30            50                   35           10           0                 10         250                  190
+5            - (Keine)             10             0                   25            5           0                  5           0                  125
+SUMME            SUMME             75           100                  125           65          70                 55         700                  775
+
+Gesamtkosten (Rüst- + Lagerkosten): 1475 GE</code></pre>
+</div>
+</div>
 
 
 </section>

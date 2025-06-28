@@ -457,6 +457,75 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
+<p><strong>Lösungshinweise:</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipps und wichtige Formeln
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="reihenfolge-der-ereignisse" class="level4">
+<h4 class="anchored" data-anchor-id="reihenfolge-der-ereignisse">Reihenfolge der Ereignisse</h4>
+<p>Beachten Sie die korrekte Reihenfolge der Aktionen <strong>innerhalb jeder Woche</strong>:</p>
+<ol type="1">
+<li><strong>Wareneingang:</strong> Zu Beginn der Woche kommt eine eventuell vor <span class="math inline">\(L=2\)</span> Wochen getätigte Bestellung an. Dadurch steigt der physische Bestand und der Bestellbestand sinkt.</li>
+<li><strong>Nachfrage-Erfüllung:</strong> Die Nachfrage der aktuellen Woche wird bedient. Dies senkt den physischen und den disponiblen Bestand.</li>
+<li><strong>Bestellentscheidung:</strong> Am <strong>Ende der Woche</strong> wird geprüft, ob eine neue Bestellung ausgelöst werden muss.</li>
+</ol>
+</section>
+<section id="die-wichtigsten-formeln" class="level4">
+<h4 class="anchored" data-anchor-id="die-wichtigsten-formeln">Die wichtigsten Formeln</h4>
+<ul>
+<li><strong>Disponibler Bestand (<span class="math inline">\(I^D\)</span>):</strong> Die entscheidende Größe für die Bestellung. Er repräsentiert die Summe aus physischem und bestelltem Bestand. <span class="math inline">\(I^D_t(\text{vor Bestellung}) = I^D_{t-1}(\text{Ende}) - d_t\)</span></li>
+<li><strong>Bestellentscheidung:</strong> Prüfe am Ende der Woche: <span class="math inline">\(I^D_t(\text{vor Bestellung}) \le s\)</span>?
+<ul>
+<li>Wenn <strong>Ja</strong>: Löse eine Bestellung über die Menge <span class="math inline">\(q\)</span> aus. Der disponible Bestand erhöht sich <strong><em>sofort</em></strong>: <span class="math inline">\(I^D_t(\text{Ende}) = I^D_t(\text{vor Bestellung}) + q\)</span></li>
+<li>Wenn <strong>Nein</strong>: Der disponible Bestand bleibt für das Ende der Woche unverändert.</li>
+</ul></li>
+<li><strong>Physischer Bestand (<span class="math inline">\(I^P\)</span>):</strong>
+<ul>
+<li><span class="math inline">\(I^P_t(\text{Ende}) = I^P_{t-1}(\text{Ende}) + \text{Wareneingang}_t - d_t\)</span> (kann nicht negativ werden)</li>
+</ul></li>
+<li><strong>Bestellbestand (<span class="math inline">\(I^O\)</span>):</strong>
+<ul>
+<li><span class="math inline">\(I^O_t(\text{Ende}) = I^O_{t-1}(\text{Ende}) - \text{Wareneingang}_t + \text{Neue Bestellung}_t\)</span></li>
+</ul></li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+<p>Die Logik ist wie folgt:</p>
+<ol type="1">
+<li><strong>Disponibler Bestand (Anfang):</strong> Ist der disponible Bestand vom Ende der Vorwoche.</li>
+<li><strong>Bestellung?:</strong> Prüfe am Ende der Woche: <code>Disponibler Bestand (Anfang) - Nachfrage &lt;= s?</code> Wenn ja, löse Bestellung über <code>q</code> aus.</li>
+<li><strong>Disponibler Bestand (Ende):</strong> <code>Disponibler Bestand (Anfang) - Nachfrage</code>.</li>
+<li><strong>Physischer Bestand / Fehlbestand:</strong> <code>Physischer Bestand (Anfang) + Wareneingang - Nachfrage</code>.</li>
+<li><strong>Bestellbestand:</strong> <code>Bestellbestand (Anfang) + Neue Bestellung - Wareneingang</code>.</li>
+</ol>
+<div id="04800f66" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-stdout">
+<pre><code>Berechnung Schritt für Schritt:
+Woche 1: Meldebestand unterschritten (60 &lt;= 80). Bestellung ausgelöst.
+Woche 3: Wareneingang von 200 Stück.
+Woche 5: Meldebestand unterschritten (80 &lt;= 80). Bestellung ausgelöst.
+
+Vervollständigte Tabelle:
+ Woche (t)  Nachfrage $d_t$  Disp. Bestand (A)  Phys. Bestand (E)  Disp. Bestand (E)  Bestellung? (E)  Bestellbestand (E)  Fehlbestand (E)
+         1               40                100                 60                260              200                 200                0
+         2               35                260                 25                225                0                 200                0
+         3               50                225                175                175                0                   0                0
+         4               40                175                135                135                0                   0                0
+         5               55                135                 80                280              200                 200                0
+         6               60                280                 20                220                0                 200                0</code></pre>
+</div>
+</div>
 </section>
 <section id="aufgabe-2-sicherheitsbestand-und-servicegrade" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-2-sicherheitsbestand-und-servicegrade">Aufgabe 2: Sicherheitsbestand und Servicegrade</h2>
@@ -468,6 +537,79 @@ window.Quarto = {
 <li><strong>Erwartete Fehlmenge:</strong> Gegeben der Bestellpunkt <span class="math inline">\(s\)</span> aus Teil 2: Berechnen Sie die erwartete Fehlmenge pro Bestellzyklus <span class="math inline">\(E(B)\)</span>. Nutzen Sie dafür die in der Vorlesung vorgestellte <strong>standardisierte Einheiten-Verlustfunktion <span class="math inline">\(G_u(z)\)</span></strong>. Die benötigten Werte für <span class="math inline">\(G_u(z)\)</span> finden Sie in den Tabellen der Vorlesung oder in den Lösungshinweisen zu dieser Aufgabe.</li>
 <li><strong>Servicegrad:</strong> Wenn der Händler eine feste Bestellmenge von <span class="math inline">\(q=450\)</span> Stück verwendet, welchen <span class="math inline">\(\beta\)</span>-Servicegrad (Mengen-Servicegrad) erreicht er mit seiner Politik?</li>
 </ol>
+<p><strong>Lösungshinweise:</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipps und wichtige Formeln
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="nachfrage-während-der-wiederbeschaffungszeit-wbz" class="level4">
+<h4 class="anchored" data-anchor-id="nachfrage-während-der-wiederbeschaffungszeit-wbz">1. Nachfrage während der Wiederbeschaffungszeit (WBZ)</h4>
+<p>Der Risikozeitraum ist die Wiederbeschaffungszeit <span class="math inline">\(L\)</span>. Wir müssen die Kennzahlen der Nachfrageverteilung für diesen längeren Zeitraum berechnen. Für unabhängige Perioden gilt:</p>
+<ul>
+<li>Erwartungswert der Nachfrage während WBZ: <span class="math inline">\(\mu_L = L \cdot \mu_{\text{wöchentlich}}\)</span></li>
+<li>Varianz der Nachfrage während WBZ: <span class="math inline">\(\sigma_L^2 = L \cdot \sigma_{\text{wöchentlich}}^2\)</span></li>
+<li>Standardabweichung der Nachfrage während WBZ: <span class="math inline">\(\sigma_L = \sqrt{L} \cdot \sigma_{\text{wöchentlich}}\)</span></li>
+</ul>
+</section>
+<section id="bestellpunkt-und-sicherheitsbestand" class="level4">
+<h4 class="anchored" data-anchor-id="bestellpunkt-und-sicherheitsbestand">2. Bestellpunkt und Sicherheitsbestand</h4>
+<p>Der Bestellpunkt <span class="math inline">\(s\)</span> deckt die erwartete Nachfrage während der WBZ ab und enthält zusätzlich einen Puffer für Unsicherheit.</p>
+<ul>
+<li><strong>Bestellpunkt (<span class="math inline">\(s\)</span>):</strong> <span class="math inline">\(s = \mu_L + SS\)</span></li>
+<li><strong>Sicherheitsbestand (<span class="math inline">\(SS\)</span>):</strong> <span class="math inline">\(SS = z \cdot \sigma_L\)</span></li>
+<li><strong>Sicherheitsfaktor (<span class="math inline">\(z\)</span>):</strong> Dieser Wert hängt vom gewünschten <span class="math inline">\(\alpha\)</span>-Servicegrad (Zyklus-Servicegrad) ab und wird aus der Standardnormalverteilung abgelesen.</li>
+</ul>
+</section>
+<section id="erwartete-fehlmenge-eb" class="level4">
+<h4 class="anchored" data-anchor-id="erwartete-fehlmenge-eb">3. Erwartete Fehlmenge (<span class="math inline">\(E(B)\)</span>)</h4>
+<p>Dies ist die durchschnittliche Anzahl an Einheiten, die pro Zyklus aufgrund von zu hoher Nachfrage nicht geliefert werden können.</p>
+<ul>
+<li><strong>Formel:</strong> <span class="math inline">\(E(B) = \sigma_L \cdot G_u(z)\)</span></li>
+<li><strong>Standardisierte Verlustfunktion (<span class="math inline">\(G_u(z)\)</span>):</strong> <span class="math inline">\(G_u(z) = \phi(z) - z(1 - \Phi(z))\)</span>
+<ul>
+<li><span class="math inline">\(\phi(z)\)</span>: Dichtefunktion der Standardnormalverteilung.</li>
+<li><span class="math inline">\(\Phi(z)\)</span>: Kumulative Verteilungsfunktion der Standardnormalverteilung.</li>
+</ul></li>
+</ul>
+</section>
+<section id="beta-servicegrad-fill-rate" class="level4">
+<h4 class="anchored" data-anchor-id="beta-servicegrad-fill-rate">4. <span class="math inline">\(\beta\)</span>-Servicegrad (Fill Rate)</h4>
+<p>Dieser Servicegrad misst den prozentualen Anteil der Gesamtnachfrage, der direkt aus dem Lager bedient wird.</p>
+<ul>
+<li><strong>Formel:</strong> <span class="math inline">\(\beta = 1 - \frac{E(B)}{q}\)</span></li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+<div id="11011854" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-stdout">
+<pre><code>1. Nachfrage während der WBZ:
+   - Erwartungswert (mu_L): 180.00 Stück
+   - Standardabweichung (sigma_L): 34.64 Stück
+
+2. Bestellpunkt für alpha = 95.0%:
+   - Benötigter z-Wert (Sicherheitsfaktor): 1.645
+   - Sicherheitsbestand: 1.645 * 34.64 = 56.98 Stück
+   - Bestellpunkt s: 180.00 + 56.98 = 236.98 Stück (gerundet: 237.0)
+   -&gt; Der Meldebestand sollte auf 237.0 Stück gesetzt werden.
+
+3. Erwartete Fehlmenge pro Zyklus E(B):
+   - phi(z=1.645) = 0.1031
+   - E(B) = 34.64 * (0.1031 - 1.645 * 0.05) = 0.7238 Stück
+
+4. Resultierender beta-Servicegrad:
+   - beta = 1 - (0.7238 / 450) = 0.9984 oder 99.84%</code></pre>
+</div>
+</div>
 </section>
 <section id="aufgabe-3-diskrete-nachfrage-und-faltung" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-3-diskrete-nachfrage-und-faltung">Aufgabe 3: Diskrete Nachfrage und Faltung</h2>
@@ -499,6 +641,85 @@ window.Quarto = {
 <li><strong>Fehlbestandswahrscheinlichkeit:</strong> Wenn der Ladenbesitzer einen Bestellpunkt von <span class="math inline">\(s=4\)</span> Heften festlegt, wie hoch ist die Wahrscheinlichkeit, dass es zu einem Fehlbestand kommt (d.h. der <span class="math inline">\(\alpha\)</span>-Servicegrad <em>nicht</em> eingehalten wird)?</li>
 <li><strong>Erwartete Fehlmenge:</strong> Berechnen Sie die erwartete Fehlmenge <span class="math inline">\(E(B)\)</span> für den Bestellpunkt <span class="math inline">\(s=4\)</span>.</li>
 </ol>
+<p><strong>Lösungshinweise:</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipps und wichtige Formeln
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="faltung-von-wahrscheinlichkeitsverteilungen" class="level4">
+<h4 class="anchored" data-anchor-id="faltung-von-wahrscheinlichkeitsverteilungen">1. Faltung von Wahrscheinlichkeitsverteilungen</h4>
+<p>Wenn Sie die Verteilung der Summe von zwei unabhängigen, diskreten Zufallsvariablen <span class="math inline">\(D_1\)</span> und <span class="math inline">\(D_2\)</span> (hier die Nachfrage an zwei aufeinanderfolgenden Tagen) finden wollen, müssen Sie deren Verteilungen “falten”. Für die Gesamtnachfrage <span class="math inline">\(Y_2 = D_1 + D_2\)</span> berechnen Sie die Wahrscheinlichkeit <span class="math inline">\(P(Y_2=k)\)</span> wie folgt: <span class="math inline">\(P(Y_2=k) = \sum_{j} P(D_1=j) \cdot P(D_2=k-j)\)</span></p>
+<p><strong>Beispiel:</strong> Um die Wahrscheinlichkeit für eine Gesamtnachfrage von 2 zu finden (<span class="math inline">\(k=2\)</span>), summieren Sie die Wahrscheinlichkeiten aller möglichen Kombinationen auf, die 2 ergeben: <span class="math inline">\(P(Y_2=2) = P(D_1=0, D_2=2) + P(D_1=1, D_2=1) + P(D_1=2, D_2=0)\)</span> Da die Tage unabhängig sind, ist <span class="math inline">\(P(D_1=a, D_2=b) = P(D=a) \cdot P(D=b)\)</span>.</p>
+</section>
+<section id="fehlbestandswahrscheinlichkeit-1-alpha" class="level4">
+<h4 class="anchored" data-anchor-id="fehlbestandswahrscheinlichkeit-1-alpha">2. Fehlbestandswahrscheinlichkeit (<span class="math inline">\(1-\alpha\)</span>)</h4>
+<p>Ein Fehlbestand tritt ein, wenn die Nachfrage während der Wiederbeschaffungszeit (<span class="math inline">\(Y_2\)</span>) den Bestellpunkt (<span class="math inline">\(s\)</span>) übersteigt. <span class="math inline">\(P(\text{Fehlbestand}) = P(Y_2 &gt; s)\)</span></p>
+</section>
+<section id="erwartete-fehlmenge-eb-1" class="level4">
+<h4 class="anchored" data-anchor-id="erwartete-fehlmenge-eb-1">3. Erwartete Fehlmenge (<span class="math inline">\(E(B)\)</span>)</h4>
+<p>Die erwartete Fehlmenge ist die Summe aller möglichen Fehlmengen, gewichtet mit ihren jeweiligen Eintrittswahrscheinlichkeiten. <span class="math inline">\(E(B) = \sum_{y} \max(0, y - s) \cdot P(Y_2=y)\)</span> Sie müssen also für jeden möglichen Nachfragewert <span class="math inline">\(y\)</span> die Fehlmenge <span class="math inline">\((y-s)\)</span> berechnen (falls diese positiv ist) und mit der Wahrscheinlichkeit <span class="math inline">\(P(Y_2=y)\)</span> multiplizieren.</p>
+</section>
+</div>
+</div>
+</div>
+<p><strong>1. Wahrscheinlichkeitsverteilung der Gesamtnachfrage über 2 Tage (Y2):</strong></p>
+<p>Wir müssen alle möglichen Kombinationen der Nachfrage an Tag 1 (<span class="math inline">\(D_1\)</span>) und Tag 2 (<span class="math inline">\(D_2\)</span>) betrachten. Die Gesamtnachfrage ist <span class="math inline">\(Y_2 = D_1 + D_2\)</span>. Die möglichen Werte für <span class="math inline">\(Y_2\)</span> reichen von 0 (0+0) bis 6 (3+3).</p>
+<ul>
+<li><strong>P(Y2 = 0):</strong> <span class="math inline">\(P(D_1=0, D_2=0) = 0.3 \cdot 0.3 = 0.09\)</span></li>
+<li><strong>P(Y2 = 1):</strong> <span class="math inline">\(P(D_1=0, D_2=1) + P(D_1=1, D_2=0) = (0.3 \cdot 0.4) + (0.4 \cdot 0.3) = 0.12 + 0.12 = 0.24\)</span></li>
+<li><strong>P(Y2 = 2):</strong> <span class="math inline">\(P(D_1=0, D_2=2) + P(D_1=1, D_2=1) + P(D_1=2, D_2=0) = (0.3 \cdot 0.2) + (0.4 \cdot 0.4) + (0.2 \cdot 0.3) = 0.06 + 0.16 + 0.06 = 0.28\)</span></li>
+<li><strong>P(Y2 = 3):</strong> <span class="math inline">\(P(D_1=0, D_2=3) + P(D_1=1, D_2=2) + P(D_1=2, D_2=1) + P(D_1=3, D_2=0) = (0.3 \cdot 0.1) + (0.4 \cdot 0.2) + (0.2 \cdot 0.4) + (0.1 \cdot 0.3) = 0.03 + 0.08 + 0.08 + 0.03 = 0.22\)</span></li>
+<li><strong>P(Y2 = 4):</strong> <span class="math inline">\(P(D_1=1, D_2=3) + P(D_1=2, D_2=2) + P(D_1=3, D_2=1) = (0.4 \cdot 0.1) + (0.2 \cdot 0.2) + (0.1 \cdot 0.4) = 0.04 + 0.04 + 0.04 = 0.12\)</span></li>
+<li><strong>P(Y2 = 5):</strong> <span class="math inline">\(P(D_1=2, D_2=3) + P(D_1=3, D_2=2) = (0.2 \cdot 0.1) + (0.1 \cdot 0.2) = 0.02 + 0.02 = 0.04\)</span></li>
+<li><strong>P(Y2 = 6):</strong> <span class="math inline">\(P(D_1=3, D_2=3) = 0.1 \cdot 0.1 = 0.01\)</span></li>
+</ul>
+<p><strong>Zusammenfassung der Verteilung für Y2:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"><span class="math inline">\(Y_2\)</span></th>
+<th style="text-align: left;">0</th>
+<th style="text-align: left;">1</th>
+<th style="text-align: left;">2</th>
+<th style="text-align: left;">3</th>
+<th style="text-align: left;">4</th>
+<th style="text-align: left;">5</th>
+<th style="text-align: left;">6</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">P(<span class="math inline">\(Y_2\)</span>)</td>
+<td style="text-align: left;">0.09</td>
+<td style="text-align: left;">0.24</td>
+<td style="text-align: left;">0.28</td>
+<td style="text-align: left;">0.22</td>
+<td style="text-align: left;">0.12</td>
+<td style="text-align: left;">0.04</td>
+<td style="text-align: left;">0.01</td>
+</tr>
+</tbody>
+</table>
+<p><strong>2. Wahrscheinlichkeit eines Fehlbestands für s=4:</strong></p>
+<p>Ein Fehlbestand tritt auf, wenn die Nachfrage <span class="math inline">\(Y_2\)</span> den Bestellpunkt <span class="math inline">\(s=4\)</span> übersteigt. <span class="math inline">\(P(\text{Fehlbestand}) = P(Y_2 &gt; 4) = P(Y_2 = 5) + P(Y_2 = 6)\)</span> <span class="math inline">\(P(\text{Fehlbestand}) = 0.04 + 0.01 = 0.05\)</span> oder 5%.</p>
+<p>Der <span class="math inline">\(\alpha\)</span>-Servicegrad wäre demnach <span class="math inline">\(1 - 0.05 = 0.95\)</span> oder 95%.</p>
+<p><strong>3. Erwartete Fehlmenge E(B) für s=4:</strong></p>
+<p>Die Fehlmenge <span class="math inline">\(B\)</span> ist <span class="math inline">\(\max(0, Y_2 - s)\)</span>. Wir berechnen den Erwartungswert, indem wir jede mögliche Fehlmenge mit ihrer Wahrscheinlichkeit multiplizieren.</p>
+<ul>
+<li>Wenn <span class="math inline">\(Y_2 \le 4\)</span>, ist die Fehlmenge 0.</li>
+<li>Wenn <span class="math inline">\(Y_2 = 5\)</span>, ist die Fehlmenge <span class="math inline">\(5 - 4 = 1\)</span>. Die Wahrscheinlichkeit dafür ist <span class="math inline">\(P(Y_2=5) = 0.04\)</span>.</li>
+<li>Wenn <span class="math inline">\(Y_2 = 6\)</span>, ist die Fehlmenge <span class="math inline">\(6 - 4 = 2\)</span>. Die Wahrscheinlichkeit dafür ist <span class="math inline">\(P(Y_2=6) = 0.01\)</span>.</li>
+</ul>
+<p><span class="math inline">\(E(B) = \sum \max(0, y - s) \cdot P(Y_2=y)\)</span> <span class="math inline">\(E(B) = (1 \cdot P(Y_2=5)) + (2 \cdot P(Y_2=6))\)</span> <span class="math inline">\(E(B) = (1 \cdot 0.04) + (2 \cdot 0.01) = 0.04 + 0.02 = 0.06\)</span></p>
+<p>Die erwartete Fehlmenge pro Bestellzyklus beträgt 0.06 Hefte.</p>
 
 
 </section>
