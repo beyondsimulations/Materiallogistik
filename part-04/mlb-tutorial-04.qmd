@@ -149,9 +149,9 @@ for t in range(1, T + 1):
         'Woche (t)': t,
         'Nachfrage $d_t$': demand_t,
         'Disp. Bestand (A)': disp_bestand_anfang,
-        'Bestellung? (E)': bestellung_getaetigt,
-        'Disp. Bestand (E)': disp_bestand,
         'Phys. Bestand (E)': phys_bestand,
+        'Disp. Bestand (E)': disp_bestand,
+        'Bestellung? (E)': bestellung_getaetigt,
         'Bestellbestand (E)': bestell_bestand,
         'Fehlbestand (E)': fehl_bestand
     })
