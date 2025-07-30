@@ -13,7 +13,7 @@ project:
 
 profile:
   default: solution
-  
+
 website:
   title: "Materiallogistik"
   repo-url: https://github.com/beyondsimulations/Materiallogistik
@@ -77,7 +77,7 @@ website:
         href: general/chat.qmd
 
   page-footer:
-    center: "Materiallogistik, Tobias Vlćek</br>CC BY-NC-SA 4.0"
+    center: "Materiallogistik, Tobias Vlćek</br>CC BY-SA 4.0"
     right:
       - icon: github
         href: https://github.com/beyondsimulations/Materiallogistik
@@ -102,7 +102,7 @@ format:
     echo: false
     code-block-border-left: "#AD1F00"
     include-in-header:
-      - general/header.html    
+      - general/header.html
     include-after-body:
       text: |
         <script>
@@ -142,7 +142,6 @@ format:
 
 execute:
   freeze: auto
-  
+
 python:
   executable: "/Users/tvlcek/jupyter-venv/bin/python3"
-
