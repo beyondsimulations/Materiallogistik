@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Übung 02 – Materiallogistik</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-226bd0f977fa82dfae4534cac220d79a.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ac881602332e3938779ca5fc3517c7d9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script defer="" src="https://umi.byndsim.com/script.js" data-website-id="e230d76b-b0a6-477e-8c5d-19a7bd661e68"></script>
+<style>
+    .cell-output-stdout code {
+      word-break: break-word !important;
+      white-space: pre-wrap !important;
+    }
+</style>  
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-02/mlb-lecture-02.pdf">02 CLSP</a></li><li class="breadcrumb-item"><a href="../part-02/mlb-tutorial-02.html">Tutorium</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Materiallogistik</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Startseite</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+ <span class="menu-text">***</span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">01 Klassifikation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-01/mlb-lecture-01.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-01/mlb-tutorial-01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">02 CLSP</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-02/mlb-lecture-02.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-02/mlb-tutorial-02.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">03 PLSP</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-03/mlb-lecture-03.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-03/mlb-tutorial-03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">04 Bestandsmanagement</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-04/mlb-lecture-04_new.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-04/mlb-tutorial-04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">05 Bestellpolitiken</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-05/mlb-lecture-05_new.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-05/mlb-tutorial-05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">***</span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="true">
+ <span class="menu-text">Zusatzaufgaben</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 01</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 02</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 03</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 04</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 05</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../general/faqs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../general/chat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chat</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#einleitung" id="toc-einleitung" class="nav-link active" data-scroll-target="#einleitung">Einleitung</a></li>
+  <li><a href="#aufgabe-1-exakte-losgrößenplanung-für-saisonbier" id="toc-aufgabe-1-exakte-losgrößenplanung-für-saisonbier" class="nav-link" data-scroll-target="#aufgabe-1-exakte-losgrößenplanung-für-saisonbier">Aufgabe 1: Exakte Losgrößenplanung für Saisonbier</a></li>
+  <li><a href="#aufgabe-2-heuristische-losgrößenplanung" id="toc-aufgabe-2-heuristische-losgrößenplanung" class="nav-link" data-scroll-target="#aufgabe-2-heuristische-losgrößenplanung">Aufgabe 2: Heuristische Losgrößenplanung</a></li>
+  <li><a href="#aufgabe-3-losgrößenplanung-mit-kapazitätsgrenzen-clsp" id="toc-aufgabe-3-losgrößenplanung-mit-kapazitätsgrenzen-clsp" class="nav-link" data-scroll-target="#aufgabe-3-losgrößenplanung-mit-kapazitätsgrenzen-clsp">Aufgabe 3: Losgrößenplanung mit Kapazitätsgrenzen (CLSP)</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="mlb-tutorial-02.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-02/mlb-lecture-02.pdf">02 CLSP</a></li><li class="breadcrumb-item"><a href="../part-02/mlb-tutorial-02.html">Tutorium</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Übung 02</h1>
+<p class="subtitle lead">Dynamische Losgrößenplanung</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="einleitung" class="level2">
+<h2 class="anchored" data-anchor-id="einleitung">Einleitung</h2>
+<p>Wer noch Schwierigkeiten mit dem CLSP und der Lagerbilanzgleichung hat, kann sich gerne folgendes Video aus der Vorlesung Grundlagen des Operations Research ansehen:</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/mJtf-RR9Dvk" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section>
+<section id="aufgabe-1-exakte-losgrößenplanung-für-saisonbier" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-1-exakte-losgrößenplanung-für-saisonbier">Aufgabe 1: Exakte Losgrößenplanung für Saisonbier</h2>
+<p>Die lokale Traditionsbrauerei “Duisburger Perle” plant die Produktion ihres beliebten Saisonbiers “Frühlings-Helles” für die kommenden 6 Wochen. Da die Nachfrage schwankt und das Aufsetzen eines neuen Brauvorgangs (Rüsten) mit erheblichen Kosten verbunden ist, soll ein kostenoptimaler Produktionsplan gefunden werden.</p>
+<p>Die Brauerei hat die folgenden Daten ermittelt:</p>
+<ul>
+<li><strong>Rüstkosten (<span class="math inline">\(s\)</span>):</strong> 250 GE pro Brauvorgang (Los)</li>
+<li><strong>Lagerkostensatz (<span class="math inline">\(h\)</span>):</strong> 2 GE pro Kasten und Woche</li>
+</ul>
+<p><strong>Wöchentliche Nachfrage (<span class="math inline">\(d_t\)</span>):</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Woche (t)</th>
+<th style="text-align: left;">1</th>
+<th style="text-align: left;">2</th>
+<th style="text-align: left;">3</th>
+<th style="text-align: left;">4</th>
+<th style="text-align: left;">5</th>
+<th style="text-align: left;">6</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Nachfrage (Kästen)</td>
+<td style="text-align: left;">30</td>
+<td style="text-align: left;">50</td>
+<td style="text-align: left;">20</td>
+<td style="text-align: left;">70</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">40</td>
+</tr>
+</tbody>
+</table>
+<p>Um die Gesamtkosten zu minimieren, soll das exakte Verfahren von <strong>Wagner und Whitin</strong> (Dynamische Optimierung) angewendet werden. Es wird angenommen, dass zu Beginn kein Lagerbestand vorhanden ist und am Ende der 6. Woche ebenfalls kein Bestand verbleiben soll.</p>
+<p><strong>Ihre Aufgaben:</strong></p>
+<ol type="1">
+<li><strong>Kostenmatrix erstellen:</strong> Berechnen Sie die Kosten <span class="math inline">\(c_{\tau j}\)</span> für jedes mögliche Los, das in Woche <span class="math inline">\(\tau\)</span> produziert wird, um die Nachfrage bis einschließlich Woche <span class="math inline">\(j\)</span> zu decken.</li>
+<li><strong>Wagner-Whitin-Algorithmus anwenden:</strong> Ermitteln Sie rekursiv die minimalen Gesamtkosten <span class="math inline">\(f_i\)</span> für einen Planungszeitraum von <span class="math inline">\(i = 1, \ldots, 6\)</span> Wochen. Notieren Sie sich bei jedem Schritt, welche Entscheidung zur minimalen Kosten führt.</li>
+<li><strong>Optimalen Produktionsplan ableiten:</strong> Bestimmen Sie durch Rückverfolgung (Backtracking) aus den Ergebnissen von Schritt 2, in welchen Wochen eine Produktion stattfinden soll und wie groß die jeweilige Losgröße ist. Wie hoch sind die minimalen Gesamtkosten?</li>
+</ol>
+<p><strong>Lösung (Python-Code):</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipps und wichtige Formeln
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="kostenmatrix-c_tau-j" class="level4">
+<h4 class="anchored" data-anchor-id="kostenmatrix-c_tau-j">1. Kostenmatrix <span class="math inline">\(c_{\tau j}\)</span></h4>
+<p>Die Kostenmatrix ist das Herzstück des Algorithmus. Der Wert <span class="math inline">\(c_{\tau j}\)</span> gibt an, was es kostet, in Periode <span class="math inline">\(\tau\)</span> ein Los zu produzieren, das exakt die Nachfrage von Periode <span class="math inline">\(\tau\)</span> bis einschließlich Periode <span class="math inline">\(j\)</span> deckt.</p>
+<ul>
+<li><strong>Formel:</strong> <span class="math inline">\(c_{\tau j} = s + \sum_{k=\tau+1}^{j} h \cdot (k-\tau) \cdot d_k\)</span></li>
+<li><strong>In Worten:</strong> Die Kosten setzen sich zusammen aus <strong>einmaligen Rüstkosten</strong> <span class="math inline">\(s\)</span> und den <strong>kumulierten Lagerkosten</strong>. Die Lagerkosten für den Bedarf <span class="math inline">\(d_k\)</span> (der in Periode <span class="math inline">\(\tau\)</span> produziert, aber erst in <span class="math inline">\(k\)</span> gebraucht wird) betragen <span class="math inline">\(h \cdot (k-\tau) \cdot d_k\)</span>, da die Menge <span class="math inline">\(d_k\)</span> für <span class="math inline">\((k-\tau)\)</span> Perioden gelagert werden muss.</li>
+</ul>
+</section>
+<section id="der-wagner-whitin-algorithmus-rekursion" class="level4">
+<h4 class="anchored" data-anchor-id="der-wagner-whitin-algorithmus-rekursion">2. Der Wagner-Whitin-Algorithmus (Rekursion)</h4>
+<p>Der Algorithmus findet die minimalen Kosten <span class="math inline">\(f_j\)</span> für ein Problem mit <span class="math inline">\(j\)</span> Perioden, indem er alle Möglichkeiten für das letzte Los ausprobiert.</p>
+<ul>
+<li><strong>Rekursionsformel:</strong> <span class="math inline">\(f_j = \min_{1 \le \tau \le j} \{ f_{\tau-1} + c_{\tau j} \}\)</span></li>
+<li><strong>Startwert:</strong> <span class="math inline">\(f_0 = 0\)</span></li>
+<li><strong>In Worten:</strong> Die minimalen Kosten für <span class="math inline">\(j\)</span> Perioden (<span class="math inline">\(f_j\)</span>) ergeben sich, indem man die beste Option auswählt: “Was kostet es, wenn das letzte Los in Periode <span class="math inline">\(\tau=1\)</span> startet und bis <span class="math inline">\(j\)</span> reicht? Was, wenn es in <span class="math inline">\(\tau=2\)</span> startet?” usw. Die Kosten einer Option sind die Summe der Kosten für das letzte Los (<span class="math inline">\(c_{\tau j}\)</span>) und den minimalen Kosten für den Zeitraum davor (<span class="math inline">\(f_{\tau-1}\)</span>).</li>
+</ul>
+</section>
+<section id="backtracking" class="level4">
+<h4 class="anchored" data-anchor-id="backtracking">3. Backtracking</h4>
+<ul>
+<li>Starten Sie bei <span class="math inline">\(j=T\)</span> (im Beispiel <span class="math inline">\(j=6\)</span>). Schauen Sie nach, welches <span class="math inline">\(\tau\)</span> zu den minimalen Kosten <span class="math inline">\(f_6\)</span> geführt hat. Das ist Ihr letztes Produktionslos (von <span class="math inline">\(\tau\)</span> bis 6).</li>
+<li>Der nächste Untersuchungszeitpunkt ist nun <span class="math inline">\(j = \tau - 1\)</span>. Schauen Sie wieder nach, welches <span class="math inline">\(\tau'\)</span> zu den minimalen Kosten <span class="math inline">\(f_{\tau-1}\)</span> geführt hat. Das ist Ihr vorletztes Los.</li>
+<li>Wiederholen Sie dies, bis Sie bei <span class="math inline">\(j=0\)</span> angekommen sind.</li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+<div id="d0aae40b" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-stdout">
+<pre><code>1. Berechnung der Kostenmatrix c_tau,j:
+
+Produktion in Periode tau=1:
+  Bedarf bis Periode j=1: Lagerkosten=0, Gesamtkosten c_1,1 = 250
+  Bedarf bis Periode j=2: Lagerkosten=100, Gesamtkosten c_1,2 = 350
+  Bedarf bis Periode j=3: Lagerkosten=180, Gesamtkosten c_1,3 = 430
+  Bedarf bis Periode j=4: Lagerkosten=600, Gesamtkosten c_1,4 = 850
+  Bedarf bis Periode j=5: Lagerkosten=1240, Gesamtkosten c_1,5 = 1490
+  Bedarf bis Periode j=6: Lagerkosten=1640, Gesamtkosten c_1,6 = 1890
+
+Produktion in Periode tau=2:
+  Bedarf bis Periode j=2: Lagerkosten=0, Gesamtkosten c_2,2 = 250
+  Bedarf bis Periode j=3: Lagerkosten=40, Gesamtkosten c_2,3 = 290
+  Bedarf bis Periode j=4: Lagerkosten=320, Gesamtkosten c_2,4 = 570
+  Bedarf bis Periode j=5: Lagerkosten=800, Gesamtkosten c_2,5 = 1050
+  Bedarf bis Periode j=6: Lagerkosten=1120, Gesamtkosten c_2,6 = 1370
+
+Produktion in Periode tau=3:
+  Bedarf bis Periode j=3: Lagerkosten=0, Gesamtkosten c_3,3 = 250
+  Bedarf bis Periode j=4: Lagerkosten=140, Gesamtkosten c_3,4 = 390
+  Bedarf bis Periode j=5: Lagerkosten=460, Gesamtkosten c_3,5 = 710
+  Bedarf bis Periode j=6: Lagerkosten=700, Gesamtkosten c_3,6 = 950
+
+Produktion in Periode tau=4:
+  Bedarf bis Periode j=4: Lagerkosten=0, Gesamtkosten c_4,4 = 250
+  Bedarf bis Periode j=5: Lagerkosten=160, Gesamtkosten c_4,5 = 410
+  Bedarf bis Periode j=6: Lagerkosten=320, Gesamtkosten c_4,6 = 570
+
+Produktion in Periode tau=5:
+  Bedarf bis Periode j=5: Lagerkosten=0, Gesamtkosten c_5,5 = 250
+  Bedarf bis Periode j=6: Lagerkosten=80, Gesamtkosten c_5,6 = 330
+
+Produktion in Periode tau=6:
+  Bedarf bis Periode j=6: Lagerkosten=0, Gesamtkosten c_6,6 = 250
+
+Kostenmatrix c_τj:
+       j=1    j=2    j=3    j=4     j=5     j=6
+τ=1  250.0  350.0  430.0  850.0  1490.0  1890.0
+τ=2    inf  250.0  290.0  570.0  1050.0  1370.0
+τ=3    inf    inf  250.0  390.0   710.0   950.0
+τ=4    inf    inf    inf  250.0   410.0   570.0
+τ=5    inf    inf    inf    inf   250.0   330.0
+τ=6    inf    inf    inf    inf     inf   250.0
+
+2. Anwendung des Wagner-Whitin-Algorithmus:
+
+Berechne minimale Kosten f_1:
+  Option: Letztes Los in tau=1 für Bedarf bis 1. Kosten = f_0 + c_1,1 = 0 + 250 = 250
+-&gt; Minimale Kosten f_1 = 250 (letztes Los in Periode 1)
+
+Berechne minimale Kosten f_2:
+  Option: Letztes Los in tau=1 für Bedarf bis 2. Kosten = f_0 + c_1,2 = 0 + 350 = 350
+  Option: Letztes Los in tau=2 für Bedarf bis 2. Kosten = f_1 + c_2,2 = 250 + 250 = 500
+-&gt; Minimale Kosten f_2 = 350 (letztes Los in Periode 1)
+
+Berechne minimale Kosten f_3:
+  Option: Letztes Los in tau=1 für Bedarf bis 3. Kosten = f_0 + c_1,3 = 0 + 430 = 430
+  Option: Letztes Los in tau=2 für Bedarf bis 3. Kosten = f_1 + c_2,3 = 250 + 290 = 540
+  Option: Letztes Los in tau=3 für Bedarf bis 3. Kosten = f_2 + c_3,3 = 350 + 250 = 600
+-&gt; Minimale Kosten f_3 = 430 (letztes Los in Periode 1)
+
+Berechne minimale Kosten f_4:
+  Option: Letztes Los in tau=1 für Bedarf bis 4. Kosten = f_0 + c_1,4 = 0 + 850 = 850
+  Option: Letztes Los in tau=2 für Bedarf bis 4. Kosten = f_1 + c_2,4 = 250 + 570 = 820
+  Option: Letztes Los in tau=3 für Bedarf bis 4. Kosten = f_2 + c_3,4 = 350 + 390 = 740
+  Option: Letztes Los in tau=4 für Bedarf bis 4. Kosten = f_3 + c_4,4 = 430 + 250 = 680
+-&gt; Minimale Kosten f_4 = 680 (letztes Los in Periode 4)
+
+Berechne minimale Kosten f_5:
+  Option: Letztes Los in tau=1 für Bedarf bis 5. Kosten = f_0 + c_1,5 = 0 + 1490 = 1490
+  Option: Letztes Los in tau=2 für Bedarf bis 5. Kosten = f_1 + c_2,5 = 250 + 1050 = 1300
+  Option: Letztes Los in tau=3 für Bedarf bis 5. Kosten = f_2 + c_3,5 = 350 + 710 = 1060
+  Option: Letztes Los in tau=4 für Bedarf bis 5. Kosten = f_3 + c_4,5 = 430 + 410 = 840
+  Option: Letztes Los in tau=5 für Bedarf bis 5. Kosten = f_4 + c_5,5 = 680 + 250 = 930
+-&gt; Minimale Kosten f_5 = 840 (letztes Los in Periode 4)
+
+Berechne minimale Kosten f_6:
+  Option: Letztes Los in tau=1 für Bedarf bis 6. Kosten = f_0 + c_1,6 = 0 + 1890 = 1890
+  Option: Letztes Los in tau=2 für Bedarf bis 6. Kosten = f_1 + c_2,6 = 250 + 1370 = 1620
+  Option: Letztes Los in tau=3 für Bedarf bis 6. Kosten = f_2 + c_3,6 = 350 + 950 = 1300
+  Option: Letztes Los in tau=4 für Bedarf bis 6. Kosten = f_3 + c_4,6 = 430 + 570 = 1000
+  Option: Letztes Los in tau=5 für Bedarf bis 6. Kosten = f_4 + c_5,6 = 680 + 330 = 1010
+  Option: Letztes Los in tau=6 für Bedarf bis 6. Kosten = f_5 + c_6,6 = 840 + 250 = 1090
+-&gt; Minimale Kosten f_6 = 1000 (letztes Los in Periode 4)
+
+3. Ableitung des optimalen Produktionsplans (Backtracking):
+  Bedarf bis Woche 6 wird durch Produktion in Woche 4 gedeckt. Losgröße: 190.
+  Bedarf bis Woche 3 wird durch Produktion in Woche 1 gedeckt. Losgröße: 100.
+
+Optimaler Produktionsplan für 'Frühlings-Helles':
+   Produktionswoche  Losgröße
+0                 1       100
+1                 4       190
+
+Minimale Gesamtkosten: 1000 GE</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="mlb-tutorial-02_files/figure-html/cell-2-output-2.png" width="689" height="390" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="aufgabe-2-heuristische-losgrößenplanung" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-2-heuristische-losgrößenplanung">Aufgabe 2: Heuristische Losgrößenplanung</h2>
+<p>Die Geschäftsführung der “Duisburger Perle” ist mit dem optimalen Plan sehr zufrieden, findet das Wagner-Whitin-Verfahren jedoch recht aufwändig für die schnelle, wöchentliche Planung. Ein findiger Braumeister schlägt vor, einfachere Heuristiken zu verwenden, die “ziemlich gute” Ergebnisse liefern, aber schneller zu berechnen sind.</p>
+<p>Sie erhalten den Auftrag, drei gängige Heuristiken auf die Daten aus Aufgabe 1 anzuwenden und die Ergebnisse mit der optimalen Lösung zu vergleichen.</p>
+<p><strong>Daten (wie in Aufgabe 1):</strong></p>
+<ul>
+<li><strong>Rüstkosten (<span class="math inline">\(s\)</span>):</strong> 250 GE</li>
+<li><strong>Lagerkostensatz (<span class="math inline">\(h\)</span>):</strong> 2 GE pro Kasten und Woche</li>
+<li><strong>Wöchentliche Nachfrage (<span class="math inline">\(d_t\)</span>):</strong> <code>[30, 50, 20, 70, 80, 40]</code></li>
+</ul>
+<p><strong>Ihre Aufgaben:</strong></p>
+<ol type="1">
+<li><strong>Stückkostenverfahren (Least-Unit-Cost):</strong> Bilden Sie Lose, indem Sie so lange Periodenbedarfe zusammenfassen, wie die durchschnittlichen Stückkosten des Loses sinken.</li>
+<li><strong>Stückperiodenausgleichsverfahren (Part-Period-Balancing):</strong> Bilden Sie Lose, indem Sie so lange Periodenbedarfe zusammenfassen, wie die kumulierten Lagerkosten des Loses die Rüstkosten nicht übersteigen.</li>
+<li><strong>Silver-Meal-Verfahren:</strong> Bilden Sie Lose, indem Sie so lange Periodenbedarfe zusammenfassen, wie die durchschnittlichen Kosten pro Periode sinken.</li>
+<li><strong>Vergleich:</strong> Stellen Sie die Produktionspläne und Gesamtkosten der drei Heuristiken der optimalen Lösung aus Aufgabe 1 gegenüber. Wie gut schlagen sich die Heuristiken?</li>
+</ol>
+<p><strong>Lösung:</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipps und wichtige Formeln
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Die Heuristiken entscheiden iterativ, wie viele zukünftige Bedarfe in einem Los zusammengefasst werden. Gestartet wird in der ersten Periode mit Bedarf. Man prüft, ob man den Bedarf der nächsten Periode(n) mit aufnimmt.</p>
+<section id="stückkostenverfahren-least-unit-cost-luc" class="level4">
+<h4 class="anchored" data-anchor-id="stückkostenverfahren-least-unit-cost-luc">1. Stückkostenverfahren (Least-Unit-Cost, LUC)</h4>
+<ul>
+<li><strong>Entscheidungsmetrik:</strong> Durchschnittliche Kosten pro Produkteinheit.</li>
+<li><strong>Formel:</strong> <span class="math inline">\(\text{Stückkosten}(k) = \frac{s + \text{kumulierte Lagerkosten für } k \text{ Perioden}}{\text{kumulierter Bedarf für } k \text{ Perioden}}\)</span></li>
+<li><strong>Regel:</strong> Fasse so lange weitere Perioden <span class="math inline">\(k\)</span> in das Los mit auf, wie die Stückkosten sinken. Wenn sie steigen, war die vorherige Zusammenfassung die beste.</li>
+</ul>
+</section>
+<section id="stückperiodenausgleich-part-period-balancing-ppb" class="level4">
+<h4 class="anchored" data-anchor-id="stückperiodenausgleich-part-period-balancing-ppb">2. Stückperiodenausgleich (Part-Period-Balancing, PPB)</h4>
+<ul>
+<li><strong>Grundidee:</strong> Ein Los ist dann “gut”, wenn die anfallenden Lagerkosten die eingesparten Rüstkosten ungefähr ausgleichen.</li>
+<li><strong>Formel:</strong> Vergleiche <code>kumulierte Lagerkosten</code> mit <code>Rüstkosten s</code>.</li>
+<li><strong>Regel:</strong> Fasse so lange weitere Perioden in das Los mit auf, wie die <code>kumulierten Lagerkosten</code> die <code>Rüstkosten s</code> <strong>nicht</strong> übersteigen. Die letzte Periode, für die das gilt, bestimmt die Losgröße.</li>
+</ul>
+</section>
+<section id="silver-meal-verfahren-sm" class="level4">
+<h4 class="anchored" data-anchor-id="silver-meal-verfahren-sm">3. Silver-Meal-Verfahren (SM)</h4>
+<ul>
+<li><strong>Entscheidungsmetrik:</strong> Durchschnittliche Kosten pro Periode (nicht pro Einheit).</li>
+<li><strong>Formel:</strong> <span class="math inline">\(\text{Kosten pro Periode}(k) = \frac{s + \text{kumulierte Lagerkosten für } k \text{ Perioden}}{k}\)</span></li>
+<li><strong>Regel:</strong> Identisch zum Stückkostenverfahren: Fasse so lange weitere Perioden <span class="math inline">\(k\)</span> in das Los mit auf, wie die Kosten pro Periode sinken. Wenn sie steigen, war die vorherige Zusammenfassung die beste.</li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+<div id="ddb1fa2a" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- Starte Stückkostenverfahren ---
+Neues Los startet in Periode 1.
+  Prüfe j=1: Stückkosten = 8.33
+  Prüfe j=2: Stückkosten = 4.38
+  Prüfe j=3: Stückkosten = 4.30
+  Prüfe j=4: Stückkosten = 5.00
+  -&gt; Stückkosten steigt. Wähle vorherige Periode.
+-&gt; Los gebildet: Produktion in 1 für Bedarf bis 3. Größe: 100
+
+Neues Los startet in Periode 4.
+  Prüfe j=4: Stückkosten = 3.57
+  Prüfe j=5: Stückkosten = 2.73
+  Prüfe j=6: Stückkosten = 3.00
+  -&gt; Stückkosten steigt. Wähle vorherige Periode.
+-&gt; Los gebildet: Produktion in 4 für Bedarf bis 5. Größe: 150
+
+Neues Los startet in Periode 6.
+  Prüfe j=6: Stückkosten = 6.25
+-&gt; Los gebildet: Produktion in 6 für Bedarf bis 6. Größe: 40
+
+
+--- Starte Stückperiodenausgleichsverfahren ---
+Neues Los startet in Periode 1.
+  j=1: Kum. Lagerkosten (0) &lt;= Rüstkosten (250). Mache weiter.
+  j=2: Kum. Lagerkosten (100) &lt;= Rüstkosten (250). Mache weiter.
+  j=3: Kum. Lagerkosten (180) &lt;= Rüstkosten (250). Mache weiter.
+  j=4: Kum. Lagerkosten (600) &gt; Rüstkosten (250). Stoppe und wähle j-1.
+-&gt; Los gebildet: Produktion in 1 für Bedarf bis 3. Größe: 100
+
+Neues Los startet in Periode 4.
+  j=4: Kum. Lagerkosten (0) &lt;= Rüstkosten (250). Mache weiter.
+  j=5: Kum. Lagerkosten (160) &lt;= Rüstkosten (250). Mache weiter.
+  j=6: Kum. Lagerkosten (320) &gt; Rüstkosten (250). Stoppe und wähle j-1.
+-&gt; Los gebildet: Produktion in 4 für Bedarf bis 5. Größe: 150
+
+Neues Los startet in Periode 6.
+  j=6: Kum. Lagerkosten (0) &lt;= Rüstkosten (250). Mache weiter.
+-&gt; Los gebildet: Produktion in 6 für Bedarf bis 6. Größe: 40
+
+
+--- Starte Silver-Meal-Verfahren ---
+Neues Los startet in Periode 1.
+  Prüfe j=1: Kosten/Periode = 250.00
+  Prüfe j=2: Kosten/Periode = 175.00
+  Prüfe j=3: Kosten/Periode = 143.33
+  Prüfe j=4: Kosten/Periode = 212.50
+  -&gt; Kosten/Periode steigt. Wähle vorherige Periode.
+-&gt; Los gebildet: Produktion in 1 für Bedarf bis 3. Größe: 100
+
+Neues Los startet in Periode 4.
+  Prüfe j=4: Kosten/Periode = 250.00
+  Prüfe j=5: Kosten/Periode = 205.00
+  Prüfe j=6: Kosten/Periode = 190.00
+-&gt; Los gebildet: Produktion in 4 für Bedarf bis 6. Größe: 190
+
+
+
+--- 4. Vergleich der Ergebnisse ---
+                   Methode  Gesamtkosten (GE)  Abweichung vom Optimum (%)
+0  Optimal (Wagner-Whitin)               1000                         0.0
+1              Stückkosten               1090                         9.0
+2            Stückperioden               1090                         9.0
+3              Silver-Meal               1000                         0.0
+
+Detailansicht der Pläne:
+Optimal:     [{'Produktionswoche': 1, 'Losgröße': 100}, {'Produktionswoche': 4, 'Losgröße': 190}]
+Stückkosten: [{'Produktionswoche': 1, 'Losgröße': 100}, {'Produktionswoche': 4, 'Losgröße': 150}, {'Produktionswoche': 6, 'Losgröße': 40}]
+Stückperioden: [{'Produktionswoche': 1, 'Losgröße': 100}, {'Produktionswoche': 4, 'Losgröße': 150}, {'Produktionswoche': 6, 'Losgröße': 40}]
+Silver-Meal: [{'Produktionswoche': 1, 'Losgröße': 100}, {'Produktionswoche': 4, 'Losgröße': 190}]</code></pre>
+</div>
+</div>
+<p>In diesem Fall finden sowohl das Stückkosten- als auch das Silver-Meal-Verfahren die optimale Lösung. Das Stückperiodenausgleichsverfahren weicht leicht ab und erzeugt etwas höhere Kosten. Dies zeigt, dass Heuristiken sehr gute, aber nicht immer garantiert optimale Ergebnisse liefern. Ihr großer Vorteil liegt in der einfachen und schnellen Anwendbarkeit.</p>
+</section>
+<section id="aufgabe-3-losgrößenplanung-mit-kapazitätsgrenzen-clsp" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-3-losgrößenplanung-mit-kapazitätsgrenzen-clsp">Aufgabe 3: Losgrößenplanung mit Kapazitätsgrenzen (CLSP)</h2>
+<p>Die “Duisburger Perle” stellt fest, dass die Gär- und Lagertanks einen Engpass darstellen. Es kann nicht unbegrenzt viel Bier pro Woche produziert werden. Zusätzlich zum “Frühlings-Hellen” wird nun ein zweites Saisonbier, das “Maibock”, geplant. Beide Biere konkurrieren um die gleiche, begrenzte wöchentliche Kapazität.</p>
+<p><strong>Neue &amp; Gegebene Daten:</strong></p>
+<ul>
+<li><strong>Produkt 1: Frühlings-Helles</strong> (Daten wie gehabt)
+<ul>
+<li>Nachfrage: <code>[30, 50, 20, 70, 80, 40]</code></li>
+<li>Rüstkosten <span class="math inline">\(s_{helles}\)</span>: 250 GE, Lagerkosten <span class="math inline">\(h_{helles}\)</span>: 2 GE</li>
+<li>Kapazitätsbedarf pro Kasten <span class="math inline">\(tb_{helles}\)</span>: 1,0 KE</li>
+<li>Kapazitätsbedarf für Rüstvorgang <span class="math inline">\(tr_{helles}\)</span>: 20 KE</li>
+</ul></li>
+<li><strong>Produkt 2: Maibock</strong> (Neue Daten)
+<ul>
+<li>Nachfrage: <code>[20, 30, 60, 40, 30, 50]</code></li>
+<li>Rüstkosten <span class="math inline">\(s_{bock}\)</span>: 200 GE, Lagerkosten <span class="math inline">\(h_{bock}\)</span>: 2.5 GE</li>
+<li>Kapazitätsbedarf pro Kasten <span class="math inline">\(tb_{bock}\)</span>: 1,2 KE</li>
+<li>Kapazitätsbedarf für Rüstvorgang <span class="math inline">\(tr_{bock}\)</span>: 15 KE</li>
+</ul></li>
+<li><strong>Wöchentliche Gesamtkapazität (<span class="math inline">\(b_t\)</span>):</strong> 150 KE (Kapazitätseinheiten)</li>
+</ul>
+<p><strong>Ihre Aufgaben:</strong></p>
+<ol type="1">
+<li><strong>Unabhängige Planung:</strong> Ermitteln Sie den kostenoptimalen, <em>unkapazitierten</em> Produktionsplan für das neue “Maibock”-Bier mit dem Wagner-Whitin-Algorithmus.</li>
+<li><strong>Kapazitätsprüfung:</strong> Überlagern Sie den optimalen Plan für “Frühlings-Helles” (aus Aufgabe 1) mit dem neuen Plan für “Maibock”. Berechnen Sie für jede Woche die gesamte Kapazitätsauslastung durch Produktion und Rüstvorgänge beider Biersorten. Identifizieren Sie alle Wochen, in denen die Gesamtkapazität von 150 KE überschritten wird.</li>
+<li><strong>Heuristische Anpassung:</strong> Schlagen Sie eine einfache, plausible Anpassung für den kombinierten Produktionsplan vor, um die Kapazitätsverletzungen zu beheben (z.B. durch Vorziehen oder Aufteilen einer Produktion). Berechnen Sie die neuen Gesamtkosten (Summe der Kosten beider Pläne) für Ihren angepassten, kapazitätskonformen Plan.</li>
+<li><strong>Diskussion:</strong> Erläutern Sie kurz, warum das separate Anwenden des Wagner-Whitin-Algorithmus und anschließende Anpassen keine garantiert optimale Lösung für das kapazitierte Problem (CLSP) liefert.</li>
+</ol>
+<p><strong>Lösung:</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipps und wichtige Formeln
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="unkapazitierte-planung-wagner-whitin" class="level4">
+<h4 class="anchored" data-anchor-id="unkapazitierte-planung-wagner-whitin">1. Unkapazitierte Planung (Wagner-Whitin)</h4>
+<ul>
+<li>Dieser Schritt ist identisch zur Aufgabe 1. Sie wenden den Wagner-Whitin-Algorithmus einfach mit den Daten des neuen Produkts (“Maibock”) an, um dessen (isoliert betrachtet) optimalen Produktionsplan zu finden.</li>
+</ul>
+</section>
+<section id="kapazitätsprüfung" class="level4">
+<h4 class="anchored" data-anchor-id="kapazitätsprüfung">2. Kapazitätsprüfung</h4>
+<ul>
+<li>Die Gesamtkapazität in einer Woche <code>t</code> wird durch die Summe aller Produktions- und Rüstaktivitäten in dieser Woche verbraucht.</li>
+<li><strong>Formel:</strong> <span class="math inline">\(\text{Kapazitätsbedarf}_t = (\text{Menge}_{Helles, t} \cdot tb_{Helles} + \text{Setup}_{Helles,t} \cdot tr_{Helles}) + (\text{Menge}_{Bock, t} \cdot tb_{Bock} + \text{Setup}_{Bock, t} \cdot tr_{Bock})\)</span></li>
+<li><code>Setup_{Produkt,t}</code> ist eine binäre Variable: 1, wenn für das Produkt in Woche <code>t</code> produziert (also gerüstet) wird, sonst 0.</li>
+<li>Der berechnete <code>Kapazitätsbedarf_t</code> wird mit dem <code>Kapazitätslimit_t</code> (150 KE) verglichen.</li>
+</ul>
+</section>
+<section id="heuristische-anpassung" class="level4">
+<h4 class="anchored" data-anchor-id="heuristische-anpassung">3. Heuristische Anpassung</h4>
+<ul>
+<li>Hier gibt es keine Standardformel, es geht um eine logische “Reparatur” des Plans.</li>
+<li><strong>Ansätze:</strong>
+<ul>
+<li><strong>Vorziehen:</strong> Kann die Produktion eines Loses, das den Konflikt verursacht, in eine frühere Woche mit freier Kapazität verschoben werden? (Achtung, erhöht Lagerkosten!)</li>
+<li><strong>Aufteilen:</strong> Kann ein großes Los in zwei kleinere aufgeteilt werden, die in unterschiedlichen Wochen produziert werden? (Achtung, verursacht zusätzliche Rüstkosten!)</li>
+</ul></li>
+<li>Ziel ist es, einen zulässigen Plan zu finden und die dadurch entstehenden Mehrkosten zu berechnen.</li>
+</ul>
+</section>
+<section id="diskussion-clsp---capacitated-lot-sizing-problem" class="level4">
+<h4 class="anchored" data-anchor-id="diskussion-clsp---capacitated-lot-sizing-problem">4. Diskussion (CLSP - Capacitated Lot-Sizing Problem)</h4>
+<ul>
+<li>Das Kernproblem ist die <strong>Ressourcenkonkurrenz</strong>. Die Entscheidung, ein großes Los für Produkt A zu produzieren (lokal optimal, um Rüstkosten zu sparen), kann Produkt B die Kapazität “stehlen” und es zu einem teureren Produktionszeitpunkt zwingen.</li>
+<li>Eine <strong>simultane Optimierung</strong> (die sehr komplex ist) würde diesen Trade-off zwischen den Produkten direkt berücksichtigen, anstatt sie getrennt zu betrachten und nachträglich zu reparieren. Die “Reparatur” ist selten der global optimale Weg.</li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+<div id="563515dd" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Optimaler unkapazitierter Plan für Maibock:
+   Produktionswoche  Losgröße
+0                 1        50
+1                 3       100
+2                 5        80
+Minimale Kosten: 900 GE
+
+2. Kapazitätsprüfung des kombinierten unkapazitierten Plans:
+   Prod_Helles  Prod_Bock  Setup_Helles  Setup_Bock  Cap_Used  Cap_Limit  \
+1          100         50             1           1     195.0        150   
+2            0          0             0           0       0.0        150   
+3            0        100             0           1     135.0        150   
+4          190          0             1           0     210.0        150   
+5            0         80             0           1     111.0        150   
+6            0          0             0           0       0.0        150   
+
+   Violation  
+1       True  
+2      False  
+3      False  
+4       True  
+5      False  
+6      False  
+
+-&gt; Kapazitätsverletzung in Woche(n): [1, 4]
+
+3. Heuristische Anpassung:
+Die Analyse zeigt, dass simple Anpassungen (z.B. das Aufteilen eines einzelnen Loses) aufgrund der hohen Kapazitätsauslastung zu neuen Konflikten oder unzulässigem Backlogging führen.
+Eine plausible heuristische Lösung erfordert daher eine umfassende Neuordnung der Produktionslose, um einen kapazitätskonformen Plan zu finden:
+
+Angepasster Plan für Helles:
+   Produktionswoche  Losgröße
+0                 1       100
+1                 2       120
+2                 4        70
+Angepasster Plan für Maibock:
+   Produktionswoche  Losgröße
+0                 3        50
+1                 5       100
+2                 6        80
+
+Kapazitätsprüfung des angepassten Plans:
+   Prod_Helles  Prod_Bock  Setup_Helles  Setup_Bock  Cap_Used  Cap_Limit  \
+1          100          0             1           0     120.0        150   
+2          120          0             1           0     140.0        150   
+3            0         50             0           1      75.0        150   
+4           70          0             1           0      90.0        150   
+5            0        100             0           1     135.0        150   
+6            0         80             0           1     111.0        150   
+
+   Violation  
+1      False  
+2      False  
+3      False  
+4      False  
+5      False  
+6      False  
+
+Ursprüngliche unkapazitierte Kosten: 1900 GE
+Neue Gesamtkosten des zulässigen Plans: 3330 GE
+-&gt; Der angepasste Plan ist nun kapazitätskonform.
+
+4. Diskussion:
+Das Problem bei der separaten Optimierung ist, dass die Entscheidungen für ein Produkt (z.B. ein großes Los zu bilden, um Rüstkosten zu sparen) die verfügbare Kapazität für andere Produkte beeinflussen. Diese Wechselwirkung wird ignoriert. Eine lokal optimale Entscheidung für ein Produkt kann global (für alle Produkte) zu einer sehr schlechten oder sogar unzulässigen Lösung führen. Unsere heuristische Reparatur, die eine komplette Neuordnung der Produktionen vornimmt, macht den Plan zwar zulässig, führt aber zu drastisch höheren Kosten (insbesondere durch hohe Lagerbestände). Es ist sehr unwahrscheinlich, dass dies die kostenoptimale Art ist, das Kapazitätsproblem zu lösen. Ein echter CLSP-Algorithmus müsste Produktions- und Lagerentscheidungen für alle Produkte *gleichzeitig* unter Berücksichtigung der Kapazitätsgrenzen treffen, was das Problem NP-schwer macht.</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/beyondsimulations\.github\.io\/Materiallogistik");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Materiallogistik, Tobias Vlćek<br>CC BY-NC-SA 4.0</p>
+</div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/beyondsimulations/Materiallogistik">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://linkedin.com/in/tobiasvlcek">
+      <i class="bi bi-linkedin" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="mailto:workshop@beyondsimulations.com">
+      <i class="bi bi-envelope" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../general/privacy.html">
+<p>Privacy Policy</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+<script>
+  window.difyChatbotConfig = {
+    token: 'OkOGHTmCFcXes6Jk',
+    baseUrl: 'https://flow.byndsim.com',
+    systemVariables: {
+      // user_id: 'YOU CAN DEFINE USER ID HERE',
+    },
+    containerProps: {
+      style: {
+          backgroundColor: '#ffffff',
+          borderRadius: '0px',
+      },
+    },
+  }
+</script>
+<script src="https://flow.byndsim.com/embed.min.js" id="OkOGHTmCFcXes6Jk" defer="">
+</script>
+<style>
+  #dify-chatbot-bubble-button {
+    background-color: #646B91 !important;
+  }
+  #dify-chatbot-bubble-window {
+    width: 24rem !important;
+    height: 80vh !important;
+    position: fixed !important;
+  }
+</style>
+
+
+
+
+</body></html>

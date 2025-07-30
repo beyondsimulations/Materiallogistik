@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Tobias Vlćek">
+
+<title>Vorlesung 04: Bestandsmanagement – Materiallogistik</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-226bd0f977fa82dfae4534cac220d79a.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ac881602332e3938779ca5fc3517c7d9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script defer="" src="https://umi.byndsim.com/script.js" data-website-id="e230d76b-b0a6-477e-8c5d-19a7bd661e68"></script>
+<style>
+    .cell-output-stdout code {
+      word-break: break-word !important;
+      white-space: pre-wrap !important;
+    }
+</style>  
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-04/mlb-lecture-04_new.html">04 Bestandsmanagement</a></li><li class="breadcrumb-item"><a href="../part-04/mlb-lecture-04_new.html">Vorlesung</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Materiallogistik</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Startseite</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+ <span class="menu-text">***</span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">01 Klassifikation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-01/mlb-lecture-01.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-01/mlb-tutorial-01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">02 CLSP</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-02/mlb-lecture-02.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-02/mlb-tutorial-02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">03 PLSP</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-03/mlb-lecture-03.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-03/mlb-tutorial-03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">04 Bestandsmanagement</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-04/mlb-lecture-04_new.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-04/mlb-tutorial-04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">05 Bestellpolitiken</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-05/mlb-lecture-05_new.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-05/mlb-tutorial-05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">***</span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="true">
+ <span class="menu-text">Zusatzaufgaben</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 01</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 02</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 03</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 04</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 05</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../general/faqs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../general/chat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chat</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#ungewisse-nachfrage" id="toc-ungewisse-nachfrage" class="nav-link active" data-scroll-target="#ungewisse-nachfrage">1. Ungewisse Nachfrage</a></li>
+  <li><a href="#kennzahlen-im-lager" id="toc-kennzahlen-im-lager" class="nav-link" data-scroll-target="#kennzahlen-im-lager">2. Kennzahlen im Lager</a>
+  <ul class="collapse">
+  <li><a href="#beispiel-eine-woche-im-lager" id="toc-beispiel-eine-woche-im-lager" class="nav-link" data-scroll-target="#beispiel-eine-woche-im-lager">Beispiel: Eine Woche im Lager</a></li>
+  </ul></li>
+  <li><a href="#servicegrade" id="toc-servicegrade" class="nav-link" data-scroll-target="#servicegrade">3. Servicegrade</a>
+  <ul class="collapse">
+  <li><a href="#der-alpha-servicegrad-zyklus-servicegrad" id="toc-der-alpha-servicegrad-zyklus-servicegrad" class="nav-link" data-scroll-target="#der-alpha-servicegrad-zyklus-servicegrad">Der <span class="math inline">\(\alpha\)</span>-Servicegrad (Zyklus-Servicegrad)</a></li>
+  <li><a href="#der-beta-servicegrad-mengen-servicegrad-oder-fill-rate" id="toc-der-beta-servicegrad-mengen-servicegrad-oder-fill-rate" class="nav-link" data-scroll-target="#der-beta-servicegrad-mengen-servicegrad-oder-fill-rate">Der <span class="math inline">\(\beta\)</span>-Servicegrad (Mengen-Servicegrad oder “Fill Rate”)</a></li>
+  <li><a href="#der-gamma-servicegrad-zeitbezogener-servicegrad" id="toc-der-gamma-servicegrad-zeitbezogener-servicegrad" class="nav-link" data-scroll-target="#der-gamma-servicegrad-zeitbezogener-servicegrad">Der <span class="math inline">\(\gamma\)</span>-Servicegrad (Zeitbezogener Servicegrad)</a></li>
+  </ul></li>
+  <li><a href="#die-nachfrage-im-risikozeitraum" id="toc-die-nachfrage-im-risikozeitraum" class="nav-link" data-scroll-target="#die-nachfrage-im-risikozeitraum">4. Die Nachfrage im Risikozeitraum</a>
+  <ul class="collapse">
+  <li><a href="#fall-1-nachfrage-ist-normalverteilt" id="toc-fall-1-nachfrage-ist-normalverteilt" class="nav-link" data-scroll-target="#fall-1-nachfrage-ist-normalverteilt">Fall 1: Nachfrage ist normalverteilt</a></li>
+  <li><a href="#fall-2-nachfrage-ist-diskret-faltung" id="toc-fall-2-nachfrage-ist-diskret-faltung" class="nav-link" data-scroll-target="#fall-2-nachfrage-ist-diskret-faltung">Fall 2: Nachfrage ist diskret (Faltung)</a></li>
+  </ul></li>
+  <li><a href="#den-bestellpunkt-s-berechnen" id="toc-den-bestellpunkt-s-berechnen" class="nav-link" data-scroll-target="#den-bestellpunkt-s-berechnen">5. Den Bestellpunkt <span class="math inline">\(s\)</span> berechnen</a>
+  <ul class="collapse">
+  <li><a href="#sicherheitsbestand-bei-normalverteilung" id="toc-sicherheitsbestand-bei-normalverteilung" class="nav-link" data-scroll-target="#sicherheitsbestand-bei-normalverteilung">Sicherheitsbestand bei Normalverteilung</a></li>
+  </ul></li>
+  <li><a href="#wie-groß-ist-die-fehlmenge" id="toc-wie-groß-ist-die-fehlmenge" class="nav-link" data-scroll-target="#wie-groß-ist-die-fehlmenge">6. Wie groß ist die Fehlmenge?</a>
+  <ul class="collapse">
+  <li><a href="#erwartete-fehlmenge-bei-normalverteilung" id="toc-erwartete-fehlmenge-bei-normalverteilung" class="nav-link" data-scroll-target="#erwartete-fehlmenge-bei-normalverteilung">Erwartete Fehlmenge bei Normalverteilung</a></li>
+  <li><a href="#erwartete-fehlmenge-bei-diskreter-verteilung" id="toc-erwartete-fehlmenge-bei-diskreter-verteilung" class="nav-link" data-scroll-target="#erwartete-fehlmenge-bei-diskreter-verteilung">Erwartete Fehlmenge bei diskreter Verteilung</a></li>
+  <li><a href="#den-beta-servicegrad-berechnen" id="toc-den-beta-servicegrad-berechnen" class="nav-link" data-scroll-target="#den-beta-servicegrad-berechnen">Den <span class="math inline">\(\beta\)</span>-Servicegrad berechnen</a></li>
+  </ul></li>
+  <li><a href="#erweiterte-service-perspektiven" id="toc-erweiterte-service-perspektiven" class="nav-link" data-scroll-target="#erweiterte-service-perspektiven">7. Erweiterte Service-Perspektiven</a>
+  <ul class="collapse">
+  <li><a href="#kundenpriorisierung" id="toc-kundenpriorisierung" class="nav-link" data-scroll-target="#kundenpriorisierung">Kundenpriorisierung</a></li>
+  <li><a href="#die-kundenwartezeit-reichweite-und-lieferunfähigkeit" id="toc-die-kundenwartezeit-reichweite-und-lieferunfähigkeit" class="nav-link" data-scroll-target="#die-kundenwartezeit-reichweite-und-lieferunfähigkeit">Die Kundenwartezeit: Reichweite und Lieferunfähigkeit</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="lecture-presentation.html"><i class="bi bi-file-slides"></i>RevealJS</a></li><li><a href="mlb-lecture-04_new.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-04/mlb-lecture-04_new.html">04 Bestandsmanagement</a></li><li class="breadcrumb-item"><a href="../part-04/mlb-lecture-04_new.html">Vorlesung</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Vorlesung 04: Bestandsmanagement</h1>
+<p class="subtitle lead">Wann bestellen und wie viel auf Lager halten bei ungewisser Nachfrage?</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Tobias Vlćek </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="ungewisse-nachfrage" class="level2">
+<h2 class="anchored" data-anchor-id="ungewisse-nachfrage">1. Ungewisse Nachfrage</h2>
+<p>Stellen wir uns vor, wir betreiben einen Online-Shop für ein beliebtes Produkt, zum Beispiel hochwertige Kaffeebohnen. Jeden Tag bestellen Kunden bei uns, aber wir wissen nie genau, wie viele es sein werden. Mal sind es 10 Beutel, mal 30.</p>
+<p>Das bringt uns in ein klassisches Dilemma:</p>
+<ul>
+<li><strong>Zu viel auf Lager?</strong> Wir binden Kapital, das wir anderswo nutzen könnten, und riskieren, dass die Bohnen an Aroma verlieren. Das sind <strong>Lagerhaltungskosten</strong>.</li>
+<li><strong>Zu wenig auf Lager?</strong> Kunden wollen bestellen, aber das Produkt ist ausverkauft. Wir sind unzufrieden, gehen zur Konkurrenz und kommen vielleicht nie wieder. Das sind <strong>Fehlmengenkosten</strong>.</li>
+</ul>
+<p>Im Gegensatz zu den bisherigen Vorlesungen, haben wir dieses mal eine ungewisse Nachfrage! Die zwei zentralen Fragen sind:</p>
+<ul>
+<li><strong>Wann</strong> sollen wir eine neue Lieferung bei unserem Kaffeeröster bestellen?</li>
+<li><strong>Wie viel</strong> sollen wir dann bestellen?</li>
+</ul>
+</section>
+<section id="kennzahlen-im-lager" class="level2">
+<h2 class="anchored" data-anchor-id="kennzahlen-im-lager">2. Kennzahlen im Lager</h2>
+<p>Um unser Lager gut zu steuern, müssen wir die Bestände präzise erfassen. Es gibt verschiedene Arten von Beständen, die wir unterscheiden müssen.</p>
+<ul>
+<li><strong>Physischer Bestand (<span class="math inline">\(I^P\)</span>):</strong> Das ist die Menge, die wir tatsächlich in unserem Regal zählen können.</li>
+<li><strong>Bestellbestand (<span class="math inline">\(I^O\)</span>):</strong> Das ist die Menge, die wir bereits bestellt haben, die aber noch nicht geliefert wurde. Man nennt dies auch “offene Bestellungen”.</li>
+<li><strong>Fehlbestand (<span class="math inline">\(I^B\)</span>):</strong> Die Menge, die von Kunden nachgefragt wurde, die wir aber nicht liefern konnten, weil unser Lager leer war. Diese Kunden warten noch auf ihre Lieferung.</li>
+</ul>
+<p>Die wichtigste Kennzahl für unsere Bestellentscheidung ist der <strong>Disponibler Bestand (<span class="math inline">\(I^D\)</span>)</strong>, auch “Bestandsposition” genannt. Er gibt an, wie viel Ware uns <em>insgesamt</em> zur Verfügung steht, um zukünftige Nachfragen zu decken.</p>
+<p><span class="math display">\[
+I^D = \text{Physischer Bestand} + \text{Bestellbestand} - \text{Fehlbestand}
+\]</span> <span class="math display">\[
+I^D = I^P + I^O - I^B
+\]</span></p>
+<p>Warum ist diese Zahl so wichtig? Weil sie die <em>gesamte</em> Versorgungslage berücksichtigt. Eine Bestellung auszulösen, nur weil der physische Bestand niedrig ist, wäre ein Fehler, wenn bereits eine große Lieferung unterwegs ist.</p>
+<section id="beispiel-eine-woche-im-lager" class="level3">
+<h3 class="anchored" data-anchor-id="beispiel-eine-woche-im-lager">Beispiel: Eine Woche im Lager</h3>
+<p>Schauen wir uns an, wie sich diese Zahlen im Zeitverlauf ändern. Wir verwenden eine <strong>(s, q)-Politik</strong>.</p>
+<ul>
+<li><strong>Bestellpunkt (s):</strong> Wenn der <em>disponible Bestand</em> auf <strong>s</strong> oder darunter fällt, wird eine neue Bestellung ausgelöst.</li>
+<li><strong>Bestellmenge (q):</strong> Es wird immer eine feste Menge von <strong>q</strong> Stück bestellt.</li>
+<li><strong>Wiederbeschaffungszeit (L):</strong> Es dauert <strong>L</strong> Zeiteinheiten (z.B. Wochen), bis eine Bestellung ankommt.</li>
+</ul>
+<p><strong>Szenario:</strong></p>
+<ul>
+<li><span class="math inline">\(s=100\)</span>, <span class="math inline">\(q=250\)</span>, <span class="math inline">\(L=3\)</span> Wochen.</li>
+<li>Start in Woche 0 mit <span class="math inline">\(I^P_0 = 120\)</span>, <span class="math inline">\(I^O_0 = 0\)</span>, <span class="math inline">\(I^B_0 = 0\)</span>.</li>
+<li>Daraus folgt: <span class="math inline">\(I^D_0 = 120 + 0 - 0 = 120\)</span>.</li>
+</ul>
+<p><strong>Ablauf innerhalb einer Woche:</strong></p>
+<ol type="1">
+<li><strong>Wareneingang:</strong> Zu Beginn der Woche treffen eventuell alte Bestellungen ein.</li>
+<li><strong>Nachfrage:</strong> Kunden bestellen, was den Bestand reduziert.</li>
+<li><strong>Bestellentscheidung:</strong> Am Ende der Woche prüfen wir den disponiblen Bestand und bestellen bei Bedarf.</li>
+</ol>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 14%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Woche</th>
+<th style="text-align: left;">Ereignisse</th>
+<th style="text-align: center;"><span class="math inline">\(d_t\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(I^P\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(I^O\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(I^B\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(I^D\)</span></th>
+<th style="text-align: left;">Kommentar</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>0</strong></td>
+<td style="text-align: left;"><strong>Start</strong></td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">120</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><strong>120</strong></td>
+<td style="text-align: left;">Anfangszustand. <span class="math inline">\(I^D &gt; s\)</span>, keine Bestellung.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>1</strong></td>
+<td style="text-align: left;">Nachfrage</td>
+<td style="text-align: center;">30</td>
+<td style="text-align: center;">90</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><strong>90</strong></td>
+<td style="text-align: left;"><span class="math inline">\(I^P\)</span> sinkt. <span class="math inline">\(I^D = 120 - 30 = 90\)</span>. <span class="math inline">\(I^D &lt; s\)</span>, also Bestellung!</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: left;"><strong>Bestellung</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">90</td>
+<td style="text-align: center;">250</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><strong>340</strong></td>
+<td style="text-align: left;">Bestellung über 250 Stück wird ausgelöst. <span class="math inline">\(I^O\)</span> steigt. <span class="math inline">\(I^D\)</span> steigt <em>sofort</em> um 250.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>2</strong></td>
+<td style="text-align: left;">Nachfrage</td>
+<td style="text-align: center;">40</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">250</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><strong>300</strong></td>
+<td style="text-align: left;"><span class="math inline">\(I^P\)</span> sinkt. <span class="math inline">\(I^D = 340 - 40 = 300\)</span>. <span class="math inline">\(I^D &gt; s\)</span>, keine neue Bestellung.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: left;">Nachfrage</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">250</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><strong>250</strong></td>
+<td style="text-align: left;"><span class="math inline">\(I^P\)</span> sinkt auf 0. <span class="math inline">\(I^D = 300 - 50 = 250\)</span>. <span class="math inline">\(I^D &gt; s\)</span>, keine neue Bestellung.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>4</strong></td>
+<td style="text-align: left;"><strong>Wareneingang</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">250</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><strong>250</strong></td>
+<td style="text-align: left;">Die Bestellung aus Woche 1 (vor <span class="math inline">\(L=3\)</span> Wochen) trifft ein!</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Nachfrage</td>
+<td style="text-align: center;">45</td>
+<td style="text-align: center;">205</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><strong>205</strong></td>
+<td style="text-align: left;"><span class="math inline">\(I^P\)</span> sinkt. <span class="math inline">\(I^D = 250 - 45 = 205\)</span>. <span class="math inline">\(I^D &gt; s\)</span>, keine neue Bestellung.</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="servicegrade" class="level2">
+<h2 class="anchored" data-anchor-id="servicegrade">3. Servicegrade</h2>
+<section id="der-alpha-servicegrad-zyklus-servicegrad" class="level3">
+<h3 class="anchored" data-anchor-id="der-alpha-servicegrad-zyklus-servicegrad">Der <span class="math inline">\(\alpha\)</span>-Servicegrad (Zyklus-Servicegrad)</h3>
+<blockquote class="blockquote">
+<p><strong>Frage:</strong> “Wie hoch ist die Wahrscheinlichkeit, dass wir in einem Bestellzyklus <em>keinen</em> Fehlbestand haben?”</p>
+</blockquote>
+<p>Ein <span class="math inline">\(\alpha\)</span>-Servicegrad von 99% bedeutet, dass in 99 von 100 Bestellzyklen (die Zeit zwischen zwei Bestellungen) die Nachfrage vollständig aus dem Lager bedient werden kann. Er fokussiert auf das <em>Ereignis</em> eines Fehlbestands.</p>
+<p>Formelhaft ausgedrückt ist der <span class="math inline">\(\alpha\)</span>-Servicegrad<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> die Wahrscheinlichkeit, dass die Nachfrage im Risikozeitraum (<span class="math inline">\(Y_L\)</span>) den Bestellpunkt (<span class="math inline">\(s\)</span>) nicht übersteigt: <span class="math display">\[
+\alpha = P(Y_L \le s)
+\]</span></p>
+</section>
+<section id="der-beta-servicegrad-mengen-servicegrad-oder-fill-rate" class="level3">
+<h3 class="anchored" data-anchor-id="der-beta-servicegrad-mengen-servicegrad-oder-fill-rate">Der <span class="math inline">\(\beta\)</span>-Servicegrad (Mengen-Servicegrad oder “Fill Rate”)</h3>
+<blockquote class="blockquote">
+<p><strong>Frage:</strong> “Welchen prozentualen Anteil der gesamten Nachfrage können wir direkt aus dem Lager bedienen?”</p>
+</blockquote>
+<p>Ein <span class="math inline">\(\beta\)</span>-Servicegrad von 99% bedeutet, dass 99 von 100 nachgefragten Einheiten sofort geliefert werden können. Er fokussiert auf die <em>Menge</em> der nicht gelieferten Einheiten.</p>
+<p>Er wird berechnet, indem man die erwartete Fehlmenge pro Zyklus (<span class="math inline">\(E(B)\)</span>) ins Verhältnis zur Bestellmenge (<span class="math inline">\(q\)</span>) setzt: <span class="math display">\[
+\beta = 1 - \frac{E(B)}{q}
+\]</span></p>
+</section>
+<section id="der-gamma-servicegrad-zeitbezogener-servicegrad" class="level3">
+<h3 class="anchored" data-anchor-id="der-gamma-servicegrad-zeitbezogener-servicegrad">Der <span class="math inline">\(\gamma\)</span>-Servicegrad (Zeitbezogener Servicegrad)</h3>
+<blockquote class="blockquote">
+<p><strong>Frage:</strong> “Wie viel Prozent der Zeit ist unser Produkt tatsächlich auf Lager und verfügbar?”</p>
+</blockquote>
+<p>Dieser Servicegrad betrachtet das Problem aus einer zeitlichen Perspektive. Ein <span class="math inline">\(\gamma\)</span>-Servicegrad von 99% bedeutet, dass an 99 von 100 Tagen ein Kunde, der unseren Shop besucht, das Produkt in den Warenkorb legen könnte. Er fokussiert sich auf die <em>permanente Verfügbarkeit</em>.</p>
+<p>Konzeptionell lässt er sich so darstellen: <span class="math display">\[
+\gamma \approx \frac{\text{Zeit mit positivem Lagerbestand}}{\text{Gesamtzeit}}
+\]</span> Die exakte Berechnung ist aufwändiger, aber das Ziel ist einfach die Minimierung der Zeitfenster, in denen Kunden ein leeres Regal vorfinden.</p>
+<p><strong>Zusammenfassend:</strong></p>
+<ul>
+<li><strong><span class="math inline">\(\alpha\)</span></strong>: Vermeiden des <em>Ereignisses</em> “Fehlbestand”.</li>
+<li><strong><span class="math inline">\(\beta\)</span></strong>: Minimieren der <em>Menge</em> nicht gelieferter Einheiten.</li>
+<li><strong><span class="math inline">\(\gamma\)</span></strong>: Maximieren der <em>Zeitspanne</em> der Lieferfähigkeit.</li>
+</ul>
+</section>
+</section>
+<section id="die-nachfrage-im-risikozeitraum" class="level2">
+<h2 class="anchored" data-anchor-id="die-nachfrage-im-risikozeitraum">4. Die Nachfrage im Risikozeitraum</h2>
+<p>Der kritischste Moment für jedes Lager ist die <strong>Wiederbeschaffungszeit (WBZ)</strong>, auch <strong>Risikozeitraum</strong> genannt. Das ist die Zeitspanne <span class="math inline">\(L\)</span> zwischen dem Absenden einer Bestellung und dem Eintreffen der Ware. In dieser Zeit können wir nicht auf unvorhergesehen hohe Nachfrage reagieren – unser Lager ist auf sich allein gestellt.</p>
+<p>Um unseren Bestellpunkt <span class="math inline">\(s\)</span> festzulegen, müssen wir die Nachfrage während dieses Risikozeitraums (<span class="math inline">\(Y_L\)</span>) modellieren.</p>
+<section id="fall-1-nachfrage-ist-normalverteilt" class="level3">
+<h3 class="anchored" data-anchor-id="fall-1-nachfrage-ist-normalverteilt">Fall 1: Nachfrage ist normalverteilt</h3>
+<p>Sehr oft kann die Summe vieler kleiner, zufälliger Nachfragen durch eine Normalverteilung (Glockenkurve) angenähert werden.</p>
+<p>Angenommen, die wöchentliche Nachfrage hat einen Mittelwert <span class="math inline">\(\mu_d\)</span> und eine Standardabweichung <span class="math inline">\(\sigma_d\)</span>. Für eine WBZ von <span class="math inline">\(L\)</span> Wochen gilt dann für die Gesamtnachfrage <span class="math inline">\(Y_L\)</span>:</p>
+<ul>
+<li><strong>Erwartete Nachfrage während der WBZ:</strong> <span class="math inline">\(\mu_L = L \cdot \mu_d\)</span></li>
+<li><strong>Standardabweichung der Nachfrage während der WBZ:</strong> <span class="math inline">\(\sigma_L = \sqrt{L} \cdot \sigma_d\)</span></li>
+</ul>
+<p><strong>Beispiel:</strong></p>
+<ul>
+<li>Wöchentliche Nachfrage <span class="math inline">\(\mu_d = 50\)</span>, <span class="math inline">\(\sigma_d = 15\)</span>.</li>
+<li>WBZ <span class="math inline">\(L=4\)</span> Wochen.</li>
+</ul>
+<p>Daraus folgt:</p>
+<ul>
+<li><span class="math inline">\(\mu_L = 4 \cdot 50 = 200\)</span> Stück</li>
+<li><span class="math inline">\(\sigma_L = \sqrt{4} \cdot 15 = 2 \cdot 15 = 30\)</span> Stück</li>
+</ul>
+<p>Wir erwarten also, in den 4 Wochen 200 Stück zu verkaufen, mit einer Unsicherheit von <span class="math inline">\(\sigma_L = 30\)</span>.</p>
+</section>
+<section id="fall-2-nachfrage-ist-diskret-faltung" class="level3">
+<h3 class="anchored" data-anchor-id="fall-2-nachfrage-ist-diskret-faltung">Fall 2: Nachfrage ist diskret (Faltung)</h3>
+<p>Manchmal ist die Nachfrage klein und diskret. Zum Beispiel verkauft ein Kiosk pro Tag 0, 1 oder 2 Flaschen einer speziellen Limonade. Wie ermittelt man die Nachfrageverteilung für eine WBZ von 2 Tagen? Wir müssen alle Möglichkeiten kombinieren. Diesen Prozess nennt man <strong>Faltung</strong>.</p>
+<p><strong>Beispiel:</strong></p>
+<ul>
+<li>Tägliche Nachfrage <span class="math inline">\(D\)</span>: <span class="math inline">\(P(D=0)=0.2\)</span>, <span class="math inline">\(P(D=1)=0.6\)</span>, <span class="math inline">\(P(D=2)=0.2\)</span>.</li>
+<li>WBZ <span class="math inline">\(L=2\)</span> Tage.</li>
+</ul>
+<p>Wir wollen die Verteilung für <span class="math inline">\(Y_2 = D_1 + D_2\)</span> finden, wobei <span class="math inline">\(D_1\)</span> die Nachfrage an Tag 1 und <span class="math inline">\(D_2\)</span> die an Tag 2 ist.</p>
+<ul>
+<li><strong><span class="math inline">\(P(Y_2 = 0)\)</span>:</strong> Geht nur mit (0, 0) <span class="math inline">\(\implies 0.2 \cdot 0.2 = 0.04\)</span></li>
+<li><strong><span class="math inline">\(P(Y_2 = 1)\)</span>:</strong> Geht mit (0, 1) und (1, 0) <span class="math inline">\(\implies (0.2 \cdot 0.6) + (0.6 \cdot 0.2) = 0.24\)</span></li>
+<li><strong><span class="math inline">\(P(Y_2 = 2)\)</span>:</strong> Geht mit (0, 2), (1, 1), (2, 0) <span class="math inline">\(\implies (0.2 \cdot 0.2) + (0.6 \cdot 0.6) + (0.2 \cdot 0.2) = 0.44\)</span></li>
+<li><strong><span class="math inline">\(P(Y_2 = 3)\)</span>:</strong> Geht mit (1, 2) und (2, 1) <span class="math inline">\(\implies (0.6 \cdot 0.2) + (0.2 \cdot 0.6) = 0.24\)</span></li>
+<li><strong><span class="math inline">\(P(Y_2 = 4)\)</span>:</strong> Geht nur mit (2, 2) <span class="math inline">\(\implies 0.2 \cdot 0.2 = 0.04\)</span></li>
+</ul>
+<p>Die Verteilung für die Gesamtnachfrage über 2 Tage ist also:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"><span class="math inline">\(Y_2\)</span></th>
+<th style="text-align: left;">0</th>
+<th style="text-align: left;">1</th>
+<th style="text-align: left;">2</th>
+<th style="text-align: left;">3</th>
+<th style="text-align: left;">4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">P(<span class="math inline">\(Y_2\)</span>)</td>
+<td style="text-align: left;">0.04</td>
+<td style="text-align: left;">0.24</td>
+<td style="text-align: left;">0.44</td>
+<td style="text-align: left;">0.24</td>
+<td style="text-align: left;">0.04</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="den-bestellpunkt-s-berechnen" class="level2">
+<h2 class="anchored" data-anchor-id="den-bestellpunkt-s-berechnen">5. Den Bestellpunkt <span class="math inline">\(s\)</span> berechnen</h2>
+<p>Der Bestellpunkt <span class="math inline">\(s\)</span> muss so hoch sein, dass er die Nachfrage während der Wiederbeschaffungszeit mit hoher Wahrscheinlichkeit decken kann. Er besteht aus zwei Teilen:</p>
+<p><span class="math display">\[
+s = (\text{Erwartete Nachfrage während WBZ}) + (\text{Sicherheitspuffer})
+\]</span> <span class="math display">\[
+s = \mu_L + \text{Sicherheitsbestand (SS)}
+\]</span></p>
+<p>Der <strong>Sicherheitsbestand (SS)</strong> ist der zusätzliche Vorrat, den wir nur für den Fall halten, dass die Nachfrage höher als erwartet ausfällt. Seine Höhe hängt direkt von unserem gewünschten Servicegrad ab.</p>
+<section id="sicherheitsbestand-bei-normalverteilung" class="level3">
+<h3 class="anchored" data-anchor-id="sicherheitsbestand-bei-normalverteilung">Sicherheitsbestand bei Normalverteilung</h3>
+<p>Bei normalverteilter Nachfrage lässt sich der Bestellpunkt direkt mit einer Formel berechnen, die den Sicherheitsbestand bereits enthält:</p>
+<p><span class="math display">\[
+s = \mu_L + z \cdot \sigma_L
+\]</span></p>
+<p>Hierbei ist:</p>
+<ul>
+<li><span class="math inline">\(\mu_L\)</span> der Erwartungswert und <span class="math inline">\(\sigma_L\)</span> die Standardabweichung der Nachfrage während der WBZ.</li>
+<li><strong>z</strong> ist der <strong>Sicherheitsfaktor</strong>. Er ist ein Wert aus der Standardnormalverteilung, der direkt von unserem gewünschten <span class="math inline">\(\alpha\)</span>-Servicegrad abhängt.</li>
+<li>Der Teil <span class="math inline">\(z \cdot \sigma_L\)</span> ist der <strong>Sicherheitsbestand (SS)</strong>.</li>
+</ul>
+<p>Je höher der Servicegrad, desto größer der z-Wert und desto mehr Sicherheitsbestand halten wir. <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 11%">
+<col style="width: 59%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><span class="math inline">\(\alpha\)</span>-Servicegrad</th>
+<th style="text-align: center;">z-Wert</th>
+<th style="text-align: left;">Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">50%</td>
+<td style="text-align: center;">0.000</td>
+<td style="text-align: left;">Exakt der Erwartungswert (kein Puffer).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">55%</td>
+<td style="text-align: center;">0.126</td>
+<td style="text-align: left;">0.126 Standardabweichungen als Puffer.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">60%</td>
+<td style="text-align: center;">0.253</td>
+<td style="text-align: left;">0.253 Standardabweichungen als Puffer.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">65%</td>
+<td style="text-align: center;">0.385</td>
+<td style="text-align: left;">0.385 Standardabweichungen als Puffer.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">70%</td>
+<td style="text-align: center;">0.524</td>
+<td style="text-align: left;">0.524 Standardabweichungen als Puffer.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">75%</td>
+<td style="text-align: center;">0.674</td>
+<td style="text-align: left;">0.674 Standardabweichungen als Puffer.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">80%</td>
+<td style="text-align: center;">0.842</td>
+<td style="text-align: left;">0.842 Standardabweichungen als Puffer.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">85%</td>
+<td style="text-align: center;">1.036</td>
+<td style="text-align: left;">1.036 Standardabweichungen als Puffer.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">90%</td>
+<td style="text-align: center;">1.282</td>
+<td style="text-align: left;">1.282 Standardabweichungen als Puffer.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">95%</td>
+<td style="text-align: center;">1.645</td>
+<td style="text-align: left;">1.645 Standardabweichungen als Puffer.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">99%</td>
+<td style="text-align: center;">2.326</td>
+<td style="text-align: left;">2.326 Standardabweichungen als Puffer.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Beispiel (Fortsetzung von Fall 1):</strong></p>
+<ul>
+<li><span class="math inline">\(\mu_L = 200\)</span>, <span class="math inline">\(\sigma_L = 30\)</span>.</li>
+<li>Wir streben einen <span class="math inline">\(\alpha\)</span>-Servicegrad von 99% an.</li>
+</ul>
+<ol type="1">
+<li><strong>z-Wert finden:</strong> Für <span class="math inline">\(\alpha=99\%\)</span> ist <span class="math inline">\(z \approx 2.326\)</span>.</li>
+<li><strong>Sicherheitsbestand berechnen:</strong> <span class="math inline">\(SS = 2.326 \cdot 30 \approx 69.78 \approx 70\)</span> Stück.</li>
+<li><strong>Bestellpunkt berechnen:</strong> <span class="math inline">\(s = \mu_L + SS = 200 + 70 = 270\)</span> Stück.</li>
+</ol>
+<p>Wir würden also immer dann eine neue Bestellung auslösen, wenn unser verfügbarer Bestand auf 270 Stück sinkt.</p>
+</section>
+</section>
+<section id="wie-groß-ist-die-fehlmenge" class="level2">
+<h2 class="anchored" data-anchor-id="wie-groß-ist-die-fehlmenge">6. Wie groß ist die Fehlmenge?</h2>
+<p>Wir wissen nun, <em>wie wahrscheinlich</em> ein Fehlbestand ist (<span class="math inline">\(\alpha\)</span>-Servicegrad).</p>
+<ul>
+<li>Aber <em>wie viele Einheiten fehlen uns im Durchschnitt</em>, wenn es zu einem Fehlbestand kommt?</li>
+<li>Das ist die <strong>erwartete Fehlmenge pro Zyklus</strong>, <span class="math inline">\(E(B)\)</span>.</li>
+</ul>
+<section id="erwartete-fehlmenge-bei-normalverteilung" class="level3">
+<h3 class="anchored" data-anchor-id="erwartete-fehlmenge-bei-normalverteilung">Erwartete Fehlmenge bei Normalverteilung</h3>
+<p>Hier können wir die sogenannte <strong>Einheiten-Verlustfunktion</strong> <span class="math inline">\(G_u(z)\)</span> verwenden:</p>
+<p><span class="math display">\[
+E(B) = \sigma_L \cdot G_u(z)
+\]</span></p>
+<p>Der Wert für <span class="math inline">\(G_u(z)\)</span> hängt nur vom Sicherheitsfaktor <span class="math inline">\(z\)</span> ab. <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">z-Wert</th>
+<th style="text-align: left;"><span class="math inline">\(G_u(z)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1.282</td>
+<td style="text-align: left;">0.047</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1.645</td>
+<td style="text-align: left;">0.021</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2.326</td>
+<td style="text-align: left;">0.003</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Beispiel (Fortsetzung von Fall 1):</strong> <span class="math inline">\(z=2.326\)</span>, <span class="math inline">\(\sigma_L=30\)</span>.</p>
+<ul>
+<li><span class="math inline">\(E(B) = 30 \cdot G_u(2.326) = 30 \cdot 0.003 = 0.09\)</span> Stück.</li>
+<li>Da unser Servicegrad hier sehr hoch ist, erwarten wir im Durchschnitt (über viele Zyklen) nur eine kleine Fehlmenge von 0.09 Stück pro Zyklus.</li>
+</ul>
+</section>
+<section id="erwartete-fehlmenge-bei-diskreter-verteilung" class="level3">
+<h3 class="anchored" data-anchor-id="erwartete-fehlmenge-bei-diskreter-verteilung">Erwartete Fehlmenge bei diskreter Verteilung</h3>
+<p>Hier berechnen wir den Erwartungswert direkt, indem wir alle möglichen Fehlmengen mit ihrer Wahrscheinlichkeit gewichten:</p>
+<p><span class="math display">\[
+E(B) = \sum_{\text{alle } y} \max(0, y - s) \cdot P(Y_L=y)
+\]</span></p>
+<p><strong>Beispiel (Limonaden-Kiosk, unser Beispiel aus Fall 2):</strong></p>
+<ul>
+<li>Bestellpunkt <span class="math inline">\(s=3\)</span>.</li>
+<li>Die Nachfrageverteilung <span class="math inline">\(P(Y_2)\)</span> kennen wir von oben.</li>
+</ul>
+<p>Das bedeutet, dass wir im Durchschnitt 0.04 Flaschen pro Zyklus verlieren.</p>
+<ul>
+<li>Eine Fehlmenge tritt nur auf, wenn die Nachfrage <span class="math inline">\(Y_2 &gt; 3\)</span> ist. Das ist nur bei <span class="math inline">\(Y_2=4\)</span> der Fall.</li>
+<li>Fehlmenge bei <span class="math inline">\(Y_2=4\)</span> ist <span class="math inline">\(4 - s = 4 - 3 = 1\)</span> Flasche. <a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></li>
+<li><span class="math inline">\(P(Y_2=4) = 0.04\)</span>.</li>
+<li><span class="math inline">\(E(B) = (1 \text{ Flasche}) \cdot 0.04 = 0.04\)</span> Flaschen.</li>
+</ul>
+</section>
+<section id="den-beta-servicegrad-berechnen" class="level3">
+<h3 class="anchored" data-anchor-id="den-beta-servicegrad-berechnen">Den <span class="math inline">\(\beta\)</span>-Servicegrad berechnen</h3>
+<p>Mit unserem berechneten Wert für die erwartete Fehlmenge <span class="math inline">\(E(B)\)</span> und der in Abschnitt 3 vorgestellten Formel können wir nun den <span class="math inline">\(\beta\)</span>-Servicegrad (Fill Rate) für eine gegebene Bestellmenge <span class="math inline">\(q\)</span> ausrechnen.</p>
+<p><strong>Beispiel (Smartphone):</strong> Wir haben <span class="math inline">\(E(B)=0.09\)</span> berechnet, die feste Bestellmenge sei <span class="math inline">\(q=500\)</span>.</p>
+<p><span class="math inline">\(\beta = 1 - \frac{E(B)}{q} = 1 - \frac{0.09}{500} = 1 - 0.00018 = 0.99982\)</span></p>
+<ul>
+<li>Der <span class="math inline">\(\beta\)</span>-Servicegrad ist 99.982%.</li>
+<li>Das ist extrem hoch und zeigt, dass bei einer so großen Bestellmenge die wenigen erwarteten Fehlmengen kaum ins Gewicht fallen.</li>
+</ul>
+</section>
+</section>
+<section id="erweiterte-service-perspektiven" class="level2">
+<h2 class="anchored" data-anchor-id="erweiterte-service-perspektiven">7. Erweiterte Service-Perspektiven</h2>
+<p>Manchmal ist es nicht nur wichtig, <em>ob</em> ein Fehlbestand auftritt, sondern auch, <em>wen</em> er betrifft.</p>
+<section id="kundenpriorisierung" class="level3">
+<h3 class="anchored" data-anchor-id="kundenpriorisierung">Kundenpriorisierung</h3>
+<p>Stellen wir uns vor, wir beliefern nicht nur Privatkunden, sondern auch ein Luxus-Café, das ein wichtiger Stammkunde ist. Ein Fehlbestand bei diesem Kunden wäre weitaus schlimmer als bei einem einmaligen Online-Besteller. Hier kann man über <strong>Kundenklassen</strong> nachdenken.</p>
+<p>Man kann den Bestand so steuern, dass wichtige Kunden bevorzugt behandelt werden. Zwei einfache Strategien sind:</p>
+<ol type="1">
+<li><strong>Getrennte Bestände:</strong> Wir halten einen kleinen, separaten “Notfall-Bestand” nur für das Café. Das ist sicher, aber ineffizient, weil dieser Bestand die meiste Zeit nur herumliegt.</li>
+<li><strong>Rationierung:</strong> Eine intelligentere Methode. Wir haben einen gemeinsamen Bestand. Fällt dieser aber unter ein kritisches Niveau (z.B. 20 Stück), werden ab diesem Moment nur noch Bestellungen vom Luxus-Café angenommen. Alle anderen Kunden müssen warten. So schützt man seine wichtigsten Partner, ohne permanent Ware blockieren zu müssen.</li>
+</ol>
+</section>
+<section id="die-kundenwartezeit-reichweite-und-lieferunfähigkeit" class="level3">
+<h3 class="anchored" data-anchor-id="die-kundenwartezeit-reichweite-und-lieferunfähigkeit">Die Kundenwartezeit: Reichweite und Lieferunfähigkeit</h3>
+<p>Neben den Servicegraden können wir auch fragen: Was bedeutet ein bestimmter Sicherheitsbestand für die Wartezeit der Kunden?</p>
+<ul>
+<li><p><strong>Reichweite:</strong> Stellt die Frage: “Wie viele Perioden (z.B. Wochen) reicht unser Lagerbestand noch, ab dem Moment, in dem wir nachbestellen?” Eine einfache Näherungsformel für die <em>erwartete Reichweite</em> lautet: <span class="math display">\[
+\text{Erwartete Reichweite} \approx \frac{s}{\mu_d}
+\]</span> wobei <span class="math inline">\(s\)</span> der Bestellpunkt und <span class="math inline">\(\mu_d\)</span> die durchschnittliche Nachfrage <em>pro Periode</em> ist. Bei einem Bestellpunkt von <span class="math inline">\(s=270\)</span> und einer wöchentlichen Nachfrage von <span class="math inline">\(\mu_d=50\)</span> wäre die erwartete Reichweite also <span class="math inline">\(270 / 50 = 5.4\)</span> Wochen. <a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p></li>
+<li><p><strong>Lieferunfähigkeitsdauer:</strong> Dies ist die durchschnittliche Zeit, in der wir <em>keine Ware</em> haben. Eine Lieferunfähigkeit entsteht, wenn die Wiederbeschaffungszeit länger ist als die Reichweite des Bestands. <span class="math display">\[
+\text{Erwartete Lieferunfähigkeitsdauer} \approx \max(0, L - \text{Erwartete Reichweite})
+\]</span> wobei <span class="math inline">\(L\)</span> die Wiederbeschaffungszeit ist. Nehmen wir an, wir würden einen niedrigeren Servicegrad von 85% anstreben (<span class="math inline">\(\alpha=0.85\)</span>, <span class="math inline">\(z=1.036\)</span>). Der neue Bestellpunkt wäre <span class="math inline">\(s = 200 + 1.036 \cdot 30 \approx 231\)</span>. Die erwartete Reichweite wäre dann <span class="math inline">\(231 / 50 \approx 4.62\)</span> Wochen. Mit einer Wiederbeschaffungszeit von <span class="math inline">\(L=4\)</span> Wochen ergibt sich:</p>
+<p><span class="math display">\[
+\text{Erwartete Lieferunfähigkeitsdauer} \approx \max(0, 4 - 4.62) = 0
+\]</span></p>
+<p>Selbst bei einem 85%-Servicegrad erwarten wir nach dieser Näherung keine Lieferunfähigkeit. Würde unsere Wiederbeschaffungszeit jedoch auf <span class="math inline">\(L=5\)</span> Wochen steigen, wäre die Situation anders:</p>
+<p><span class="math display">\[
+\text{Erwartete Lieferunfähigkeitsdauer} \approx \max(0, 5 - 4.62) = 0.38 \text{ Wochen}
+\]</span></p>
+<p>Wir müssten also mit einer durchschnittlichen Lieferunfähigkeit von fast einer halben Woche rechnen. <a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p></li>
+</ul>
+<p>Beide Kennzahlen hängen direkt von unserem Sicherheitsbestand ab. Ein höherer Sicherheitsbestand (und damit ein höherer Bestellpunkt <span class="math inline">\(s\)</span>) erhöht die Reichweite und senkt die Dauer der Lieferunfähigkeit. Diese Kennzahlen helfen uns, die Auswirkungen unserer Bestandsentscheidungen direkt in “Kundenwartezeit” zu übersetzen.</p>
+
+
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Bei einer Normalverteilung entspricht dies genau dem Wert, den wir in der z-Tabelle suchen: <span class="math inline">\(\alpha = \Phi(z)\)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Den z-Wert finden wir in einer z-Tabelle oder berechnen ihn mit einer Funktion wie <code>NORM.S.INV()</code> in Excel oder <code>norm.ppf()</code> in Python.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Der Wert für <span class="math inline">\(G_u(z)\)</span> kann aus Tabellen abgelesen oder berechnet werden (<span class="math inline">\(\phi(z) - z(1 - \Phi(z))\)</span>).<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Wir haben hier die Nachfrageverteilung <span class="math inline">\(P(Y_2)\)</span> verwendet, um die Wahrscheinlichkeit für eine Fehlmenge zu berechnen.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Dies ist eine <strong>Näherung</strong>, weil die tatsächliche Reichweite von der zufälligen Abfolge der Nachfragen abhängt. Die Formel gibt uns aber einen sehr guten und schnellen Schätzwert.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Diese Formel ist ebenfalls eine <strong>Näherung</strong>, da sie auf der angenäherten Reichweite basiert.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/beyondsimulations\.github\.io\/Materiallogistik");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Materiallogistik, Tobias Vlćek<br>CC BY-NC-SA 4.0</p>
+</div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/beyondsimulations/Materiallogistik">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://linkedin.com/in/tobiasvlcek">
+      <i class="bi bi-linkedin" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="mailto:workshop@beyondsimulations.com">
+      <i class="bi bi-envelope" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../general/privacy.html">
+<p>Privacy Policy</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+<script>
+  window.difyChatbotConfig = {
+    token: 'OkOGHTmCFcXes6Jk',
+    baseUrl: 'https://flow.byndsim.com',
+    systemVariables: {
+      // user_id: 'YOU CAN DEFINE USER ID HERE',
+    },
+    containerProps: {
+      style: {
+          backgroundColor: '#ffffff',
+          borderRadius: '0px',
+      },
+    },
+  }
+</script>
+<script src="https://flow.byndsim.com/embed.min.js" id="OkOGHTmCFcXes6Jk" defer="">
+</script>
+<style>
+  #dify-chatbot-bubble-button {
+    background-color: #646B91 !important;
+  }
+  #dify-chatbot-bubble-window {
+    width: 24rem !important;
+    height: 80vh !important;
+    position: fixed !important;
+  }
+</style>
+
+
+
+
+</body></html>

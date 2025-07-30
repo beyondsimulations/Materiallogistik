@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Übung 01 – Materiallogistik</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-226bd0f977fa82dfae4534cac220d79a.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ac881602332e3938779ca5fc3517c7d9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script defer="" src="https://umi.byndsim.com/script.js" data-website-id="e230d76b-b0a6-477e-8c5d-19a7bd661e68"></script>
+<style>
+    .cell-output-stdout code {
+      word-break: break-word !important;
+      white-space: pre-wrap !important;
+    }
+</style>  
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-01/mlb-lecture-01.pdf">01 Klassifikation</a></li><li class="breadcrumb-item"><a href="../part-01/mlb-tutorial-01.html">Tutorium</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Materiallogistik</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Startseite</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+ <span class="menu-text">***</span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">01 Klassifikation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-01/mlb-lecture-01.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-01/mlb-tutorial-01.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">02 CLSP</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-02/mlb-lecture-02.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-02/mlb-tutorial-02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">03 PLSP</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-03/mlb-lecture-03.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-03/mlb-tutorial-03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">04 Bestandsmanagement</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-04/mlb-lecture-04_new.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-04/mlb-tutorial-04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">05 Bestellpolitiken</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-05/mlb-lecture-05_new.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-05/mlb-tutorial-05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">***</span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="true">
+ <span class="menu-text">Zusatzaufgaben</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 01</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 02</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 03</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 04</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 05</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../general/faqs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../general/chat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chat</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#aufgabe-1-materialbedarfsermittlung" id="toc-aufgabe-1-materialbedarfsermittlung" class="nav-link active" data-scroll-target="#aufgabe-1-materialbedarfsermittlung">Aufgabe 1: Materialbedarfsermittlung</a></li>
+  <li><a href="#aufgabe-2-analyse-von-bedarfsmustern" id="toc-aufgabe-2-analyse-von-bedarfsmustern" class="nav-link" data-scroll-target="#aufgabe-2-analyse-von-bedarfsmustern">Aufgabe 2: Analyse von Bedarfsmustern</a></li>
+  <li><a href="#aufgabe-3-abc-analyse" id="toc-aufgabe-3-abc-analyse" class="nav-link" data-scroll-target="#aufgabe-3-abc-analyse">Aufgabe 3: ABC-Analyse</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="mlb-tutorial-01.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-01/mlb-lecture-01.pdf">01 Klassifikation</a></li><li class="breadcrumb-item"><a href="../part-01/mlb-tutorial-01.html">Tutorium</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Übung 01</h1>
+<p class="subtitle lead">Materialbedarfsermittlung und Bedarfsmuster</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="aufgabe-1-materialbedarfsermittlung" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-1-materialbedarfsermittlung">Aufgabe 1: Materialbedarfsermittlung</h2>
+<p>Ein Fahrradhersteller in Münster plant die Produktion seines neuen E-Bike-Modells “UrbanCruiser”. Die Endmontage des Fahrrads erfordert verschiedene Komponenten, deren Beziehungen in der folgenden Stückliste dargestellt sind.</p>
+<p><strong>Struktur des “UrbanCruiser” (E):</strong></p>
+<ul>
+<li>1x Rahmen-Set (R)
+<ul>
+<li>1x Hauptrahmen (H)</li>
+<li>1x Gabel (G)</li>
+</ul></li>
+<li>2x Rad (W)</li>
+<li>1x Antriebs-Set (A)</li>
+</ul>
+<p><strong>Produktionsplan:</strong></p>
+<p>Der Produktionsplan (Primärbedarf) sieht vor, in Periode 10 genau 50 “UrbanCruiser” fertigzustellen.</p>
+<p><strong>Stammdaten der Komponenten:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Komponente</th>
+<th>Lagerbestand</th>
+<th>Vorlaufzeit (Perioden)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>E (UrbanCruiser)</td>
+<td>5</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>R (Rahmen-Set)</td>
+<td>10</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>W (Rad)</td>
+<td>30</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>A (Antriebs-Set)</td>
+<td>15</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>H (Hauptrahmen)</td>
+<td>20</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>G (Gabel)</td>
+<td>8</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ihre Aufgaben:</strong></p>
+<ol type="1">
+<li><strong>Gozinto-Graph zeichnen:</strong> Zeichnen Sie die Produktstruktur als Gozinto-Graph.</li>
+<li><strong>Materialbedarfsermittlung:</strong> Führen Sie eine Materialbedarfsermittlung durch. Berechnen Sie den Brutto- und Nettobedarf für jede Komponente.</li>
+<li><strong>Bestellzeitpunkte:</strong> Bestimmen Sie die Bestellzeitpunkte für die Komponenten, um den Produktionsplan einzuhalten.</li>
+</ol>
+<p><strong>Lösung:</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipps und wichtige Formeln
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<section id="vorgehensweise-bei-der-bedarfsermittlung" class="level4 callout-body-container callout-body">
+<h4 class="anchored" data-anchor-id="vorgehensweise-bei-der-bedarfsermittlung">Vorgehensweise bei der Bedarfsermittlung</h4>
+<p>Die Materialbedarfsermittlung erfolgt <strong>top-down</strong> durch die Stücklistenstruktur, von der höchsten Dispositionsstufe (0) zu den niedrigsten.</p>
+<ol type="1">
+<li><strong>Stufe 0 (Endprodukt):</strong>
+<ul>
+<li><strong>Bruttobedarf:</strong> Der gegebene Primärbedarf aus dem Produktionsplan.</li>
+<li><strong>Nettobedarf:</strong> <code>Nettobedarf = Bruttobedarf - Lagerbestand</code>. Dies ist die Menge, die tatsächlich produziert werden muss.</li>
+<li><strong>Bestelltermin:</strong> <code>Bestelltermin = Bedarfstermin - Vorlaufzeit</code>. Dies ist der Zeitpunkt, an dem die Produktion des Endprodukts starten muss.</li>
+</ul></li>
+<li><strong>Nächste Stufen (Komponenten/Baugruppen):</strong>
+<ul>
+<li><strong>Bruttobedarf:</strong> Der Bruttobedarf einer Komponente leitet sich aus dem <strong>Nettobedarf</strong> der übergeordneten Baugruppe ab. Der Starttermin der Baugruppe wird zum Bedarfstermin der Komponente. <code>Bruttobedarf (Komponente) = Nettobedarf (Baugruppe) * Bedarfskoeffizient (Menge pro Baugruppe)</code></li>
+<li><strong>Nettobedarf &amp; Bestelltermin:</strong> Werden für jede Komponente analog zur Stufe 0 berechnet.</li>
+</ul></li>
+</ol>
+</section>
+</div>
+</div>
+<p><strong>1. Gozinto-Graph:</strong></p>
+<p>Der Gozinto-Graph visualisiert die “geht-in-Beziehung” der Komponenten.</p>
+<div id="cell-fig-task1" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div id="fig-task1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-task1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mlb-tutorial-01_files/figure-html/fig-task1-output-1.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-task1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Gozinto-Graph für UrbanCruiser
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>2. &amp; 3. Materialbedarfsermittlung:</strong></p>
+<p>Wir berechnen den Bedarf rekursiv, beginnend bei der obersten Ebene (Dispositionsstufe 0).</p>
+<p><strong>Dispositionsstufe 0: UrbanCruiser (E)</strong></p>
+<ul>
+<li><strong>Bruttobedarf in P10:</strong> 50 Stück</li>
+<li><strong>Lagerbestand:</strong> 5 Stück</li>
+<li><strong>Nettobedarf in P10:</strong> 50 - 5 = 45 Stück</li>
+<li><strong>Bestellzeitpunkt:</strong> P10 - 1 (Vorlaufzeit) = <strong>P9</strong></li>
+</ul>
+<p>Der Nettobedarf von 45 Stück für E wird zum Bruttobedarf für die Komponenten der nächsten Stufe.</p>
+<p><strong>Dispositionsstufe 1: Rahmen-Set (R), Rad (W), Antriebs-Set (A)</strong></p>
+<ul>
+<li><strong>Rahmen-Set (R):</strong>
+<ul>
+<li><strong>Bruttobedarf in P9:</strong> 1 * 45 = 45 Stück</li>
+<li><strong>Lagerbestand:</strong> 10 Stück</li>
+<li><strong>Nettobedarf in P9:</strong> 45 - 10 = 35 Stück</li>
+<li><strong>Bestellzeitpunkt:</strong> P9 - 2 = <strong>P7</strong></li>
+</ul></li>
+<li><strong>Rad (W):</strong>
+<ul>
+<li><strong>Bruttobedarf in P9:</strong> 2 * 45 = 90 Stück</li>
+<li><strong>Lagerbestand:</strong> 30 Stück</li>
+<li><strong>Nettobedarf in P9:</strong> 90 - 30 = 60 Stück</li>
+<li><strong>Bestellzeitpunkt:</strong> P9 - 3 = <strong>P6</strong></li>
+</ul></li>
+<li><strong>Antriebs-Set (A):</strong>
+<ul>
+<li><strong>Bruttobedarf in P9:</strong> 1 * 45 = 45 Stück</li>
+<li><strong>Lagerbestand:</strong> 15 Stück</li>
+<li><strong>Nettobedarf in P9:</strong> 45 - 15 = 30 Stück</li>
+<li><strong>Bestellzeitpunkt:</strong> P9 - 2 = <strong>P7</strong></li>
+</ul></li>
+</ul>
+<p><strong>Dispositionsstufe 2: Hauptrahmen (H), Gabel (G)</strong></p>
+<p>Der Nettobedarf von 35 Rahmen-Sets (R) wird zum Bruttobedarf für H und G.</p>
+<ul>
+<li><strong>Hauptrahmen (H):</strong>
+<ul>
+<li><strong>Bruttobedarf in P7:</strong> 1 * 35 = 35 Stück</li>
+<li><strong>Lagerbestand:</strong> 20 Stück</li>
+<li><strong>Nettobedarf in P7:</strong> 35 - 20 = 15 Stück</li>
+<li><strong>Bestellzeitpunkt:</strong> P7 - 2 = <strong>P5</strong></li>
+</ul></li>
+<li><strong>Gabel (G):</strong>
+<ul>
+<li><strong>Bruttobedarf in P7:</strong> 1 * 35 = 35 Stück</li>
+<li><strong>Lagerbestand:</strong> 8 Stück</li>
+<li><strong>Nettobedarf in P7:</strong> 35 - 8 = 27 Stück</li>
+<li><strong>Bestellzeitpunkt:</strong> P7 - 1 = <strong>P6</strong></li>
+</ul></li>
+</ul>
+<p><strong>Zusammenfassung der Bestellungen:</strong></p>
+<div id="2051c0a6" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-stdout">
+<pre><code>      Komponente  Bestellmenge (Nettobedarf)  Bestellperiode
+ Hauptrahmen (H)                          15               5
+       Gabel (G)                          27               6
+         Rad (W)                          60               6
+  Rahmen-Set (R)                          35               7
+Antriebs-Set (A)                          30               7
+UrbanCruiser (E)                          45               9</code></pre>
+</div>
+</div>
+</section>
+<section id="aufgabe-2-analyse-von-bedarfsmustern" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-2-analyse-von-bedarfsmustern">Aufgabe 2: Analyse von Bedarfsmustern</h2>
+<p>Ein Online-Shop für Kaffeebohnen möchte das Verbrauchsmuster einer speziellen Sorte analysieren, um die Lagerhaltung zu optimieren.</p>
+<p>Die Verkaufszahlen (in kg) der letzten 12 Wochen liegen vor:</p>
+<p><code>[5, 8, 6, 25, 7, 4, 9, 5, 30, 6, 7, 8]</code></p>
+<p><strong>Ihre Aufgaben:</strong></p>
+<ol type="1">
+<li><strong>Grafische Darstellung:</strong> Stellen Sie die Zeitreihe grafisch dar.</li>
+<li><strong>Durchschnittlicher Bedarf:</strong> Berechnen Sie den durchschnittlichen wöchentlichen Bedarf.</li>
+<li><strong>Mittlere absolute Abweichung:</strong> Berechnen Sie die mittlere absolute Abweichung (MAD), um die Prognosegüte bei Annahme eines konstanten Verbrauchs (Mittelwert) zu bewerten.</li>
+<li><strong>Störpegel:</strong> Berechnen Sie den Störpegel (Variationskoeffizient).</li>
+<li><strong>Klassifizierung:</strong> Klassifizieren Sie das Bedarfsmuster basierend auf Ihren Berechnungen. Handelt es sich um einen konstanten, trendförmigen, sporadischen oder unregelmäßigen Bedarf? Begründen Sie Ihre Entscheidung.</li>
+</ol>
+<p><strong>Lösung:</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipps und wichtige Formeln
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="die-wichtigsten-kennzahlen-zur-bedarfsanalyse" class="level4">
+<h4 class="anchored" data-anchor-id="die-wichtigsten-kennzahlen-zur-bedarfsanalyse">Die wichtigsten Kennzahlen zur Bedarfsanalyse</h4>
+<ul>
+<li><p><strong>Durchschnittlicher Bedarf (<span class="math inline">\(\bar{x}\)</span>):</strong> Der Mittelwert der Nachfrage über den betrachteten Zeitraum. Dient als Basis für einfache Prognosen. <span class="math inline">\(\bar{x} = \frac{1}{n} \sum_{t=1}^{n} d_t\)</span></p></li>
+<li><p><strong>Mittlere Absolute Abweichung (MAD):</strong> Gibt die durchschnittliche absolute Prognoseabweichung an, wenn man den Mittelwert als Prognose verwendet. Ein Maß für die Streuung. <span class="math inline">\(MAD = \frac{1}{n} \sum_{t=1}^{n} |d_t - \bar{x}|\)</span></p></li>
+<li><p><strong>Störpegel (SP):</strong> Das wichtigste Maß zur Klassifizierung. Es setzt die mittlere absolute Abweichung ins Verhältnis zum Mittelwert und ist damit eine relative Kennzahl zur Beurteilung der Prognosegenauigkeit. <span class="math inline">\(SP = \frac{MAD}{\bar{x}}\)</span></p></li>
+</ul>
+</section>
+<section id="typische-grenzen-für-die-klassifizierung" class="level4">
+<h4 class="anchored" data-anchor-id="typische-grenzen-für-die-klassifizierung">Typische Grenzen für die Klassifizierung</h4>
+<ul>
+<li><strong>SP &lt; 0,25:</strong> Konstanter / gleichmäßiger Bedarf (gut prognostizierbar)</li>
+<li><strong>0,25 <span class="math inline">\(\le\)</span> SP <span class="math inline">\(\le\)</span> 0,5:</strong> Trendförmiger oder saisonaler Bedarf (regelmäßige Schwankungen)</li>
+<li><strong>SP &gt; 0,5:</strong> Unregelmäßiger / erratischer Bedarf (schwer prognostizierbar)</li>
+<li><strong>Zusatzkriterium für “sporadisch”:</strong> Wenn zusätzlich zum hohen SP viele Perioden einen Bedarf von Null aufweisen.</li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+<div id="cell-fig-task2" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div id="fig-task2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-task2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mlb-tutorial-01_files/figure-html/fig-task2-output-1.png" width="686" height="469" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-task2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Wöchentlicher Verkauf
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2. Durchschnittlicher Bedarf: 10.00 kg/Woche
+3. Mittlere Absolute Abweichung (MAD): 5.83 kg
+4. Störpegel: 0.58</code></pre>
+</div>
+</div>
+<p><strong>5. Klassifizierung des Bedarfsmusters:</strong></p>
+<ul>
+<li><p><strong>Visuelle Analyse:</strong> Die Grafik zeigt eine relativ stabile Nachfrage mit zwei deutlichen Ausreißern nach oben in den Wochen 4 und 9. Es ist kein klarer Trend (steigend oder fallend) und keine regelmäßige Saisonalität erkennbar.</p></li>
+<li><p><strong>Kennzahlenanalyse:</strong></p>
+<ul>
+<li>Der <strong>durchschnittliche Bedarf</strong> liegt bei 10.00 kg.</li>
+<li>Die <strong>mittlere absolute Abweichung (MAD)</strong> von 5.83 kg ist im Verhältnis zum Mittelwert recht hoch. Sie zeigt, dass die einzelnen Werte im Schnitt stark vom Mittelwert abweichen.</li>
+<li>Der <strong>Störpegel</strong> ist mit 0.58 ein entscheidender Indikator. In der Literatur werden oft folgende Grenzen verwendet:
+<ul>
+<li>SP &lt; 0.25: Konstanter/glatter Bedarf</li>
+<li>0.25 &lt;= SP &lt;= 0.5: Schwankender, aber noch regelmäßiger Bedarf</li>
+<li>SP &gt; 0.5: Stark unregelmäßiger (erratischer) Bedarf</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><strong>Fazit:</strong> Mit einem Störpegel von 0.58 liegt ein <strong>stark unregelmäßiger (erratischer) Bedarf</strong> vor. Die Nachfrage ist schwer prognostizierbar. Die beiden hohen Spitzen deuten auf zufällige, große Bestellungen hin. Ein einfacher Prognoseansatz wie der gleitende Durchschnitt oder die exponentielle Glättung würde hier wahrscheinlich zu hohen Prognosefehlern führen. Für solche Artikel sind Sicherheitsbestände oft die bessere Strategie als eine verbrauchsgesteuerte Disposition. Da es keine Perioden mit Null-Bedarf gibt, ist die Klassifizierung “sporadisch” weniger passend als “erratisch”.</p>
+</section>
+<section id="aufgabe-3-abc-analyse" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-3-abc-analyse">Aufgabe 3: ABC-Analyse</h2>
+<p>Ein Unternehmen aus Duisburg möchte seine Lagerartikel klassifizieren, um die Management-Anstrengungen zu priorisieren. Die folgenden Daten für 10 Artikel sind verfügbar:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Artikel-Nr.</th>
+<th>Jahresbedarf (Stück)</th>
+<th>Preis pro Stück (€)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1.000</td>
+<td>50,00</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>500</td>
+<td>300,00</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>12.000</td>
+<td>5,00</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>400</td>
+<td>450,00</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>8.000</td>
+<td>2,00</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>300</td>
+<td>10,00</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>2.500</td>
+<td>25,00</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>15.000</td>
+<td>1,00</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>700</td>
+<td>150,00</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>5.000</td>
+<td>8,00</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ihre Aufgaben:</strong></p>
+<ol type="1">
+<li><strong>Jährlichen Verbrauchswert berechnen:</strong> Berechnen Sie für jeden Artikel den jährlichen Verbrauchswert.</li>
+<li><strong>Rangliste erstellen:</strong> Erstellen Sie eine Rangliste der Artikel nach ihrem Verbrauchswert in absteigender Reihenfolge.</li>
+<li><strong>Prozentuale Anteile berechnen:</strong> Berechnen Sie den prozentualen Anteil jedes Artikels am Gesamtverbrauchswert und an der Gesamtmenge aller Artikel.</li>
+<li><strong>Kumulierte Anteile berechnen:</strong> Berechnen Sie die kumulierten prozentualen Anteile am Wert und an der Menge.</li>
+<li><strong>ABC-Klassifizierung:</strong> Teilen Sie die Artikel in die Klassen A, B und C ein. Verwenden Sie typische Grenzen (z.B. A-Güter: ~80% Wertanteil, B-Güter: ~15% Wertanteil, C-Güter: ~5% Wertanteil).</li>
+<li><strong>Grafische Darstellung:</strong> Stellen Sie das Ergebnis grafisch in einem Diagramm dar (Lorenz-Kurve).</li>
+</ol>
+<p><strong>Lösung:</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipps und wichtige Formeln
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="das-prinzip-der-abc-analyse" class="level4">
+<h4 class="anchored" data-anchor-id="das-prinzip-der-abc-analyse">Das Prinzip der ABC-Analyse</h4>
+<p>Die ABC-Analyse basiert auf dem <strong>Pareto-Prinzip (80-20-Regel)</strong>, das besagt, dass oft ein kleiner Teil der Ursachen für einen großen Teil der Wirkung verantwortlich ist. Übertragen auf die Lagerhaltung bedeutet das: Ein kleiner Prozentsatz der Artikelpositionen verursacht einen großen Prozentschaft des gesamten Kapitalbedarfs (Verbrauchswert).</p>
+</section>
+<section id="schrittweises-vorgehen" class="level4">
+<h4 class="anchored" data-anchor-id="schrittweises-vorgehen">Schrittweises Vorgehen</h4>
+<ol type="1">
+<li><strong>Verbrauchswert berechnen:</strong> Das ist die wichtigste Kennzahl. <code>Verbrauchswert = Jahresbedarf * Preis pro Stück</code></li>
+<li><strong>Sortieren:</strong> Die Artikel absteigend nach ihrem Verbrauchswert sortieren.</li>
+<li><strong>Prozentuale Anteile berechnen:</strong> Für jeden Artikel seinen Anteil am Gesamtwert bestimmen. <code>Wertanteil (%) = (Verbrauchswert / Gesamtverbrauchswert) * 100</code></li>
+<li><strong>Kumulieren:</strong> Die prozentualen Wertanteile von oben nach unten aufsummieren.</li>
+<li><strong>Klassen zuordnen:</strong> Die kumulierten Wertanteile nutzen, um die Klassen A, B und C zu definieren. Die Grenzen sind nicht starr, aber typische Werte sind:
+<ul>
+<li><strong>A-Güter:</strong> die Artikel, die zusammen ca. 70-80% des Wertes ausmachen.</li>
+<li><strong>B-Güter:</strong> die nächsten Artikel, die zusammen ca. 15-20% des Wertes ausmachen.</li>
+<li><strong>C-Güter:</strong> die restlichen Artikel mit den geringsten Wertanteilen (ca. 5-10%).</li>
+</ul></li>
+</ol>
+</section>
+</div>
+</div>
+</div>
+<div id="cell-fig-task3" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-stdout">
+<pre><code>Tabelle zur ABC-Analyse:
+   Artikel-Nr.  Jahresbedarf  Preis  Verbrauchswert  Wertanteil (%)  Mengenanteil (%)  Kum. Wertanteil (%)  Kum. Mengenanteil (%)  Kum. Artikelanteil (%) ABC-Klasse
+0            4           400    450          180000           26.41              0.88                26.41                   0.88                    10.0          A
+1            2           500    300          150000           22.01              1.10                48.42                   1.98                    20.0          A
+2            9           700    150          105000           15.41              1.54                63.83                   3.52                    30.0          A
+3            7          2500     25           62500            9.17              5.51                73.00                   9.03                    40.0          A
+4            3         12000      5           60000            8.80             26.43                81.80                  35.46                    50.0          B
+5            1          1000     50           50000            7.34              2.20                89.14                  37.67                    60.0          B
+6           10          5000      8           40000            5.87             11.01                95.01                  48.68                    70.0          C
+7            5          8000      2           16000            2.35             17.62                97.36                  66.30                    80.0          C
+8            8         15000      1           15000            2.20             33.04                99.56                  99.34                    90.0          C
+9            6           300     10            3000            0.44              0.66               100.00                 100.00                   100.0          C</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div id="fig-task3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-task3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="mlb-tutorial-01_files/figure-html/fig-task3-output-2.png" width="789" height="491" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-task3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: ABC-Analyse der Lagerartikel
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretation der Ergebnisse:</strong></p>
+<ul>
+<li><strong>A-Güter:</strong> Die Artikel 4, 2, 9 und 7 sind A-Güter. Sie machen 40% der Artikelpositionen aus, binden aber rund 73% des Gesamtwertes. Diese Artikel erfordern die größte Aufmerksamkeit (z.B. genaue Bestandsführung, häufige Bestellungen, gute Lieferantenbeziehungen).</li>
+<li><strong>B-Güter:</strong> Die Artikel 3 und 1 sind B-Güter. Sie stellen die nächste Gruppe dar und erfordern eine standardmäßige Behandlung.</li>
+<li><strong>C-Güter:</strong> Die restlichen Artikel (10, 5, 8, 6) sind C-Güter. Sie haben einen sehr geringen Wertanteil, aber einen hohen Mengenanteil. Hier können vereinfachte Dispositionsverfahren (z.B. hohe Sicherheitsbestände, seltenere Bestellungen) angewendet werden, um den Verwaltungsaufwand zu reduzieren.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/beyondsimulations\.github\.io\/Materiallogistik");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Materiallogistik, Tobias Vlćek<br>CC BY-NC-SA 4.0</p>
+</div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/beyondsimulations/Materiallogistik">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://linkedin.com/in/tobiasvlcek">
+      <i class="bi bi-linkedin" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="mailto:workshop@beyondsimulations.com">
+      <i class="bi bi-envelope" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../general/privacy.html">
+<p>Privacy Policy</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+<script>
+  window.difyChatbotConfig = {
+    token: 'OkOGHTmCFcXes6Jk',
+    baseUrl: 'https://flow.byndsim.com',
+    systemVariables: {
+      // user_id: 'YOU CAN DEFINE USER ID HERE',
+    },
+    containerProps: {
+      style: {
+          backgroundColor: '#ffffff',
+          borderRadius: '0px',
+      },
+    },
+  }
+</script>
+<script src="https://flow.byndsim.com/embed.min.js" id="OkOGHTmCFcXes6Jk" defer="">
+</script>
+<style>
+  #dify-chatbot-bubble-button {
+    background-color: #646B91 !important;
+  }
+  #dify-chatbot-bubble-window {
+    width: 24rem !important;
+    height: 80vh !important;
+    position: fixed !important;
+  }
+</style>
+
+
+
+
+</body></html>

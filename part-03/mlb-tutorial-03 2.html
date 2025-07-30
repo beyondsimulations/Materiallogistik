@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Übung 03 – Materiallogistik</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-226bd0f977fa82dfae4534cac220d79a.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ac881602332e3938779ca5fc3517c7d9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script defer="" src="https://umi.byndsim.com/script.js" data-website-id="e230d76b-b0a6-477e-8c5d-19a7bd661e68"></script>
+<style>
+    .cell-output-stdout code {
+      word-break: break-word !important;
+      white-space: pre-wrap !important;
+    }
+</style>  
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-03/mlb-lecture-03.pdf">03 PLSP</a></li><li class="breadcrumb-item"><a href="../part-03/mlb-tutorial-03.html">Tutorium</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Materiallogistik</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Startseite</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+ <span class="menu-text">***</span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">01 Klassifikation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-01/mlb-lecture-01.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-01/mlb-tutorial-01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">02 CLSP</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-02/mlb-lecture-02.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-02/mlb-tutorial-02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">03 PLSP</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-03/mlb-lecture-03.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-03/mlb-tutorial-03.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">04 Bestandsmanagement</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-04/mlb-lecture-04_new.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-04/mlb-tutorial-04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">05 Bestellpolitiken</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-05/mlb-lecture-05_new.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-05/mlb-tutorial-05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">***</span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="true">
+ <span class="menu-text">Zusatzaufgaben</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 01</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 02</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 03</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 04</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 05</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../general/faqs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../general/chat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chat</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#aufgabe-1-planung-mit-rüstzustandsübernahme-plsp" id="toc-aufgabe-1-planung-mit-rüstzustandsübernahme-plsp" class="nav-link active" data-scroll-target="#aufgabe-1-planung-mit-rüstzustandsübernahme-plsp">Aufgabe 1: Planung mit Rüstzustandsübernahme (PLSP)</a></li>
+  <li><a href="#aufgabe-2-echelon-stock" id="toc-aufgabe-2-echelon-stock" class="nav-link" data-scroll-target="#aufgabe-2-echelon-stock">Aufgabe 2: Echelon Stock</a></li>
+  <li><a href="#aufgabe-3-rollierende-planung" id="toc-aufgabe-3-rollierende-planung" class="nav-link" data-scroll-target="#aufgabe-3-rollierende-planung">Aufgabe 3: Rollierende Planung</a></li>
+  <li><a href="#aufgabe-4-analyse-eines-produktionsplans" id="toc-aufgabe-4-analyse-eines-produktionsplans" class="nav-link" data-scroll-target="#aufgabe-4-analyse-eines-produktionsplans">Aufgabe 4: Analyse eines Produktionsplans</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="mlb-tutorial-03.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-03/mlb-lecture-03.pdf">03 PLSP</a></li><li class="breadcrumb-item"><a href="../part-03/mlb-tutorial-03.html">Tutorium</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Übung 03</h1>
+<p class="subtitle lead">Mehrprodukt- &amp; Mehrstufige Losgrößenplanung</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="aufgabe-1-planung-mit-rüstzustandsübernahme-plsp" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-1-planung-mit-rüstzustandsübernahme-plsp">Aufgabe 1: Planung mit Rüstzustandsübernahme (PLSP)</h2>
+<p>Ein Hersteller von Spezialgetrieben fertigt auf einer CNC-Maschine zwei verschiedene Getriebetypen: Typ A und Typ B. Die Maschine kann pro Woche nur für einen Typ eingerichtet sein, aber der Rüstzustand kann in die Folgewoche übernommen werden, wenn derselbe Typ weiterproduziert wird. Ein Rüstvorgang ist nur dann nötig, wenn von einem Typ zum anderen gewechselt wird oder nach einer Woche ohne Produktion neu gestartet wird.</p>
+<p><strong>Gegebene Daten:</strong></p>
+<ul>
+<li><strong>Planungshorizont:</strong> 4 Wochen</li>
+<li><strong>Wöchentliche Kapazität:</strong> 60 Stunden</li>
+</ul>
+<p><strong>Produktdaten:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Getriebe Typ A</th>
+<th style="text-align: left;">Getriebe Typ B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Rüstkosten (s)</td>
+<td style="text-align: left;">200 GE</td>
+<td style="text-align: left;">150 GE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lagerkosten (h)</td>
+<td style="text-align: left;">5 GE/Stück</td>
+<td style="text-align: left;">7 GE/Stück</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bearbeitungszeit (tb)</td>
+<td style="text-align: left;">1,0 h/Stück</td>
+<td style="text-align: left;">1,2 h/Stück</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Rüstzeit (tr)</td>
+<td style="text-align: left;">10 h</td>
+<td style="text-align: left;">8 h</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Nachfrage:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Woche (t)</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Bedarf Typ A</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">55</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bedarf Typ B</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">35</td>
+<td style="text-align: center;">20</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Vorgegebener Produktionsplan:</strong></p>
+<p>Um das Konzept zu verstehen, analysieren Sie den folgenden, manuell erstellten Produktionsplan:</p>
+<ul>
+<li><strong>Woche 1:</strong> Produziere 50 <span class="math inline">\(\times\)</span> Typ A.</li>
+<li><strong>Woche 2:</strong> Produziere 25 <span class="math inline">\(\times\)</span> Typ A.</li>
+<li><strong>Woche 3:</strong> Produziere 55 <span class="math inline">\(\times\)</span> Typ B.</li>
+<li><strong>Woche 4:</strong> Keine Produktion.</li>
+</ul>
+<p><strong>Ihre Aufgaben:</strong></p>
+<ol type="1">
+<li><strong>Kostenberechnung:</strong> Berechnen Sie die gesamten Rüst- und Lagerkosten für den vorgegebenen Plan. Identifizieren Sie, in welcher Woche Rüstkosten eingespart werden.</li>
+<li><strong>Kapazitätsprüfung:</strong> Überprüfen Sie für jede Woche, ob die Produktions- und Rüstzeiten die verfügbare Kapazität von 60 Stunden einhalten.</li>
+<li><strong>Diskussion:</strong> Erläutern Sie, warum die separate Anwendung des Wagner-Whitin-Algorithmus für jedes Produkt hier wahrscheinlich zu einem unzulässigen oder suboptimalen Gesamtplan führen würde.</li>
+</ol>
+<p><strong>Lösung:</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipps und wichtige Formeln
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="kostenberechnung" class="level4">
+<h4 class="anchored" data-anchor-id="kostenberechnung">1. Kostenberechnung</h4>
+<ul>
+<li><strong>Gesamtkosten</strong>: Die Summe aus Rüst- und Lagerkosten über den gesamten Zeitraum.</li>
+<li><strong>Rüstkosten</strong>: Fallen nur an, wenn in einer Woche ein Produkt hergestellt wird, das in der Vorwoche nicht hergestellt wurde. Bei Produktionsstart in Woche 1 oder nach einer Leerwoche fallen sie ebenfalls an. Bei Übernahme des Rüstzustands fallen keine Rüstkosten an.</li>
+<li><strong>Lagerkosten</strong>: Werden am Ende jeder Woche auf den Endlagerbestand berechnet: <code>Lagerkosten_t = Lagerbestand_t * Lagerkostensatz_h</code>.</li>
+</ul>
+</section>
+<section id="kapazitätsprüfung" class="level4">
+<h4 class="anchored" data-anchor-id="kapazitätsprüfung">2. Kapazitätsprüfung</h4>
+<ul>
+<li>Die wöchentliche Kapazitätsauslastung berechnet sich wie folgt: <code>Kapazitätsbedarf_t = Produktionszeit_t + Rüstzeit_t</code></li>
+<li><code>Produktionszeit_t = Produktionsmenge_t * Bearbeitungszeit_pro_Stück_tb</code></li>
+<li>Die Rüstzeit fällt nur an, wenn auch Rüstkosten anfallen.</li>
+<li>Dieser Bedarf muss kleiner oder gleich der Wochenkapazität sein.</li>
+</ul>
+</section>
+<section id="wagner-whitin-vs.-plsp" class="level4">
+<h4 class="anchored" data-anchor-id="wagner-whitin-vs.-plsp">3. Wagner-Whitin vs.&nbsp;PLSP</h4>
+<ul>
+<li>Denken Sie an die Kernannahmen des Wagner-Whitin-Algorithmus: Er optimiert für ein <strong>einzelnes Produkt</strong> und berücksichtigt <strong>keine Kapazitätsgrenzen</strong>. Das PLSP-Problem (Capacitated Lot Sizing Problem) ist hingegen genau für Mehrprodukt-Situationen unter Kapazitätsrestriktionen konzipiert.</li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+<div id="7160cdf3" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-stdout">
+<pre><code>1. Kostenberechnung:
+
+Woche 1: Rüstvorgang für Typ A (Kosten: 200 GE)
+  Bestand Ende Woche 1: 30x Typ A, 0x Typ B
+  Lagerkosten Woche 1: 150 GE
+
+Woche 2: Rüstzustand für Typ A übernommen (Kosten: 0 GE)
+  Bestand Ende Woche 2: 0x Typ A, 0x Typ B
+  Lagerkosten Woche 2: 0 GE
+
+Woche 3: Rüstvorgang für Typ B (Kosten: 150 GE)
+  Bestand Ende Woche 3: 0x Typ A, 20x Typ B
+  Lagerkosten Woche 3: 140 GE
+
+Woche 4: Keine Produktion, kein Rüstvorgang.
+  Bestand Ende Woche 4: 0x Typ A, 0x Typ B
+  Lagerkosten Woche 4: 0 GE
+
+Gesamte Rüstkosten: 350 GE
+Gesamte Lagerkosten: 290 GE
+Gesamtkosten des Plans: 640 GE
+
+2. Kapazitätsprüfung:
+
+ Woche  Prod. Typ A  Prod. Typ B  Kapazitätsbedarf (h)  Kapazitätslimit (h) Einhaltung
+     1           50            0                  60.0                   60         Ja
+     2           25            0                  25.0                   60         Ja
+     3            0           55                  74.0                   60       NEIN
+     4            0            0                   0.0                   60         Ja</code></pre>
+</div>
+</div>
+<p><strong>3. Diskussion:</strong></p>
+<p>Der Wagner-Whitin-Algorithmus (WW) optimiert ein <strong>Einproduktproblem ohne Kapazitätsgrenzen</strong>. Die separate Anwendung würde zu folgenden Problemen führen:</p>
+<ol type="1">
+<li><strong>Ignorierte Kapazitäten:</strong> WW für Produkt A könnte ein Los in Woche 1 planen, WW für Produkt B ebenfalls. Die Summe der benötigten Kapazitäten (Produktion + Rüstung) würde aber sehr wahrscheinlich die verfügbaren 60 Stunden überschreiten, was zu einem <strong>unzulässigen Plan</strong> führt.</li>
+<li><strong>Ignorierte Rüstkopplung:</strong> WW würde für jede Produktion Rüstkosten ansetzen. Er kann nicht das Konzept der <strong>Rüstzustandsübernahme</strong> berücksichtigen. Wenn WW für A in Woche 1 und 2 eine Produktion vorsieht und für B in Woche 3 und 4, würde er für alle vier Lose Rüstkosten berechnen. Ein intelligenterer, gekoppelter Plan (wie PLSP) würde erkennen, dass die Rüstung in Woche 2 und 4 eingespart werden kann, was zu <strong>suboptimalen Kosten</strong> bei separater Planung führt.</li>
+</ol>
+<p>Das PLSP-Modell ist genau dafür konzipiert, diese beiden Aspekte – geteilte Kapazitäten und gekoppelte Rüstentscheidungen – simultan zu optimieren.</p>
+</section>
+<section id="aufgabe-2-echelon-stock" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-2-echelon-stock">Aufgabe 2: Echelon Stock</h2>
+<p>Ein Hersteller von Smart-Home-Geräten produziert zwei Endprodukte: eine smarte Lampe (L1) und einen smarten Stecker (S1). Beide benötigen ein universelles Wifi-Modul (W1). Die Lampe benötigt zusätzlich ein spezifisches LED-Panel (P1).</p>
+<p><strong>Ihre Aufgaben:</strong></p>
+<ol type="1">
+<li><strong>Echelon Stock Berechnung:</strong> Angenommen, am Ende von Woche 4 sind die physischen Lagerbestände wie folgt: <code>L1: 10, S1: 5, P1: 15, W1: 20</code>. Berechnen Sie für diesen Zeitpunkt den <strong>Echelon Stock</strong> (systemweiten Bestand) für das Wifi-Modul W1 und das LED-Panel P1.</li>
+</ol>
+<p><strong>Lösung:</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipps und wichtige Formeln
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="echelon-stock" class="level4">
+<h4 class="anchored" data-anchor-id="echelon-stock">1. Echelon Stock</h4>
+<ul>
+<li><strong>Definition:</strong> Der Echelon Stock einer Komponente <code>i</code> an einem Ort ist der gesamte Bestand dieser Komponente im System, der sich auf dieser Stufe oder <em>tiefer</em> befindet.</li>
+<li><strong>Formel:</strong> <code>Echelon Stock_i = Physischer Bestand_i + Physischer Bestand aller nachgelagerten Produkte, die i enthalten</code></li>
+<li><strong>Beispiel:</strong> <code>Echelon Stock (W1) = Bestand(W1) + Bestand(L1) + Bestand(S1)</code></li>
+</ul>
+</section>
+<section id="nutzen-des-echelon-konzepts" class="level4">
+<h4 class="anchored" data-anchor-id="nutzen-des-echelon-konzepts">2. Nutzen des Echelon-Konzepts</h4>
+<ul>
+<li>Der Hauptnutzen liegt in der <strong>korrekten Bewertung von Lagerkosten</strong> in mehrstufigen Systemen. Er vermeidet die Doppelzählung des Wertes von Komponenten, die bereits in Halbfabrikaten oder Endprodukten enthalten sind.</li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+<p><strong>1. Echelon Stock Berechnung:</strong></p>
+<p>Der Echelon Stock eines Artikels ist sein eigener physischer Bestand plus alle Bestände von nachgelagerten Artikeln, in die er eingeht.</p>
+<p><strong>Berechnung für Wifi-Modul W1:</strong> - Physischer Bestand W1: 20 Stück - Bestand von L1 (enthält W1): 10 Stück - Bestand von S1 (enthält W1): 5 Stück</p>
+<p><span class="math inline">\(E_{W1} = y_{W1} + y_{L1} + y_{S1}\)</span> <span class="math inline">\(E_{W1} = 20 + 10 + 5 = 35\)</span></p>
+<p>Der Echelon Stock von W1 ist 35. Er ist höher als der physische Bestand, da 15 Module bereits in den Endprodukten L1 und S1 verbaut sind.</p>
+<p><strong>Berechnung für LED-Panel P1:</strong> - Physischer Bestand P1: 15 Stück - Bestand von L1 (enthält P1): 10 Stück</p>
+<p><span class="math inline">\(E_{P1} = y_{P1} + y_{L1}\)</span> <span class="math inline">\(E_{P1} = 15 + 10 = 25\)</span></p>
+<p>Der Echelon Stock von P1 ist 25. Er ist höher als der physische Bestand, da 10 Panels bereits im Endprodukt L1 verbaut sind.</p>
+</section>
+<section id="aufgabe-3-rollierende-planung" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-3-rollierende-planung">Aufgabe 3: Rollierende Planung</h2>
+<p>Stellen Sie sich vor, Sie sind der Produktionsplaner. Der 6-Wochen-Plan wurde am Anfang von Woche 1 erstellt. Sie befinden sich nun am Ende von Woche 2. Die Produktion für die Wochen 1 und 2 wurde bereits freigegeben und kann nicht mehr geändert werden.</p>
+<p><strong>Produktdaten:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Artikel</th>
+<th style="text-align: left;">Struktur</th>
+<th style="text-align: left;">Vorlaufzeit</th>
+<th style="text-align: left;">Lagerbestand</th>
+<th style="text-align: left;">Lagerkostensatz (h)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">L1</td>
+<td style="text-align: left;">Endprodukt</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">20</td>
+<td style="text-align: left;">10 GE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">S1</td>
+<td style="text-align: left;">Endprodukt</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">50</td>
+<td style="text-align: left;">8 GE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P1</td>
+<td style="text-align: left;">Benötigt für L1</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">30</td>
+<td style="text-align: left;">4 GE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">W1</td>
+<td style="text-align: left;">Benötigt für L1 &amp; S1</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">100</td>
+<td style="text-align: left;">5 GE</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Primärbedarf:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Woche</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">6</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Bedarf L1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">40</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">60</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">50</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bedarf S1</td>
+<td style="text-align: center;">30</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">80</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">70</td>
+<td style="text-align: center;">0</td>
+</tr>
+</tbody>
+</table>
+<p>Für die kommende Neuplanung (beginnend in Woche 3 für die nächsten 6 Wochen) erhalten Sie aktualisierte Bedarfszahlen: Der Bedarf für die smarte Lampe (L1) in Woche 6 ist unerwartet von 50 auf 80 gestiegen.</p>
+<p><strong>Ihre Aufgaben:</strong></p>
+<p>Beantworten Sie die folgenden konzeptionellen Fragen:</p>
+<ol type="1">
+<li><strong>Eingefrorener Plan:</strong> Welcher Teil des ursprünglichen Produktionsplans für die Komponenten (Ihre Bestellungen aus Aufgabe 2) ist nun mindestens “eingefroren” und muss als gegeben hingenommen werden?</li>
+<li><strong>Planungsinstabilität:</strong> Erklären Sie, warum der ursprüngliche Plan für die Wochen 3-6 wahrscheinlich nicht mehr optimal ist, selbst wenn sich nur ein einziger Bedarfswert in der Zukunft geändert hat. Beziehen Sie sich dabei auf die Losgrößenentscheidung für das Wifi-Modul (W1).</li>
+<li><strong>Definitionen:</strong> Überlegen Sie kurz, wie die Begriffe “Planungsinstabilität” und “Frozen Zone” im Kontext dieses Beispiels definiert werden können.</li>
+</ol>
+<p><strong>Lösung:</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipps und wichtige Formeln
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="frozen-zone-eingefrorener-horizont" class="level4">
+<h4 class="anchored" data-anchor-id="frozen-zone-eingefrorener-horizont">1. Frozen Zone (Eingefrorener Horizont)</h4>
+<ul>
+<li><strong>Definition:</strong> Der Zeitraum am Anfang des Planungshorizonts, in dem keine Änderungen am Produktionsplan mehr vorgenommen werden.</li>
+<li><strong>Grund:</strong> Die Produktions- und Beschaffungsaufträge wurden bereits freigegeben und sind in der Ausführung (z.B. Material ist schon bestellt, eine Maschine ist bereits gerüstet).</li>
+<li><strong>Identifikation:</strong> Um die “eingefrorenen” Bestellungen zu finden, schauen Sie sich den ursprünglichen Plan aus Aufgabe 2 an. Alle Bestellungen, deren <strong>Bestelltermin</strong> in der Vergangenheit oder der aktuellen Periode liegt (hier: alles &lt;= Woche 2), sind Teil der Frozen Zone.</li>
+</ul>
+</section>
+<section id="planungsinstabilität-planungsnervosität" class="level4">
+<h4 class="anchored" data-anchor-id="planungsinstabilität-planungsnervosität">2. Planungsinstabilität (Planungsnervosität)</h4>
+<ul>
+<li><strong>Definition:</strong> Das Phänomen, dass kleine Änderungen in den Eingabedaten (z.B. ein einzelner Bedarfswert in der fernen Zukunft) zu großen, sprunghaften Änderungen in den geplanten Aufträgen führen, auch in naher Zukunft.</li>
+<li><strong>Ursache:</strong> Die komplexe, oft nicht-lineare Logik von Losgrößenalgorithmen und die mehrstufigen Abhängigkeiten. Eine kleine Änderung kann eine Kettenreaktion auslösen, die den “optimalen” Plan komplett umwirft.</li>
+<li><strong>Management:</strong> Die “Frozen Zone” ist eine der wichtigsten Maßnahmen, um diese Nervosität zu dämpfen und Stabilität in die Produktion zu bringen.</li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+<ol type="1">
+<li><p><strong>Eingefrorener Plan:</strong> Der “Frozen”-Teil des Plans umfasst alle Bestellungen, deren Bestelltermin in oder vor der aktuellen Periode (Ende Woche 2) liegt. Gemäß der Lösung von Aufgabe 2 sind dies:</p>
+<ul>
+<li>Bestellung für <strong>Stecker S1</strong> in Woche 0 (für Bedarf in Woche 1)</li>
+<li>Bestellung für <strong>Lampe L1</strong> in Woche 1 (für Bedarf in Woche 2)</li>
+<li>Bestellung für <strong>Panel P1</strong> in Woche -1 und 2 (für L1-Bedarf in P2 und P4)</li>
+<li>Bestellung für <strong>Wifi-Modul W1</strong> in Woche -2, 0 und 1.</li>
+</ul>
+<p>Alle Produktions- und Beschaffungsvorgänge, die bereits gestartet wurden (Bestellzeitpunkt &lt;= 2), sind fix. Die daraus resultierenden Zugänge und Bestände zu Beginn von Woche 3 sind die Ausgangsbasis für die Neuplanung.</p></li>
+<li><p><strong>Verlust der Optimalität:</strong> Der ursprüngliche Plan basierte auf einer Stück-für-Stück-Politik, welche die Bedarfe exakt deckt. Die Erhöhung des Bedarfs für L1 in Woche 6 hat eine Kaskade von Effekten:</p>
+<ul>
+<li>Der Bruttobedarf für P1 und W1 in Woche 5 (Vorlaufzeit von L1) erhöht sich.</li>
+<li>Diese Bedarfsänderung wird an die Komponente W1 weitergereicht.</li>
+<li>Die Losgrößenentscheidung für W1 im ursprünglichen Plan war darauf ausgelegt, die Bedarfe bis Woche 6 zu decken. Durch den neuen, höheren Bedarf in der Zukunft könnte es nun kostenoptimaler sein, eine frühere Bestellung für W1 (z.B. die in Woche 1 für den Bedarf in Woche 4) zu vergrößern, um die Bedarfe bis Woche 6 abzudecken und so einen Rüstvorgang zu sparen (falls eine andere Losgrößenregel als Stück-für-Stück verwendet würde).</li>
+<li>Selbst bei Stück-für-Stück ändert sich die benötigte Bestellmenge für W1. Da die ursprüngliche Bestellung für den Bedarf in Woche 5 (ausgelöst in P2) bereits “frozen” sein könnte, muss nun eine zusätzliche, evtl. kleine und ineffiziente Bestellung für den Mehrbedarf aufgegeben werden.</li>
+<li>Fazit: Eine kleine Änderung in der Zukunft kann durch die komplexen, mehrstufigen Abhängigkeiten und Losgrößenlogiken die Optimalität des gesamten bestehenden Plans zunichtemachen.</li>
+</ul></li>
+<li><p><strong>Definitionen:</strong></p>
+<ul>
+<li><strong>Frozen Zone:</strong> Dies ist der unmittelbar bevorstehende Zeitraum des Plans (hier: Woche 1-2), in dem keine Änderungen mehr vorgenommen werden. Die Produktionsaufträge sind bereits freigegeben, Material ist unterwegs. Dies schafft Stabilität in der Produktion. Die Länge der Frozen Zone orientiert sich oft an der kumulierten Vorlaufzeit der Produkte, kann aber aus strategischen Gründen (z.B. zur Kapazitätsglättung oder aufgrund von Lieferantenverträgen) bewusst länger gewählt werden.</li>
+<li><strong>Planungsinstabilität (Nervosität):</strong> Dies beschreibt das Phänomen, dass kleine Änderungen der Eingabedaten (z.B. ein einzelner Bedarfswert) in einer Neuplanung zu signifikanten Änderungen der Produktions- und Bestellaufträge führen, auch in naher Zukunft. Im Beispiel könnte der neue Plan für Woche 3 und 4 komplett anders aussehen als der alte Plan für dieselben Wochen. Diese “Nervosität” ist oft unerwünscht, da sie Unruhe in die Fertigung und Beschaffung bringt. Die Frozen Zone ist eine Maßnahme, um diese Instabilität zu dämpfen.</li>
+</ul></li>
+</ol>
+</section>
+<section id="aufgabe-4-analyse-eines-produktionsplans" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-4-analyse-eines-produktionsplans">Aufgabe 4: Analyse eines Produktionsplans</h2>
+<p>Ein Produktionsplaner hat für die Produkte “Sirius” und “Vega” einen unvollständigen Plan hinterlassen. Beide Produkte werden auf derselben Maschine gefertigt, die pro Woche nur für <strong>einen</strong> Produkttyp eingerichtet sein kann. Ein negativer Lagerbestand ist nicht zulässig.</p>
+<p><strong>Gegebene Daten:</strong></p>
+<ul>
+<li>Anfangslagerbestand (Ende Woche 0) für beide Produkte ist 0.</li>
+<li>Produkt Sirius: Rüstkosten <span class="math inline">\(s_S\)</span> = 250 GE, Lagerkostensatz <span class="math inline">\(h_S\)</span> = 4 GE/Stück/Woche.</li>
+<li>Produkt Vega: Rüstkosten <span class="math inline">\(s_V\)</span> = 200 GE, Lagerkostensatz <span class="math inline">\(h_V\)</span> = 5 GE/Stück/Woche.</li>
+<li>Rüstkosten fallen an, wenn die Produktion für ein Produkt in einer Woche stattfindet, in der zuvor ein anderes Produkt (oder nichts) hergestellt wurde.</li>
+</ul>
+<p><strong>Die unvollständige Tabelle:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Woche (t)</th>
+<th>Prod. Typ</th>
+<th>Bedarf Sirius</th>
+<th>Prod. Sirius</th>
+<th>Lager Sirius (Ende)</th>
+<th>Bedarf Vega</th>
+<th>Prod. Vega</th>
+<th>Lager Vega (Ende)</th>
+<th>Rüstk.</th>
+<th>Lagerk. (Summe)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>0</td>
+<td>-</td>
+<td>-</td>
+<td>0</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Sirius</td>
+<td>20</td>
+<td>50</td>
+<td><strong>(a)</strong></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td><strong>(b)</strong></td>
+<td><strong>(c)</strong></td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Vega</td>
+<td>10</td>
+<td>0</td>
+<td><strong>(d)</strong></td>
+<td>30</td>
+<td>50</td>
+<td><strong>(e)</strong></td>
+<td>200</td>
+<td>180</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Vega</td>
+<td>5</td>
+<td>0</td>
+<td>15</td>
+<td>20</td>
+<td><strong>(f)</strong></td>
+<td>20</td>
+<td><strong>(g)</strong></td>
+<td><strong>(h)</strong></td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>Sirius</td>
+<td>30</td>
+<td><strong>(i)</strong></td>
+<td>35</td>
+<td>10</td>
+<td>0</td>
+<td><strong>(j)</strong></td>
+<td><strong>(k)</strong></td>
+<td><strong>(l)</strong></td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>- (Keine)</td>
+<td>10</td>
+<td>0</td>
+<td><strong>(m)</strong></td>
+<td>5</td>
+<td>0</td>
+<td><strong>(n)</strong></td>
+<td><strong>(o)</strong></td>
+<td>125</td>
+</tr>
+<tr class="odd">
+<td><strong>SUMME</strong></td>
+<td>-</td>
+<td></td>
+<td></td>
+<td>-</td>
+<td></td>
+<td></td>
+<td>-</td>
+<td><strong>(p)</strong></td>
+<td><strong>(q)</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ihre Aufgaben:</strong></p>
+<ol type="1">
+<li><strong>Schrittweise Berechnung:</strong> Berechnen Sie schrittweise die fehlenden Werte (gekennzeichnet mit Buchstaben) in der Tabelle. Begründen Sie Ihre Berechnungen für jede Zelle kurz.</li>
+<li><strong>Summe der Rüst- und Lagerkosten:</strong> Ermitteln Sie die Summe der Rüstkosten und der Lagerkosten für den gesamten Planungszeitraum.</li>
+</ol>
+<p><strong>Lösung:</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tipps und wichtige Formeln">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipps und wichtige Formeln
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<section id="die-entscheidende-formel-die-lagerbilanzgleichung" class="level4">
+<h4 class="anchored" data-anchor-id="die-entscheidende-formel-die-lagerbilanzgleichung">Die entscheidende Formel: Die Lagerbilanzgleichung</h4>
+<p>Der Schlüssel zur Lösung dieser Aufgabe ist die Lagerbilanzgleichung, die für jedes Produkt und jede Woche gilt:</p>
+<p><code>Lagerbestand (Ende)_t = Lagerbestand (Ende)_{t-1} + Produktionsmenge_t - Bedarf_t</code></p>
+<ul>
+<li>Der <code>Lagerbestand (Ende)_{t-1}</code> ist der Anfangsbestand der Periode <code>t</code>.</li>
+<li>Diese Gleichung enthält alle wichtigen Variablen. Wenn eine davon unbekannt ist (z.B. die Produktionsmenge <code>(f)</code> oder <code>(i)</code>), können Sie die Gleichung einfach nach dieser Unbekannten umstellen.</li>
+</ul>
+</section>
+<section id="rüstkosten-logik" class="level4">
+<h4 class="anchored" data-anchor-id="rüstkosten-logik">Rüstkosten-Logik</h4>
+<ul>
+<li>Vergleichen Sie die Spalte <code>Produzierter Typ</code> von einer Woche zur nächsten.</li>
+<li><code>Rüstkosten_t = 0</code> wenn <code>Typ_t == Typ_{t-1}</code> (Rüstzustand wird übernommen).</li>
+<li><code>Rüstkosten_t &gt; 0</code> wenn <code>Typ_t != Typ_{t-1}</code> (Produktwechsel) oder wenn in Woche <code>t-1</code> nichts produziert wurde.</li>
+</ul>
+</section>
+<section id="lagerkosten-logik" class="level4">
+<h4 class="anchored" data-anchor-id="lagerkosten-logik">Lagerkosten-Logik</h4>
+<ul>
+<li>Die Summe der Lagerkosten in einer Zeile berechnet sich aus den Endbeständen beider Produkte: <code>Lagerkosten (Summe)_t = Lager Sirius (Ende)_t * h_S + Lager Vega (Ende)_t * h_V</code></li>
+</ul>
+</section>
+</div>
+</div>
+</div>
+<p><strong>1. Schrittweise Berechnung der fehlenden Werte:</strong></p>
+<p>Wir verwenden die Lagerbilanzgleichung: <span class="math inline">\(y_t = y_{t-1} + q_t - d_t\)</span></p>
+<ul>
+<li><strong>Woche 1:</strong>
+<ul>
+<li><ol type="a">
+<li><code>Lager Sirius (Ende)</code>: <span class="math inline">\(y_{S,1} = y_{S,0} + q_{S,1} - d_{S,1} = 0 + 50 - 20 = 30\)</span></li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><code>Rüstkosten</code>: Erster Produktionslauf, daher fallen Rüstkosten für Sirius an. Kosten = 250 GE.</li>
+</ol></li>
+<li><ol start="3" type="a">
+<li><code>Lagerkosten</code>: <span class="math inline">\(y_{S,1} \cdot h_S + y_{V,1} \cdot h_V = 30 \cdot 4 + 0 \cdot 5 = 120\)</span> GE.</li>
+</ol></li>
+</ul></li>
+<li><strong>Woche 2:</strong>
+<ul>
+<li><ol start="4" type="a">
+<li><code>Lager Sirius (Ende)</code>: <span class="math inline">\(y_{S,2} = y_{S,1} + q_{S,2} - d_{S,2} = 30 + 0 - 10 = 20\)</span></li>
+</ol></li>
+<li><ol start="5" type="a">
+<li><code>Lager Vega (Ende)</code>: <span class="math inline">\(y_{V,2} = y_{V,1} + q_{V,2} - d_{V,2} = 0 + 50 - 30 = 20\)</span></li>
+</ol></li>
+<li>Die Lagerkosten sind gegeben (180 GE) und stimmen mit unserer Berechnung überein: <span class="math inline">\(20 \cdot 4 + 20 \cdot 5 = 80 + 100 = 180\)</span>.</li>
+<li>Die Rüstkosten sind gegeben (200 GE), was den Wechsel von Sirius auf Vega bestätigt.</li>
+</ul></li>
+<li><strong>Woche 3:</strong>
+<ul>
+<li><ol start="6" type="a">
+<li><code>Prod. Vega</code>: Aus der Lagerbilanzgleichung für Vega: <span class="math inline">\(y_{V,3} = y_{V,2} + q_{V,3} - d_{V,3} \implies 20 = 20 + q_{V,3} - 20 \implies q_{V,3} = 20\)</span>.</li>
+</ol></li>
+<li><ol start="7" type="a">
+<li><code>Rüstkosten</code>: In Woche 2 wurde Vega produziert, in Woche 3 ebenfalls. Der Rüstzustand wird übernommen. Kosten = 0 GE.</li>
+</ol></li>
+<li><ol start="8" type="a">
+<li><code>Lagerkosten</code>: <span class="math inline">\(y_{S,3} \cdot h_S + y_{V,3} \cdot h_V = 15 \cdot 4 + 20 \cdot 5 = 60 + 100 = 160\)</span> GE.</li>
+</ol></li>
+<li><ol start="7" type="a">
+<li><code>Lager Sirius (Ende)</code>: <span class="math inline">\(y_{S,3} = y_{S,2} + q_{S,3} - d_{S,3} = 20 + 0 - 5 = 15\)</span>.</li>
+</ol></li>
+</ul></li>
+<li><strong>Woche 4:</strong>
+<ul>
+<li><ol type="i">
+<li><code>Prod. Sirius</code>: <span class="math inline">\(y_{S,4} = y_{S,3} + q_{S,4} - d_{S,4} \implies 35 = 15 + q_{S,4} - 30 \implies q_{S,4} = 50\)</span>.</li>
+</ol></li>
+<li><ol start="10" type="a">
+<li><code>Lager Vega (Ende)</code>: <span class="math inline">\(y_{V,4} = y_{V,3} + q_{V,4} - d_{V,4} = 20 + 0 - 10 = 10\)</span>.</li>
+</ol></li>
+<li><ol start="11" type="a">
+<li><code>Rüstkosten</code>: Wechsel von Vega auf Sirius. Kosten = 250 GE.</li>
+</ol></li>
+<li><ol start="12" type="a">
+<li><code>Lagerkosten</code>: <span class="math inline">\(y_{S,4} \cdot h_S + y_{V,4} \cdot h_V = 35 \cdot 4 + 10 \cdot 5 = 140 + 50 = 190\)</span> GE.</li>
+</ol></li>
+</ul></li>
+<li><strong>Woche 5:</strong>
+<ul>
+<li><ol start="13" type="a">
+<li><code>Lager Sirius (Ende)</code>: <span class="math inline">\(y_{S,5} = y_{S,4} + q_{S,5} - d_{S,5} = 35 + 0 - 10 = 25\)</span>.</li>
+</ol></li>
+<li><ol start="14" type="a">
+<li><code>Lager Vega (Ende)</code>: <span class="math inline">\(y_{V,5} = y_{V,4} + q_{V,5} - d_{V,5} = 10 + 0 - 5 = 5\)</span>.</li>
+</ol></li>
+<li>Die Lagerkosten sind gegeben (125 GE): <span class="math inline">\(25 \cdot 4 + 5 \cdot 5 = 100 + 25 = 125\)</span>.</li>
+<li><ol start="15" type="a">
+<li><code>Rüstkosten</code>: Keine Produktion, daher keine Rüstkosten. Kosten = 0 GE.</li>
+</ol></li>
+</ul></li>
+<li><strong>Summen:</strong>
+<ul>
+<li><ol start="16" type="a">
+<li><code>Summe Rüstkosten</code> = 250 (W1) + 200 (W2) + 0 (W3) + 250 (W4) + 0 (W5) = 700 GE.</li>
+</ol></li>
+<li><ol start="17" type="a">
+<li><code>Summe Lagerkosten</code> = 120 (W1) + 180 (W2) + 160 (W3) + 190 (W4) + 125 (W5) = 775 GE.</li>
+</ol></li>
+</ul></li>
+</ul>
+<p><strong>2. Vervollständigte Tabelle &amp; Code-Verifikation:</strong></p>
+<div id="f2644d55" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-stdout">
+<pre><code>Vervollständigte Tabelle:
+      Produzierter Typ  Bedarf Sirius  Prod. Sirius  Lager Sirius (Ende)  Bedarf Vega  Prod. Vega  Lager Vega (Ende)  Rüstkosten  Lagerkosten (Summe)
+Woche                                                                                                                                                
+1               Sirius             20            50                   30            0           0                  0         250                  120
+2                 Vega             10             0                   20           30          50                 20         200                  180
+3                 Vega              5             0                   15           20          20                 20           0                  160
+4               Sirius             30            50                   35           10           0                 10         250                  190
+5            - (Keine)             10             0                   25            5           0                  5           0                  125
+SUMME            SUMME             75           100                  125           65          70                 55         700                  775
+
+Gesamtkosten (Rüst- + Lagerkosten): 1475 GE</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/beyondsimulations\.github\.io\/Materiallogistik");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Materiallogistik, Tobias Vlćek<br>CC BY-NC-SA 4.0</p>
+</div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/beyondsimulations/Materiallogistik">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://linkedin.com/in/tobiasvlcek">
+      <i class="bi bi-linkedin" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="mailto:workshop@beyondsimulations.com">
+      <i class="bi bi-envelope" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../general/privacy.html">
+<p>Privacy Policy</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+<script>
+  window.difyChatbotConfig = {
+    token: 'OkOGHTmCFcXes6Jk',
+    baseUrl: 'https://flow.byndsim.com',
+    systemVariables: {
+      // user_id: 'YOU CAN DEFINE USER ID HERE',
+    },
+    containerProps: {
+      style: {
+          backgroundColor: '#ffffff',
+          borderRadius: '0px',
+      },
+    },
+  }
+</script>
+<script src="https://flow.byndsim.com/embed.min.js" id="OkOGHTmCFcXes6Jk" defer="">
+</script>
+<style>
+  #dify-chatbot-bubble-button {
+    background-color: #646B91 !important;
+  }
+  #dify-chatbot-bubble-window {
+    width: 24rem !important;
+    height: 80vh !important;
+    position: fixed !important;
+  }
+</style>
+
+
+
+
+</body></html>

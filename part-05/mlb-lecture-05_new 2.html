@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Tobias Vlćek">
+
+<title>Vorlesung 05: Bestandspolitiken – Materiallogistik</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-226bd0f977fa82dfae4534cac220d79a.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ac881602332e3938779ca5fc3517c7d9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script defer="" src="https://umi.byndsim.com/script.js" data-website-id="e230d76b-b0a6-477e-8c5d-19a7bd661e68"></script>
+<style>
+    .cell-output-stdout code {
+      word-break: break-word !important;
+      white-space: pre-wrap !important;
+    }
+</style>  
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-05/mlb-lecture-05_new.html">05 Bestellpolitiken</a></li><li class="breadcrumb-item"><a href="../part-05/mlb-lecture-05_new.html">Vorlesung</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Materiallogistik</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Startseite</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+ <span class="menu-text">***</span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">01 Klassifikation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-01/mlb-lecture-01.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-01/mlb-tutorial-01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">02 CLSP</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-02/mlb-lecture-02.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-02/mlb-tutorial-02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">03 PLSP</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-03/mlb-lecture-03.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-03/mlb-tutorial-03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">04 Bestandsmanagement</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-04/mlb-lecture-04_new.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-04/mlb-tutorial-04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">05 Bestellpolitiken</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-05/mlb-lecture-05_new.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Vorlesung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../part-05/mlb-tutorial-05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tutorium</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">***</span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="true">
+ <span class="menu-text">Zusatzaufgaben</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 01</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 02</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 03</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 04</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../practice/new-tutorials-05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thema 05</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../general/faqs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../general/chat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chat</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#das-grundsetting" id="toc-das-grundsetting" class="nav-link active" data-scroll-target="#das-grundsetting">1. Das Grundsetting</a></li>
+  <li><a href="#das-newsvendor-problem" id="toc-das-newsvendor-problem" class="nav-link" data-scroll-target="#das-newsvendor-problem">2. Das Newsvendor-Problem</a>
+  <ul class="collapse">
+  <li><a href="#das-kritische-verhältnis-critical-ratio" id="toc-das-kritische-verhältnis-critical-ratio" class="nav-link" data-scroll-target="#das-kritische-verhältnis-critical-ratio">Das kritische Verhältnis (Critical Ratio)</a></li>
+  <li><a href="#die-optimale-bestellmenge-finden" id="toc-die-optimale-bestellmenge-finden" class="nav-link" data-scroll-target="#die-optimale-bestellmenge-finden">Die optimale Bestellmenge finden</a></li>
+  </ul></li>
+  <li><a href="#die-s-q-politik-mit-undershoot" id="toc-die-s-q-politik-mit-undershoot" class="nav-link" data-scroll-target="#die-s-q-politik-mit-undershoot">3. Die (s, q)-Politik mit Undershoot</a>
+  <ul class="collapse">
+  <li><a href="#den-bestellpunkt-s-bestimmen" id="toc-den-bestellpunkt-s-bestimmen" class="nav-link" data-scroll-target="#den-bestellpunkt-s-bestimmen">Den Bestellpunkt <code>s</code> bestimmen</a></li>
+  </ul></li>
+  <li><a href="#die-periodische-politik-r-s" id="toc-die-periodische-politik-r-s" class="nav-link" data-scroll-target="#die-periodische-politik-r-s">4. Die periodische Politik (r, S)</a>
+  <ul class="collapse">
+  <li><a href="#der-längere-risikozeitraum-r-l" id="toc-der-längere-risikozeitraum-r-l" class="nav-link" data-scroll-target="#der-längere-risikozeitraum-r-l">Der längere Risikozeitraum: r + L</a></li>
+  <li><a href="#das-bestellniveau-s-bestimmen" id="toc-das-bestellniveau-s-bestimmen" class="nav-link" data-scroll-target="#das-bestellniveau-s-bestimmen">Das Bestellniveau <code>S</code> bestimmen</a></li>
+  </ul></li>
+  <li><a href="#welche-politik-für-welches-problem" id="toc-welche-politik-für-welches-problem" class="nav-link" data-scroll-target="#welche-politik-für-welches-problem">5. Welche Politik für welches Problem?</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="lecture-presentation.html"><i class="bi bi-file-slides"></i>RevealJS</a></li><li><a href="mlb-lecture-05_new.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../part-05/mlb-lecture-05_new.html">05 Bestellpolitiken</a></li><li class="breadcrumb-item"><a href="../part-05/mlb-lecture-05_new.html">Vorlesung</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Vorlesung 05: Bestandspolitiken</h1>
+<p class="subtitle lead">Newsvendor-Problem, (s,q)-Politik, (r,S)-Politik</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Tobias Vlćek </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="das-grundsetting" class="level2">
+<h2 class="anchored" data-anchor-id="das-grundsetting">1. Das Grundsetting</h2>
+<p>Nehmen wir an, wir leiten eine kleine Brauerei.</p>
+<ul>
+<li>Jedes Jahr zu Weihnachten brauen wir ein ganz besonderes, limitiertes Festbier. Die Nachfrage ist riesig, aber auch ungewiss.</li>
+<li>Wenn wir zu viel brauen, bleiben wir auf den Flaschen sitzen und machen Verlust.</li>
+<li>Brauen wir zu wenig, sind unsere treuen Kunden enttäuscht, und uns entgeht ein Gewinn.</li>
+<li>Dies ist eine <strong>einmalige Entscheidung</strong>.</li>
+</ul>
+<p>Ganz anders sieht es bei unserem Standard-Pils aus.</p>
+<ul>
+<li>Es wird das ganze Jahr über verkauft.</li>
+<li>Hier müssen wir nicht einmal, sondern <strong>laufend</strong> entscheiden: Wann bestellen wir neuen Hopfen und Malz, und wie viel davon?</li>
+<li>Das ist eine <strong>mehrperiodige Entscheidung</strong>.</li>
+</ul>
+<p>Beides schauen wir uns nun genauer an.</p>
+</section>
+<section id="das-newsvendor-problem" class="level2">
+<h2 class="anchored" data-anchor-id="das-newsvendor-problem">2. Das Newsvendor-Problem</h2>
+<p>Das “Zeitungsverkäufer-Problem” (Newsvendor Problem) ist der Klassiker für einmalige Bestandsentscheidungen. Der Name kommt von einem Zeitungsjungen, der morgens entscheiden muss, wie viele Zeitungen er kauft, ohne die genaue Nachfrage des Tages zu kennen. Abends sind die übrigen Zeitungen wertlos.</p>
+<p>Dieses Prinzip gilt für viele Produkte:</p>
+<ul>
+<li>Saisonale Modeartikel</li>
+<li>Tickets für ein Konzert oder Sportereignis</li>
+<li>Der Tannenbaumverkauf vor Weihnachten</li>
+<li><strong>Unser limitiertes Festbier</strong></li>
+</ul>
+<p>Im Kern geht es immer um die Abwägung zweier Risiken:</p>
+<ul>
+<li><strong>Overage-Kosten (<span class="math inline">\(c_O\)</span>):</strong> Die Kosten für jede Einheit, die wir <strong>zu viel</strong> bestellt haben und die am Ende übrig bleibt.</li>
+<li><strong>Underage-Kosten (<span class="math inline">\(c_U\)</span>):</strong> Die Kosten für jede nachgefragte Einheit, die wir <strong>zu wenig</strong> bestellt haben (entgangener Gewinn).</li>
+</ul>
+<p><strong>Beispiel: Unser Festbier</strong></p>
+<ul>
+<li><strong>Herstellungskosten pro Flasche:</strong> 3 GE</li>
+<li><strong>Verkaufspreis pro Flasche:</strong> 8 GE</li>
+<li><strong>Restwert:</strong> Nicht verkaufte Flaschen können wir für 1 GE pro Stück an einen Restposten-Händler verkaufen.</li>
+</ul>
+<p>Daraus berechnen wir die Kosten:</p>
+<ul>
+<li><strong>Underage-Kosten (<span class="math inline">\(c_U\)</span>):</strong> Wenn uns eine Flasche zur Bedienung der Nachfrage fehlt, entgeht uns der Gewinn. <span class="math display">\[c_U = \text{Verkaufspreis} - \text{Herstellungskosten} = 8 - 3 = 5 \text{ GE}\]</span></li>
+<li><strong>Overage-Kosten (<span class="math inline">\(c_O\)</span>):</strong> Jede Flasche, die wir zu viel produzieren, verursacht einen Verlust. <span class="math display">\[c_O = \text{Herstellungskosten} - \text{Restwert} = 3 - 1 = 2 \text{ GE}\]</span></li>
+</ul>
+<section id="das-kritische-verhältnis-critical-ratio" class="level3">
+<h3 class="anchored" data-anchor-id="das-kritische-verhältnis-critical-ratio">Das kritische Verhältnis (Critical Ratio)</h3>
+<p>Wir suchen die optimale Bestellmenge, die den erwarteten Gewinn maximiert.</p>
+<ul>
+<li>Die Lösung liegt im <strong>kritischen Verhältnis</strong>, auch “Critical Ratio” genannt.</li>
+<li>Es gibt uns den optimalen Servicegrad vor, bei dem der <strong>erwartete Gewinn maximiert wird</strong>.</li>
+</ul>
+<p><strong>Die Logik:</strong></p>
+<ul>
+<li>Wir sollten so lange eine zusätzliche Einheit auf Lager nehmen, wie der erwartete Gewinn aus dem Verkauf dieser Einheit größer ist als der erwartete Verlust, falls wir sie nicht verkaufen.</li>
+<li><span class="math inline">\(c_U \cdot P(\text{Nachfrage} \ge x)\)</span> ist der erwartete Gewinn aus dem Verkauf dieser Einheit.</li>
+<li><span class="math inline">\(c_O \cdot P(\text{Nachfrage} &lt; x)\)</span> ist der erwartete Verlust, falls wir sie nicht verkaufen.</li>
+<li><strong>Das kritische Verhältnis ist der Punkt, an dem sich diese beiden die Waage halten.</strong></li>
+</ul>
+<p><span class="math display">\[
+\text{Kritisches Verhältnis} = F(x_{opt}) = \frac{c_U}{c_O + c_U}
+\]</span></p>
+<p>Für unser Festbier bedeutet das:</p>
+<p><span class="math display">\[
+\text{Kritisches Verhältnis} = \frac{5}{2 + 5} = \frac{5}{7} \approx 0.714
+\]</span></p>
+<p>Das bedeutet: Wir sollten so viele Flaschen brauen, dass die Wahrscheinlichkeit, die gesamte Nachfrage zu decken, bei ca. 71,4% liegt.</p>
+</section>
+<section id="die-optimale-bestellmenge-finden" class="level3">
+<h3 class="anchored" data-anchor-id="die-optimale-bestellmenge-finden">Die optimale Bestellmenge finden</h3>
+<p>Jetzt, da wir das Ziel kennen (71,4% Servicegrad), müssen wir nur noch die passende Bestellmenge finden. Wie wir das tun, hängt von der Art der Nachfrageverteilung ab.</p>
+<section id="fall-1-diskrete-nachfrage" class="level4">
+<h4 class="anchored" data-anchor-id="fall-1-diskrete-nachfrage">Fall 1: Diskrete Nachfrage</h4>
+<p>Stellen wir uns einen Food-Truck vor, der an einem einzigen Tag auf einem Festival ein spezielles, teures Gericht anbietet.</p>
+<ul>
+<li>Die Herstellungskosten liegen bei 8 GE.</li>
+<li>Der Verkaufspreis beträgt 20 GE.</li>
+<li>Reste sind wertlos (<span class="math inline">\(c_O = 8, c_U = 12\)</span>).</li>
+<li>Das kritische Verhältnis ist <span class="math inline">\(12 / (8 + 12) = 0.6\)</span>.</li>
+</ul>
+<p>Die Erfahrung zeigt folgende Nachfrageverteilung:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Nachfrage (x)</th>
+<th style="text-align: center;">P(x)</th>
+<th style="text-align: center;">Kumulierte P(Y&lt;=x)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">10 Gerichte</td>
+<td style="text-align: center;">0.20</td>
+<td style="text-align: center;">0.20</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">11 Gerichte</td>
+<td style="text-align: center;">0.25</td>
+<td style="text-align: center;">0.45</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">12 Gerichte</td>
+<td style="text-align: center;">0.30</td>
+<td style="text-align: center;"><strong>0.75</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">13 Gerichte</td>
+<td style="text-align: center;">0.15</td>
+<td style="text-align: center;">0.90</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">14 Gerichte</td>
+<td style="text-align: center;">0.10</td>
+<td style="text-align: center;">1.00</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Regel:</strong></p>
+<p>Wir suchen die <strong>kleinste Bestellmenge x</strong>, für die die kumulierte Wahrscheinlichkeit <span class="math inline">\(F(x) = P(Y \le x)\)</span> <strong>größer oder gleich</strong> dem kritischen Verhältnis ist.</p>
+<ul>
+<li><span class="math inline">\(F(10) = 0.20 &lt; 0.6\)</span></li>
+<li><span class="math inline">\(F(11) = 0.45 &lt; 0.6\)</span></li>
+<li><span class="math inline">\(F(12) = 0.75 \ge 0.6\)</span> –&gt; <strong>STOPP!</strong></li>
+</ul>
+<p>Die optimale Bestellmenge ist <strong>12 Gerichte</strong>. Obwohl die Wahrscheinlichkeit für 12 verkaufte Gerichte nur bei 30% liegt, ist das die beste Entscheidung, um den erwarteten Gewinn zu maximieren.</p>
+</section>
+<section id="fall-2-stetige-normalverteilte-nachfrage" class="level4">
+<h4 class="anchored" data-anchor-id="fall-2-stetige-normalverteilte-nachfrage">Fall 2: Stetige (Normalverteilte) Nachfrage</h4>
+<p>Zurück zu unserem Beispiel mit dem Festbier unserer Brauerei.</p>
+<ul>
+<li>Bei Tausenden von Kunden ist die Nachfrage eher eine stetige, glockenförmige Kurve.</li>
+<li>Nehmen wir an, die Nachfrage ist <strong>normalverteilt</strong>.</li>
+<li>Wir haben einen Erwartungswert von <span class="math inline">\(\mu=2000\)</span> Flaschen.</li>
+<li>Ferner schätzen wir eine Standardabweichung von <span class="math inline">\(\sigma=300\)</span> Flaschen.</li>
+</ul>
+<p>Hier nutzen wir die Formel:</p>
+<p><span class="math display">\[
+x_{opt} = \mu + z \cdot \sigma
+\]</span></p>
+<ul>
+<li>Der <strong>Sicherheitsfaktor z</strong> ist die Brücke zwischen unserem kritischen Verhältnis und der Bestellmenge.</li>
+<li>Wir finden ihn, indem wir die <strong>inverse Standardnormalverteilung</strong> für unser kritisches Verhältnis von 0.714 berechnen. Je höher der angestrebte Servicegrad (das kritische Verhältnis), desto überproportional größer wird der notwendige Sicherheitsfaktor.</li>
+</ul>
+<p><strong>Z-Werte für gängige Servicegrade (Kritisches Verhältnis)</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 11%">
+<col style="width: 59%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><span class="math inline">\(\alpha\)</span>-Servicegrad</th>
+<th style="text-align: center;">z-Wert</th>
+<th style="text-align: left;">Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">50%</td>
+<td style="text-align: center;">0.000</td>
+<td style="text-align: left;">Exakt der Erwartungswert (kein Puffer).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">55%</td>
+<td style="text-align: center;">0.126</td>
+<td style="text-align: left;">0.126 Standardabweichungen als Puffer.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">60%</td>
+<td style="text-align: center;">0.253</td>
+<td style="text-align: left;">0.253 Standardabweichungen als Puffer.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">65%</td>
+<td style="text-align: center;">0.385</td>
+<td style="text-align: left;">0.385 Standardabweichungen als Puffer.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">70%</td>
+<td style="text-align: center;">0.524</td>
+<td style="text-align: left;">0.524 Standardabweichungen als Puffer.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">75%</td>
+<td style="text-align: center;">0.674</td>
+<td style="text-align: left;">0.674 Standardabweichungen als Puffer.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">80%</td>
+<td style="text-align: center;">0.842</td>
+<td style="text-align: left;">0.842 Standardabweichungen als Puffer.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">85%</td>
+<td style="text-align: center;">1.036</td>
+<td style="text-align: left;">1.036 Standardabweichungen als Puffer.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">90%</td>
+<td style="text-align: center;">1.282</td>
+<td style="text-align: left;">1.282 Standardabweichungen als Puffer.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">95%</td>
+<td style="text-align: center;">1.645</td>
+<td style="text-align: left;">1.645 Standardabweichungen als Puffer.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">99%</td>
+<td style="text-align: center;">2.326</td>
+<td style="text-align: left;">2.326 Standardabweichungen als Puffer.</td>
+</tr>
+</tbody>
+</table>
+<p>Wir gehen wie folgt vor:</p>
+<ol type="1">
+<li><strong>z-Wert finden:</strong> <span class="math inline">\(\Phi(z) = 0.714 \implies z \approx 0.565\)</span> <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+<li><strong>Optimale Menge berechnen:</strong> <span class="math inline">\(x_{opt} = 2000 + 0.565 \cdot 300 \approx 2000 + 170 = 2170\)</span> Flaschen.</li>
+<li><strong>Sicherheitsbestand:</strong> Der Teil über dem Erwartungswert ist unser Puffer gegen Unsicherheit. Sicherheitsbestand = <span class="math inline">\(x_{opt} - \mu = 2170 - 2000 = 170\)</span> Flaschen.</li>
+</ol>
+<p>Wir sollten also 2170 Flaschen brauen, um unseren erwarteten Gewinn zu maximieren.</p>
+</section>
+</section>
+</section>
+<section id="die-s-q-politik-mit-undershoot" class="level2">
+<h2 class="anchored" data-anchor-id="die-s-q-politik-mit-undershoot">3. Die (s, q)-Politik mit Undershoot</h2>
+<p>Für Produkte, die wir kontinuierlich führen, brauchen wir eine laufende Strategie. Hier ist die <strong>(s, q)-Politik</strong>, die wir bereits in der letzten Vorlesung kennengelernt haben, eine oft verwendete Strategie.</p>
+<p>Zur Erinnerung:</p>
+<ul>
+<li>Wir überwachen den Lagerbestand <strong>kontinuierlich</strong>.</li>
+<li>Fällt der <em>disponible Bestand</em> auf oder unter den <strong>Bestellpunkt (s)</strong>, lösen wir eine Bestellung aus.</li>
+<li>Die <strong>Bestellmenge (q)</strong> ist immer fest.</li>
+</ul>
+<p>Ein Problem dabei ist das “Unterschießen” des Bestellpunkts, der sogenannte <strong>Undershoot</strong>. Wenn wir den Bestand nur täglich prüfen, kann eine große Nachfrage den Bestand weit unter <code>s</code> drücken, bevor wir überhaupt bestellen. Dieser Undershoot (<span class="math inline">\(U\)</span>) ist eine zusätzliche Zufallsgröße, die wir berücksichtigen müssen.</p>
+<p>Für eine normalverteilte Tagesnachfrage <span class="math inline">\(D \sim N(\mu_D, \sigma_D^2)\)</span> können wir den Undershoot so abschätzen:</p>
+<ul>
+<li><strong>Erwarteter Undershoot:</strong> <span class="math inline">\(E\{U\} \approx \frac{\sigma_D^2 + \mu_D^2}{2 \mu_D}\)</span></li>
+<li><strong>Varianz des Undershoots:</strong> <span class="math inline">\(\operatorname{Var}\{U\} \approx \frac{\sigma_D^2}{2} \left(1 - \frac{\sigma_D^2}{2\mu_D^2}\right) + \frac{\mu_D^2}{12}\)</span></li>
+</ul>
+<section id="den-bestellpunkt-s-bestimmen" class="level3">
+<h3 class="anchored" data-anchor-id="den-bestellpunkt-s-bestimmen">Den Bestellpunkt <code>s</code> bestimmen</h3>
+<p>Der <strong>Risikozeitraum</strong> ist die Wiederbeschaffungszeit <span class="math inline">\(L\)</span>. Die Nachfrage <span class="math inline">\(Y\)</span>, die unser Bestellpunkt abdecken muss, ist die Summe aus der Nachfrage während der WBZ (<span class="math inline">\(Y^{(L)}\)</span>) und dem Undershoot (<span class="math inline">\(U\)</span>).</p>
+<ul>
+<li>Erwartungswert: <span class="math inline">\(\mu_Y = \mu_L + E\{U\} = (L \cdot \mu_D) + E\{U\}\)</span></li>
+<li>Varianz: <span class="math inline">\(\sigma_Y^2 = \sigma_L^2 + \operatorname{Var}\{U\} = (L \cdot \sigma_D^2) + \operatorname{Var}\{U\}\)</span></li>
+</ul>
+<p>Um den optimalen Bestellpunkt <span class="math inline">\(s_{opt}\)</span> für einen angestrebten <strong><span class="math inline">\(\beta\)</span>-Servicegrad</strong> (Fill Rate) zu finden, nutzen wir wieder eine Formel, die auf der Einheiten-Verlustfunktion <span class="math inline">\(G_Z^{(1)}(v)\)</span> basiert.</p>
+<p><strong>Zielbedingung:</strong> Finde den kleinsten Sicherheitsfaktor <span class="math inline">\(v\)</span>, für den gilt: <span class="math display">\[
+G_Z^{(1)}(v) \leq \frac{(1-\beta) \cdot q}{\sigma_Y}
+\]</span> Der optimale Bestellpunkt ist dann: <span class="math inline">\(s_{opt} = \mu_Y + v_{opt} \cdot \sigma_Y\)</span>.</p>
+<p>Den Wert für <span class="math inline">\(v_{opt}\)</span> findet man, indem man den Zielwert für die Verlustfunktion in einer Tabelle nachschlägt oder einfach in einer Software berechnet.</p>
+<p><strong>Tabelle der Standard-Verlustfunktion <span class="math inline">\(G_Z^{(1)}(v)\)</span></strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">v</th>
+<th style="text-align: center;"><span class="math inline">\(G_Z^{(1)}(v)\)</span></th>
+<th style="text-align: center;">v</th>
+<th style="text-align: center;"><span class="math inline">\(G_Z^{(1)}(v)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0.0</td>
+<td style="text-align: center;">0.399</td>
+<td style="text-align: center;">1.1</td>
+<td style="text-align: center;">0.069</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0.1</td>
+<td style="text-align: center;">0.359</td>
+<td style="text-align: center;">1.2</td>
+<td style="text-align: center;">0.056</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0.2</td>
+<td style="text-align: center;">0.323</td>
+<td style="text-align: center;"><strong>1.25</strong></td>
+<td style="text-align: center;"><strong>0.051</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0.3</td>
+<td style="text-align: center;">0.291</td>
+<td style="text-align: center;">1.3</td>
+<td style="text-align: center;">0.046</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0.4</td>
+<td style="text-align: center;">0.262</td>
+<td style="text-align: center;">1.4</td>
+<td style="text-align: center;">0.038</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0.5</td>
+<td style="text-align: center;">0.235</td>
+<td style="text-align: center;">1.5</td>
+<td style="text-align: center;">0.031</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0.6</td>
+<td style="text-align: center;">0.211</td>
+<td style="text-align: center;">1.6</td>
+<td style="text-align: center;">0.026</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0.7</td>
+<td style="text-align: center;">0.189</td>
+<td style="text-align: center;">1.7</td>
+<td style="text-align: center;">0.021</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0.8</td>
+<td style="text-align: center;">0.169</td>
+<td style="text-align: center;">1.8</td>
+<td style="text-align: center;">0.017</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0.9</td>
+<td style="text-align: center;">0.148</td>
+<td style="text-align: center;">1.9</td>
+<td style="text-align: center;">0.014</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">1.0</td>
+<td style="text-align: center;">0.083</td>
+<td style="text-align: center;">2.0</td>
+<td style="text-align: center;">0.011</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Beispiel:</strong></p>
+<ul>
+<li>Ein Bauteil hat eine tägliche Nachfrage von <span class="math inline">\(\mu_D=20, \sigma_D=5\)</span>.</li>
+<li>Die WBZ ist <span class="math inline">\(L=10\)</span> Tage, die feste Bestellmenge <span class="math inline">\(q=300\)</span>.</li>
+<li>Wir streben <span class="math inline">\(\beta=97\%\)</span> an.</li>
+</ul>
+<ol type="1">
+<li><strong>Undershoot berechnen:</strong> <span class="math inline">\(E\{U\} \approx (5^2 + 20^2) / (2 \cdot 20) = 10.625\)</span> <span class="math inline">\(\operatorname{Var}\{U\} \approx 5^2/2 \cdot (1 - 5^2/(2 \cdot 20^2)) + 20^2/12 \approx 45.42\)</span></li>
+<li><strong>Nachfrage im Risikozeitraum:</strong> <span class="math inline">\(\mu_Y = (10 \cdot 20) + 10.625 = 210.625\)</span> <span class="math inline">\(\sigma_Y^2 = (10 \cdot 5^2) + 45.42 = 295.42 \implies \sigma_Y \approx 17.19\)</span></li>
+<li><strong>Zielwert für Verlustfunktion:</strong> Target <span class="math inline">\(G_Z^{(1)}(v) = (1 - 0.97) \cdot 300 / 17.19 \approx 0.523\)</span></li>
+<li><strong><span class="math inline">\(v_{opt}\)</span> finden:</strong>
+<ul>
+<li>Wir suchen <code>v</code>, sodass <span class="math inline">\(G_Z^{(1)}(v) \le 0.523\)</span>. Dies geschieht durch Nachschlagen in einer Tabelle der Standard-Verlustfunktion oder mittels Software.</li>
+<li>Die Funktion <span class="math inline">\(G_Z^{(1)}(v)\)</span> hat für <span class="math inline">\(v=0\)</span> einen Wert von ca. 0.399. Für alle <span class="math inline">\(v&gt;0\)</span> ist der Funktionswert kleiner.</li>
+<li>Da unser Zielwert von <span class="math inline">\(0.523\)</span> größer ist als <span class="math inline">\(0.399\)</span>, ist die Bedingung bereits für <span class="math inline">\(v=0\)</span> erfüllt.</li>
+<li>In der Praxis wird in diesem Fall der Sicherheitsfaktor auf 0 gesetzt, da kein positiver Puffer benötigt wird.</li>
+<li>Daher: <span class="math inline">\(v_{opt} \approx 0.0\)</span>.</li>
+</ul></li>
+<li><strong>Bestellpunkt <span class="math inline">\(s_{opt}\)</span>:</strong> <span class="math inline">\(s_{opt} = 210.625 + 0.0 \cdot 17.19 \approx 211\)</span> Stück. Der Bestellpunkt sollte auf 211 Stück gesetzt werden.</li>
+</ol>
+</section>
+</section>
+<section id="die-periodische-politik-r-s" class="level2">
+<h2 class="anchored" data-anchor-id="die-periodische-politik-r-s">4. Die periodische Politik (r, S)</h2>
+<p>Nicht für jedes Produkt lohnt sich eine ständige Überwachung. Für Joghurt im Supermarkt ist es effizienter, nur einmal pro Woche (periodisch) nachzusehen und aufzufüllen. Hierfür eignet sich die <strong>(r, S)-Politik</strong>.</p>
+<ul>
+<li>Wir prüfen den Bestand nur in festen Intervallen, z.B. alle <strong>r=7 Tage</strong>.</li>
+<li>Wir bestellen dann eine variable Menge, um den Bestand auf ein festes <strong>Bestellniveau (S)</strong> aufzufüllen.</li>
+</ul>
+<section id="der-längere-risikozeitraum-r-l" class="level3">
+<h3 class="anchored" data-anchor-id="der-längere-risikozeitraum-r-l">Der längere Risikozeitraum: r + L</h3>
+<p>Hier müssen wir umdenken: Der <strong>Risikozeitraum ist jetzt <span class="math inline">\(r+L\)</span></strong>! Warum? Eine Bestellung, die wir heute aufgeben, muss die Nachfrage so lange decken, bis die <em>nächste</em> Lieferung eintrifft. Die nächste Bestellung lösen wir erst in <span class="math inline">\(r\)</span> Tagen aus, und diese braucht dann nochmal <span class="math inline">\(L\)</span> Tage, um anzukommen.</p>
+<ul>
+<li>Nachfrage im Risikozeitraum: <span class="math inline">\(\mu_{r+L} = (r+L) \cdot \mu_d\)</span></li>
+<li>Standardabweichung: <span class="math inline">\(\sigma_{r+L} = \sqrt{r+L} \cdot \sigma_d\)</span></li>
+</ul>
+</section>
+<section id="das-bestellniveau-s-bestimmen" class="level3">
+<h3 class="anchored" data-anchor-id="das-bestellniveau-s-bestimmen">Das Bestellniveau <code>S</code> bestimmen</h3>
+<p>Auch hier können wir das optimale Bestellniveau <span class="math inline">\(S_{opt}\)</span> für einen Ziel-<strong><span class="math inline">\(\beta\)</span>-Servicegrad</strong> bestimmen. Die Logik ist sehr ähnlich zur (s,q)-Politik, aber die Formel für die Zielbedingung ist leicht anders, da die erwartete Fehlmenge ins Verhältnis zur erwarteten Nachfrage im Bestellintervall (<span class="math inline">\(r \cdot \mu_d\)</span>) gesetzt wird.</p>
+<p><strong>Zielbedingung (vereinfacht):</strong><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Finde den kleinsten Sicherheitsfaktor <span class="math inline">\(v\)</span>, für den gilt: <span class="math display">\[
+G_Z^{(1)}(v) \leq \frac{(1-\beta) \cdot r \cdot \mu_d}{\sigma_{r+L}}
+\]</span> Das optimale Bestellniveau ist dann: <span class="math inline">\(S_{opt} = \mu_{r+L} + v_{opt} \cdot \sigma_{r+L}\)</span>.</p>
+<p><strong>Beispiel:</strong> Ein Supermarkt verkauft Frischmilch.</p>
+<ul>
+<li>Bestand wird alle <strong>r=3 Tage</strong> geprüft.</li>
+<li>Die Lieferzeit beträgt <strong>L=1 Tag</strong>.</li>
+<li>Tägliche Nachfrage: <span class="math inline">\(\mu_d=50\)</span> Packungen, <span class="math inline">\(\sigma_d=15\)</span>.</li>
+<li>Angestrebter Servicegrad: <span class="math inline">\(\beta=99\%\)</span>.</li>
+</ul>
+<ol type="1">
+<li><strong>Risikozeitraum:</strong> <span class="math inline">\(r+L = 3 + 1 = 4\)</span> Tage.</li>
+<li><strong>Nachfrage im Risikozeitraum:</strong> <span class="math inline">\(\mu_{r+L} = 4 \cdot 50 = 200\)</span> <span class="math inline">\(\sigma_{r+L} = \sqrt{4} \cdot 15 = 30\)</span></li>
+<li><strong>Zielwert für Verlustfunktion:</strong> Target <span class="math inline">\(G_Z^{(1)}(v) = (1-0.99) \cdot 3 \cdot 50 / 30 = 0.05\)</span></li>
+<li><strong><span class="math inline">\(v_{opt}\)</span> finden:</strong>
+<ul>
+<li>Wir suchen den <code>v</code>-Wert, für den <span class="math inline">\(G_Z^{(1)}(v) \leq 0.05\)</span> ist. Aus der Tabelle finden wir, dass <span class="math inline">\(G_Z^{(1)}(1.3) \approx 0.046\)</span> der erste Wert ist, der die Bedingung erfüllt. Also <span class="math inline">\(v_{opt} \approx 1.3\)</span>.</li>
+</ul></li>
+<li><strong>Bestellniveau <span class="math inline">\(S_{opt}\)</span>:</strong> <span class="math inline">\(S_{opt} = 200 + 1.3 \cdot 30 = 200 + 39 = 239\)</span> Packungen. Jeden dritten Tag wird so viel Milch bestellt, dass der verfügbare Bestand wieder auf 239 Packungen ansteigt.</li>
+</ol>
+</section>
+</section>
+<section id="welche-politik-für-welches-problem" class="level2">
+<h2 class="anchored" data-anchor-id="welche-politik-für-welches-problem">5. Welche Politik für welches Problem?</h2>
+<ul>
+<li><strong>Newsvendor-Modell:</strong> Perfekt für <strong>einmalige Bestellentscheidungen</strong> bei saisonalen oder verderblichen Produkten. Es balanciert elegant die Kosten von “zu viel” und “zu wenig”.</li>
+<li><strong>(s, q)-Politik:</strong> Ideal für <strong>wichtige oder teure Produkte</strong>, bei denen sich eine <strong>kontinuierliche Überwachung</strong> lohnt. Sie arbeitet mit einem festen Sicherheitsbestand und einer festen Bestellmenge.</li>
+<li><strong>(r, S)-Politik:</strong> Die richtige Wahl für <strong>Standardprodukte</strong> mit geringerem Wert, bei denen eine <strong>periodische Überprüfung</strong> ausreicht. Sie ist einfacher zu handhaben, erfordert aber einen höheren Sicherheitsbestand, da der Risikozeitraum länger ist.</li>
+</ul>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Mit Excel <code>NORM.S.INV(0.714)</code>, Python <code>norm.ppf(0.714)</code> oder aus einer Tabelle ablesen.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Die Formel ist exakt unter der Annahme, dass die durchschnittliche Bestellmenge genau <span class="math inline">\(r \cdot \mu_d\)</span> ist. In einem System mit Fehlbeständen (Backorders) ist die durchschnittliche Bestellmenge jedoch leicht höher als die durchschnittliche Nachfrage, da in Zyklen nach einem Fehlbestand nicht nur die Nachfrage der aktuellen Periode, sondern auch der aufgestaute Fehlbestand aus der Vorperiode bedient werden muss.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/beyondsimulations\.github\.io\/Materiallogistik");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Materiallogistik, Tobias Vlćek<br>CC BY-NC-SA 4.0</p>
+</div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/beyondsimulations/Materiallogistik">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://linkedin.com/in/tobiasvlcek">
+      <i class="bi bi-linkedin" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="mailto:workshop@beyondsimulations.com">
+      <i class="bi bi-envelope" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../general/privacy.html">
+<p>Privacy Policy</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+<script>
+  window.difyChatbotConfig = {
+    token: 'OkOGHTmCFcXes6Jk',
+    baseUrl: 'https://flow.byndsim.com',
+    systemVariables: {
+      // user_id: 'YOU CAN DEFINE USER ID HERE',
+    },
+    containerProps: {
+      style: {
+          backgroundColor: '#ffffff',
+          borderRadius: '0px',
+      },
+    },
+  }
+</script>
+<script src="https://flow.byndsim.com/embed.min.js" id="OkOGHTmCFcXes6Jk" defer="">
+</script>
+<style>
+  #dify-chatbot-bubble-button {
+    background-color: #646B91 !important;
+  }
+  #dify-chatbot-bubble-window {
+    width: 24rem !important;
+    height: 80vh !important;
+    position: fixed !important;
+  }
+</style>
+
+
+
+
+</body></html>
