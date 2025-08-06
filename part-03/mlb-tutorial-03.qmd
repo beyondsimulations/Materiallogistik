@@ -314,21 +314,48 @@ Beantworten Sie die folgenden konzeptionellen Fragen:
 :::
 
 1.  **Eingefrorener Plan:**
-    Der "Frozen"-Teil des Plans umfasst alle Bestellungen, deren Bestelltermin in oder vor der aktuellen Periode (Ende Woche 2) liegt. Gemäß der Lösung von Aufgabe 2 sind dies:
-    -   Bestellung für **Stecker S1** in Woche 0 (für Bedarf in Woche 1)
-    -   Bestellung für **Lampe L1** in Woche 1 (für Bedarf in Woche 2)
-    -   Bestellung für **Panel P1** in Woche -1 und 2 (für L1-Bedarf in P2 und P4)
-    -   Bestellung für **Wifi-Modul W1** in Woche -2, 0 und 1.
+    Der "Frozen"-Teil des Plans umfasst alle Bestellungen, deren Bestelltermin in oder vor der aktuellen Periode (Ende Woche 2) liegt. Um diese zu identifizieren, führen wir zunächst eine MRP-Planung unter Berücksichtigung der gegebenen Lagerbestände durch:
 
-    Alle Produktions- und Beschaffungsvorgänge, die bereits gestartet wurden (Bestellzeitpunkt <= 2), sind fix. Die daraus resultierenden Zugänge und Bestände zu Beginn von Woche 3 sind die Ausgangsbasis für die Neuplanung.
+    **MRP-Planung mit Lagerbeständen:**
+    
+    **S1 (Anfangsbestand: 50):**
+    - Woche 1: Bedarf 30, Bestand 50 → kein Nettobedarf (Endbestand: 20)
+    - Woche 3: Bedarf 80, Bestand 20 → Nettobedarf 60 → **Produktion in Woche 2**
+    - Woche 5: Bedarf 70, Bestand 0 → Nettobedarf 70 → Produktion in Woche 4
+
+    **L1 (Anfangsbestand: 20):**
+    - Woche 2: Bedarf 40, Bestand 20 → Nettobedarf 20 → **Produktion in Woche 1**
+    - Woche 4: Bedarf 60, Bestand 0 → Nettobedarf 60 → Produktion in Woche 3
+    - Woche 6: Bedarf 50, Bestand 0 → Nettobedarf 50 → Produktion in Woche 5
+
+    **P1 (Anfangsbestand: 30):**
+    - Woche 1: 20 benötigt (für L1), Bestand 30 → kein Nettobedarf (Endbestand: 10)
+    - Woche 3: 60 benötigt (für L1), Bestand 10 → Nettobedarf 50 → **Bestellung in Woche 1**
+    - Woche 5: 50 benötigt (für L1), Bestand 0 → Nettobedarf 50 → Bestellung in Woche 3
+
+    **W1 (Anfangsbestand: 100):**
+    - Woche 1: 20 benötigt (für L1), Bestand 100 → kein Nettobedarf (Endbestand: 80)
+    - Woche 2: 60 benötigt (für S1), Bestand 80 → kein Nettobedarf (Endbestand: 20)
+    - Woche 3: 60 benötigt (für L1), Bestand 20 → Nettobedarf 40 → **Bestellung in Woche 0**
+    - Woche 4: 70 benötigt (für S1), Bestand 0 → Nettobedarf 70 → **Bestellung in Woche 1**
+    - Woche 5: 50 benötigt (für L1), Bestand 0 → Nettobedarf 50 → **Bestellung in Woche 2**
+
+    **Eingefrorene Bestellungen (Bestelltermin ≤ Woche 2):**
+    -   **Stecker S1:** Produktion in Woche 2
+    -   **Lampe L1:** Produktion in Woche 1
+    -   **Panel P1:** Bestellung in Woche 1
+    -   **Wifi-Modul W1:** Bestellungen in Woche 0, 1 und 2
+
+    Die hohen Anfangsbestände reduzieren die Anzahl der notwendigen Bestellungen erheblich. Alle Produktions- und Beschaffungsvorgänge, die bereits gestartet wurden (Bestellzeitpunkt ≤ 2), sind fix und bilden die Ausgangsbasis für die Neuplanung.
 
 2.  **Verlust der Optimalität:**
-    Der ursprüngliche Plan basierte auf einer Stück-für-Stück-Politik, welche die Bedarfe exakt deckt. Die Erhöhung des Bedarfs für L1 in Woche 6 hat eine Kaskade von Effekten:
-    -   Der Bruttobedarf für P1 und W1 in Woche 5 (Vorlaufzeit von L1) erhöht sich.
-    -   Diese Bedarfsänderung wird an die Komponente W1 weitergereicht.
-    -   Die Losgrößenentscheidung für W1 im ursprünglichen Plan war darauf ausgelegt, die Bedarfe bis Woche 6 zu decken. Durch den neuen, höheren Bedarf in der Zukunft könnte es nun kostenoptimaler sein, eine frühere Bestellung für W1 (z.B. die in Woche 1 für den Bedarf in Woche 4) zu vergrößern, um die Bedarfe bis Woche 6 abzudecken und so einen Rüstvorgang zu sparen (falls eine andere Losgrößenregel als Stück-für-Stück verwendet würde).
-    -   Selbst bei Stück-für-Stück ändert sich die benötigte Bestellmenge für W1. Da die ursprüngliche Bestellung für den Bedarf in Woche 5 (ausgelöst in P2) bereits "frozen" sein könnte, muss nun eine zusätzliche, evtl. kleine und ineffiziente Bestellung für den Mehrbedarf aufgegeben werden.
-    -   Fazit: Eine kleine Änderung in der Zukunft kann durch die komplexen, mehrstufigen Abhängigkeiten und Losgrößenlogiken die Optimalität des gesamten bestehenden Plans zunichtemachen.
+    Der ursprüngliche Plan basierte auf einer Stück-für-Stück-Politik unter Berücksichtigung der Lagerbestände. Die Erhöhung des L1-Bedarfs in Woche 6 von 50 auf 80 Stück hat folgende Kaskade von Effekten:
+    -   Der **zusätzliche L1-Bedarf von 30 Stück** in Woche 6 erfordert eine L1-Produktion von 30 Stück in Woche 5.
+    -   Dies führt zu einem **zusätzlichen P1-Bedarf von 30 Stück** in Woche 5, was eine P1-Bestellung von 30 Stück in Woche 3 erfordert.
+    -   Gleichzeitig entsteht ein **zusätzlicher W1-Bedarf von 30 Stück** in Woche 5, was eine W1-Bestellung von 30 Stück in Woche 2 erfordert.
+    -   **Problem:** Die W1-Bestellung in Woche 2 ist bereits "eingefroren" und kann nicht mehr angepasst werden. Die ursprünglich geplante Bestellmenge von 50 Stück reicht nun nicht mehr aus.
+    -   **Konsequenz:** Es muss eine **zusätzliche, ineffiziente W1-Bestellung** für die fehlenden 30 Stück aufgegeben werden, was zu höheren Gesamtkosten führt (zusätzliche Rüstkosten oder suboptimale Losgrößen).
+    -   **Fazit:** Selbst eine kleine Änderung in der fernen Zukunft kann durch die mehrstufigen Abhängigkeiten und die Frozen Zone die Optimalität des gesamten Plans beeinträchtigen.
 
 3.  **Definitionen:**
     -   **Frozen Zone:** Dies ist der unmittelbar bevorstehende Zeitraum des Plans (hier: Woche 1-2), in dem keine Änderungen mehr vorgenommen werden. Die Produktionsaufträge sind bereits freigegeben, Material ist unterwegs. Dies schafft Stabilität in der Produktion. Die Länge der Frozen Zone orientiert sich oft an der kumulierten Vorlaufzeit der Produkte, kann aber aus strategischen Gründen (z.B. zur Kapazitätsglättung oder aufgrund von Lieferantenverträgen) bewusst länger gewählt werden.
