@@ -482,7 +482,7 @@ Tipps und wichtige Formeln
 </div>
 </div>
 </div>
-<div id="7160cdf3" class="cell" data-execution_count="1">
+<div id="ca778c33" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-stdout">
 <pre><code>1. Kostenberechnung:
 
@@ -696,21 +696,50 @@ Tipps und wichtige Formeln
 </div>
 </div>
 <ol type="1">
-<li><p><strong>Eingefrorener Plan:</strong> Der “Frozen”-Teil des Plans umfasst alle Bestellungen, deren Bestelltermin in oder vor der aktuellen Periode (Ende Woche 2) liegt. Gemäß der Lösung von Aufgabe 2 sind dies:</p>
+<li><p><strong>Eingefrorener Plan:</strong> Der “Frozen”-Teil des Plans umfasst alle Bestellungen, deren Bestelltermin in oder vor der aktuellen Periode (Ende Woche 2) liegt. Um diese zu identifizieren, führen wir zunächst eine MRP-Planung unter Berücksichtigung der gegebenen Lagerbestände durch:</p>
+<p><strong>MRP-Planung mit Lagerbeständen:</strong></p>
+<p><strong>S1 (Anfangsbestand: 50):</strong></p>
 <ul>
-<li>Bestellung für <strong>Stecker S1</strong> in Woche 0 (für Bedarf in Woche 1)</li>
-<li>Bestellung für <strong>Lampe L1</strong> in Woche 1 (für Bedarf in Woche 2)</li>
-<li>Bestellung für <strong>Panel P1</strong> in Woche -1 und 2 (für L1-Bedarf in P2 und P4)</li>
-<li>Bestellung für <strong>Wifi-Modul W1</strong> in Woche -2, 0 und 1.</li>
+<li>Woche 1: Bedarf 30, Bestand 50 → kein Nettobedarf (Endbestand: 20)</li>
+<li>Woche 3: Bedarf 80, Bestand 20 → Nettobedarf 60 → <strong>Produktion in Woche 2</strong></li>
+<li>Woche 5: Bedarf 70, Bestand 0 → Nettobedarf 70 → Produktion in Woche 4</li>
 </ul>
-<p>Alle Produktions- und Beschaffungsvorgänge, die bereits gestartet wurden (Bestellzeitpunkt &lt;= 2), sind fix. Die daraus resultierenden Zugänge und Bestände zu Beginn von Woche 3 sind die Ausgangsbasis für die Neuplanung.</p></li>
-<li><p><strong>Verlust der Optimalität:</strong> Der ursprüngliche Plan basierte auf einer Stück-für-Stück-Politik, welche die Bedarfe exakt deckt. Die Erhöhung des Bedarfs für L1 in Woche 6 hat eine Kaskade von Effekten:</p>
+<p><strong>L1 (Anfangsbestand: 20):</strong></p>
 <ul>
-<li>Der Bruttobedarf für P1 und W1 in Woche 5 (Vorlaufzeit von L1) erhöht sich.</li>
-<li>Diese Bedarfsänderung wird an die Komponente W1 weitergereicht.</li>
-<li>Die Losgrößenentscheidung für W1 im ursprünglichen Plan war darauf ausgelegt, die Bedarfe bis Woche 6 zu decken. Durch den neuen, höheren Bedarf in der Zukunft könnte es nun kostenoptimaler sein, eine frühere Bestellung für W1 (z.B. die in Woche 1 für den Bedarf in Woche 4) zu vergrößern, um die Bedarfe bis Woche 6 abzudecken und so einen Rüstvorgang zu sparen (falls eine andere Losgrößenregel als Stück-für-Stück verwendet würde).</li>
-<li>Selbst bei Stück-für-Stück ändert sich die benötigte Bestellmenge für W1. Da die ursprüngliche Bestellung für den Bedarf in Woche 5 (ausgelöst in P2) bereits “frozen” sein könnte, muss nun eine zusätzliche, evtl. kleine und ineffiziente Bestellung für den Mehrbedarf aufgegeben werden.</li>
-<li>Fazit: Eine kleine Änderung in der Zukunft kann durch die komplexen, mehrstufigen Abhängigkeiten und Losgrößenlogiken die Optimalität des gesamten bestehenden Plans zunichtemachen.</li>
+<li>Woche 2: Bedarf 40, Bestand 20 → Nettobedarf 20 → <strong>Produktion in Woche 1</strong></li>
+<li>Woche 4: Bedarf 60, Bestand 0 → Nettobedarf 60 → Produktion in Woche 3</li>
+<li>Woche 6: Bedarf 50, Bestand 0 → Nettobedarf 50 → Produktion in Woche 5</li>
+</ul>
+<p><strong>P1 (Anfangsbestand: 30):</strong></p>
+<ul>
+<li>Woche 1: 20 benötigt (für L1), Bestand 30 → kein Nettobedarf (Endbestand: 10)</li>
+<li>Woche 3: 60 benötigt (für L1), Bestand 10 → Nettobedarf 50 → <strong>Bestellung in Woche 1</strong></li>
+<li>Woche 5: 50 benötigt (für L1), Bestand 0 → Nettobedarf 50 → Bestellung in Woche 3</li>
+</ul>
+<p><strong>W1 (Anfangsbestand: 100):</strong></p>
+<ul>
+<li>Woche 1: 20 benötigt (für L1), Bestand 100 → kein Nettobedarf (Endbestand: 80)</li>
+<li>Woche 2: 60 benötigt (für S1), Bestand 80 → kein Nettobedarf (Endbestand: 20)</li>
+<li>Woche 3: 60 benötigt (für L1), Bestand 20 → Nettobedarf 40 → <strong>Bestellung in Woche 0</strong></li>
+<li>Woche 4: 70 benötigt (für S1), Bestand 0 → Nettobedarf 70 → <strong>Bestellung in Woche 1</strong></li>
+<li>Woche 5: 50 benötigt (für L1), Bestand 0 → Nettobedarf 50 → <strong>Bestellung in Woche 2</strong></li>
+</ul>
+<p><strong>Eingefrorene Bestellungen (Bestelltermin ≤ Woche 2):</strong></p>
+<ul>
+<li><strong>Stecker S1:</strong> Produktion in Woche 2</li>
+<li><strong>Lampe L1:</strong> Produktion in Woche 1</li>
+<li><strong>Panel P1:</strong> Bestellung in Woche 1</li>
+<li><strong>Wifi-Modul W1:</strong> Bestellungen in Woche 0, 1 und 2</li>
+</ul>
+<p>Die hohen Anfangsbestände reduzieren die Anzahl der notwendigen Bestellungen erheblich. Alle Produktions- und Beschaffungsvorgänge, die bereits gestartet wurden (Bestellzeitpunkt ≤ 2), sind fix und bilden die Ausgangsbasis für die Neuplanung.</p></li>
+<li><p><strong>Verlust der Optimalität:</strong> Der ursprüngliche Plan basierte auf einer Stück-für-Stück-Politik unter Berücksichtigung der Lagerbestände. Die Erhöhung des L1-Bedarfs in Woche 6 von 50 auf 80 Stück hat folgende Kaskade von Effekten:</p>
+<ul>
+<li>Der <strong>zusätzliche L1-Bedarf von 30 Stück</strong> in Woche 6 erfordert eine L1-Produktion von 30 Stück in Woche 5.</li>
+<li>Dies führt zu einem <strong>zusätzlichen P1-Bedarf von 30 Stück</strong> in Woche 5, was eine P1-Bestellung von 30 Stück in Woche 3 erfordert.</li>
+<li>Gleichzeitig entsteht ein <strong>zusätzlicher W1-Bedarf von 30 Stück</strong> in Woche 5, was eine W1-Bestellung von 30 Stück in Woche 2 erfordert.</li>
+<li><strong>Problem:</strong> Die W1-Bestellung in Woche 2 ist bereits “eingefroren” und kann nicht mehr angepasst werden. Die ursprünglich geplante Bestellmenge von 50 Stück reicht nun nicht mehr aus.</li>
+<li><strong>Konsequenz:</strong> Es muss eine <strong>zusätzliche, ineffiziente W1-Bestellung</strong> für die fehlenden 30 Stück aufgegeben werden, was zu höheren Gesamtkosten führt (zusätzliche Rüstkosten oder suboptimale Losgrößen).</li>
+<li><strong>Fazit:</strong> Selbst eine kleine Änderung in der fernen Zukunft kann durch die mehrstufigen Abhängigkeiten und die Frozen Zone die Optimalität des gesamten Plans beeinträchtigen.</li>
 </ul></li>
 <li><p><strong>Definitionen:</strong></p>
 <ul>
@@ -968,7 +997,7 @@ Tipps und wichtige Formeln
 </ul></li>
 </ul>
 <p><strong>2. Vervollständigte Tabelle &amp; Code-Verifikation:</strong></p>
-<div id="f2644d55" class="cell" data-execution_count="2">
+<div id="e7cb4720" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
 <pre><code>Vervollständigte Tabelle:
       Produzierter Typ  Bedarf Sirius  Prod. Sirius  Lager Sirius (Ende)  Bedarf Vega  Prod. Vega  Lager Vega (Ende)  Rüstkosten  Lagerkosten (Summe)
