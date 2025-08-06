@@ -1,0 +1,193 @@
+# Weitere Aufgaben zu Vorlesung 05
+
+
+## Aufgabe 1: Das Newsvendor-Problem für einen Saisonartikel
+
+Eine Mode-Boutique plant den Einkauf eines exklusiven Sommerkleides für
+die kommende Saison. Es handelt sich um eine einmalige
+Bestellmöglichkeit vor Saisonbeginn. Die Nachfrage ist unsicher und wird
+als normalverteilt mit einem Erwartungswert von 200 Kleidern und einer
+Standardabweichung von 50 Kleidern angenommen.
+
+**Kostendaten:**
+
+- **Einkaufspreis pro Kleid:** 50 GE
+- **Verkaufspreis pro Kleid:** 120 GE
+- **Restwert pro nicht verkauftem Kleid:** 20 GE (Verkauf im
+  Saison-Schlussverkauf)
+
+**Ihre Aufgaben:**
+
+1.  **Underage- und Overage-Kosten:** Bestimmen Sie die Underage-Kosten
+    ($c_U$) und die Overage-Kosten ($c_O$).
+2.  **Kritisches Verhältnis:** Berechnen Sie das kritische Verhältnis
+    (auch “kritische Wahrscheinlichkeit”).
+3.  **Optimale Bestellmenge:** Wie viele Kleider sollte die Boutique
+    optimalerweise bestellen, um den erwarteten Gewinn zu maximieren?
+4.  **Sicherheitsbestand:** Berechnen Sie den Sicherheitsbestand, der in
+    der optimalen Bestellmenge enthalten ist.
+
+> [!NOTE]
+>
+> ### Lösung
+>
+> ``` python
+> from scipy.stats import norm
+> import numpy as np
+>
+> # Gegebene Daten
+> mu_Y = 200
+> sigma_Y = 50
+> einkaufspreis = 50
+> verkaufspreis = 120
+> restwert = 20
+>
+> # 1. Underage- und Overage-Kosten
+> c_U = verkaufspreis - einkaufspreis
+> c_O = einkaufspreis - restwert
+>
+> print("1. Kostenberechnung:")
+> print(f"   - Underage-Kosten (c_U): {verkaufspreis} - {einkaufspreis} = {c_U} GE")
+> print(f"   - Overage-Kosten (c_O): {einkaufspreis} - {restwert} = {c_O} GE\n")
+>
+> # 2. Kritisches Verhältnis
+> critical_ratio = c_U / (c_O + c_U)
+>
+> print("2. Kritisches Verhältnis:")
+> print(f"   - F(x_opt) = {c_U} / ({c_O} + {c_U}) = {critical_ratio:.4f}\n")
+>
+> # 3. Optimale Bestellmenge
+> # Finde den z-Wert, der dem kritischen Verhältnis entspricht
+> z_value = norm.ppf(critical_ratio)
+> # Berechne die optimale Bestellmenge
+> x_opt = mu_Y + z_value * sigma_Y
+>
+> print("3. Optimale Bestellmenge:")
+> print(f"   - z-Wert für F(x)={critical_ratio:.4f}: {z_value:.4f}")
+> print(f"   - x_opt = {mu_Y} + {z_value:.4f} * {sigma_Y} = {x_opt:.2f}")
+> print(f"   -> Die Boutique sollte {int(np.ceil(x_opt))} Kleider bestellen.\n")
+>
+> # 4. Sicherheitsbestand
+> safety_stock = x_opt - mu_Y
+> print("4. Sicherheitsbestand:")
+> print(f"   - Sicherheitsbestand = x_opt - μ = {x_opt:.2f} - {mu_Y} = {safety_stock:.2f} Kleider")
+> print(f"   - Alternativ: z * σ = {z_value:.4f} * {sigma_Y} = {safety_stock:.2f} Kleider")
+> ```
+>
+>     1. Kostenberechnung:
+>        - Underage-Kosten (c_U): 120 - 50 = 70 GE
+>        - Overage-Kosten (c_O): 50 - 20 = 30 GE
+>
+>     2. Kritisches Verhältnis:
+>        - F(x_opt) = 70 / (30 + 70) = 0.7000
+>
+>     3. Optimale Bestellmenge:
+>        - z-Wert für F(x)=0.7000: 0.5244
+>        - x_opt = 200 + 0.5244 * 50 = 226.22
+>        -> Die Boutique sollte 227 Kleider bestellen.
+>
+>     4. Sicherheitsbestand:
+>        - Sicherheitsbestand = x_opt - μ = 226.22 - 200 = 26.22 Kleider
+>        - Alternativ: z * σ = 0.5244 * 50 = 26.22 Kleider
+>
+> **Interpretation:** Das kritische Verhältnis von 70% bedeutet, dass es
+> optimal ist, eine Menge zu bestellen, die die Nachfrage mit einer
+> Wahrscheinlichkeit von 70% deckt. Um dies zu erreichen, muss die
+> Boutique einen Sicherheitsbestand von ca. 26 Kleidern über dem
+> Erwartungswert halten. Die optimale Bestellmenge liegt daher bei ca.
+> 227 Kleidern.
+
+## Aufgabe 2: Periodische Lagerhaltungspolitik (r, S)
+
+Eine Apotheke steuert den Bestand eines wichtigen, rezeptfreien
+Medikaments mittels einer periodischen Überprüfung. Der Bestand wird
+alle 2 Wochen (r=2) kontrolliert und auf ein Zielniveau S aufgefüllt.
+Die Lieferzeit vom Großhändler beträgt konstant 1 Woche (L=1).
+
+**Daten zur wöchentlichen Nachfrage:**
+
+- **Erwartungswert ($\mu_D$):** 50 Packungen
+- **Standardabweichung ($\sigma_D$):** 15 Packungen
+
+Die Apotheke strebt einen Mengen-Servicegrad ($\beta$-Servicegrad) von
+99% an, um sicherzustellen, dass Kunden nur sehr selten mit einer leeren
+Regal konfrontiert werden.
+
+**Ihre Aufgaben:**
+
+1.  **Risikozeitraum:** Bestimmen Sie den gesamten Risikozeitraum, der
+    für die Festlegung des Bestellniveaus S relevant ist.
+2.  **Nachfrageparameter im Risikozeitraum:** Berechnen Sie den
+    Erwartungswert und die Standardabweichung der Nachfrage für diesen
+    Zeitraum.
+3.  **Optimales Bestellniveau (S):** Bestimmen Sie das optimale
+    Bestellniveau $S_{opt}$, auf das die Apotheke bei jeder Überprüfung
+    auffüllen sollte, um den angestrebten Servicegrad zu erreichen. Wie
+    hoch ist der darin enthaltene Sicherheitsbestand?
+
+> [!NOTE]
+>
+> ### Lösung
+>
+> ``` python
+> from scipy.stats import norm
+> import numpy as np
+>
+> # Gegebene Daten
+> r = 2 # Wochen
+> L = 1 # Woche
+> mu_d_weekly = 50
+> sigma_d_weekly = 15
+> beta_target = 0.99
+>
+> # 1. Risikozeitraum
+> risk_period = r + L
+> print(f"1. Risikozeitraum: r + L = {r} + {L} = {risk_period} Wochen\n")
+>
+> # 2. Momente der Nachfrage im Risikozeitraum
+> mu_risk_period = risk_period * mu_d_weekly
+> sigma_risk_period = np.sqrt(risk_period) * sigma_d_weekly
+> print(f"2. Nachfrageparameter im Risikozeitraum ({risk_period} Wochen):")
+> print(f"   - Erwartungswert (mu_{r+L}): {risk_period} * {mu_d_weekly} = {mu_risk_period:.2f} Packungen")
+> print(f"   - Standardabweichung (sigma_{r+L}): sqrt({risk_period}) * {sigma_d_weekly} = {sigma_risk_period:.2f} Packungen\n")
+>
+> # 3. Optimales Bestellniveau S_opt
+> # Zielwert für die standardisierte Einheiten-Verlustfunktion
+> target_G1_v = ((1 - beta_target) * r * mu_d_weekly) / sigma_risk_period
+>
+> print("3. Optimales Bestellniveau S_opt:")
+> print(f"   - Zielwert für G_Z(v): (1 - {beta_target}) * {r} * {mu_d_weekly} / {sigma_risk_period:.2f} = {target_G1_v:.4f}")
+>
+> # Iterative Suche nach v_opt
+> v = 0.0
+> step = 0.001
+> G1_v = norm.pdf(v) - v * (1 - norm.cdf(v))
+>
+> while G1_v > target_G1_v:
+>     v += step
+>     G1_v = norm.pdf(v) - v * (1 - norm.cdf(v))
+>
+> v_opt = v
+> print(f"   - Gefundener optimaler standardisierter Bestellpunkt (v_opt): {v_opt:.4f}")
+>
+> # Berechnung von S_opt
+> S_opt = mu_risk_period + v_opt * sigma_risk_period
+> safety_stock = v_opt * sigma_risk_period
+>
+> print(f"   - Optimales Bestellniveau S_opt = {mu_risk_period:.2f} + {v_opt:.4f} * {sigma_risk_period:.2f} = {S_opt:.2f}")
+> print(f"   -> Das Bestellniveau S sollte auf {int(np.ceil(S_opt))} Packungen gesetzt werden.")
+> print(f"   - Der darin enthaltene Sicherheitsbestand beträgt {safety_stock:.2f} Packungen.")
+> ```
+>
+>     1. Risikozeitraum: r + L = 2 + 1 = 3 Wochen
+>
+>     2. Nachfrageparameter im Risikozeitraum (3 Wochen):
+>        - Erwartungswert (mu_3): 3 * 50 = 150.00 Packungen
+>        - Standardabweichung (sigma_3): sqrt(3) * 15 = 25.98 Packungen
+>
+>     3. Optimales Bestellniveau S_opt:
+>        - Zielwert für G_Z(v): (1 - 0.99) * 2 * 50 / 25.98 = 0.0385
+>        - Gefundener optimaler standardisierter Bestellpunkt (v_opt): 1.3780
+>        - Optimales Bestellniveau S_opt = 150.00 + 1.3780 * 25.98 = 185.80
+>        -> Das Bestellniveau S sollte auf 186 Packungen gesetzt werden.
+>        - Der darin enthaltene Sicherheitsbestand beträgt 35.80 Packungen.

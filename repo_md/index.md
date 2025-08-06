@@ -9,6 +9,15 @@ kurzfristig übernommen und die Materialien deswegen nur leicht
 angepasst. Es sind keine neuen Inhalte enthalten, sondern lediglich neue
 Übungen.
 
+# Neuigkeiten
+
+- Unsere nächste und letzte Besprechung findet am **Dienstag, 5. August
+  2025, 13:00 Uhr** statt.
+- [Klicken Sie hier, um zur Besprechung zu
+  gelangen](https://meet.google.com/efc-hgep-ibr).
+- Als Beispiel für das Klausurformat finden Sie
+  [hier](general/pw2-2025.pdf) die PW2 Klausur 2025 von mir.
+
 # Lernziele
 
 Mein Ziel ist es, Sie auf die Klausuren vorzubereiten und Ihnen

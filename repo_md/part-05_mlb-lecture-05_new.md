@@ -334,11 +334,14 @@ $S_{opt} = \mu_{r+L} + v_{opt} \cdot \sigma_{r+L}$.
 3.  **Zielwert für Verlustfunktion:** Target
     $G_Z^{(1)}(v) = (1-0.99) \cdot 3 \cdot 50 / 30 = 0.05$
 4.  **$v_{opt}$ finden:**
-    - Wir suchen den `v`-Wert, für den $G_Z^{(1)}(v) \leq 0.05$ ist.
+    - Wir suchen den `v`-Wert, für den $G_Z^{(1)}(v) \leq 0.05$ ist. Aus
+      der Tabelle finden wir, dass $G_Z^{(1)}(1.3) \approx 0.046$ der
+      erste Wert ist, der die Bedingung erfüllt. Also
+      $v_{opt} \approx 1.3$.
 5.  **Bestellniveau $S_{opt}$:**
-    $S_{opt} = 200 + 1.25 \cdot 30 = 237.5 \approx 238$ Packungen. Jeden
+    $S_{opt} = 200 + 1.3 \cdot 30 = 200 + 39 = 239$ Packungen. Jeden
     dritten Tag wird so viel Milch bestellt, dass der verfügbare Bestand
-    wieder auf 238 Packungen ansteigt.
+    wieder auf 239 Packungen ansteigt.
 
 ## 5. Welche Politik für welches Problem?
 

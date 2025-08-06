@@ -41,6 +41,144 @@ Der Händler startet in Woche 0 mit den folgenden Beständen:
 | **5** | 55 | ? | ? | ? | ? | ? | ? |
 | **6** | 60 | ? | ? | ? | ? | ? | ? |
 
+**Lösung:**
+
+> [!TIP]
+>
+> ### Tipps und wichtige Formeln
+>
+> #### Reihenfolge der Ereignisse
+>
+> Beachten Sie die korrekte Reihenfolge der Aktionen **innerhalb jeder
+> Woche**:
+>
+> 1.  **Wareneingang:** Zu Beginn der Woche kommt eine eventuell vor
+>     $L=2$ Wochen getätigte Bestellung an. Dadurch steigt der physische
+>     Bestand und der Bestellbestand sinkt.
+> 2.  **Nachfrage-Erfüllung:** Die Nachfrage der aktuellen Woche wird
+>     bedient. Dies senkt den physischen und den disponiblen Bestand.
+> 3.  **Bestellentscheidung:** Am **Ende der Woche** wird geprüft, ob
+>     eine neue Bestellung ausgelöst werden muss.
+>
+> #### Die wichtigsten Formeln
+>
+> - **Disponibler Bestand ($I^D$):** Die entscheidende Größe für die
+>   Bestellung. Er repräsentiert die Summe aus physischem und bestelltem
+>   Bestand.
+>   $I^D_t(\text{vor Bestellung}) = I^D_{t-1}(\text{Ende}) - d_t$
+> - **Bestellentscheidung:** Prüfe am Ende der Woche:
+>   $I^D_t(\text{vor Bestellung}) \le s$?
+>   - Wenn **Ja**: Löse eine Bestellung über die Menge $q$ aus. Der
+>     disponible Bestand erhöht sich ***sofort***:
+>     $I^D_t(\text{Ende}) = I^D_t(\text{vor Bestellung}) + q$
+>   - Wenn **Nein**: Der disponible Bestand bleibt für das Ende der
+>     Woche unverändert.
+> - **Physischer Bestand ($I^P$):**
+>   - $I^P_t(\text{Ende}) = I^P_{t-1}(\text{Ende}) + \text{Wareneingang}_t - d_t$
+>     (kann nicht negativ werden)
+> - **Bestellbestand ($I^O$):**
+>   - $I^O_t(\text{Ende}) = I^O_{t-1}(\text{Ende}) - \text{Wareneingang}_t + \text{Neue Bestellung}_t$
+
+Die Logik ist wie folgt:
+
+1.  **Disponibler Bestand (Anfang):** Ist der disponible Bestand vom
+    Ende der Vorwoche.
+2.  **Bestellung?:** Prüfe am Ende der Woche:
+    `Disponibler Bestand (Anfang) - Nachfrage <= s?` Wenn ja, löse
+    Bestellung über `q` aus.
+3.  **Disponibler Bestand (Ende):**
+    `Disponibler Bestand (Anfang) - Nachfrage`.
+4.  **Physischer Bestand / Fehlbestand:**
+    `Physischer Bestand (Anfang) + Wareneingang - Nachfrage`.
+5.  **Bestellbestand:**
+    `Bestellbestand (Anfang) + Neue Bestellung - Wareneingang`.
+
+``` python
+import pandas as pd
+
+# Initialwerte
+s, q, L = 80, 200, 2
+demands = [40, 35, 50, 40, 55, 60]
+T = len(demands)
+
+# Tracking-Variablen
+disp_bestand = 100
+phys_bestand = 100
+bestell_bestand = 0
+fehl_bestand = 0
+
+# Lieferungen (Woche, Menge)
+lieferungen = {} 
+
+# Tabelle für Ergebnisse
+results = []
+
+print("Berechnung Schritt für Schritt:")
+for t in range(1, T + 1):
+    # Zustand zu Beginn der Woche t
+    disp_bestand_anfang = disp_bestand
+    bestell_bestand_anfang = bestell_bestand
+    
+    # Wareneingang prüfen
+    wareneingang = lieferungen.get(t, 0)
+    if wareneingang > 0:
+        print(f"Woche {t}: Wareneingang von {wareneingang} Stück.")
+        bestell_bestand -= wareneingang
+        phys_bestand += wareneingang
+        
+    # Nachfrage bedienen
+    demand_t = demands[t-1]
+    zu_bedienen = demand_t + fehl_bestand
+    
+    if phys_bestand >= zu_bedienen:
+        phys_bestand -= zu_bedienen
+        fehl_bestand = 0
+    else:
+        fehl_bestand = zu_bedienen - phys_bestand
+        phys_bestand = 0
+        
+    disp_bestand -= demand_t
+    
+    # Bestellentscheidung am Ende der Woche
+    bestellung_getaetigt = 0
+    if disp_bestand <= s:
+        print(f"Woche {t}: Meldebestand unterschritten ({disp_bestand} <= {s}). Bestellung ausgelöst.")
+        bestellung_getaetigt = q
+        bestell_bestand += q
+        disp_bestand += q
+        liefer_woche = t + L
+        lieferungen[liefer_woche] = lieferungen.get(liefer_woche, 0) + q
+        
+    results.append({
+        'Woche (t)': t,
+        'Nachfrage $d_t$': demand_t,
+        'Disp. Bestand (A)': disp_bestand_anfang,
+        'Bestellung? (E)': bestellung_getaetigt,
+        'Disp. Bestand (E)': disp_bestand,
+        'Phys. Bestand (E)': phys_bestand,
+        'Bestellbestand (E)': bestell_bestand,
+        'Fehlbestand (E)': fehl_bestand
+    })
+
+df_results = pd.DataFrame(results)
+print("\nVervollständigte Tabelle:")
+print(df_results.to_string(index=False))
+```
+
+    Berechnung Schritt für Schritt:
+    Woche 1: Meldebestand unterschritten (60 <= 80). Bestellung ausgelöst.
+    Woche 3: Wareneingang von 200 Stück.
+    Woche 5: Meldebestand unterschritten (80 <= 80). Bestellung ausgelöst.
+
+    Vervollständigte Tabelle:
+     Woche (t)  Nachfrage $d_t$  Disp. Bestand (A)  Bestellung? (E)  Disp. Bestand (E)  Phys. Bestand (E)  Bestellbestand (E)  Fehlbestand (E)
+             1               40                100              200                260                 60                 200                0
+             2               35                260                0                225                 25                 200                0
+             3               50                225                0                175                175                   0                0
+             4               40                175                0                135                135                   0                0
+             5               55                135              200                280                 80                 200                0
+             6               60                280                0                220                 20                 200                0
+
 ## Aufgabe 2: Sicherheitsbestand und Servicegrade
 
 Ein Online-Händler für ein populäres Smartphone-Modell möchte seinen
@@ -71,6 +209,122 @@ der kontinuierlichen Überprüfung.
     $q=450$ Stück verwendet, welchen $\beta$-Servicegrad
     (Mengen-Servicegrad) erreicht er mit seiner Politik?
 
+**Lösung:**
+
+> [!TIP]
+>
+> ### Tipps und wichtige Formeln
+>
+> #### 1. Nachfrage während der Wiederbeschaffungszeit (WBZ)
+>
+> Der Risikozeitraum ist die Wiederbeschaffungszeit $L$. Wir müssen die
+> Kennzahlen der Nachfrageverteilung für diesen längeren Zeitraum
+> berechnen. Für unabhängige Perioden gilt:
+>
+> - Erwartungswert der Nachfrage während WBZ:
+>   $\mu_L = L \cdot \mu_{\text{wöchentlich}}$
+> - Varianz der Nachfrage während WBZ:
+>   $\sigma_L^2 = L \cdot \sigma_{\text{wöchentlich}}^2$
+> - Standardabweichung der Nachfrage während WBZ:
+>   $\sigma_L = \sqrt{L} \cdot \sigma_{\text{wöchentlich}}$
+>
+> #### 2. Bestellpunkt und Sicherheitsbestand
+>
+> Der Bestellpunkt $s$ deckt die erwartete Nachfrage während der WBZ ab
+> und enthält zusätzlich einen Puffer für Unsicherheit.
+>
+> - **Bestellpunkt ($s$):** $s = \mu_L + SS$
+> - **Sicherheitsbestand ($SS$):** $SS = z \cdot \sigma_L$
+> - **Sicherheitsfaktor ($z$):** Dieser Wert hängt vom gewünschten
+>   $\alpha$-Servicegrad (Zyklus-Servicegrad) ab und wird aus der
+>   Standardnormalverteilung abgelesen.
+>
+> #### 3. Erwartete Fehlmenge ($E(B)$)
+>
+> Dies ist die durchschnittliche Anzahl an Einheiten, die pro Zyklus
+> aufgrund von zu hoher Nachfrage nicht geliefert werden können.
+>
+> - **Formel:** $E(B) = \sigma_L \cdot G_u(z)$
+> - **Standardisierte Verlustfunktion ($G_u(z)$):**
+>   $G_u(z) = \phi(z) - z(1 - \Phi(z))$
+>   - $\phi(z)$: Dichtefunktion der Standardnormalverteilung.
+>   - $\Phi(z)$: Kumulative Verteilungsfunktion der
+>     Standardnormalverteilung.
+>
+> #### 4. $\beta$-Servicegrad (Fill Rate)
+>
+> Dieser Servicegrad misst den prozentualen Anteil der Gesamtnachfrage,
+> der direkt aus dem Lager bedient wird.
+>
+> - **Formel:** $\beta = 1 - \frac{E(B)}{q}$
+
+``` python
+import numpy as np
+from scipy.stats import norm
+
+# Gegebene Daten
+mu_d_weekly = 60
+sigma_d_weekly = 20
+L = 3 # Wochen
+q = 450
+
+# 1. Momente der Nachfrage während der WBZ
+mu_L = L * mu_d_weekly
+sigma_L = np.sqrt(L) * sigma_d_weekly
+print(f"1. Nachfrage während der WBZ:")
+print(f"   - Erwartungswert (mu_L): {mu_L:.2f} Stück")
+print(f"   - Standardabweichung (sigma_L): {sigma_L:.2f} Stück\n")
+
+# 2. Bestellpunkt und Sicherheitsbestand für alpha-Servicegrad
+alpha_target = 0.95
+# Finde den z-Wert (Sicherheitsfaktor) für 95%
+z = norm.ppf(alpha_target)
+
+# Sicherheitsbestand = z * sigma_L
+safety_stock = z * sigma_L
+# Bestellpunkt s = mu_L + Sicherheitsbestand
+s = mu_L + safety_stock
+
+print(f"2. Bestellpunkt für alpha = {alpha_target*100}%:")
+print(f"   - Benötigter z-Wert (Sicherheitsfaktor): {z:.3f}")
+print(f"   - Sicherheitsbestand: {z:.3f} * {sigma_L:.2f} = {safety_stock:.2f} Stück")
+print(f"   - Bestellpunkt s: {mu_L:.2f} + {safety_stock:.2f} = {s:.2f} Stück (gerundet: {np.ceil(s)})")
+print(f"   -> Der Meldebestand sollte auf {np.ceil(s)} Stück gesetzt werden.\n")
+
+# 3. Erwartete Fehlmenge E(B)
+# E(B) = sigma_L * (phi(z) - z * (1 - Phi(z)))
+phi_z = norm.pdf(z)
+one_minus_Phi_z = 1 - norm.cdf(z) # Ist 1 - alpha_target
+E_B = sigma_L * (phi_z - z * one_minus_Phi_z)
+
+print(f"3. Erwartete Fehlmenge pro Zyklus E(B):")
+print(f"   - phi(z={z:.3f}) = {phi_z:.4f}")
+print(f"   - E(B) = {sigma_L:.2f} * ({phi_z:.4f} - {z:.3f} * {1-alpha_target:.2f}) = {E_B:.4f} Stück\n")
+
+# 4. beta-Servicegrad
+# beta = 1 - E(B) / q
+beta = 1 - (E_B / q)
+print(f"4. Resultierender beta-Servicegrad:")
+print(f"   - beta = 1 - ({E_B:.4f} / {q}) = {beta:.4f} oder {beta*100:.2f}%")
+```
+
+    1. Nachfrage während der WBZ:
+       - Erwartungswert (mu_L): 180.00 Stück
+       - Standardabweichung (sigma_L): 34.64 Stück
+
+    2. Bestellpunkt für alpha = 95.0%:
+       - Benötigter z-Wert (Sicherheitsfaktor): 1.645
+       - Sicherheitsbestand: 1.645 * 34.64 = 56.98 Stück
+       - Bestellpunkt s: 180.00 + 56.98 = 236.98 Stück (gerundet: 237.0)
+       -> Der Meldebestand sollte auf 237.0 Stück gesetzt werden.
+
+    3. Erwartete Fehlmenge pro Zyklus E(B):
+       - phi(z=1.645) = 0.1031
+       - E(B) = 34.64 * (0.1031 - 1.645 * 0.05) = 0.7238 Stück
+
+    4. Resultierender beta-Servicegrad:
+       - beta = 1 - (0.7238 / 450) = 0.9984 oder 99.84%
+
 ## Aufgabe 3: Diskrete Nachfrage und Faltung
 
 Ein Comic-Laden verkauft eine beliebte wöchentliche Manga-Ausgabe. Die
@@ -95,3 +349,92 @@ Die Wiederbeschaffungszeit beträgt genau **2 Tage**.
     $\alpha$-Servicegrad *nicht* eingehalten wird)?
 3.  **Erwartete Fehlmenge:** Berechnen Sie die erwartete Fehlmenge
     $E(B)$ für den Bestellpunkt $s=4$.
+
+**Lösung:**
+
+> [!TIP]
+>
+> ### Tipps und wichtige Formeln
+>
+> #### 1. Faltung von Wahrscheinlichkeitsverteilungen
+>
+> Wenn Sie die Verteilung der Summe von zwei unabhängigen, diskreten
+> Zufallsvariablen $D_1$ und $D_2$ (hier die Nachfrage an zwei
+> aufeinanderfolgenden Tagen) finden wollen, müssen Sie deren
+> Verteilungen “falten”. Für die Gesamtnachfrage $Y_2 = D_1 + D_2$
+> berechnen Sie die Wahrscheinlichkeit $P(Y_2=k)$ wie folgt:
+> $P(Y_2=k) = \sum_{j} P(D_1=j) \cdot P(D_2=k-j)$
+>
+> **Beispiel:** Um die Wahrscheinlichkeit für eine Gesamtnachfrage von 2
+> zu finden ($k=2$), summieren Sie die Wahrscheinlichkeiten aller
+> möglichen Kombinationen auf, die 2 ergeben:
+> $P(Y_2=2) = P(D_1=0, D_2=2) + P(D_1=1, D_2=1) + P(D_1=2, D_2=0)$ Da
+> die Tage unabhängig sind, ist $P(D_1=a, D_2=b) = P(D=a) \cdot P(D=b)$.
+>
+> #### 2. Fehlbestandswahrscheinlichkeit ($1-\alpha$)
+>
+> Ein Fehlbestand tritt ein, wenn die Nachfrage während der
+> Wiederbeschaffungszeit ($Y_2$) den Bestellpunkt ($s$) übersteigt.
+> $P(\text{Fehlbestand}) = P(Y_2 > s)$
+>
+> #### 3. Erwartete Fehlmenge ($E(B)$)
+>
+> Die erwartete Fehlmenge ist die Summe aller möglichen Fehlmengen,
+> gewichtet mit ihren jeweiligen Eintrittswahrscheinlichkeiten.
+> $E(B) = \sum_{y} \max(0, y - s) \cdot P(Y_2=y)$ Sie müssen also für
+> jeden möglichen Nachfragewert $y$ die Fehlmenge $(y-s)$ berechnen
+> (falls diese positiv ist) und mit der Wahrscheinlichkeit $P(Y_2=y)$
+> multiplizieren.
+
+**1. Wahrscheinlichkeitsverteilung der Gesamtnachfrage über 2 Tage
+(Y2):**
+
+Wir müssen alle möglichen Kombinationen der Nachfrage an Tag 1 ($D_1$)
+und Tag 2 ($D_2$) betrachten. Die Gesamtnachfrage ist $Y_2 = D_1 + D_2$.
+Die möglichen Werte für $Y_2$ reichen von 0 (0+0) bis 6 (3+3).
+
+- **P(Y2 = 0):** $P(D_1=0, D_2=0) = 0.3 \cdot 0.3 = 0.09$
+- **P(Y2 = 1):**
+  $P(D_1=0, D_2=1) + P(D_1=1, D_2=0) = (0.3 \cdot 0.4) + (0.4 \cdot 0.3) = 0.12 + 0.12 = 0.24$
+- **P(Y2 = 2):**
+  $P(D_1=0, D_2=2) + P(D_1=1, D_2=1) + P(D_1=2, D_2=0) = (0.3 \cdot 0.2) + (0.4 \cdot 0.4) + (0.2 \cdot 0.3) = 0.06 + 0.16 + 0.06 = 0.28$
+- **P(Y2 = 3):**
+  $P(D_1=0, D_2=3) + P(D_1=1, D_2=2) + P(D_1=2, D_2=1) + P(D_1=3, D_2=0) = (0.3 \cdot 0.1) + (0.4 \cdot 0.2) + (0.2 \cdot 0.4) + (0.1 \cdot 0.3) = 0.03 + 0.08 + 0.08 + 0.03 = 0.22$
+- **P(Y2 = 4):**
+  $P(D_1=1, D_2=3) + P(D_1=2, D_2=2) + P(D_1=3, D_2=1) = (0.4 \cdot 0.1) + (0.2 \cdot 0.2) + (0.1 \cdot 0.4) = 0.04 + 0.04 + 0.04 = 0.12$
+- **P(Y2 = 5):**
+  $P(D_1=2, D_2=3) + P(D_1=3, D_2=2) = (0.2 \cdot 0.1) + (0.1 \cdot 0.2) = 0.02 + 0.02 = 0.04$
+- **P(Y2 = 6):** $P(D_1=3, D_2=3) = 0.1 \cdot 0.1 = 0.01$
+
+**Zusammenfassung der Verteilung für Y2:**
+
+| $Y_2$    | 0    | 1    | 2    | 3    | 4    | 5    | 6    |
+|:---------|:-----|:-----|:-----|:-----|:-----|:-----|:-----|
+| P($Y_2$) | 0.09 | 0.24 | 0.28 | 0.22 | 0.12 | 0.04 | 0.01 |
+
+**2. Wahrscheinlichkeit eines Fehlbestands für s=4:**
+
+Ein Fehlbestand tritt auf, wenn die Nachfrage $Y_2$ den Bestellpunkt
+$s=4$ übersteigt.
+$P(\text{Fehlbestand}) = P(Y_2 > 4) = P(Y_2 = 5) + P(Y_2 = 6)$
+$P(\text{Fehlbestand}) = 0.04 + 0.01 = 0.05$ oder 5%.
+
+Der $\alpha$-Servicegrad wäre demnach $1 - 0.05 = 0.95$ oder 95%.
+
+**3. Erwartete Fehlmenge E(B) für s=4:**
+
+Die Fehlmenge $B$ ist $\max(0, Y_2 - s)$. Wir berechnen den
+Erwartungswert, indem wir jede mögliche Fehlmenge mit ihrer
+Wahrscheinlichkeit multiplizieren.
+
+- Wenn $Y_2 \le 4$, ist die Fehlmenge 0.
+- Wenn $Y_2 = 5$, ist die Fehlmenge $5 - 4 = 1$. Die Wahrscheinlichkeit
+  dafür ist $P(Y_2=5) = 0.04$.
+- Wenn $Y_2 = 6$, ist die Fehlmenge $6 - 4 = 2$. Die Wahrscheinlichkeit
+  dafür ist $P(Y_2=6) = 0.01$.
+
+$E(B) = \sum \max(0, y - s) \cdot P(Y_2=y)$
+$E(B) = (1 \cdot P(Y_2=5)) + (2 \cdot P(Y_2=6))$
+$E(B) = (1 \cdot 0.04) + (2 \cdot 0.01) = 0.04 + 0.02 = 0.06$
+
+Die erwartete Fehlmenge pro Bestellzyklus beträgt 0.06 Hefte.

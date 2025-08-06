@@ -54,6 +54,197 @@ erstellten Produktionsplan:
     Wagner-Whitin-Algorithmus für jedes Produkt hier wahrscheinlich zu
     einem unzulässigen oder suboptimalen Gesamtplan führen würde.
 
+**Lösung:**
+
+> [!TIP]
+>
+> ### Tipps und wichtige Formeln
+>
+> #### 1. Kostenberechnung
+>
+> - **Gesamtkosten**: Die Summe aus Rüst- und Lagerkosten über den
+>   gesamten Zeitraum.
+> - **Rüstkosten**: Fallen nur an, wenn in einer Woche ein Produkt
+>   hergestellt wird, das in der Vorwoche nicht hergestellt wurde. Bei
+>   Produktionsstart in Woche 1 oder nach einer Leerwoche fallen sie
+>   ebenfalls an. Bei Übernahme des Rüstzustands fallen keine Rüstkosten
+>   an.
+> - **Lagerkosten**: Werden am Ende jeder Woche auf den Endlagerbestand
+>   berechnet: `Lagerkosten_t = Lagerbestand_t * Lagerkostensatz_h`.
+>
+> #### 2. Kapazitätsprüfung
+>
+> - Die wöchentliche Kapazitätsauslastung berechnet sich wie folgt:
+>   `Kapazitätsbedarf_t = Produktionszeit_t + Rüstzeit_t`
+> - `Produktionszeit_t = Produktionsmenge_t * Bearbeitungszeit_pro_Stück_tb`
+> - Die Rüstzeit fällt nur an, wenn auch Rüstkosten anfallen.
+> - Dieser Bedarf muss kleiner oder gleich der Wochenkapazität sein.
+>
+> #### 3. Wagner-Whitin vs. PLSP
+>
+> - Denken Sie an die Kernannahmen des Wagner-Whitin-Algorithmus: Er
+>   optimiert für ein **einzelnes Produkt** und berücksichtigt **keine
+>   Kapazitätsgrenzen**. Das PLSP-Problem (Capacitated Lot Sizing
+>   Problem) ist hingegen genau für Mehrprodukt-Situationen unter
+>   Kapazitätsrestriktionen konzipiert.
+
+``` python
+import pandas as pd
+
+# Daten
+demands_a = [20, 55, 0, 0]
+demands_b = [0, 0, 35, 20]
+s_a, s_b = 200, 150
+h_a, h_b = 5, 7
+tb_a, tb_b = 1.0, 1.2
+tr_a, tr_b = 10, 8
+capacity = 60
+weeks = [1, 2, 3, 4]
+
+# Gegebener Plan
+# q_t[produkt][woche-1]
+q = {
+    'A': [50, 25, 0, 0],
+    'B': [0, 0, 55, 0]
+}
+
+# 1. Kostenberechnung
+inventory_a, inventory_b = 0, 0
+cost_a, cost_b = 0, 0
+total_setup_costs = 0
+total_inventory_costs = 0
+
+print("1. Kostenberechnung:\n")
+last_prod = None # Rüstzustand der Maschine
+for i, week in enumerate(weeks):
+    prod_a_this_week = q['A'][i]
+    prod_b_this_week = q['B'][i]
+    
+    current_prod = None
+    setup_cost_this_week = 0
+    
+    # Rüstkosten bestimmen
+    if prod_a_this_week > 0:
+        current_prod = 'A'
+        if last_prod != 'A':
+            setup_cost_this_week = s_a
+            print(f"Woche {week}: Rüstvorgang für Typ A (Kosten: {s_a} GE)")
+        else:
+            print(f"Woche {week}: Rüstzustand für Typ A übernommen (Kosten: 0 GE)")
+            
+    elif prod_b_this_week > 0:
+        current_prod = 'B'
+        if last_prod != 'B':
+            setup_cost_this_week = s_b
+            print(f"Woche {week}: Rüstvorgang für Typ B (Kosten: {s_b} GE)")
+        else:
+            # Dieser Fall tritt im Plan nicht auf
+            print(f"Woche {week}: Rüstzustand für Typ B übernommen (Kosten: 0 GE)")
+    else:
+        print(f"Woche {week}: Keine Produktion, kein Rüstvorgang.")
+
+    last_prod = current_prod
+    total_setup_costs += setup_cost_this_week
+
+    # Lagerbestand und -kosten berechnen
+    inventory_a += prod_a_this_week - demands_a[i]
+    inventory_b += prod_b_this_week - demands_b[i]
+    
+    inv_cost_a = inventory_a * h_a
+    inv_cost_b = inventory_b * h_b
+    total_inventory_costs += inv_cost_a + inv_cost_b
+    
+    print(f"  Bestand Ende Woche {week}: {inventory_a}x Typ A, {inventory_b}x Typ B")
+    print(f"  Lagerkosten Woche {week}: {inv_cost_a + inv_cost_b} GE\n")
+
+total_costs = total_setup_costs + total_inventory_costs
+print(f"Gesamte Rüstkosten: {total_setup_costs} GE")
+print(f"Gesamte Lagerkosten: {total_inventory_costs} GE")
+print(f"Gesamtkosten des Plans: {total_costs} GE")
+
+# 2. Kapazitätsprüfung
+print("\n2. Kapazitätsprüfung:\n")
+capacity_data = []
+for i, week in enumerate(weeks):
+    cap_used = 0
+    setup_time = 0
+    if q['A'][i] > 0:
+        cap_used += q['A'][i] * tb_a
+        if i == 0 or q['A'][i-1] == 0: # Setup in der ersten Woche oder nach einer Pause
+            setup_time = tr_a
+    if q['B'][i] > 0:
+        cap_used += q['B'][i] * tb_b
+        if i == 0 or q['B'][i-1] == 0:
+             setup_time = tr_b
+    
+    total_cap_used = cap_used + setup_time
+    capacity_data.append({
+        'Woche': week,
+        'Prod. Typ A': q['A'][i],
+        'Prod. Typ B': q['B'][i],
+        'Kapazitätsbedarf (h)': total_cap_used,
+        'Kapazitätslimit (h)': capacity,
+        'Einhaltung': 'Ja' if total_cap_used <= capacity else 'NEIN'
+    })
+
+df_cap = pd.DataFrame(capacity_data)
+print(df_cap.to_string(index=False))
+```
+
+    1. Kostenberechnung:
+
+    Woche 1: Rüstvorgang für Typ A (Kosten: 200 GE)
+      Bestand Ende Woche 1: 30x Typ A, 0x Typ B
+      Lagerkosten Woche 1: 150 GE
+
+    Woche 2: Rüstzustand für Typ A übernommen (Kosten: 0 GE)
+      Bestand Ende Woche 2: 0x Typ A, 0x Typ B
+      Lagerkosten Woche 2: 0 GE
+
+    Woche 3: Rüstvorgang für Typ B (Kosten: 150 GE)
+      Bestand Ende Woche 3: 0x Typ A, 20x Typ B
+      Lagerkosten Woche 3: 140 GE
+
+    Woche 4: Keine Produktion, kein Rüstvorgang.
+      Bestand Ende Woche 4: 0x Typ A, 0x Typ B
+      Lagerkosten Woche 4: 0 GE
+
+    Gesamte Rüstkosten: 350 GE
+    Gesamte Lagerkosten: 290 GE
+    Gesamtkosten des Plans: 640 GE
+
+    2. Kapazitätsprüfung:
+
+     Woche  Prod. Typ A  Prod. Typ B  Kapazitätsbedarf (h)  Kapazitätslimit (h) Einhaltung
+         1           50            0                  60.0                   60         Ja
+         2           25            0                  25.0                   60         Ja
+         3            0           55                  74.0                   60       NEIN
+         4            0            0                   0.0                   60         Ja
+
+**3. Diskussion:**
+
+Der Wagner-Whitin-Algorithmus (WW) optimiert ein **Einproduktproblem
+ohne Kapazitätsgrenzen**. Die separate Anwendung würde zu folgenden
+Problemen führen:
+
+1.  **Ignorierte Kapazitäten:** WW für Produkt A könnte ein Los in Woche
+    1 planen, WW für Produkt B ebenfalls. Die Summe der benötigten
+    Kapazitäten (Produktion + Rüstung) würde aber sehr wahrscheinlich
+    die verfügbaren 60 Stunden überschreiten, was zu einem
+    **unzulässigen Plan** führt.
+2.  **Ignorierte Rüstkopplung:** WW würde für jede Produktion Rüstkosten
+    ansetzen. Er kann nicht das Konzept der **Rüstzustandsübernahme**
+    berücksichtigen. Wenn WW für A in Woche 1 und 2 eine Produktion
+    vorsieht und für B in Woche 3 und 4, würde er für alle vier Lose
+    Rüstkosten berechnen. Ein intelligenterer, gekoppelter Plan (wie
+    PLSP) würde erkennen, dass die Rüstung in Woche 2 und 4 eingespart
+    werden kann, was zu **suboptimalen Kosten** bei separater Planung
+    führt.
+
+Das PLSP-Modell ist genau dafür konzipiert, diese beiden Aspekte –
+geteilte Kapazitäten und gekoppelte Rüstentscheidungen – simultan zu
+optimieren.
+
 ## Aufgabe 2: Echelon Stock
 
 Ein Hersteller von Smart-Home-Geräten produziert zwei Endprodukte: eine
@@ -68,6 +259,51 @@ spezifisches LED-Panel (P1).
     `L1: 10, S1: 5, P1: 15, W1: 20`. Berechnen Sie für diesen Zeitpunkt
     den **Echelon Stock** (systemweiten Bestand) für das Wifi-Modul W1
     und das LED-Panel P1.
+
+**Lösung:**
+
+> [!TIP]
+>
+> ### Tipps und wichtige Formeln
+>
+> #### 1. Echelon Stock
+>
+> - **Definition:** Der Echelon Stock einer Komponente `i` an einem Ort
+>   ist der gesamte Bestand dieser Komponente im System, der sich auf
+>   dieser Stufe oder *tiefer* befindet.
+> - **Formel:**
+>   `Echelon Stock_i = Physischer Bestand_i + Physischer Bestand aller nachgelagerten Produkte, die i enthalten`
+> - **Beispiel:**
+>   `Echelon Stock (W1) = Bestand(W1) + Bestand(L1) + Bestand(S1)`
+>
+> #### 2. Nutzen des Echelon-Konzepts
+>
+> - Der Hauptnutzen liegt in der **korrekten Bewertung von Lagerkosten**
+>   in mehrstufigen Systemen. Er vermeidet die Doppelzählung des Wertes
+>   von Komponenten, die bereits in Halbfabrikaten oder Endprodukten
+>   enthalten sind.
+
+**1. Echelon Stock Berechnung:**
+
+Der Echelon Stock eines Artikels ist sein eigener physischer Bestand
+plus alle Bestände von nachgelagerten Artikeln, in die er eingeht.
+
+**Berechnung für Wifi-Modul W1:** - Physischer Bestand W1: 20 Stück -
+Bestand von L1 (enthält W1): 10 Stück - Bestand von S1 (enthält W1): 5
+Stück
+
+$E_{W1} = y_{W1} + y_{L1} + y_{S1}$ $E_{W1} = 20 + 10 + 5 = 35$
+
+Der Echelon Stock von W1 ist 35. Er ist höher als der physische Bestand,
+da 15 Module bereits in den Endprodukten L1 und S1 verbaut sind.
+
+**Berechnung für LED-Panel P1:** - Physischer Bestand P1: 15 Stück -
+Bestand von L1 (enthält P1): 10 Stück
+
+$E_{P1} = y_{P1} + y_{L1}$ $E_{P1} = 15 + 10 = 25$
+
+Der Echelon Stock von P1 ist 25. Er ist höher als der physische Bestand,
+da 10 Panels bereits im Endprodukt L1 verbaut sind.
 
 ## Aufgabe 3: Rollierende Planung
 
@@ -113,6 +349,151 @@ Beantworten Sie die folgenden konzeptionellen Fragen:
     “Planungsinstabilität” und “Frozen Zone” im Kontext dieses Beispiels
     definiert werden können.
 
+**Lösung:**
+
+> [!TIP]
+>
+> ### Tipps und wichtige Formeln
+>
+> #### 1. Frozen Zone (Eingefrorener Horizont)
+>
+> - **Definition:** Der Zeitraum am Anfang des Planungshorizonts, in dem
+>   keine Änderungen am Produktionsplan mehr vorgenommen werden.
+> - **Grund:** Die Produktions- und Beschaffungsaufträge wurden bereits
+>   freigegeben und sind in der Ausführung (z.B. Material ist schon
+>   bestellt, eine Maschine ist bereits gerüstet).
+> - **Identifikation:** Um die “eingefrorenen” Bestellungen zu finden,
+>   schauen Sie sich den ursprünglichen Plan aus Aufgabe 2 an. Alle
+>   Bestellungen, deren **Bestelltermin** in der Vergangenheit oder der
+>   aktuellen Periode liegt (hier: alles \<= Woche 2), sind Teil der
+>   Frozen Zone.
+>
+> #### 2. Planungsinstabilität (Planungsnervosität)
+>
+> - **Definition:** Das Phänomen, dass kleine Änderungen in den
+>   Eingabedaten (z.B. ein einzelner Bedarfswert in der fernen Zukunft)
+>   zu großen, sprunghaften Änderungen in den geplanten Aufträgen
+>   führen, auch in naher Zukunft.
+> - **Ursache:** Die komplexe, oft nicht-lineare Logik von
+>   Losgrößenalgorithmen und die mehrstufigen Abhängigkeiten. Eine
+>   kleine Änderung kann eine Kettenreaktion auslösen, die den
+>   “optimalen” Plan komplett umwirft.
+> - **Management:** Die “Frozen Zone” ist eine der wichtigsten
+>   Maßnahmen, um diese Nervosität zu dämpfen und Stabilität in die
+>   Produktion zu bringen.
+
+1.  **Eingefrorener Plan:** Der “Frozen”-Teil des Plans umfasst alle
+    Bestellungen, deren Bestelltermin in oder vor der aktuellen Periode
+    (Ende Woche 2) liegt. Um diese zu identifizieren, führen wir
+    zunächst eine MRP-Planung unter Berücksichtigung der gegebenen
+    Lagerbestände durch:
+
+    **MRP-Planung mit Lagerbeständen:**
+
+    **Endprodukte:**
+
+    **S1 (Vorlaufzeit: 1, Anfangsbestand: 50):**
+
+    - Woche 1: Bruttobedarf 30, Bestand 50 → Nettobedarf 0 (Endbestand:
+      20)
+    - Woche 3: Bruttobedarf 80, Bestand 20 → Nettobedarf 60 →
+      **Produktion in Woche 2**
+    - Woche 5: Bruttobedarf 70, Bestand 0 → Nettobedarf 70 → Produktion
+      in Woche 4
+
+    **L1 (Vorlaufzeit: 1, Anfangsbestand: 20):**
+
+    - Woche 2: Bruttobedarf 40, Bestand 20 → Nettobedarf 20 →
+      **Produktion in Woche 1**
+    - Woche 4: Bruttobedarf 60, Bestand 0 → Nettobedarf 60 → Produktion
+      in Woche 3
+    - Woche 6: Bruttobedarf 50, Bestand 0 → Nettobedarf 50 → Produktion
+      in Woche 5
+
+    **Komponenten:**
+
+    **P1 (Vorlaufzeit: 2, Anfangsbestand: 30, nur für L1):**
+
+    - Woche 1: Bruttobedarf 20 (für L1), Bestand 30 → Nettobedarf 0
+      (Endbestand: 10)
+    - Woche 3: Bruttobedarf 60 (für L1), Bestand 10 → Nettobedarf 50 →
+      **Bestellung in Woche 1**
+    - Woche 5: Bruttobedarf 50 (für L1), Bestand 0 → Nettobedarf 50 →
+      Bestellung in Woche 3
+
+    **W1 (Vorlaufzeit: 3, Anfangsbestand: 100, für L1 und S1):**
+
+    - Woche 1: Bruttobedarf 20 (für L1), Bestand 100 → Nettobedarf 0
+      (Endbestand: 80)
+    - Woche 2: Bruttobedarf 60 (für S1), Bestand 80 → Nettobedarf 0
+      (Endbestand: 20)
+    - Woche 3: Bruttobedarf 60 (für L1), Bestand 20 → Nettobedarf 40 →
+      **Bestellung in Woche 0**
+    - Woche 4: Bruttobedarf 70 (für S1), Bestand 0 → Nettobedarf 70 →
+      **Bestellung in Woche 1**
+    - Woche 5: Bruttobedarf 50 (für L1), Bestand 0 → Nettobedarf 50 →
+      **Bestellung in Woche 2**
+
+    **Eingefrorene Bestellungen (Bestelltermin ≤ Woche 2):**
+
+    - **W1:** Bestellungen von 40 Stück in Woche 0, 70 Stück in Woche 1,
+      50 Stück in Woche 2
+    - **L1:** Produktion von 20 Stück in Woche 1
+    - **P1:** Bestellung von 50 Stück in Woche 1
+    - **S1:** Produktion von 60 Stück in Woche 2
+
+    Die hohen Anfangsbestände reduzieren die Anzahl der notwendigen
+    Bestellungen erheblich. Alle Produktions- und Beschaffungsvorgänge,
+    die bereits gestartet wurden (Bestellzeitpunkt ≤ 2), sind fix und
+    bilden die Ausgangsbasis für die Neuplanung.
+
+2.  **Verlust der Optimalität:** Der ursprüngliche Plan basierte auf
+    einer Stück-für-Stück-Politik unter Berücksichtigung der
+    Lagerbestände. Die Erhöhung des L1-Bedarfs in Woche 6 von 50 auf 80
+    Stück hat folgende Kaskade von Effekten:
+
+    - Der **zusätzliche L1-Bedarf von 30 Stück** in Woche 6 erfordert
+      eine zusätzliche L1-Produktion von 30 Stück in Woche 5.
+    - Dies führt zu einem **zusätzlichen P1-Bedarf von 30 Stück** in
+      Woche 5, was eine zusätzliche P1-Bestellung von 30 Stück in Woche
+      3 erfordert.
+    - Gleichzeitig entsteht ein **zusätzlicher W1-Bedarf von 30 Stück**
+      in Woche 5, was eine zusätzliche W1-Bestellung von 30 Stück in
+      Woche 2 erfordert.
+    - **Problem:** Die W1-Bestellung in Woche 2 ist bereits
+      “eingefroren” und kann nicht mehr angepasst werden. Die
+      ursprünglich geplante Bestellmenge von 50 Stück müsste auf 80
+      Stück erhöht werden.
+    - **Konsequenz:** Da die eingefrorene Bestellung nicht mehr geändert
+      werden kann, muss eine **neue, zusätzliche W1-Bestellung** für die
+      fehlenden 30 Stück in einer späteren Woche aufgegeben werden, was
+      zu höheren Gesamtkosten führt (zusätzliche Rüstkosten oder
+      Eilbestellungen).
+    - **Fazit:** Selbst eine kleine Änderung in der fernen Zukunft kann
+      durch die mehrstufigen Abhängigkeiten und die Frozen Zone die
+      Optimalität des gesamten Plans beeinträchtigen und zu
+      kostspieligen Anpassungen zwingen.
+
+3.  **Definitionen:**
+
+    - **Frozen Zone:** Dies ist der unmittelbar bevorstehende Zeitraum
+      des Plans (hier: Woche 1-2), in dem keine Änderungen mehr
+      vorgenommen werden. Die Produktionsaufträge sind bereits
+      freigegeben, Material ist unterwegs. Dies schafft Stabilität in
+      der Produktion. Die Länge der Frozen Zone orientiert sich oft an
+      der kumulierten Vorlaufzeit der Produkte, kann aber aus
+      strategischen Gründen (z.B. zur Kapazitätsglättung oder aufgrund
+      von Lieferantenverträgen) bewusst länger gewählt werden.
+    - **Planungsinstabilität (Nervosität):** Dies beschreibt das
+      Phänomen, dass kleine Änderungen der Eingabedaten (z.B. ein
+      einzelner Bedarfswert) in einer Neuplanung zu signifikanten
+      Änderungen der Produktions- und Bestellaufträge führen, auch in
+      naher Zukunft. Im Beispiel könnte der neue Plan für Woche 3 und 4
+      komplett anders aussehen als der alte Plan für dieselben Wochen.
+      Diese “Nervosität” ist oft unerwünscht, da sie Unruhe in die
+      Fertigung und Beschaffung bringt. Die Frozen Zone ist eine
+      Maßnahme, um diese Instabilität zu dämpfen.
+
 ## Aufgabe 4: Analyse eines Produktionsplans
 
 Ein Produktionsplaner hat für die Produkte “Sirius” und “Vega” einen
@@ -150,3 +531,165 @@ eingerichtet sein kann. Ein negativer Lagerbestand ist nicht zulässig.
     Begründen Sie Ihre Berechnungen für jede Zelle kurz.
 2.  **Summe der Rüst- und Lagerkosten:** Ermitteln Sie die Summe der
     Rüstkosten und der Lagerkosten für den gesamten Planungszeitraum.
+
+**Lösung:**
+
+> [!TIP]
+>
+> ### Tipps und wichtige Formeln
+>
+> #### Die entscheidende Formel: Die Lagerbilanzgleichung
+>
+> Der Schlüssel zur Lösung dieser Aufgabe ist die Lagerbilanzgleichung,
+> die für jedes Produkt und jede Woche gilt:
+>
+> `Lagerbestand (Ende)_t = Lagerbestand (Ende)_{t-1} + Produktionsmenge_t - Bedarf_t`
+>
+> - Der `Lagerbestand (Ende)_{t-1}` ist der Anfangsbestand der Periode
+>   `t`.
+> - Diese Gleichung enthält alle wichtigen Variablen. Wenn eine davon
+>   unbekannt ist (z.B. die Produktionsmenge `(f)` oder `(i)`), können
+>   Sie die Gleichung einfach nach dieser Unbekannten umstellen.
+>
+> #### Rüstkosten-Logik
+>
+> - Vergleichen Sie die Spalte `Produzierter Typ` von einer Woche zur
+>   nächsten.
+> - `Rüstkosten_t = 0` wenn `Typ_t == Typ_{t-1}` (Rüstzustand wird
+>   übernommen).
+> - `Rüstkosten_t > 0` wenn `Typ_t != Typ_{t-1}` (Produktwechsel) oder
+>   wenn in Woche `t-1` nichts produziert wurde.
+>
+> #### Lagerkosten-Logik
+>
+> - Die Summe der Lagerkosten in einer Zeile berechnet sich aus den
+>   Endbeständen beider Produkte:
+>   `Lagerkosten (Summe)_t = Lager Sirius (Ende)_t * h_S + Lager Vega (Ende)_t * h_V`
+
+**1. Schrittweise Berechnung der fehlenden Werte:**
+
+Wir verwenden die Lagerbilanzgleichung: $y_t = y_{t-1} + q_t - d_t$
+
+- **Woche 1:**
+  - 1)  `Lager Sirius (Ende)`:
+        $y_{S,1} = y_{S,0} + q_{S,1} - d_{S,1} = 0 + 50 - 20 = 30$
+  - 2)  `Rüstkosten`: Erster Produktionslauf, daher fallen Rüstkosten
+        für Sirius an. Kosten = 250 GE.
+  - 3)  `Lagerkosten`:
+        $y_{S,1} \cdot h_S + y_{V,1} \cdot h_V = 30 \cdot 4 + 0 \cdot 5 = 120$
+        GE.
+- **Woche 2:**
+  - 4)  `Lager Sirius (Ende)`:
+        $y_{S,2} = y_{S,1} + q_{S,2} - d_{S,2} = 30 + 0 - 10 = 20$
+  - 5)  `Lager Vega (Ende)`:
+        $y_{V,2} = y_{V,1} + q_{V,2} - d_{V,2} = 0 + 50 - 30 = 20$
+  - Die Lagerkosten sind gegeben (180 GE) und stimmen mit unserer
+    Berechnung überein: $20 \cdot 4 + 20 \cdot 5 = 80 + 100 = 180$.
+  - Die Rüstkosten sind gegeben (200 GE), was den Wechsel von Sirius auf
+    Vega bestätigt.
+- **Woche 3:**
+  - 6)  `Prod. Vega`: Aus der Lagerbilanzgleichung für Vega:
+        $y_{V,3} = y_{V,2} + q_{V,3} - d_{V,3} \implies 20 = 20 + q_{V,3} - 20 \implies q_{V,3} = 20$.
+  - 7)  `Rüstkosten`: In Woche 2 wurde Vega produziert, in Woche 3
+        ebenfalls. Der Rüstzustand wird übernommen. Kosten = 0 GE.
+  - 8)  `Lagerkosten`:
+        $y_{S,3} \cdot h_S + y_{V,3} \cdot h_V = 15 \cdot 4 + 20 \cdot 5 = 60 + 100 = 160$
+        GE.
+  - 7)  `Lager Sirius (Ende)`:
+        $y_{S,3} = y_{S,2} + q_{S,3} - d_{S,3} = 20 + 0 - 5 = 15$.
+- **Woche 4:**
+  - 1)  `Prod. Sirius`:
+        $y_{S,4} = y_{S,3} + q_{S,4} - d_{S,4} \implies 35 = 15 + q_{S,4} - 30 \implies q_{S,4} = 50$.
+  - 10) `Lager Vega (Ende)`:
+        $y_{V,4} = y_{V,3} + q_{V,4} - d_{V,4} = 20 + 0 - 10 = 10$.
+  - 11) `Rüstkosten`: Wechsel von Vega auf Sirius. Kosten = 250 GE.
+  - 12) `Lagerkosten`:
+        $y_{S,4} \cdot h_S + y_{V,4} \cdot h_V = 35 \cdot 4 + 10 \cdot 5 = 140 + 50 = 190$
+        GE.
+- **Woche 5:**
+  - 13) `Lager Sirius (Ende)`:
+        $y_{S,5} = y_{S,4} + q_{S,5} - d_{S,5} = 35 + 0 - 10 = 25$.
+  - 14) `Lager Vega (Ende)`:
+        $y_{V,5} = y_{V,4} + q_{V,5} - d_{V,5} = 10 + 0 - 5 = 5$.
+  - Die Lagerkosten sind gegeben (125 GE):
+    $25 \cdot 4 + 5 \cdot 5 = 100 + 25 = 125$.
+  - 15) `Rüstkosten`: Keine Produktion, daher keine Rüstkosten. Kosten =
+        0 GE.
+- **Summen:**
+  - 16) `Summe Rüstkosten` = 250 (W1) + 200 (W2) + 0 (W3) + 250 (W4) + 0
+        (W5) = 700 GE.
+  - 17) `Summe Lagerkosten` = 120 (W1) + 180 (W2) + 160 (W3) + 190
+        (W4) + 125 (W5) = 775 GE.
+
+**2. Vervollständigte Tabelle & Code-Verifikation:**
+
+``` python
+import pandas as pd
+
+# Daten
+data = {
+    'Woche': range(1, 6),
+    'Produzierter Typ': ['Sirius', 'Vega', 'Vega', 'Sirius', '- (Keine)'],
+    'Bedarf Sirius': [20, 10, 5, 30, 10],
+    'Prod. Sirius': [50, 0, 0, 0, 0], # Platzhalter
+    'Lager Sirius (Ende)': [0]*5,
+    'Bedarf Vega': [0, 30, 20, 10, 5],
+    'Prod. Vega': [0, 50, 0, 0, 0], # Platzhalter
+    'Lager Vega (Ende)': [0]*5,
+    'Rüstkosten': [0]*5,
+    'Lagerkosten (Summe)': [0]*5
+}
+df_plan = pd.DataFrame(data).set_index('Woche')
+
+# Parameter
+s_S, s_V = 250, 200
+h_S, h_V = 4, 5
+y_S, y_V = 0, 0 # Anfangsbestände
+last_prod = None
+
+# Berechnungen füllen
+df_plan.loc[3, 'Prod. Vega'] = 20
+df_plan.loc[4, 'Prod. Sirius'] = 50
+
+for t in range(1, 6):
+    # Lagerbestände
+    y_S = y_S + df_plan.loc[t, 'Prod. Sirius'] - df_plan.loc[t, 'Bedarf Sirius']
+    y_V = y_V + df_plan.loc[t, 'Prod. Vega'] - df_plan.loc[t, 'Bedarf Vega']
+    df_plan.loc[t, 'Lager Sirius (Ende)'] = y_S
+    df_plan.loc[t, 'Lager Vega (Ende)'] = y_V
+    
+    # Rüstkosten
+    current_prod = df_plan.loc[t, 'Produzierter Typ']
+    if 'Sirius' in current_prod and 'Sirius' not in str(last_prod):
+        df_plan.loc[t, 'Rüstkosten'] = s_S
+    elif 'Vega' in current_prod and 'Vega' not in str(last_prod):
+        df_plan.loc[t, 'Rüstkosten'] = s_V
+    last_prod = current_prod if '-' not in current_prod else None
+
+    # Lagerkosten
+    df_plan.loc[t, 'Lagerkosten (Summe)'] = y_S * h_S + y_V * h_V
+
+# Summenzeile
+sum_row = df_plan.sum(numeric_only=True)
+sum_row['Produzierter Typ'] = 'SUMME'
+df_plan.loc['SUMME'] = sum_row
+
+
+print("Vervollständigte Tabelle:")
+print(df_plan.to_string())
+
+total_cost = df_plan.loc['SUMME', 'Rüstkosten'] + df_plan.loc['SUMME', 'Lagerkosten (Summe)']
+print(f"\nGesamtkosten (Rüst- + Lagerkosten): {total_cost} GE")
+```
+
+    Vervollständigte Tabelle:
+          Produzierter Typ  Bedarf Sirius  Prod. Sirius  Lager Sirius (Ende)  Bedarf Vega  Prod. Vega  Lager Vega (Ende)  Rüstkosten  Lagerkosten (Summe)
+    Woche                                                                                                                                                
+    1               Sirius             20            50                   30            0           0                  0         250                  120
+    2                 Vega             10             0                   20           30          50                 20         200                  180
+    3                 Vega              5             0                   15           20          20                 20           0                  160
+    4               Sirius             30            50                   35           10           0                 10         250                  190
+    5            - (Keine)             10             0                   25            5           0                  5           0                  125
+    SUMME            SUMME             75           100                  125           65          70                 55         700                  775
+
+    Gesamtkosten (Rüst- + Lagerkosten): 1475 GE

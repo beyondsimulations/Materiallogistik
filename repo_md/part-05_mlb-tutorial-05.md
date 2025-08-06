@@ -31,6 +31,102 @@ Standardabweichung von 150 Stück geschätzt.
 4.  **Sicherheitsbestand:** Wie hoch ist der resultierende
     Sicherheitsbestand?
 
+**Lösung:**
+
+> [!TIP]
+>
+> ### Tipps und wichtige Formeln
+>
+> #### 1. Underage- und Overage-Kosten
+>
+> - **Underage-Kosten ($c_U$):** Die Kosten für jede nachgefragte
+>   Einheit, die Sie nicht bedienen können (Opportunitätskosten).
+>   `c_U = Verkaufspreis - Einkaufspreis`
+> - **Overage-Kosten ($c_O$):** Die Kosten für jede Einheit, die Sie zu
+>   viel bestellt haben und die am Ende übrig bleibt.
+>   `c_O = Einkaufspreis - Restwert`
+>
+> #### 2. Kritisches Verhältnis (Critical Ratio)
+>
+> - Das kritische Verhältnis gibt das Servicelevel an, bei dem der
+>   erwartete Gewinn maximiert wird. Es ist die Wahrscheinlichkeit, dass
+>   die Nachfrage kleiner oder gleich der optimalen Bestellmenge ist.
+> - **Formel:** `Kritisches Verhältnis = c_U / (c_O + c_U)`
+>
+> #### 3. Optimale Bestellmenge ($x_{opt}$)
+>
+> - **Grundidee:** Bestelle so viel, dass die Wahrscheinlichkeit, die
+>   Nachfrage zu decken, genau dem kritischen Verhältnis entspricht.
+> - **Formel (Normalverteilung):**
+>   1.  Finde den z-Wert, der dem kritischen Verhältnis entspricht:
+>       `z = F^-1(kritisches Verhältnis)`, wobei `F^-1` die inverse
+>       kumulative Verteilungsfunktion der Standardnormalverteilung ist.
+>   2.  Berechne die Bestellmenge: `x_opt = μ + z * σ`
+>
+> #### 4. Sicherheitsbestand
+>
+> - Der Sicherheitsbestand ist die Menge, die über den Erwartungswert
+>   der Nachfrage hinaus bestellt wird, um Unsicherheit abzufedern.
+> - **Formel:** `Sicherheitsbestand = x_opt - μ`
+
+``` python
+from scipy.stats import norm
+import numpy as np
+
+# Gegebene Daten
+mu_Y = 800
+sigma_Y = 150
+einkaufspreis = 10
+verkaufspreis = 25
+restwert = 4
+
+# 1. Underage- und Overage-Kosten
+c_U = verkaufspreis - einkaufspreis
+c_O = einkaufspreis - restwert
+
+print("1. Kostenberechnung:")
+print(f"   - Underage-Kosten (c_U): {verkaufspreis} - {einkaufspreis} = {c_U} GE")
+print(f"   - Overage-Kosten (c_O): {einkaufspreis} - {restwert} = {c_O} GE\n")
+
+# 2. Kritisches Verhältnis
+critical_ratio = c_U / (c_O + c_U)
+
+print("2. Kritisches Verhältnis:")
+print(f"   - F(x_opt) = {c_U} / ({c_O} + {c_U}) = {critical_ratio:.4f}\n")
+
+# 3. Optimale Bestellmenge
+# Wir suchen x_opt, sodass die kumulative Verteilungsfunktion F(x_opt) dem kritischen Verhältnis entspricht.
+# x_opt = F^-1(critical_ratio)
+# Bei Normalverteilung: x_opt = mu + z * sigma
+z_value = norm.ppf(critical_ratio)
+x_opt = mu_Y + z_value * sigma_Y
+
+print("3. Optimale Bestellmenge:")
+print(f"   - z-Wert für F(x)={critical_ratio:.4f}: {z_value:.4f}")
+print(f"   - x_opt = {mu_Y} + {z_value:.4f} * {sigma_Y} = {x_opt:.2f}")
+print(f"   -> Der Veranstalter sollte {int(np.ceil(x_opt))} T-Shirts bestellen.\n")
+
+# 4. Sicherheitsbestand
+safety_stock = x_opt - mu_Y
+print("4. Sicherheitsbestand:")
+print(f"   - Sicherheitsbestand = {x_opt:.2f} - {mu_Y} = {safety_stock:.2f} Stück")
+```
+
+    1. Kostenberechnung:
+       - Underage-Kosten (c_U): 25 - 10 = 15 GE
+       - Overage-Kosten (c_O): 10 - 4 = 6 GE
+
+    2. Kritisches Verhältnis:
+       - F(x_opt) = 15 / (6 + 15) = 0.7143
+
+    3. Optimale Bestellmenge:
+       - z-Wert für F(x)=0.7143: 0.5659
+       - x_opt = 800 + 0.5659 * 150 = 884.89
+       -> Der Veranstalter sollte 885 T-Shirts bestellen.
+
+    4. Sicherheitsbestand:
+       - Sicherheitsbestand = 884.89 - 800 = 84.89 Stück
+
 ## Aufgabe 2: Newsvendor mit diskreter Nachfrage
 
 Ein Bäcker muss morgens entscheiden, wie viele eines speziellen Kuchens
@@ -55,6 +151,112 @@ Die Nachfrage nach diesem Kuchen ist erfahrungsgemäß wie folgt verteilt:
     mögliche Bestellmenge $x$.
 4.  **Optimale Bestellmenge:** Bestimmen Sie die optimale Bestellmenge
     $x_{opt}$, die der Bäcker backen sollte.
+
+**Lösung:**
+
+> [!TIP]
+>
+> ### Tipps und wichtige Formeln
+>
+> #### Vorgehen bei diskreter Nachfrageverteilung
+>
+> Das Grundprinzip des Newsvendor-Problems bleibt gleich, aber die
+> Umsetzung ist anders als bei einer stetigen (z.B. normalen)
+> Verteilung.
+>
+> 1.  **Underage- und Overage-Kosten ($c_U, c_O$):** Die Berechnung ist
+>     identisch zum stetigen Fall.
+> 2.  **Kritisches Verhältnis:** Die Formel `c_U / (c_O + c_U)` ist
+>     ebenfalls identisch.
+>
+> #### 3. & 4. Optimale Bestellmenge $x_{opt}$ finden
+>
+> - Wir können keinen z-Wert verwenden. Stattdessen suchen wir die
+>   **kleinste Bestellmenge x**, für die die **kumulierte
+>   Wahrscheinlichkeit $F(x) = P(Y \le x)$ größer oder gleich dem
+>   kritischen Verhältnis** ist.
+> - **Regel:** Finde das kleinste $x$, für das gilt:
+>   $F(x) \ge \frac{c_U}{c_O + c_U}$
+> - **Vorgehen:**
+>   1.  Erstelle eine Tabelle mit den möglichen Nachfragewerten.
+>   2.  Berechne für jeden Wert die Wahrscheinlichkeit $P(Y=x)$.
+>   3.  Berechne die kumulierte Wahrscheinlichkeit $F(x)$ durch
+>       Aufsummieren der Einzelwahrscheinlichkeiten.
+>   4.  Vergleiche jeden Wert von $F(x)$ mit dem kritischen Verhältnis
+>       und wähle die erste Bestellmenge, bei der die Bedingung erfüllt
+>       ist.
+
+``` python
+import numpy as np
+
+# Gegebene Daten
+herstellungskosten = 5
+verkaufspreis = 12
+restwert = 0
+nachfrage_verteilung = {
+    8: 0.10,
+    9: 0.20,
+    10: 0.35,
+    11: 0.25,
+    12: 0.10
+}
+
+# 1. Underage- und Overage-Kosten
+c_U = verkaufspreis - herstellungskosten
+c_O = herstellungskosten - restwert
+
+print("1. Kostenberechnung:")
+print(f"   - Underage-Kosten (c_U): {verkaufspreis} - {herstellungskosten} = {c_U} GE")
+print(f"   - Overage-Kosten (c_O): {herstellungskosten} - {restwert} = {c_O} GE\n")
+
+# 2. Kritisches Verhältnis
+critical_ratio = c_U / (c_O + c_U)
+print("2. Kritisches Verhältnis:")
+print(f"   - Critical Ratio = {c_U} / ({c_O} + {c_U}) = {critical_ratio:.4f}\n")
+
+# 3. & 4. Kumulierte Wahrscheinlichkeiten und optimale Menge
+print("3. & 4. Prüfung der optimalen Bestellmenge:")
+print("   Bestellmenge (x) | Kumulierte P(Y<=x) | Bedingung erfüllt?")
+print("   -------------------|------------------------|--------------------")
+
+demand_levels = sorted(nachfrage_verteilung.keys())
+probabilities = [nachfrage_verteilung[d] for d in demand_levels]
+cumulative_probabilities = np.cumsum(probabilities)
+x_opt = 0
+found = False
+
+for i, x in enumerate(demand_levels):
+    f_x = cumulative_probabilities[i]
+    condition_met = f_x >= critical_ratio
+    if condition_met and not found:
+        x_opt = x
+        found = True
+        print(f"   {x:<18} | {f_x:<22.2f} | Ja  <- Optimale Menge")
+    else:
+        print(f"   {x:<18} | {f_x:<22.2f} | Nein")
+
+print(f"\nDie Bedingung F(x) >= {critical_ratio:.4f} ist erstmals für eine Menge von {x_opt} Kuchen erfüllt.")
+print(f"Antwort: Der Bäcker sollte {x_opt} Kuchen backen.")
+```
+
+    1. Kostenberechnung:
+       - Underage-Kosten (c_U): 12 - 5 = 7 GE
+       - Overage-Kosten (c_O): 5 - 0 = 5 GE
+
+    2. Kritisches Verhältnis:
+       - Critical Ratio = 7 / (5 + 7) = 0.5833
+
+    3. & 4. Prüfung der optimalen Bestellmenge:
+       Bestellmenge (x) | Kumulierte P(Y<=x) | Bedingung erfüllt?
+       -------------------|------------------------|--------------------
+       8                  | 0.10                   | Nein
+       9                  | 0.30                   | Nein
+       10                 | 0.65                   | Ja  <- Optimale Menge
+       11                 | 0.90                   | Nein
+       12                 | 1.00                   | Nein
+
+    Die Bedingung F(x) >= 0.5833 ist erstmals für eine Menge von 10 Kuchen erfüllt.
+    Antwort: Der Bäcker sollte 10 Kuchen backen.
 
 ## Aufgabe 3: Periodische Lagerhaltungspolitik (r, S)
 
@@ -82,6 +284,107 @@ soll.
 3.  **Optimales Bestellniveau:** Bestimmen Sie das optimale
     Bestellniveau $S_{opt}$, analog zur Vorlesung.
 
+**Lösung:**
+
+> [!TIP]
+>
+> ### Tipps und wichtige Formeln
+>
+> #### 1. Risikozeitraum einer (r,S)-Politik
+>
+> - Bei einer periodischen Überprüfung müssen wir die
+>   Nachfrageunsicherheit über das **Überprüfungsintervall (r)** und die
+>   **Wiederbeschaffungszeit (L)** abdecken. Eine Bestellung, die heute
+>   aufgegeben wird, muss die Nachfrage decken, bis die *nächste*
+>   Bestellung eintrifft.
+> - **Formel:** `Risikozeitraum = r + L`
+>
+> #### 2. Nachfrageparameter im Risikozeitraum
+>
+> - Wenn die wöchentliche Nachfrage unabhängig ist, können die
+>   Kennzahlen für den gesamten Risikozeitraum einfach berechnet werden:
+> - **Erwartungswert:** $\mu_{r+L} = (r+L) \cdot \mu_D$
+> - **Varianz:** $\sigma_{r+L}^2 = (r+L) \cdot \sigma_D^2$
+> - **Standardabweichung:** $\sigma_{r+L} = \sqrt{r+L} \cdot \sigma_D$
+>
+> #### 3. Optimales Bestellniveau $S_{opt}$
+>
+> - Das Bestellniveau $S$ (auch “order-up-to level”) ist der
+>   Zielbestand, auf den bei jeder Überprüfung aufgefüllt wird.
+> - **Formel:**
+>   $S_{opt} = \mu_{r+L} + SS = \mu_{r+L} + v_{opt} \cdot \sigma_{r+L}$
+> - Der Sicherheitsfaktor $v_{opt}$ wird so bestimmt, dass der
+>   angestrebte $\beta$-Servicegrad erreicht wird. Dafür wird die
+>   **standardisierte Einheiten-Verlustfunktion** $G_Z^{(1)}(v)$
+>   verwendet.
+> - **Zielbedingung:** Finde das kleinste $v$, für das gilt:
+>   $G_Z^{(1)}(v) \leq \frac{(1-\beta) \cdot \text{erwartete Nachfrage im Intervall r}}{\sigma_{r+L}} = \frac{(1-\beta) \cdot r \cdot \mu_D}{\sigma_{r+L}}$
+> - Da es keine geschlossene Formel zur Umkehrung von $G_Z^{(1)}(v)$
+>   gibt, muss der Wert für $v$ iterativ gesucht werden.
+
+``` python
+from scipy.stats import norm
+import numpy as np
+
+# Gegebene Daten
+r = 4 # Wochen
+L = 2 # Wochen
+mu_d_weekly = 20
+sigma_d_weekly = 8
+beta_target = 0.98
+
+# 1. Risikozeitraum
+risk_period = r + L
+print(f"1. Risikozeitraum: r + L = {r} + {L} = {risk_period} Wochen\n")
+
+# 2. Momente der Nachfrage im Risikozeitraum
+mu_risk_period = risk_period * mu_d_weekly
+sigma_risk_period = np.sqrt(risk_period) * sigma_d_weekly
+print(f"2. Nachfrageparameter im Risikozeitraum ({risk_period} Wochen):")
+print(f"   - Erwartungswert (mu_{r+L}): {risk_period} * {mu_d_weekly} = {mu_risk_period:.2f} Paar")
+print(f"   - Standardabweichung (sigma_{r+L}): sqrt({risk_period}) * {sigma_d_weekly} = {sigma_risk_period:.2f} Paar\n")
+
+# 3. Optimales Bestellniveau S_opt
+# Zielwert für die standardisierte Einheiten-Verlustfunktion
+target_G1_v = ((1 - beta_target) * r * mu_d_weekly) / sigma_risk_period
+
+print("3. Optimales Bestellniveau S_opt:")
+print(f"   - Zielwert für G_Z(v): (1 - {beta_target}) * {r} * {mu_d_weekly} / {sigma_risk_period:.2f} = {target_G1_v:.4f}")
+
+# Iterative Suche nach v_opt (eine einfache Schleife genügt hier)
+v = 0.0
+step = 0.001
+G1_v = norm.pdf(v) - v * (1 - norm.cdf(v))
+
+while G1_v > target_G1_v:
+    v += step
+    G1_v = norm.pdf(v) - v * (1 - norm.cdf(v))
+
+v_opt = v
+print(f"   - Gefundener optimaler standardisierter Bestellpunkt (v_opt): {v_opt:.4f}")
+
+# Berechnung von S_opt
+S_opt = mu_risk_period + v_opt * sigma_risk_period
+safety_stock = v_opt * sigma_risk_period
+
+print(f"   - Optimales Bestellniveau S_opt = {mu_risk_period:.2f} + {v_opt:.4f} * {sigma_risk_period:.2f} = {S_opt:.2f}")
+print(f"   -> Das Bestellniveau S sollte auf {int(np.ceil(S_opt))} Paar gesetzt werden.")
+print(f"   - Der darin enthaltene Sicherheitsbestand beträgt {safety_stock:.2f} Paar.")
+```
+
+    1. Risikozeitraum: r + L = 4 + 2 = 6 Wochen
+
+    2. Nachfrageparameter im Risikozeitraum (6 Wochen):
+       - Erwartungswert (mu_6): 6 * 20 = 120.00 Paar
+       - Standardabweichung (sigma_6): sqrt(6) * 8 = 19.60 Paar
+
+    3. Optimales Bestellniveau S_opt:
+       - Zielwert für G_Z(v): (1 - 0.98) * 4 * 20 / 19.60 = 0.0816
+       - Gefundener optimaler standardisierter Bestellpunkt (v_opt): 1.0110
+       - Optimales Bestellniveau S_opt = 120.00 + 1.0110 * 19.60 = 139.81
+       -> Das Bestellniveau S sollte auf 140 Paar gesetzt werden.
+       - Der darin enthaltene Sicherheitsbestand beträgt 19.81 Paar.
+
 ## Aufgabe 4: Bestellpunkt-Politik (s, q) mit Undershoot
 
 Ein Händler für Elektronikbauteile verwendet für ein bestimmtes Bauteil
@@ -103,3 +406,128 @@ Das Unternehmen möchte einen $\beta$-Servicegrad von 99% erreichen.
     $s_{opt}$, der für den angestrebten Servicegrad nötig ist. Nehmen
     Sie an, dass der Fehlbestand am Anfang eines Zyklus vernachlässigbar
     klein ist ($G_Y^{(1)}(s+q) \approx 0$).
+
+**Lösung:**
+
+> [!TIP]
+>
+> ### Tipps und wichtige Formeln
+>
+> #### Das Konzept des “Undershoot”
+>
+> Bei einer $(s,q)$-Politik wird eine Bestellung ausgelöst, sobald der
+> verfügbare Bestand den Bestellpunkt $s$ *erreicht oder
+> unterschreitet*. Da die Nachfrage in diskreten Mengen auftritt, wird
+> der Bestellpunkt oft nicht exakt getroffen, sondern “unterschossen”.
+> Dieser Betrag, um den $s$ unterschritten wird, wird als **Undershoot
+> (U)** oder Defizit bezeichnet. Er ist eine Zufallsgröße und muss bei
+> der Berechnung des Sicherheitsbestandes berücksichtigt werden.
+>
+> #### 1. Berechnung des Undershoots
+>
+> Für eine normalverteilte Nachfrage $D \sim N(\mu_D, \sigma_D^2)$
+> können folgende Approximationen verwendet werden:
+>
+> - **Erwartungswert:**
+>   $\mathrm{E}\{U\} \approx \frac{\sigma_D^2 + \mu_D^2}{2 \mu_D}$
+> - **Varianz:**
+>   $\operatorname{Var}\{U\} \approx \frac{\sigma_D^2}{2} \left(1 - \frac{\sigma_D^2}{2\mu_D^2}\right) + \frac{\mu_D^2}{12}$
+>
+> #### 2. Nachfrage im Risikozeitraum
+>
+> - Der relevante Risikozeitraum deckt die Nachfrage während der
+>   **Wiederbeschaffungszeit ($Y^{(L)}$)** plus den **Undershoot ($U$)**
+>   ab.
+> - **Gesamtnachfrage im Risikozeitraum:** $Y = Y^{(L)} + U$
+> - Da $Y^{(L)}$ und $U$ als unabhängig angenommen werden, addieren sich
+>   Erwartungswerte und Varianzen:
+>   - $\mu_Y = \mu_{YL} + \mathrm{E}\{U\} = (L \cdot \mu_D) + \mathrm{E}\{U\}$
+>   - $\sigma_Y^2 = \sigma_{YL}^2 + \operatorname{Var}\{U\} = (L \cdot \sigma_D^2) + \operatorname{Var}\{U\}$
+>
+> #### 3. Optimaler Bestellpunkt $s_{opt}$
+>
+> - Die Logik ist analog zur $(r,S)$-Politik, aber die Zielgröße für die
+>   Einheiten-Verlustfunktion ist anders, da die Bestellmenge $q$ fix
+>   ist.
+> - **Formel für s:** $s_{opt} = \mu_Y + v_{opt} \cdot \sigma_Y$
+> - **Zielbedingung für $v_{opt}$:** Finde das kleinste $v$, für das
+>   gilt: $G_Z^{(1)}(v) \leq \frac{(1-\beta) \cdot q}{\sigma_Y}$
+> - Auch hier muss $v_{opt}$ iterativ gesucht werden.
+
+``` python
+import numpy as np
+from scipy.stats import norm
+
+# Gegebene Daten
+mu_d = 100
+sigma_d = 20
+L = 5
+q = 800
+beta_target = 0.99
+
+# 1. Undershoot-Berechnung
+# E(U) = (sigma_d^2 + mu_d^2) / (2 * mu_d)
+# Var(U) = Var(D)/2 * (1 - Var(D)/(2*mu_d^2)) + mu_d^2/12
+# Annahme: Schiefe E((D-mu_d)^3) = 0 für Normalverteilung
+E_U = (sigma_d**2 + mu_d**2) / (2 * mu_d)
+Var_D = sigma_d**2
+Var_U = Var_D / 2 * (1 - Var_D / (2 * mu_d**2)) + mu_d**2 / 12
+
+print("1. Undershoot (Defizit):")
+print(f"   - Erwartungswert E(U): {E_U:.2f}")
+print(f"   - Varianz Var(U): {Var_U:.2f}\n")
+
+# 2. Momente der Nachfrage im Risikozeitraum
+# Y = Y_L + U
+mu_YL = L * mu_d
+Var_YL = L * Var_D
+
+mu_Y = mu_YL + E_U
+Var_Y = Var_YL + Var_U
+sigma_Y = np.sqrt(Var_Y)
+
+print("2. Nachfrage im Risikozeitraum (Y = Y_L + U):")
+print(f"   - Erwartungswert mu_Y: {mu_YL:.2f} + {E_U:.2f} = {mu_Y:.2f}")
+print(f"   - Varianz Var_Y: {Var_YL:.2f} + {Var_U:.2f} = {Var_Y:.2f}")
+print(f"   - Standardabweichung sigma_Y: {sigma_Y:.2f}\n")
+
+# 3. Optimaler Bestellpunkt s_opt
+# G_Z(v) <= (1 - beta) * q / sigma_Y
+target_G1_v = (1 - beta_target) * q / sigma_Y
+
+print("3. Optimaler Bestellpunkt s_opt:")
+print(f"   - Zielwert für G_Z(v): (1 - {beta_target}) * {q} / {sigma_Y:.2f} = {target_G1_v:.4f}")
+
+# Iterative Suche nach v_opt
+v = 0.0
+step = 0.001
+G1_v = norm.pdf(v) - v * (1 - norm.cdf(v))
+while G1_v > target_G1_v:
+    v += step
+    G1_v = norm.pdf(v) - v * (1 - norm.cdf(v))
+
+v_opt = v
+s_opt = mu_Y + v_opt * sigma_Y
+safety_stock = v_opt * sigma_Y
+
+print(f"   - Gefundener v_opt: {v_opt:.4f}")
+print(f"   - Optimaler Bestellpunkt s_opt = {mu_Y:.2f} + {v_opt:.4f} * {sigma_Y:.2f} = {s_opt:.2f}")
+print(f"   -> Der Bestellpunkt s sollte auf {int(np.ceil(s_opt))} Stück gesetzt werden.")
+print(f"   - Der Sicherheitsbestand beträgt {safety_stock:.2f} Stück.")
+```
+
+    1. Undershoot (Defizit):
+       - Erwartungswert E(U): 52.00
+       - Varianz Var(U): 1029.33
+
+    2. Nachfrage im Risikozeitraum (Y = Y_L + U):
+       - Erwartungswert mu_Y: 500.00 + 52.00 = 552.00
+       - Varianz Var_Y: 2000.00 + 1029.33 = 3029.33
+       - Standardabweichung sigma_Y: 55.04
+
+    3. Optimaler Bestellpunkt s_opt:
+       - Zielwert für G_Z(v): (1 - 0.99) * 800 / 55.04 = 0.1454
+       - Gefundener v_opt: 0.6900
+       - Optimaler Bestellpunkt s_opt = 552.00 + 0.6900 * 55.04 = 589.98
+       -> Der Bestellpunkt s sollte auf 590 Stück gesetzt werden.
+       - Der Sicherheitsbestand beträgt 37.98 Stück.
