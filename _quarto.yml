@@ -21,7 +21,7 @@ website:
   bread-crumbs: true
   sidebar:
     style: floating
-    #logo: https://images.beyondsimulations.com/logo/logo_ml.png
+    logo: https://images.beyondsimulations.com/lectures/mj-parcels.png
     collapse-level: 2
     search: true
     contents:
@@ -73,8 +73,6 @@ website:
             href: practice/new-tutorials-05.qmd
       - text: "FAQs"
         href: general/faqs.qmd
-      - text: "Chat"
-        href: general/chat.qmd
 
   page-footer:
     center: "Materiallogistik, Tobias Vlćek</br>CC BY-SA 4.0"
@@ -85,8 +83,6 @@ website:
         href: https://linkedin.com/in/tobiasvlcek
       - icon: envelope
         href: mailto:workshop@beyondsimulations.com
-      - icon: lock
-        href: general/privacy.qmd
 
 format:
   html:
@@ -103,38 +99,6 @@ format:
     code-block-border-left: "#AD1F00"
     include-in-header:
       - general/header.html
-    include-after-body:
-      text: |
-        <script>
-          window.difyChatbotConfig = {
-            token: 'OkOGHTmCFcXes6Jk',
-            baseUrl: 'https://flow.byndsim.com',
-            systemVariables: {
-              // user_id: 'YOU CAN DEFINE USER ID HERE',
-            },
-            containerProps: {
-              style: {
-                  backgroundColor: '#ffffff',
-                  borderRadius: '0px',
-              },
-            },
-          }
-        </script>
-        <script
-          src="https://flow.byndsim.com/embed.min.js"
-          id="OkOGHTmCFcXes6Jk"
-          defer>
-        </script>
-        <style>
-          #dify-chatbot-bubble-button {
-            background-color: #646B91 !important;
-          }
-          #dify-chatbot-bubble-window {
-            width: 24rem !important;
-            height: 80vh !important;
-            position: fixed !important;
-          }
-        </style>
 
   typst:
     papersize: a4
