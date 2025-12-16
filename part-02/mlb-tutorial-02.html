@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.19">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -37,10 +37,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-46eeb4c476de49ef7df495821a6125d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-4a6bbdacf3f8933310e97f086414c96e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-e79e4f58e2322206cbc0681e20e54604.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-4a6bbdacf3f8933310e97f086414c96e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-38d7cd419040d45990241f61e79a554a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-c8d4ff8e613ada429c6adba93eda39fc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-0136136375db5b8212a0c093accdb96c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-c8d4ff8e613ada429c6adba93eda39fc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -69,12 +73,8 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <script defer="" src="https://umi.byndsim.com/script.js" data-website-id="e230d76b-b0a6-477e-8c5d-19a7bd661e68"></script>
-<style>
-    .cell-output-stdout code {
-      word-break: break-word !important;
-      white-space: pre-wrap !important;
-    }
-</style>  
+
+<script defer="" src="https://umi.byndsim.com/script.js" data-website-id="e230d76b-b0a6-477e-8c5d-19a7bd661e68"></script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -443,7 +443,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="d0aae40b" class="cell" data-execution_count="1">
+<div id="8f633513" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-stdout">
 <pre><code>1. Berechnung der Kostenmatrix c_tau,j:
 
@@ -544,7 +544,7 @@ Minimale Gesamtkosten: 1000 GE</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="mlb-tutorial-02_files/figure-html/cell-2-output-2.png" width="689" height="390" class="figure-img"></p>
+<p><img src="mlb-tutorial-02_files/figure-html/cell-2-output-2.png" width="690" height="388" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -608,7 +608,7 @@ Minimale Gesamtkosten: 1000 GE</code></pre>
 </div>
 </div>
 </div>
-<div id="ddb1fa2a" class="cell" data-execution_count="2">
+<div id="11a6684d" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
 <pre><code>
 --- Starte Stückkostenverfahren ---
@@ -762,7 +762,7 @@ Silver-Meal: [{'Produktionswoche': 1, 'Losgröße': 100}, {'Produktionswoche': 4
 </div>
 </div>
 </div>
-<div id="563515dd" class="cell" data-execution_count="3">
+<div id="42b582e3" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Optimaler unkapazitierter Plan für Maibock:
@@ -887,13 +887,14 @@ Das Problem bei der separaten Optimierung ist, dass die Entscheidungen für ein 
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
