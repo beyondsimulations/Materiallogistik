@@ -9,8 +9,7 @@ html-math-method:
   url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
   
 format:
-    html:
-        theme: [sandstone, ../styles.scss]
+    html: default
     revealjs:
         theme: [default, ../styles.scss]
         width: 1200

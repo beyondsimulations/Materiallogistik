@@ -3,14 +3,10 @@ title: "Übung 04"
 subtitle: "Bestandsmanagement unter Unsicherheit"
 jupyter: python3
 format:
-    html:
-        theme: [sandstone, ../styles.scss]
-        highlight-style: arrow
-        linkcolor: "#a60000"
-        echo: false
-        code-overflow: wrap
+    html: default
     typst:
         papersize: a4
+        echo: false
 ---
 
 ```{=typst}
@@ -357,4 +353,4 @@ $E(B) = (1 \cdot P(Y_2=5)) + (2 \cdot P(Y_2=6))$
 $E(B) = (1 \cdot 0.04) + (2 \cdot 0.01) = 0.04 + 0.02 = 0.06$
 
 Die erwartete Fehlmenge pro Bestellzyklus beträgt 0.06 Hefte.
-::: 
+:::

@@ -3,12 +3,7 @@ title: "Übung 02"
 subtitle: "Dynamische Losgrößenplanung"
 jupyter: python3
 format:
-    html:
-        theme: [sandstone, ../styles.scss]
-        highlight-style: arrow
-        linkcolor: "#a60000"
-        echo: false
-        code-overflow: wrap
+    html: default
     typst:
         papersize: a4
         echo: false
