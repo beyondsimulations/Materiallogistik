@@ -86,7 +86,10 @@ website:
 
 format:
   html:
-    theme: [sandstone, styles.scss]
+    theme:
+      - default
+      - styles.scss
+      - brand
     toc: true
     highlight-style: arrow
     linkcolor: "#a60000"
