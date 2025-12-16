@@ -109,6 +109,3 @@ format:
 
 execute:
   freeze: auto
-
-python:
-  executable: "/Users/tvlcek/jupyter-venv/bin/python3"
