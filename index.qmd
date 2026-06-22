@@ -49,6 +49,6 @@ Wichtig: Der Formelzettel muss handschriftlich erstellt werden. Digital erstellt
 
 # Fragen und Unterstützung
 
-Für Ihre Fragen stehe ich jederzeit gerne zur Verfügung. Kontaktieren Sie mich einfach per E-Mail unter [tobias.vlcek@uni-due.de](mailto:tobias.vlcek@uni-due.de?subject=Materiallogistik%3A%20%3CIhr%20Betreff%3E).
+Für Ihre Fragen stehe ich jederzeit gerne zur Verfügung. Kontaktieren Sie mich einfach per E-Mail unter [vlcek@beyondsimulations.com](mailto:vlcek@beyondsimulations.com?subject=Materiallogistik%3A%20%3CIhr%20Betreff%3E).
 
 Zusätzlich steht Ihnen auf dieser Seite ein Chatbot zur Verfügung, der auf den Inhalten der Vorlesung basiert und Ihnen bei inhaltlichen Fragen unterstützend zur Seite stehen kann. Er ist nicht perfekt und eher eine Beta-Version, aber ich hoffe, dass er Ihnen dennoch hilft.

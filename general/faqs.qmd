@@ -13,7 +13,7 @@ html:
 
 ## Unbeantwortete Fragen
 
-Falls Sie eine Frage haben, die hier nicht beantwortet wird, teilen Sie mir dies bitte mit, indem Sie mir eine E-Mail an [tobias.vlcek@uni-due.de](mailto:tobias.vlcek@uni-due.de?subject=Produktionswirtschaft%3A%20%3CIhr%20Betreff%3E). Sollten Sie einen Fehler im Kursmaterial gefunden haben oder Vorschläge zur Verbesserung des Kurses haben, teilen Sie mir dies bitte ebenfalls sehr gerne mit!
+Falls Sie eine Frage haben, die hier nicht beantwortet wird, teilen Sie mir dies bitte mit, indem Sie mir eine E-Mail an [vlcek@beyondsimulations.com](mailto:vlcek@beyondsimulations.com?subject=Materiallogistik%3A%20%3CIhr%20Betreff%3E). Sollten Sie einen Fehler im Kursmaterial gefunden haben oder Vorschläge zur Verbesserung des Kurses haben, teilen Sie mir dies bitte ebenfalls sehr gerne mit!
 
 ---
 
