@@ -4,7 +4,7 @@ subtitle: "Legal notice"
 date: "2026-06-22"
 
 html:
-    theme: [sandstone, ../styles.scss]
+    theme: [default, ../styles.scss]
     highlight-style: breezedark
     linkcolor: "#a60000"
     toc: true

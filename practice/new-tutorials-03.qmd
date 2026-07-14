@@ -4,7 +4,7 @@ subtitle: "PLSP und Analyse von Produktionsplänen"
 jupyter: python3
 format:
     html:
-        theme: [sandstone, ../styles.scss]
+        theme: [default, ../styles.scss]
         highlight-style: arrow
         linkcolor: "#a60000"
         echo: false

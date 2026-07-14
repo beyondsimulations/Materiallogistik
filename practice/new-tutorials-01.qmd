@@ -3,7 +3,7 @@ title: "Weitere Aufgaben zu Vorlesung 01"
 subtitle: "Materialbedarfsermittlung und ABC-Analyse"
 format:
     html:
-        theme: [sandstone, ../styles.scss]
+        theme: [default, ../styles.scss]
         highlight-style: arrow
         linkcolor: "#a60000"
         echo: false

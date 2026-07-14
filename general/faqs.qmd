@@ -3,7 +3,7 @@ title: "Häufig gestellte Fragen"
 subtitle: "Antworten auf gängige Fragen"
 
 html:
-    theme: [sandstone, ../styles.scss]
+    theme: [default, ../styles.scss]
     highlight-style: breezedark
     linkcolor: "#a60000"
     code-copy: true
