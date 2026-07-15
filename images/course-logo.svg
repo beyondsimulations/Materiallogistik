@@ -1,0 +1,24 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" role="img" aria-label="Material Logistics">
+
+  <g stroke="#52717a" stroke-width="2">
+    <path d="M8 24 L8 8 L24 8"></path>
+    <path d="M76 8 L92 8 L92 24"></path>
+    <path d="M92 76 L92 92 L76 92"></path>
+    <path d="M24 92 L8 92 L8 76"></path>
+  </g>
+  <g stroke="#e4b169" stroke-width="1" opacity="0.42">
+    <rect x="20" y="26" width="60" height="11"></rect>
+    <rect x="20" y="41" width="60" height="11"></rect>
+    <rect x="20" y="56" width="60" height="11"></rect>
+  </g>
+  <g stroke="#e4b169" stroke-width="0.8" opacity="0.24">
+    <path d="M29 26 L29 67 M38 26 L38 67 M47 26 L47 67 M56 26 L56 67 M65 26 L65 67"></path>
+  </g>
+  <g fill="#52717a" opacity="0.9">
+    <rect x="31" y="28" width="7" height="7"></rect>
+    <rect x="58" y="43" width="7" height="7"></rect>
+    <rect x="40" y="58" width="7" height="7"></rect>
+  </g>
+  <path d="M34.5 35 L34.5 46.5 L61.5 46.5 L61.5 50 M61.5 50 L43.5 50 L43.5 58" stroke="#52717a" stroke-width="1.5" stroke-dasharray="3 2" opacity="0.7"></path>
+  <rect x="72" y="70" width="8" height="6" fill="#52717a" opacity="0.9"></rect>
+</svg>
