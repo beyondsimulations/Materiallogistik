@@ -9,12 +9,12 @@
   <g stroke="#e4b169" stroke-width="1.23" opacity="0.66">
     <path d="M29 26 L29 67 M38 26 L38 67 M47 26 L47 67 M56 26 L56 67 M65 26 L65 67"></path>
   </g>
-  <g fill="#52717a" opacity="0.96">
+  <g fill="#9E2B2B" opacity="0.96">
     <rect x="31" y="28" width="7" height="7"></rect>
     <rect x="58" y="43" width="7" height="7"></rect>
     <rect x="40" y="58" width="7" height="7"></rect>
   </g>
-  <path d="M34.5 35 L34.5 46.5 L61.5 46.5 L61.5 50 M61.5 50 L43.5 50 L43.5 58" stroke="#52717a" stroke-width="1.97" stroke-dasharray="3 2" opacity="0.86"></path>
-  <rect x="72" y="70" width="8" height="6" fill="#52717a" opacity="0.96"></rect>
+  <path d="M34.5 35 L34.5 46.5 L61.5 46.5 L61.5 50 M61.5 50 L43.5 50 L43.5 58" stroke="#9E2B2B" stroke-width="1.97" stroke-dasharray="3 2" opacity="0.86"></path>
+  <rect x="72" y="70" width="8" height="6" fill="#9E2B2B" opacity="0.96"></rect>
   </g>
 </svg>
