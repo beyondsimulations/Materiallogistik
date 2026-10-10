@@ -7,8 +7,8 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Tobias Vlćek">
   <title>Materiallogistik – Vorlesung 04: Bestandsmanagement</title>
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -33,7 +36,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-2dbc64c326d9cc04c38dc8d6dcd4e553.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-a09abf9f1df73b30c13fcb8539772c51.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -140,7 +143,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Tobias Vlćek 
+Tobias Vlćek
 </div>
 </div>
 </div>
@@ -194,98 +197,131 @@ I^D = I^P + I^O - I^B
 <li><strong>Nachfrage:</strong> Kunden bestellen, was den Bestand reduziert.</li>
 <li><strong>Bestellentscheidung:</strong> Am Ende der Woche prüfen wir den disponiblen Bestand und bestellen bei Bedarf.</li>
 </ol>
-<table class="caption-top" style="width:100%;">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Woche</th>
+<th style="text-align: left;">Ereignisse</th>
+<th style="text-align: right;"><span class="math inline">\(d_t\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(I^P\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(I^O\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(I^B\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(I^D\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"><strong>0</strong></td>
+<td style="text-align: left;"><strong>Start</strong></td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">120</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"><strong>120</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><strong>1</strong></td>
+<td style="text-align: left;">Nachfrage</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"><strong>90</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><strong>Bestellung</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">250</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"><strong>340</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><strong>2</strong></td>
+<td style="text-align: left;">Nachfrage</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">250</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"><strong>300</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><strong>3</strong></td>
+<td style="text-align: left;">Nachfrage</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">250</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"><strong>250</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><strong>4</strong></td>
+<td style="text-align: left;"><strong>Wareneingang</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">250</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"><strong>250</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"></td>
+<td style="text-align: left;">Nachfrage</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">205</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;"><strong>205</strong></td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top">
 <colgroup>
-<col style="width: 17%">
-<col style="width: 14%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 14%">
+<col style="width: 26%">
+<col style="width: 21%">
+<col style="width: 52%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: center;">Woche</th>
+<th style="text-align: right;">Woche</th>
 <th style="text-align: left;">Ereignisse</th>
-<th style="text-align: center;"><span class="math inline">\(d_t\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(I^P\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(I^O\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(I^B\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(I^D\)</span></th>
 <th style="text-align: left;">Kommentar</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><strong>0</strong></td>
+<td style="text-align: right;"><strong>0</strong></td>
 <td style="text-align: left;"><strong>Start</strong></td>
-<td style="text-align: center;">-</td>
-<td style="text-align: center;">120</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;"><strong>120</strong></td>
 <td style="text-align: left;">Anfangszustand. <span class="math inline">\(I^D &gt; s\)</span>, keine Bestellung.</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><strong>1</strong></td>
+<td style="text-align: right;"><strong>1</strong></td>
 <td style="text-align: left;">Nachfrage</td>
-<td style="text-align: center;">30</td>
-<td style="text-align: center;">90</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;"><strong>90</strong></td>
 <td style="text-align: left;"><span class="math inline">\(I^P\)</span> sinkt. <span class="math inline">\(I^D = 120 - 30 = 90\)</span>. <span class="math inline">\(I^D &lt; s\)</span>, also Bestellung!</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"></td>
+<td style="text-align: right;"></td>
 <td style="text-align: left;"><strong>Bestellung</strong></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">90</td>
-<td style="text-align: center;">250</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;"><strong>340</strong></td>
 <td style="text-align: left;">Bestellung über 250 Stück wird ausgelöst. <span class="math inline">\(I^O\)</span> steigt. <span class="math inline">\(I^D\)</span> steigt <em>sofort</em> um 250.</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><strong>2</strong></td>
+<td style="text-align: right;"><strong>2</strong></td>
 <td style="text-align: left;">Nachfrage</td>
-<td style="text-align: center;">40</td>
-<td style="text-align: center;">50</td>
-<td style="text-align: center;">250</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;"><strong>300</strong></td>
 <td style="text-align: left;"><span class="math inline">\(I^P\)</span> sinkt. <span class="math inline">\(I^D = 340 - 40 = 300\)</span>. <span class="math inline">\(I^D &gt; s\)</span>, keine neue Bestellung.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: right;"><strong>3</strong></td>
 <td style="text-align: left;">Nachfrage</td>
-<td style="text-align: center;">50</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">250</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;"><strong>250</strong></td>
 <td style="text-align: left;"><span class="math inline">\(I^P\)</span> sinkt auf 0. <span class="math inline">\(I^D = 300 - 50 = 250\)</span>. <span class="math inline">\(I^D &gt; s\)</span>, keine neue Bestellung.</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><strong>4</strong></td>
+<td style="text-align: right;"><strong>4</strong></td>
 <td style="text-align: left;"><strong>Wareneingang</strong></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">250</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;"><strong>250</strong></td>
 <td style="text-align: left;">Die Bestellung aus Woche 1 (vor <span class="math inline">\(L=3\)</span> Wochen) trifft ein!</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"></td>
+<td style="text-align: right;"></td>
 <td style="text-align: left;">Nachfrage</td>
-<td style="text-align: center;">45</td>
-<td style="text-align: center;">205</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;"><strong>205</strong></td>
 <td style="text-align: left;"><span class="math inline">\(I^P\)</span> sinkt. <span class="math inline">\(I^D = 250 - 45 = 205\)</span>. <span class="math inline">\(I^D &gt; s\)</span>, keine neue Bestellung.</td>
 </tr>
 </tbody>
@@ -366,21 +402,21 @@ I^D = I^P + I^O - I^B
 <thead>
 <tr class="header">
 <th style="text-align: left;"><span class="math inline">\(Y_2\)</span></th>
-<th style="text-align: left;">0</th>
-<th style="text-align: left;">1</th>
-<th style="text-align: left;">2</th>
-<th style="text-align: left;">3</th>
-<th style="text-align: left;">4</th>
+<th style="text-align: right;">0</th>
+<th style="text-align: right;">1</th>
+<th style="text-align: right;">2</th>
+<th style="text-align: right;">3</th>
+<th style="text-align: right;">4</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">P(<span class="math inline">\(Y_2\)</span>)</td>
-<td style="text-align: left;">0.04</td>
-<td style="text-align: left;">0.24</td>
-<td style="text-align: left;">0.44</td>
-<td style="text-align: left;">0.24</td>
-<td style="text-align: left;">0.04</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.24</td>
+<td style="text-align: right;">0.44</td>
+<td style="text-align: right;">0.24</td>
+<td style="text-align: right;">0.04</td>
 </tr>
 </tbody>
 </table>
@@ -389,7 +425,10 @@ I^D = I^P + I^O - I^B
 <h2>5. Den Bestellpunkt <span class="math inline">\(s\)</span> berechnen</h2>
 <p>Der Bestellpunkt <span class="math inline">\(s\)</span> muss so hoch sein, dass er die Nachfrage während der Wiederbeschaffungszeit mit hoher Wahrscheinlichkeit decken kann. Er besteht aus zwei Teilen:</p>
 <p><span class="math display">\[
-s = (\text{Erwartete Nachfrage während WBZ}) + (\text{Sicherheitspuffer})
+\begin{aligned}
+s &amp;= (\text{Erwartete Nachfrage während WBZ}) \\
+  &amp;\quad + (\text{Sicherheitspuffer})
+\end{aligned}
 \]</span> <span class="math display">\[
 s = \mu_L + \text{Sicherheitsbestand (SS)}
 \]</span></p>
@@ -414,65 +453,65 @@ s = \mu_L + z \cdot \sigma_L
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;"><span class="math inline">\(\alpha\)</span>-Servicegrad</th>
-<th style="text-align: center;">z-Wert</th>
+<th style="text-align: right;"><span class="math inline">\(\alpha\)</span>-Servicegrad</th>
+<th style="text-align: right;">z-Wert</th>
 <th style="text-align: left;">Bedeutung</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">50%</td>
-<td style="text-align: center;">0.000</td>
+<td style="text-align: right;">50%</td>
+<td style="text-align: right;">0.000</td>
 <td style="text-align: left;">Exakt der Erwartungswert (kein Puffer).</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">55%</td>
-<td style="text-align: center;">0.126</td>
+<td style="text-align: right;">55%</td>
+<td style="text-align: right;">0.126</td>
 <td style="text-align: left;">0.126 Standardabweichungen als Puffer.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">60%</td>
-<td style="text-align: center;">0.253</td>
+<td style="text-align: right;">60%</td>
+<td style="text-align: right;">0.253</td>
 <td style="text-align: left;">0.253 Standardabweichungen als Puffer.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">65%</td>
-<td style="text-align: center;">0.385</td>
+<td style="text-align: right;">65%</td>
+<td style="text-align: right;">0.385</td>
 <td style="text-align: left;">0.385 Standardabweichungen als Puffer.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">70%</td>
-<td style="text-align: center;">0.524</td>
+<td style="text-align: right;">70%</td>
+<td style="text-align: right;">0.524</td>
 <td style="text-align: left;">0.524 Standardabweichungen als Puffer.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">75%</td>
-<td style="text-align: center;">0.674</td>
+<td style="text-align: right;">75%</td>
+<td style="text-align: right;">0.674</td>
 <td style="text-align: left;">0.674 Standardabweichungen als Puffer.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">80%</td>
-<td style="text-align: center;">0.842</td>
+<td style="text-align: right;">80%</td>
+<td style="text-align: right;">0.842</td>
 <td style="text-align: left;">0.842 Standardabweichungen als Puffer.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">85%</td>
-<td style="text-align: center;">1.036</td>
+<td style="text-align: right;">85%</td>
+<td style="text-align: right;">1.036</td>
 <td style="text-align: left;">1.036 Standardabweichungen als Puffer.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">90%</td>
-<td style="text-align: center;">1.282</td>
+<td style="text-align: right;">90%</td>
+<td style="text-align: right;">1.282</td>
 <td style="text-align: left;">1.282 Standardabweichungen als Puffer.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">95%</td>
-<td style="text-align: center;">1.645</td>
+<td style="text-align: right;">95%</td>
+<td style="text-align: right;">1.645</td>
 <td style="text-align: left;">1.645 Standardabweichungen als Puffer.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">99%</td>
-<td style="text-align: center;">2.326</td>
+<td style="text-align: right;">99%</td>
+<td style="text-align: right;">2.326</td>
 <td style="text-align: left;">2.326 Standardabweichungen als Puffer.</td>
 </tr>
 </tbody>
@@ -505,22 +544,22 @@ E(B) = \sigma_L \cdot G_u(z)
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th style="text-align: left;">z-Wert</th>
-<th style="text-align: left;"><span class="math inline">\(G_u(z)\)</span></th>
+<th style="text-align: right;">z-Wert</th>
+<th style="text-align: right;"><span class="math inline">\(G_u(z)\)</span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">1.282</td>
-<td style="text-align: left;">0.047</td>
+<td style="text-align: right;">1.282</td>
+<td style="text-align: right;">0.047</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">1.645</td>
-<td style="text-align: left;">0.021</td>
+<td style="text-align: right;">1.645</td>
+<td style="text-align: right;">0.021</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">2.326</td>
-<td style="text-align: left;">0.003</td>
+<td style="text-align: right;">2.326</td>
+<td style="text-align: right;">0.003</td>
 </tr>
 </tbody>
 </table>
@@ -572,14 +611,20 @@ E(B) = \sum_{\text{alle } y} \max(0, y - s) \cdot P(Y_L=y)
 \text{Erwartete Reichweite} \approx \frac{s}{\mu_d}
 \]</span> wobei <span class="math inline">\(s\)</span> der Bestellpunkt und <span class="math inline">\(\mu_d\)</span> die durchschnittliche Nachfrage <em>pro Periode</em> ist. Bei einem Bestellpunkt von <span class="math inline">\(s=270\)</span> und einer wöchentlichen Nachfrage von <span class="math inline">\(\mu_d=50\)</span> wäre die erwartete Reichweite also <span class="math inline">\(270 / 50 = 5.4\)</span> Wochen. <sup>1</sup></p></li>
 <li><p><strong>Lieferunfähigkeitsdauer:</strong> Dies ist die durchschnittliche Zeit, in der wir <em>keine Ware</em> haben. Eine Lieferunfähigkeit entsteht, wenn die Wiederbeschaffungszeit länger ist als die Reichweite des Bestands. <span class="math display">\[
-\text{Erwartete Lieferunfähigkeitsdauer} \approx \max(0, L - \text{Erwartete Reichweite})
+\begin{aligned}
+&amp;\text{Erwartete Lieferunfähigkeitsdauer} \\
+&amp;\quad \approx \max(0, L - \text{Erwartete Reichweite})
+\end{aligned}
 \]</span> wobei <span class="math inline">\(L\)</span> die Wiederbeschaffungszeit ist. Nehmen wir an, wir würden einen niedrigeren Servicegrad von 85% anstreben (<span class="math inline">\(\alpha=0.85\)</span>, <span class="math inline">\(z=1.036\)</span>). Der neue Bestellpunkt wäre <span class="math inline">\(s = 200 + 1.036 \cdot 30 \approx 231\)</span>. Die erwartete Reichweite wäre dann <span class="math inline">\(231 / 50 \approx 4.62\)</span> Wochen. Mit einer Wiederbeschaffungszeit von <span class="math inline">\(L=4\)</span> Wochen ergibt sich:</p>
 <p><span class="math display">\[
 \text{Erwartete Lieferunfähigkeitsdauer} \approx \max(0, 4 - 4.62) = 0
 \]</span></p>
 <p>Selbst bei einem 85%-Servicegrad erwarten wir nach dieser Näherung keine Lieferunfähigkeit. Würde unsere Wiederbeschaffungszeit jedoch auf <span class="math inline">\(L=5\)</span> Wochen steigen, wäre die Situation anders:</p>
 <p><span class="math display">\[
-\text{Erwartete Lieferunfähigkeitsdauer} \approx \max(0, 5 - 4.62) = 0.38 \text{ Wochen}
+\begin{aligned}
+&amp;\text{Erwartete Lieferunfähigkeitsdauer} \\
+&amp;\quad \approx \max(0, 5 - 4.62) = 0.38 \text{ Wochen}
+\end{aligned}
 \]</span></p>
 <p>Wir müssten also mit einer durchschnittlichen Lieferunfähigkeit von fast einer halben Woche rechnen. <sup>2</sup></p></li>
 </ul>
@@ -771,9 +816,9 @@ E(B) = \sum_{\text{alle } y} \max(0, y - s) \cdot P(Y_L=y)
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1200,
+        width: 1280,
 
-        height: 900,
+        height: 720,
 
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
