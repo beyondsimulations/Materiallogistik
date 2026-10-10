@@ -15,8 +15,8 @@ format:
           - default
           - ../styles.scss
           - brand
-        width: 1200
-        height: 900
+        width: 1280
+        height: 720
         scrollable: true
         chalkboard: true
         transition: slide
@@ -117,7 +117,7 @@ Stellen wir uns einen Food-Truck vor, der an einem einzigen Tag auf einem Festiv
 Die Erfahrung zeigt folgende Nachfrageverteilung:
 
 | Nachfrage (x) | P(x) | Kumulierte P(Y<=x) |
-| :--- | :--: | :---: |
+| :--- | ---: | ----: |
 | 10 Gerichte | 0.20 | 0.20 |
 | 11 Gerichte | 0.25 | 0.45 |
 | 12 Gerichte | 0.30 | **0.75** |
@@ -155,7 +155,7 @@ $$
 **Z-Werte für gängige Servicegrade (Kritisches Verhältnis)**
 
 | $\alpha$-Servicegrad  | z-Wert | Bedeutung                                |
-| :------------------ | :------: | :--------------------------------------- |
+| ------------------: | -------: | :--------------------------------------- |
 | 50%                 | 0.000  | Exakt der Erwartungswert (kein Puffer).   |
 | 55%                 | 0.126  | 0.126 Standardabweichungen als Puffer.    |
 | 60%                 | 0.253  | 0.253 Standardabweichungen als Puffer.    |
@@ -217,7 +217,7 @@ Den Wert für $v_{opt}$ findet man, indem man den Zielwert für die Verlustfunkt
 **Tabelle der Standard-Verlustfunktion $G_Z^{(1)}(v)$**
 
 |  v  | $G_Z^{(1)}(v)$ |   v   | $G_Z^{(1)}(v)$ |
-|:---:|:--------------:|:-----:|:--------------:|
+|----:|---------------:|------:|---------------:|
 | 0.0 |     0.399      |  1.1  |     0.069      |
 | 0.1 |     0.359      |  1.2  |     0.056      |
 | 0.2 |     0.323      | **1.25** |  **0.051**   |
@@ -299,7 +299,7 @@ Das optimale Bestellniveau ist dann: $S_{opt} = \mu_{r+L} + v_{opt} \cdot \sigma
     $S_{opt} = 200 + 1.3 \cdot 30 = 200 + 39 = 239$ Packungen.
     Jeden dritten Tag wird so viel Milch bestellt, dass der verfügbare Bestand wieder auf 239 Packungen ansteigt.
 
-## 5. Welche Politik für welches Problem?
+## 5. Welche Politik wofür?
 
 -   **Newsvendor-Modell:** Perfekt für **einmalige Bestellentscheidungen** bei saisonalen oder verderblichen Produkten. Es balanciert elegant die Kosten von "zu viel" und "zu wenig".
 -   **(s, q)-Politik:** Ideal für **wichtige oder teure Produkte**, bei denen sich eine **kontinuierliche Überwachung** lohnt. Sie arbeitet mit einem festen Sicherheitsbestand und einer festen Bestellmenge.

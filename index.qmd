@@ -47,6 +47,14 @@ Da ich Verständnis statt Auswendiglernen fördern möchte, dürfen Sie in der K
 Wichtig: Der Formelzettel muss handschriftlich erstellt werden. Digital erstellte und ausgedruckte Unterlagen sind nicht zugelassen.
 :::
 
+# KI im Kurs
+
+**Kurs-Chatbot.** Auf dieser Website steht ein Kurs-Chatbot zum Lernen und Erkunden bereit. Er ist so gebaut, dass er Ihren Lösungsweg begleitet statt Lösungen auszugeben: Rechnen Sie mit Hinweisen und Rückfragen, nicht mit fertigen Antworten. Er läuft auf EU-Infrastruktur (Mistral-Modelle, Server in Deutschland); Ihre Unterhaltungen werden nicht für das Training von Modellen verwendet. Details stehen in der [Datenschutzerklärung](general/privacy.qmd).
+
+**Externe KI-Tools.** Sie dürfen externe KI-Tools verwenden (z. B. ChatGPT, Claude, Mistral, Gemini). Sie sind für jeden Schritt, auf den Sie sich stützen, selbst verantwortlich: Verstehen Sie ihn, statt ihn zu kopieren. Wer sich die Übungen von einer KI lösen lässt, schwächt genau das Verständnis, das die Klausur prüft.
+
+**Klausur.** In der Klausur sind KI-Tools nicht zugelassen; es gelten ausschließlich die oben genannten erlaubten Hilfsmittel.
+
 # Fragen und Unterstützung
 
 Für Ihre Fragen stehe ich jederzeit gerne zur Verfügung. Kontaktieren Sie mich einfach per E-Mail unter [vlcek@beyondsimulations.com](mailto:vlcek@beyondsimulations.com?subject=Materiallogistik%3A%20%3CIhr%20Betreff%3E).

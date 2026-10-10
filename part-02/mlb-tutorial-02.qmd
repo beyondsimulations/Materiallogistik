@@ -74,6 +74,7 @@ Der Algorithmus findet die minimalen Kosten $f_j$ für ein Problem mit $j$ Perio
 :::
 
 ```{python}
+#| echo: true
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
