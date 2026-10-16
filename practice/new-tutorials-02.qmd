@@ -47,7 +47,7 @@ Annahmen: Der Anfangslagerbestand ist null, und am Ende von Monat 6 soll kein La
 #pagebreak()
 ```
 
-::: {.callout-note title="Lösung" collapse="true"}
+::: {.callout-caution title="Lösung" collapse="true"}
 
 ```{python}
 import pandas as pd
@@ -195,7 +195,7 @@ Der Komponentenhersteller aus Aufgabe 1 möchte auf derselben Fertigungslinie ei
 #pagebreak()
 ```
 
-::: {.callout-note title="Lösung" collapse="true"}
+::: {.callout-caution title="Lösung" collapse="true"}
 
 ```{python}
 import pandas as pd

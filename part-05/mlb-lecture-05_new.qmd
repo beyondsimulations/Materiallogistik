@@ -1,7 +1,7 @@
 ---
 title: "Vorlesung 05: Bestandspolitiken"
 subtitle: "Newsvendor-Problem, (s,q)-Politik, (r,S)-Politik"
-author: "Tobias Vlćek"
+author: "Dr. Tobias Vlćek"
 title-slide-attributes:
     data-background-color: "#025259"
 html-math-method:

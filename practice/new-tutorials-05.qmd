@@ -40,7 +40,7 @@ Eine Mode-Boutique plant den Einkauf eines exklusiven Sommerkleides für die kom
 #pagebreak()
 ```
 
-::: {.callout-note title="Lösung" collapse="true"}
+::: {.callout-caution title="Lösung" collapse="true"}
 
 ```{python}
 from scipy.stats import norm
@@ -118,7 +118,7 @@ Die Apotheke strebt einen Mengen-Servicegrad ($\beta$-Servicegrad) von 99% an, u
 #pagebreak()
 ```
 
-::: {.callout-note title="Lösung" collapse="true"}
+::: {.callout-caution title="Lösung" collapse="true"}
 
 ```{python}
 from scipy.stats import norm

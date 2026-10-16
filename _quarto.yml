@@ -14,6 +14,8 @@ project:
 profile:
   default: solution
 
+lang: de
+
 website:
   favicon: images/favicon.svg
   title: "Materiallogistik"
@@ -77,19 +79,26 @@ website:
         href: general/faqs.qmd
 
   page-footer:
+    center: "Materiallogistik, Dr. Tobias Vlćek</br>CC BY-SA 4.0"
     left:
-      - text: "Imprint"
-        href: general/imprint.qmd
-      - text: "Privacy"
-        href: general/privacy.qmd
-    center: "Materiallogistik, Tobias Vlćek</br>CC BY-SA 4.0"
-    right:
       - icon: github
         href: https://github.com/beyondsimulations/Materiallogistik
+        aria-label: GitHub-Repository
       - icon: linkedin
         href: https://linkedin.com/in/tobiasvlcek
+        aria-label: LinkedIn
       - icon: envelope
         href: mailto:vlcek@beyondsimulations.com
+        aria-label: E-Mail
+      - icon: skip-backward
+        href: https://tobiasvlcek.com/lectures/
+        aria-label: Alle Lehrveranstaltungen
+      - icon: shield-check
+        href: general/privacy.qmd
+        aria-label: Datenschutz
+      - icon: info-circle
+        href: general/imprint.qmd
+        aria-label: Impressum
 
 format:
   html:
@@ -99,6 +108,7 @@ format:
       - brand
     toc: true
     highlight-style: arrow
+    callout-appearance: simple
     linkcolor: "#a60000"
     code-copy: true
     code-link: true
@@ -112,8 +122,17 @@ format:
       - general/favicon.html
 
   typst:
+    template-partials:
+      - helpers/typst-show.typ
+    logo:
+      path: images/course-logo.svg
+      alt: "Materiallogistik"
     papersize: a4
     echo: false
 
 execute:
   freeze: auto
+
+filters:
+  - helpers/typst-classes.lua
+  - helpers/page-pauses.lua

@@ -75,6 +75,7 @@ Der Gozinto-Graph visualisiert die "geht-in-Beziehung" der Komponenten.
 ```{python}
 #| label: fig-task1
 #| fig-cap: "Gozinto-Graph für UrbanCruiser"
+#| fig-alt: "Pfeile mit Mengenangaben: Rahmen-Set (R), Rad (W) und Antriebs-Set (A) gehen mit 1, 2 und 1 Stück in den UrbanCruiser (E) ein; Hauptrahmen (H) und Gabel (G) gehen mit je 1 Stück in das Rahmen-Set ein."
 import graphviz
 
 dot = graphviz.Digraph(comment='Gozinto-Graph')
@@ -213,6 +214,7 @@ Die Verkaufszahlen (in kg) der letzten 12 Wochen liegen vor:
 ```{python}
 #| label: fig-task2
 #| fig-cap: "Wöchentlicher Verkauf"
+#| fig-alt: "Verkaufsmenge je Woche über 12 Wochen: meist zwischen 4 und 9 kg, dazu zwei Ausreißer mit 25 kg in Woche 4 und 30 kg in Woche 9. Die gestrichelte Mittelwertlinie liegt bei 10 kg, also über allen übrigen Wochenwerten."
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -327,6 +329,7 @@ Die ABC-Analyse basiert auf dem **Pareto-Prinzip (80-20-Regel)**, das besagt, da
 ```{python}
 #| label: fig-task3
 #| fig-cap: "ABC-Analyse der Lagerartikel"
+#| fig-alt: "Lorenz-Kurve: kumulierter Wertanteil über dem Anteil der Artikelpositionen, erst steil, dann flach. 40 % der Artikel (A-Güter) binden rund 73 % des Verbrauchswerts, die nächsten 20 % (B-Güter) heben ihn auf rund 89 %, die übrigen 40 % (C-Güter) steuern nur noch etwa 11 % bei."
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt

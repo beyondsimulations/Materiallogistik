@@ -65,7 +65,7 @@ Analysieren Sie den folgenden, manuell erstellten Produktionsplan:
 #pagebreak()
 ```
 
-::: {.callout-note title="Lösung" collapse="true"}
+::: {.callout-caution title="Lösung" collapse="true"}
 
 ```{python}
 import pandas as pd
@@ -208,7 +208,7 @@ Der Planer hat den folgenden Produktionsplan sowie die Bedarfe hinterlassen. Ihr
 #pagebreak()
 ```
 
-::: {.callout-note title="Lösung" collapse="true"}
+::: {.callout-caution title="Lösung" collapse="true"}
 
 **1. Schrittweise Berechnung:**
 

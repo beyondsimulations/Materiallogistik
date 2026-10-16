@@ -57,7 +57,7 @@ Zu Beginn (Ende Woche 0) sind die Bestände wie folgt:
 #pagebreak()
 ```
 
-::: {.callout-note title="Lösung" collapse="true"}
+::: {.callout-caution title="Lösung" collapse="true"}
 
 ```{python}
 import pandas as pd
@@ -154,7 +154,7 @@ Ein Sportartikelhändler verkauft ein beliebtes Modell von Laufschuhen. Die wöc
 #pagebreak()
 ```
 
-::: {.callout-note title="Lösung" collapse="true"}
+::: {.callout-caution title="Lösung" collapse="true"}
 
 ```{python}
 import numpy as np

@@ -56,13 +56,14 @@ Der Primärbedarf für den "EchoSphere" beträgt 80 Stück in Periode 9.
 #pagebreak()
 ```
 
-::: {.callout-note title="Lösung" collapse="true"}
+::: {.callout-caution title="Lösung" collapse="true"}
 
 **1. Gozinto-Graph:**
 
 ```{python}
 #| label: fig-task1-neu
 #| fig-cap: "Gozinto-Graph für EchoSphere"
+#| fig-alt: "Pfeile mit Mengenangaben: Gehäuse (G), Lautsprecher (L) und Hauptplatine (P) gehen mit 1, 2 und 1 Stück in den EchoSphere (E) ein; CPU-Modul (C) und RAM-Chip (R) gehen mit 1 und 2 Stück in die Hauptplatine ein."
 import graphviz
 
 dot = graphviz.Digraph(comment='Gozinto-Graph')
@@ -137,11 +138,12 @@ Ein Großhändler für Medizintechnik möchte sein Sortiment analysieren, um die
 #pagebreak()
 ```
 
-::: {.callout-note title="Lösung" collapse="true"}
+::: {.callout-caution title="Lösung" collapse="true"}
 
 ```{python}
 #| label: fig-task2-neu
 #| fig-cap: "ABC-Analyse für Medizintechnik-Sortiment"
+#| fig-alt: "Lorenz-Kurve: kumulierter Wertanteil über dem Anteil der Artikelpositionen. 40 % der Artikel (A-Güter) vereinen rund 71 % des Verbrauchswerts, die nächsten 30 % (B-Güter) heben ihn auf rund 92 %, die letzten 30 % (C-Güter) tragen nur noch etwa 8 % bei."
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt

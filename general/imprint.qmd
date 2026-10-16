@@ -1,7 +1,7 @@
 ---
-title: "Imprint"
-subtitle: "Legal notice"
-date: "2026-06-22"
+title: "Impressum"
+subtitle: "Materiallogistik"
+date: "2026-10-12"
 
 html:
     theme: [default, ../styles.scss]
@@ -10,29 +10,29 @@ html:
     toc: true
 ---
 
-## Provider and responsible for content
+## Anbieter und Verantwortlicher für den Inhalt
 
-Information pursuant to § 5 DDG (German Digital Services Act) and responsibility for content pursuant to § 18(2) MStV:
+Angaben gemäß § 5 DDG (Digitale-Dienste-Gesetz) und Verantwortlichkeit für den Inhalt nach § 18 Abs. 2 MStV:
 
 Dr. Tobias Vlćek\
 Am Eich 9d\
 22113 Oststeinbek\
-Germany
+Deutschland
 
-Email: [vlcek@beyondsimulations.com](mailto:vlcek@beyondsimulations.com)
+E-Mail: [vlcek@beyondsimulations.com](mailto:vlcek@beyondsimulations.com)
 
-## Liability for content
+## Haftung für Inhalte
 
-The contents of this website have been put together with great care. Except where legally required, they are provided for information purposes without being legally binding. As the provider, I am responsible for my own content on these pages in accordance with the general laws. I am, however, under no obligation to monitor transmitted or stored third-party information or to investigate circumstances that indicate unlawful activity.
+Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Soweit gesetzlich nicht anders vorgeschrieben, dienen sie der Information und sind rechtlich unverbindlich. Als Anbieter bin ich für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Ich bin jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
 
-All website content is subject to change and non-binding. I reserve the right to modify, supplement, or delete content without prior notice.
+Alle Inhalte der Website können sich ändern und sind unverbindlich. Ich behalte mir vor, Inhalte ohne vorherige Ankündigung zu ändern, zu ergänzen oder zu löschen.
 
-## Liability for links
+## Haftung für Links
 
-This website contains links to external websites operated by third parties, over whose content I have no influence. Therefore, I cannot accept any responsibility for this external content. The respective provider or operator of the linked websites is always responsible for their content. I do not endorse the content of external websites I link to, whether directly or indirectly. Should I become aware of any legal infringements, I will remove the relevant links without delay.
+Diese Website enthält Links zu externen Websites Dritter, auf deren Inhalte ich keinen Einfluss habe. Deshalb kann ich für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Ich mache mir die Inhalte verlinkter externer Websites weder direkt noch indirekt zu eigen. Sollten mir Rechtsverletzungen bekannt werden, werde ich derartige Links umgehend entfernen.
 
-## Copyright
+## Urheberrecht
 
-All contents presented on this website, such as texts, photographs, graphics, brands, and trademarks, are protected by the respective intellectual property rights. Any use not permitted by intellectual property law requires the prior written consent of the respective rights holder.
+Alle auf dieser Website dargestellten Inhalte wie Texte, Fotografien, Grafiken, Marken und Warenzeichen sind durch die jeweiligen Schutzrechte geschützt. Jede Nutzung, die nach dem Urheberrecht nicht gestattet ist, bedarf der vorherigen schriftlichen Zustimmung des jeweiligen Rechteinhabers.
 
-Unless stated otherwise, the course material is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+Sofern nicht anders angegeben, steht das Kursmaterial unter der Lizenz [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
