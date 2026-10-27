@@ -4,9 +4,6 @@ subtitle: "How we handle your data"
 date: "2026-10-11"
 
 html:
-    theme: [default, ../styles.scss]
-    highlight-style: breezedark
-    linkcolor: "#a60000"
     toc: true
 ---
 

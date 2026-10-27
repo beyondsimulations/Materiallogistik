@@ -4,9 +4,6 @@ subtitle: "Materiallogistik"
 date: "2026-10-12"
 
 html:
-    theme: [default, ../styles.scss]
-    highlight-style: breezedark
-    linkcolor: "#a60000"
     toc: true
 ---
 

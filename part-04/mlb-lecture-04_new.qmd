@@ -20,7 +20,7 @@ format:
         scrollable: true
         chalkboard: true
         transition: slide
-        highlight-style: arrow
+        syntax-highlighting: ../_paper-and-ink-light.theme
         slide-number: true
         preview-links: auto
         footer: " {{< meta title >}} | {{< meta author >}} | [Home](mlb-lecture-04_new.qmd) "

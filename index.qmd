@@ -3,9 +3,6 @@ title: "Materiallogistik"
 subtitle: "Universität Duisburg-Essen - Sommersemester 2025"
 
 html:
-    theme: [default, styles.scss]
-    highlight-style: breezedark
-    linkcolor: "#a60000"
     include-in-header:
       - general/header.html
 ---

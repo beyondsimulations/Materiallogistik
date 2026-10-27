@@ -24,7 +24,9 @@ website:
   bread-crumbs: true
   sidebar:
     style: floating
-    logo: images/course-logo.svg
+    logo:
+      light: images/course-logo.svg
+      dark: images/course-logo-dark.svg
     logo-alt: "Materiallogistik"
     collapse-level: 2
     search: true
@@ -103,13 +105,21 @@ website:
 format:
   html:
     theme:
-      - default
-      - styles.scss
-      - brand
+      light:
+        - default
+        - styles.scss
+        - brand
+      dark:
+        - default
+        - _dark.scss
+        - styles.scss
+        - brand
+    respect-user-color-scheme: true
     toc: true
-    highlight-style: arrow
+    syntax-highlighting:
+      light: _paper-and-ink-light.theme
+      dark: _paper-and-ink-dark.theme
     callout-appearance: simple
-    linkcolor: "#a60000"
     code-copy: true
     code-link: true
     toc-location: right
@@ -122,6 +132,7 @@ format:
       - general/favicon.html
 
   typst:
+    syntax-highlighting: _paper-and-ink-light.theme
     template-partials:
       - helpers/typst-show.typ
     logo:

@@ -4,9 +4,6 @@ subtitle: "Wagner-Whitin, Heuristiken und CLSP"
 jupyter: python3
 format:
     html:
-        theme: [default, ../styles.scss]
-        highlight-style: arrow
-        linkcolor: "#a60000"
         echo: false
         code-overflow: wrap
     typst:
